@@ -1,5 +1,3 @@
+require "text"
 require "did_you_mean/version"
-
-module DidYouMean
-  # Your code goes here...
-end
+require "did_you_mean/no_method_error_extension"

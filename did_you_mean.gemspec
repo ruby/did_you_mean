@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = DidYouMean::VERSION
   spec.authors       = ["Yuki Nishijima"]
   spec.email         = ["mail@yukinishijima.net"]
-  spec.summary       = %q{TODO: Write a short summary. Required.}
-  spec.description   = %q{TODO: Write a longer description. Optional.}
+  spec.summary       = %q{Did you mean? in your ruby app}
+  spec.description   = %q{When you made a typo or forgot the correct spelling and got NoMethodError and NameError, this gem tells you the right one you are looking for.}
   spec.homepage      = ""
   spec.license       = "MIT"
 

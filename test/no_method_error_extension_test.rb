@@ -19,8 +19,7 @@ class NoMethodErrorExtensionTest < Test::Unit::TestCase
   end
 
   def setup
-    user = User.new
-    user.extend(UserModule)
+    user = User.new.extend(UserModule)
 
     @errors = {
       from_instance_method: assert_raise(NoMethodError){ user.flrst_name },
@@ -45,9 +44,9 @@ class NoMethodErrorExtensionTest < Test::Unit::TestCase
   end
 
   def test_message
-    assert @errors[:from_instance_method].message.include?(@errors[:from_instance_method].did_you_mean?)
-    assert @errors[:from_private_method].message.include?(@errors[:from_private_method].did_you_mean?)
-    assert @errors[:from_module_method].message.include?(@errors[:from_module_method].did_you_mean?)
-    assert @errors[:from_class_method].message.include?(@errors[:from_class_method].did_you_mean?)
+    assert_match @errors[:from_instance_method].did_you_mean?, @errors[:from_instance_method].message
+    assert_match @errors[:from_private_method].did_you_mean?, @errors[:from_private_method].message
+    assert_match @errors[:from_module_method].did_you_mean?, @errors[:from_module_method].message
+    assert_match @errors[:from_class_method].did_you_mean?, @errors[:from_class_method].message
   end
 end

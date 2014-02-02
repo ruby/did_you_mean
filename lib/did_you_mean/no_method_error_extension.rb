@@ -1,12 +1,6 @@
-require 'did_you_mean/object_extension'
-
 module DidYouMean
   module NoMethodErrorExtension
     attr_reader :receiver
-
-    def message
-      super + did_you_mean?
-    end
 
     def did_you_mean?
       return if similar_methods.empty?

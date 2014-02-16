@@ -2,8 +2,10 @@ module DidYouMean
   module NameErrorExtension
     def self.included(base)
       base.class_eval do
-        alias message_without_did_you_mean message
-        alias message message_with_did_you_mean
+        alias original_to_s to_s
+        alias          to_s to_s_with_did_you_mean
+
+        alias original_message original_to_s
 
         begin
           require "active_support/core_ext/name_error"
@@ -16,13 +18,13 @@ module DidYouMean
     end
 
     def missing_name_without_did_you_mean
-      if /undefined local variable or method/ !~ message_without_did_you_mean
-        $1 if /((::)?([A-Z]\w*)(::[A-Z]\w*)*)$/ =~ message_without_did_you_mean
+      if /undefined local variable or method/ !~ original_message
+        $1 if /((::)?([A-Z]\w*)(::[A-Z]\w*)*)$/ =~ original_message
       end
     end
 
-    def message_with_did_you_mean
-      message_without_did_you_mean + did_you_mean?.to_s
+    def to_s_with_did_you_mean
+      original_to_s + did_you_mean?.to_s
     end
 
     def did_you_mean?
@@ -61,7 +63,7 @@ module DidYouMean
     private
 
     def undefined_local_variable_or_method?
-      message_without_did_you_mean.include?("undefined local variable or method")
+      original_to_s.include?("undefined local variable or method")
     end
 
     def _methods

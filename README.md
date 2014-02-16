@@ -6,15 +6,15 @@ Google tells you the right keyword if you made a typo. This gem gives similar ex
 
 On irb:
 
-![Did you mean? on BetterErrors](https://raw2.github.com/yuki24/did_you_mean/bea95e49d161f698c13cdfa56b917b904c98a762/docs/irb_example.png)
+![Did you mean? on BetterErrors](https://raw2.github.com/yuki24/did_you_mean/1c6cdc7c425325671752d261dcadd1e048e1dcad/docs/irb_example.png)
 
 On rspec:
 
-![Did you mean? on BetterErrors](https://raw2.github.com/yuki24/did_you_mean/bea95e49d161f698c13cdfa56b917b904c98a762/docs/rspec_example.png)
+![Did you mean? on BetterErrors](https://raw2.github.com/yuki24/did_you_mean/1c6cdc7c425325671752d261dcadd1e048e1dcad/docs/rspec_example.png)
 
 On BetterErrors:
 
-![Did you mean? on BetterErrors](https://raw2.github.com/yuki24/did_you_mean/bea95e49d161f698c13cdfa56b917b904c98a762/docs/better_errors_example.png)
+![Did you mean? on BetterErrors](https://raw2.github.com/yuki24/did_you_mean/1c6cdc7c425325671752d261dcadd1e048e1dcad/docs/better_errors_example.png)
 
 **Note that this gem makes Ruby nearly 5 times slower.** But patches are always welcome!
 

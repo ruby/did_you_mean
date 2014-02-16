@@ -4,6 +4,20 @@ module DidYouMean
       base.class_eval do
         alias message_without_did_you_mean message
         alias message message_with_did_you_mean
+
+        begin
+          require "active_support/core_ext/name_error"
+          if method_defined?(:missing_name)
+            alias missing_name_with_did_you_mean missing_name
+            alias missing_name missing_name_without_did_you_mean
+          end
+        rescue LoadError; end
+      end
+    end
+
+    def missing_name_without_did_you_mean
+      if /undefined local variable or method/ !~ message_without_did_you_mean
+        $1 if /((::)?([A-Z]\w*)(::[A-Z]\w*)*)$/ =~ message_without_did_you_mean
       end
     end
 

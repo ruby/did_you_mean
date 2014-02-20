@@ -1,4 +1,4 @@
-script: "bundle exec ruby test/all_test.rb"
+script: "rake test"
 
 rvm:
   - 1.9.3

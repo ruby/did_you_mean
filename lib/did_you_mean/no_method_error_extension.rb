@@ -1,6 +1,8 @@
 module DidYouMean
   module NoMethodErrorExtension
-    attr_reader :receiver
+    def receiver
+      args.first
+    end
 
     def self.included(base)
       base.class_eval do

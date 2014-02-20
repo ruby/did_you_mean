@@ -8,12 +8,13 @@ Gem::Specification.new do |spec|
   spec.version       = DidYouMean::VERSION
   spec.authors       = ["Yuki Nishijima"]
   spec.email         = ["mail@yukinishijima.net"]
-  spec.summary       = %q{"Did you mean?" experience in Ruby}
-  spec.description   = %q{It adds 'did you mean?' experience on NoMethodError and NameError because of a typo.}
+  spec.summary       = '"Did you mean?" experience in Ruby'
+  spec.description   = 'It adds "did you mean?" experience on NoMethodError and NameError because of a typo.'
   spec.homepage      = "https://github.com/yuki24/did_you_mean"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files`.split($/)
+  spec.extensions    = ["ext/did_you_mean/extconf.rb"]
   spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]

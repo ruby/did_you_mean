@@ -1,5 +1,5 @@
 #include <ruby.h>
-#include "vm_core.h"
+#include "internal.h"
 #include "vm_method.c"
 
 static inline const rb_data_type_t *

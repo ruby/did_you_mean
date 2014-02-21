@@ -2,6 +2,12 @@ require 'mkmf'
 
 $CFLAGS += " -O0"
 $CFLAGS += " -std=c99"
-$CFLAGS += " -I./ruby_headers/"
+
+case RUBY_VERSION
+when /2.0.0/
+  $CFLAGS += " -I./2_0/ruby_headers/"
+when /2.1.0/
+  $CFLAGS += " -I./2_1/ruby_headers/"
+end
 
 create_makefile 'method_missing'

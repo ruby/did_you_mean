@@ -20,7 +20,7 @@ task :test do
   Rake::Task['compile'].execute
 
   $stdout.puts("\033[33m")
-  sh "ruby test/all_test.rb"
+  sh "bundle exec ruby test/all_test.rb"
   $stdout.puts("\033[0m")
 
   Rake::Task['cleanup'].execute

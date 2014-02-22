@@ -16,8 +16,6 @@ On BetterErrors:
 
 ![Did you mean? on BetterErrors](https://raw2.github.com/yuki24/did_you_mean/4e6d4b405777f44ecb2a0e28c4abb1e438aa33ff/docs/better_errors_example.png)
 
-**Note that this gem makes Ruby nearly 5 times slower.** But patches are always welcome!
-
 ## Installation
 
 Add this line to your application's Gemfile:

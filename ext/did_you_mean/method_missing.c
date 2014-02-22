@@ -2,6 +2,10 @@
 #include "internal.h"
 #include "vm_method.c"
 
+#ifndef UNREACHABLE
+# define UNREACHABLE /* unreachable */
+#endif
+
 static inline const rb_data_type_t *
 threadptr_data_type(void)
 {

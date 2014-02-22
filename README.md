@@ -24,6 +24,10 @@ Add this line to your application's Gemfile:
 gem 'did_you_mean', :group => :development
 ```
 
+### Support
+
+This gem only supports Ruby 1.9.3, 2.0.0 and 2.1.0. All other ruby implementations are **not** supported.
+
 ## Contributing
 
 1. Fork it (http://github.com/yuki24/did_you_mean/fork)

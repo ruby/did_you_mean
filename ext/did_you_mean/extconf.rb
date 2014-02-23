@@ -10,4 +10,4 @@ else
   raise "Sorry, but did_you_mean #{DidYouMean::VERSION} doesn't work with Ruby #{RUBY_VERSION}."
 end
 
-create_makefile 'method_missing'
+create_makefile 'did_you_mean/method_missing'

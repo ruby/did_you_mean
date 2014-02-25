@@ -1,9 +1,14 @@
 require 'mkmf'
 
 case RUBY_VERSION
-when /1.9.3/, /2.0.0/, /2.1.0/
+when /1.9.3/, /2.0.0/, /2.1.0/, /2.1.1/
   abs_ruby_header_path = File.join(File.dirname(File.realpath(__FILE__)), "ruby_headers")
-  version_suffix       = RUBY_VERSION.tr(".", "")
+
+  version_suffix = if RUBY_VERSION == "2.1.1"
+    "210"
+  else
+    RUBY_VERSION.tr(".", "")
+  end
 
   $CFLAGS += " -I#{abs_ruby_header_path}/#{version_suffix}"
 else

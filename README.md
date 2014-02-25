@@ -1,4 +1,4 @@
-# Did You Mean!??
+# Did You Mean!?? [![Build Status](https://travis-ci.org/yuki24/did_you_mean.png?branch=master)](https://travis-ci.org/yuki24/did_you_mean)
 
 Google tells you the right keyword if you made a typo. This gem gives similar experience when you get `NoMethodError` or `NameError` in Ruby.
 

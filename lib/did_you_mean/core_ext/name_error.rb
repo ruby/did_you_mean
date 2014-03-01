@@ -52,18 +52,18 @@ class NameError
     return if !undefined_local_variable_or_method? || (similar_methods.empty? && similar_local_variables.empty?)
 
     output = "\n\n"
-    output << "Did you mean?" << "\n"
- 
+    output << "   Did you mean?\n"
+
     unless similar_methods.empty?
-      output << "    instance methods:" << "\n"
-      output << similar_methods.map{|word| "\t##{word}" }.join("\n") << "\n"
-      output << "\n"
-     end
- 
+      output << "     instance methods: ##{similar_methods.first}\n"
+      output << similar_methods[1..-1].map{|word| "#{' ' * 23}##{word}\n" }.join
+    end
+
+    output << "\n" if !similar_methods.empty? && !similar_local_variables.empty?
+
     unless similar_local_variables.empty?
-      output << "    local variables:" << "\n"
-      output << similar_local_variables.map{|word| "\t#{word}" }.join("\n") << "\n"
-      output << "\n"
+      output << "      local variables: ##{similar_local_variables.map.first}\n"
+      output << similar_local_variables[1..-1].map{|word| "#{' ' * 23}##{word}\n" }.join
     end
 
     output

@@ -6,9 +6,9 @@ class NoMethodError
   def did_you_mean?
     return if similar_methods.empty?
 
-    output << "Did you mean?" << "\n"
-    output << similar_methods.map{|word| "\t#{receiver_name}#{separator}#{word}" }.join("\n") << "\n"
-    output << "\n"
+    output = "\n\n"
+    output << "   Did you mean? #{separator}#{similar_methods.first}\n"
+    output << similar_methods[1..-1].map{|word| "#{' ' * 17}#{separator}#{word}\n" }.join
   end
 
   def similar_methods

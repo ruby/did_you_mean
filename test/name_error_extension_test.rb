@@ -36,9 +36,14 @@ class NameErrorExtensionTest < Test::Unit::TestCase
   end
 
   def test_did_you_mean?
-    assert_equal "\n\nDid you mean?\n    instance methods:\n\t#first_name\n\n", @errors[:from_instance_method].did_you_mean?
-    assert_equal "\n\nDid you mean?\n    instance methods:\n\t#from_module\n\n", @errors[:from_module_method].did_you_mean?
-    assert_equal "\n\nDid you mean?\n    local variables:\n\tuser\n\n", @instance_variable_error.did_you_mean?
+    assert_match "Did you mean?", @errors[:from_instance_method].did_you_mean?
+    assert_match "instance methods: #first_name", @errors[:from_instance_method].did_you_mean?
+
+    assert_match "Did you mean?", @errors[:from_module_method].did_you_mean?
+    assert_match "instance methods: #from_module", @errors[:from_module_method].did_you_mean?
+
+    assert_match "Did you mean?", @instance_variable_error.did_you_mean?
+    assert_match "local variables: user", @instance_variable_error.did_you_mean?
   end
 
   def test_message

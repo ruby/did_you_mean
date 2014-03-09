@@ -62,7 +62,7 @@ class NameError
     output << "\n" if !similar_methods.empty? && !similar_local_variables.empty?
 
     unless similar_local_variables.empty?
-      output << "      local variables: ##{similar_local_variables.map.first}\n"
+      output << "      local variables: #{similar_local_variables.map.first}\n"
       output << similar_local_variables[1..-1].map{|word| "#{' ' * 23}##{word}\n" }.join
     end
 

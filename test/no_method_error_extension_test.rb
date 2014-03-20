@@ -4,6 +4,7 @@ class NoMethodErrorExtensionTest < Test::Unit::TestCase
   class User
     def friends; end
     def first_name; end
+    def descendants; end
 
     private
 
@@ -34,6 +35,11 @@ class NoMethodErrorExtensionTest < Test::Unit::TestCase
     assert  @errors[:from_private_method].similar_methods.include?(:friends)
     assert   @errors[:from_module_method].similar_methods.include?(:from_module)
     assert    @errors[:from_class_method].similar_methods.include?(:load)
+  end
+
+  def test_similar_methods_for_long_method_name
+    error = assert_raise(NoMethodError){ User.new.dependents }
+    assert error.similar_methods.include?(:descendants)
   end
 
   def test_did_you_mean?

@@ -1,6 +1,4 @@
-require 'bundler'
 require "bundler/gem_tasks"
-Bundler::GemHelper.install_tasks
 
 begin
   require 'rake/extensiontask'

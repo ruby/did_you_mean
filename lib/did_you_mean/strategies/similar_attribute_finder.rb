@@ -27,14 +27,10 @@ module DidYouMean
     end
 
     def similar_columns
-      @similar_columns ||= MethodMatcher.new(column_names, attribute_name).similar_methods
+      @similar_columns ||= MethodMatcher.new(columns.map(&:name), attribute_name).similar_methods
     end
 
     private
-
-    def column_names
-      columns.map(&:name)
-    end
 
     def format(name)
       "%s: %s" % [name, columns.detect{|c| c.name == name }.type]

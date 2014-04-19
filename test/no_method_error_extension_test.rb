@@ -35,21 +35,21 @@ class NoMethodErrorExtensionTest < Test::Unit::TestCase
       ::User.new(flrst_name: "wrong flrst name")
     end
 
-    assert error.similar_columns.include?("first_name")
+    assert error.method_finder.similar_columns.include?("first_name")
     assert_match "Did you mean? first_name", error.did_you_mean?
     assert_match error.did_you_mean?, error.message
   end
 
   def test_similar_methods
-    assert @errors[:from_instance_method].similar_methods.include?(:first_name)
-    assert  @errors[:from_private_method].similar_methods.include?(:friends)
-    assert   @errors[:from_module_method].similar_methods.include?(:from_module)
-    assert    @errors[:from_class_method].similar_methods.include?(:load)
+    assert @errors[:from_instance_method].method_finder.similar_methods.include?(:first_name)
+    assert  @errors[:from_private_method].method_finder.similar_methods.include?(:friends)
+    assert   @errors[:from_module_method].method_finder.similar_methods.include?(:from_module)
+    assert    @errors[:from_class_method].method_finder.similar_methods.include?(:load)
   end
 
   def test_similar_methods_for_long_method_name
     error = assert_raise(NoMethodError){ User.new.dependents }
-    assert error.similar_methods.include?(:descendants)
+    assert error.method_finder.similar_methods.include?(:descendants)
   end
 
   def test_did_you_mean?

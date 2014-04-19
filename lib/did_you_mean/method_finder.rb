@@ -1,7 +1,7 @@
 require "text"
 
 module DidYouMean
-  class MethodFinder
+  class MethodMatcher
     def initialize(method_collection, target_method)
       @method_collection = method_collection.uniq
       @target_method     = target_method

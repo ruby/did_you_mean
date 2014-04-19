@@ -40,6 +40,10 @@ class NameError
     @__did_you_mean_bindings_stack || []
   end
 
+  def frame_binding
+    @frame_binding ||= __did_you_mean_bindings_stack.first
+  end
+
   def to_s_with_did_you_mean
     original_to_s + did_you_mean?.to_s
   end
@@ -49,39 +53,10 @@ class NameError
   alias original_message original_to_s
 
   def did_you_mean?
-    return if !undefined_local_variable_or_method? || (similar_methods.empty? && similar_local_variables.empty?)
-
-    output = "\n\n"
-    output << "   Did you mean?\n"
-
-    unless similar_methods.empty?
-      output << "     instance methods: ##{similar_methods.first}\n"
-      output << similar_methods[1..-1].map{|word| "#{' ' * 23}##{word}\n" }.join
-    end
-
-    output << "\n" if !similar_methods.empty? && !similar_local_variables.empty?
-
-    unless similar_local_variables.empty?
-      output << "      local variables: #{similar_local_variables.map.first}\n"
-      output << similar_local_variables[1..-1].map{|word| "#{' ' * 23}##{word}\n" }.join
-    end
-
-    output
+    method_finder.did_you_mean? if not method_finder.empty?
   end
 
-  def similar_methods
-    @similar_methods ||= DidYouMean::MethodFinder.new(frame_binding.eval("methods"), name).similar_methods
-  end
-
-  def similar_local_variables
-    @similar_local_variables ||= DidYouMean::MethodFinder.new(frame_binding.eval("local_variables"), name).similar_methods
-  end
-
-  def undefined_local_variable_or_method?
-    original_to_s.include?("undefined local variable or method")
-  end
-
-  def frame_binding
-    @frame_binding ||= __did_you_mean_bindings_stack.first
+  def method_finder
+    @method_finder ||= DidYouMean.strategies[self.class.to_s].build(self)
   end
 end

@@ -8,12 +8,12 @@ rvm:
   - ruby-head
 
 gemfile:
-  - gemfiles/active_record_30.gemfile
-  - gemfiles/active_record_31.gemfile
-  - gemfiles/active_record_32.gemfile
-  - gemfiles/active_record_40.gemfile
-  - gemfiles/active_record_41.gemfile
-  - gemfiles/active_record_edge.gemfile
+  - gemfiles/activerecord_30.gemfile
+  - gemfiles/activerecord_31.gemfile
+  - gemfiles/activerecord_32.gemfile
+  - gemfiles/activerecord_40.gemfile
+  - gemfiles/activerecord_41.gemfile
+  - gemfiles/activerecord_edge.gemfile
 
 matrix:
   fast_finish: true

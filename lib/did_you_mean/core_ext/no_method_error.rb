@@ -1,14 +1,28 @@
 class NoMethodError
   def receiver
-    args.first
+    if self.is_a?(ActiveRecord::UnknownAttributeError)
+      frame_binding.eval("self.class")
+    else
+      args.first
+    end
   end
 
   def did_you_mean?
-    return if similar_methods.empty?
+    if self.is_a?(ActiveRecord::UnknownAttributeError)
+      return if similar_columns.empty?
+    else
+      return if similar_methods.empty?
+    end
 
     output = "\n\n"
-    output << "   Did you mean? #{separator}#{similar_methods.first}\n"
-    output << similar_methods[1..-1].map{|word| "#{' ' * 17}#{separator}#{word}\n" }.join
+
+    if self.is_a?(ActiveRecord::UnknownAttributeError)
+      output << "    Did you mean? #{similar_columns.first}\n"
+      output << similar_columns[1..-1].map{|word| "#{' ' * 18}#{word}\n" }.join
+    else
+      output << "   Did you mean? #{separator}#{similar_methods.first}\n"
+      output << similar_methods[1..-1].map{|word| "#{' ' * 17}#{separator}#{word}\n" }.join
+    end
   end
 
   def similar_methods
@@ -25,5 +39,18 @@ class NoMethodError
 
   def class_method?
     receiver.is_a? Class
+  end
+
+  # for ActiveRecord::UnknownAttributeError
+  def similar_columns
+    @similar_columns ||= DidYouMean::MethodFinder.new(column_names, unknown_attribute_name).similar_methods
+  end
+
+  def column_names
+    @column_names ||= frame_binding.eval("self.class").column_names
+  end
+
+  def unknown_attribute_name
+    @unknown_attribute_name ||= original_message.gsub("unknown attribute: ", "")
   end
 end

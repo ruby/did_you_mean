@@ -1,6 +1,6 @@
 require_relative 'test_helper'
 
-class SimilarNameFinderTest < Test::Unit::TestCase
+class SimilarNameFinderTest < Minitest::Test
   class User
     def call_flrst_name;  f1rst_name; end
     def call_fr0m_module; fr0m_module; end
@@ -15,8 +15,8 @@ class SimilarNameFinderTest < Test::Unit::TestCase
     user = User.new.extend(UserModule)
 
     @errors = {
-      from_instance_method: assert_raise(NameError){ user.call_flrst_name },
-      from_module_method:   assert_raise(NameError){ user.call_fr0m_module }
+      from_instance_method: assert_raises(NameError){ user.call_flrst_name },
+      from_module_method:   assert_raises(NameError){ user.call_fr0m_module }
     }
 
     begin

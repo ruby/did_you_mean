@@ -1,6 +1,6 @@
 require_relative 'test_helper'
 
-class SimilarMethodFinderTest < Test::Unit::TestCase
+class SimilarMethodFinderTest < Minitest::Test
   class User
     def friends; end
     def first_name; end
@@ -23,15 +23,15 @@ class SimilarMethodFinderTest < Test::Unit::TestCase
     user = User.new.extend(UserModule)
 
     @errors = {
-      from_instance_method: assert_raise(NoMethodError){ user.flrst_name },
-      from_private_method:  assert_raise(NoMethodError){ user.friend },
-      from_module_method:   assert_raise(NoMethodError){ user.fr0m_module },
-      from_class_method:    assert_raise(NoMethodError){ User.l0ad }
+      from_instance_method: assert_raises(NoMethodError){ user.flrst_name },
+      from_private_method:  assert_raises(NoMethodError){ user.friend },
+      from_module_method:   assert_raises(NoMethodError){ user.fr0m_module },
+      from_class_method:    assert_raises(NoMethodError){ User.l0ad }
     }
   end
 
   def test_unknown_attribute_error_with_did_you_mean
-    error = assert_raise(ActiveRecord::UnknownAttributeError) do
+    error = assert_raises(ActiveRecord::UnknownAttributeError) do
       ::User.new(flrst_name: "wrong flrst name")
     end
 
@@ -48,7 +48,7 @@ class SimilarMethodFinderTest < Test::Unit::TestCase
   end
 
   def test_similar_methods_for_long_method_name
-    error = assert_raise(NoMethodError){ User.new.dependents }
+    error = assert_raises(NoMethodError){ User.new.dependents }
     assert error.method_finder.similar_methods.include?(:descendants)
   end
 

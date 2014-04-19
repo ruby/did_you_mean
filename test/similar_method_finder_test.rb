@@ -1,6 +1,6 @@
 require_relative 'test_helper'
 
-class NoMethodErrorExtensionTest < Test::Unit::TestCase
+class SimilarMethodFinderTest < Test::Unit::TestCase
   class User
     def friends; end
     def first_name; end

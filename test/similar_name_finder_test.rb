@@ -1,6 +1,6 @@
 require_relative 'test_helper'
 
-class NameErrorExtensionTest < Test::Unit::TestCase
+class SimilarNameFinderTest < Test::Unit::TestCase
   class User
     def call_flrst_name;  f1rst_name; end
     def call_fr0m_module; fr0m_module; end

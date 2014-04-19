@@ -45,12 +45,11 @@ class NameError
   end
 
   def to_s_with_did_you_mean
-    original_to_s + did_you_mean?.to_s
+    original_message + did_you_mean?.to_s
   end
 
-  alias original_to_s to_s
-  alias          to_s to_s_with_did_you_mean
-  alias original_message original_to_s
+  alias original_message to_s
+  alias             to_s to_s_with_did_you_mean
 
   def did_you_mean?
     method_finder.did_you_mean? if not method_finder.empty?

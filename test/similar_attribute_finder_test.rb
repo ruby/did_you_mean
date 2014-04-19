@@ -12,7 +12,7 @@ class SimilarAttributeFinderTest < Test::Unit::TestCase
   end
 
   def test_did_you_mean?
-    assert_match "Did you mean? first_name", @error.did_you_mean?
+    assert_match "Did you mean? first_name: string", @error.did_you_mean?
   end
 
   def test_message

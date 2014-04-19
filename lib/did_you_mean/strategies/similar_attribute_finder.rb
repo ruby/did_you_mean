@@ -17,8 +17,8 @@ module DidYouMean
       return if empty?
 
       output = "\n\n"
-      output << "    Did you mean? #{similar_columns.first}\n"
-      output << similar_columns[1..-1].map{|word| "#{' ' * 18}#{word}\n" }.join
+      output << "    Did you mean? #{format(similar_columns.first)}\n"
+      output << similar_columns[1..-1].map{|word| "#{' ' * 18}#{format(word)}\n" }.join
       output
     end
 
@@ -34,6 +34,10 @@ module DidYouMean
 
     def column_names
       columns.map(&:name)
+    end
+
+    def format(name)
+      "%s: %s" % [name, columns.detect{|c| c.name == name }.type]
     end
   end
 

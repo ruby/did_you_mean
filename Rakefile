@@ -25,3 +25,12 @@ task :test do
 
   Rake::Task['clobber'].execute
 end
+
+namespace :test do
+  desc "Run tests without re-compiling extensions"
+  task :without_compile do
+    $stdout.puts("\033[33m")
+    sh "bundle exec ruby test/all_test.rb"
+    $stdout.puts("\033[0m")
+  end
+end

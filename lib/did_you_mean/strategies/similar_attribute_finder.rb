@@ -1,6 +1,6 @@
 module DidYouMean
   class SimilarAttributeFinder
-    attr_reader :columns, :unknown_attribute_name
+    attr_reader :columns, :attribute_name
 
     def self.build(exception)
       columns        = exception.frame_binding.eval("self.class").columns
@@ -9,8 +9,8 @@ module DidYouMean
       new(attribute_name, columns)
     end
 
-    def initialize(unknown_attribute_name, columns)
-      @unknown_attribute_name, @columns = unknown_attribute_name, columns
+    def initialize(attribute_name, columns)
+      @attribute_name, @columns = attribute_name, columns
     end
 
     def did_you_mean?
@@ -27,7 +27,7 @@ module DidYouMean
     end
 
     def similar_columns
-      @similar_columns ||= MethodMatcher.new(column_names, unknown_attribute_name).similar_methods
+      @similar_columns ||= MethodMatcher.new(column_names, attribute_name).similar_methods
     end
 
     private

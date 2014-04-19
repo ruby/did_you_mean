@@ -5,7 +5,7 @@
 .yardoc
 .DS_Store
 Gemfile.lock
-gemfiles/
+gemfiles/*.lock
 InstalledFiles
 _yardoc
 coverage

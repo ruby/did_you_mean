@@ -3,6 +3,12 @@ require 'minitest/unit'
 require 'did_you_mean'
 require 'active_record'
 
+begin
+  MiniTest::Test
+rescue NameError
+  MiniTest::Test = MiniTest::Unit::TestCase
+end
+
 # database
 ActiveRecord::Base.configurations = {'test' => {adapter: 'sqlite3', database: ':memory:'}}
 ActiveRecord::Base.establish_connection('test')

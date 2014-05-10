@@ -26,7 +26,7 @@ gem 'did_you_mean', :group => :development
 
 ### Support
 
-This gem only supports Ruby 1.9.3, 2.0.0 and 2.1.0. All other ruby implementations are **not** supported.
+This gem only supports Ruby 1.9.3, 2.0.0, 2.1.0, 2.1.1, 2.1.2 and ruby-head. All other ruby implementations are **NOT** supported.
 
 ## Contributing
 

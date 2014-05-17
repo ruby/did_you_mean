@@ -8,5 +8,9 @@ end
 begin
   RaiseNameError
 rescue NameError => e
-  require_relative 'similar_class_finder_test' if e.name
+  if e.name
+    require_relative 'similar_class_finder_test'
+  else
+    require_relative 'similar_class_finder_test_without_name'
+  end
 end

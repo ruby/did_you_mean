@@ -30,16 +30,6 @@ class SimilarMethodFinderTest < Minitest::Test
     }
   end
 
-  def test_unknown_attribute_error_with_did_you_mean
-    error = assert_raises(ActiveRecord::UnknownAttributeError) do
-      ::User.new(flrst_name: "wrong flrst name")
-    end
-
-    assert error.method_finder.similar_columns.include?("first_name")
-    assert_match "Did you mean? first_name", error.did_you_mean?
-    assert_match error.did_you_mean?, error.message
-  end
-
   def test_similar_methods
     assert @errors[:from_instance_method].method_finder.similar_methods.include?(:first_name)
     assert  @errors[:from_private_method].method_finder.similar_methods.include?(:friends)

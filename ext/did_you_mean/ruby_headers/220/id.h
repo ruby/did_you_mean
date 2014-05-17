@@ -14,18 +14,20 @@
 #define RUBY_ID_H
 
 enum ruby_id_types {
+    RUBY_ID_STATIC_SYM  = 0x01,
     RUBY_ID_LOCAL       = 0x00,
-    RUBY_ID_INSTANCE    = 0x01,
-    RUBY_ID_GLOBAL      = 0x03,
-    RUBY_ID_ATTRSET     = 0x04,
-    RUBY_ID_CONST       = 0x05,
-    RUBY_ID_CLASS       = 0x06,
-    RUBY_ID_JUNK        = 0x07,
+    RUBY_ID_INSTANCE    = (0x01<<1),
+    RUBY_ID_GLOBAL      = (0x03<<1),
+    RUBY_ID_ATTRSET     = (0x04<<1),
+    RUBY_ID_CONST       = (0x05<<1),
+    RUBY_ID_CLASS       = (0x06<<1),
+    RUBY_ID_JUNK        = (0x07<<1),
     RUBY_ID_INTERNAL    = RUBY_ID_JUNK,
-    RUBY_ID_SCOPE_SHIFT = 3,
-    RUBY_ID_SCOPE_MASK  = ~(~0U<<RUBY_ID_SCOPE_SHIFT)
+    RUBY_ID_SCOPE_SHIFT = 4,
+    RUBY_ID_SCOPE_MASK  = (~(~0U<<(RUBY_ID_SCOPE_SHIFT-1))<<1)
 };
 
+#define ID_STATIC_SYM  RUBY_ID_STATIC_SYM
 #define ID_SCOPE_SHIFT RUBY_ID_SCOPE_SHIFT
 #define ID_SCOPE_MASK  RUBY_ID_SCOPE_MASK
 #define ID_LOCAL       RUBY_ID_LOCAL
@@ -136,7 +138,7 @@ enum ruby_method_ids {
     tInitialize_clone,
     tInitialize_dup,
     tUScore,
-#define TOKEN2LOCALID(n) id##n = ((t##n<<ID_SCOPE_SHIFT)|ID_LOCAL)
+#define TOKEN2LOCALID(n) id##n = ((t##n<<ID_SCOPE_SHIFT)|ID_LOCAL|ID_STATIC_SYM)
     TOKEN2LOCALID(Freeze),
     TOKEN2LOCALID(Inspect),
     TOKEN2LOCALID(Intern),

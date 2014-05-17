@@ -22,4 +22,6 @@ appraise "activerecord_edge" do
   git 'git://github.com/rails/rails.git' do
     gem 'activerecord', require: 'activerecord'
   end
+
+  gem 'arel', :github => 'rails/arel'
 end

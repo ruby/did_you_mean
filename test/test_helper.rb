@@ -1,7 +1,6 @@
 require 'minitest/autorun'
 require 'minitest/unit'
 require 'did_you_mean'
-require 'active_record'
 
 begin
   MiniTest::Test
@@ -9,17 +8,22 @@ rescue NameError
   MiniTest::Test = MiniTest::Unit::TestCase
 end
 
-# database
-ActiveRecord::Base.configurations = {'test' => {adapter: 'sqlite3', database: ':memory:'}}
-ActiveRecord::Base.establish_connection('test')
+begin
+  require 'active_record'
 
-# models
-class User < ActiveRecord::Base; end
+  # database
+  ActiveRecord::Base.configurations = {'test' => {adapter: 'sqlite3', database: ':memory:'}}
+  ActiveRecord::Base.establish_connection('test')
 
-class CreateAllTables < ActiveRecord::Migration
-  def self.up
-    create_table(:users) {|t| t.string :first_name; t.integer :last_name }
+  # models
+  class User < ActiveRecord::Base; end
+
+  class CreateAllTables < ActiveRecord::Migration
+    def self.up
+      create_table(:users) {|t| t.string :first_name; t.integer :last_name }
+    end
   end
+  ActiveRecord::Migration.verbose = false
+  CreateAllTables.up
+rescue LoadError
 end
-ActiveRecord::Migration.verbose = false
-CreateAllTables.up

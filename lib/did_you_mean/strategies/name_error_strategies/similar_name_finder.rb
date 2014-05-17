@@ -52,6 +52,4 @@ module DidYouMean
       original_message.include?("undefined local variable or method")
     end
   end
-
-  strategies["NameError"] = SimilarNameFinder
 end

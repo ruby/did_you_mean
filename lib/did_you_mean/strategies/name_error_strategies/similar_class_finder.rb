@@ -8,6 +8,9 @@ module DidYouMean
 
     def initialize(name, original_message)
       @name, @original_message = name, original_message
+
+      # temp fix for a rails bug: https://github.com/rails/rails/pull/15162
+      @similar_classes = [] if @name.nil? || @name.empty?
     end
 
     def did_you_mean?
@@ -20,7 +23,7 @@ module DidYouMean
     end
 
     def empty?
-      name.nil? || name.empty? || similar_classes.empty?
+      similar_classes.empty?
     end
 
     def similar_classes

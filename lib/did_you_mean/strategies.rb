@@ -18,6 +18,6 @@ module DidYouMean
   end
 end
 
-require 'did_you_mean/strategies/similar_name_finder'
+require 'did_you_mean/strategies/name_error_strategies'
 require 'did_you_mean/strategies/similar_method_finder'
 require 'did_you_mean/strategies/similar_attribute_finder'

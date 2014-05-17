@@ -1,0 +1,1 @@
+require 'did_you_mean/strategies/name_error_strategies/similar_name_finder'

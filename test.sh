@@ -7,8 +7,8 @@ do
   source ~/.rvm/environments/ruby-$ruby_version
   ruby -v
 
-  bundle install
-  appraisal install
+  bundle --quiet
+  appraisal install --quiet
 
   rake compile
   appraisal rake test:without_compile

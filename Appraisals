@@ -1,7 +1,3 @@
-appraise "without_activerecord" do
-  # nothing to include here.
-end
-
 appraise "activerecord_30" do
   gem "activerecord", "~> 3.0.0"
 end

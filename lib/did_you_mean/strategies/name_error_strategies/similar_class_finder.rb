@@ -8,9 +8,6 @@ module DidYouMean
 
     def initialize(name, original_message)
       @name, @original_message = name, original_message
-
-      # temp fix for a rails bug: https://github.com/rails/rails/pull/15162
-      @similar_classes = [] if @name.nil? || @name.empty?
     end
 
     def did_you_mean?
@@ -28,7 +25,7 @@ module DidYouMean
 
     def similar_classes
       @similar_classes ||= scopes.map do |scope|
-        DidYouMean::MethodMatcher.new(scope.constants, name).similar_methods.map do |constant_name|
+        DidYouMean::MethodMatcher.new(scope.constants, name_from_message).similar_methods.map do |constant_name|
           if scope === Object
             constant_name.to_s
           else
@@ -39,6 +36,10 @@ module DidYouMean
     end
 
     private
+
+    def name_from_message
+      name || /([A-Z]\w*$)/.match(original_message)[0]
+    end
 
     def scope_base
       @scope_base ||= (/(([A-Z]\w*::)*)([A-Z]\w*)$/ =~ original_message ? $1 : "").split("::")

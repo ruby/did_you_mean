@@ -2,12 +2,8 @@ module DidYouMean
   class SimilarMethodFinder
     attr_reader :name, :receiver
 
-    def self.build(exception)
-      new(exception.name, exception.args.first)
-    end
-
-    def initialize(name, receiver)
-      @name, @receiver = name, receiver
+    def initialize(exception)
+      @name, @receiver = exception.name, exception.args.first
     end
 
     def did_you_mean?

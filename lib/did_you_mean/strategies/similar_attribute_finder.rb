@@ -2,15 +2,9 @@ module DidYouMean
   class SimilarAttributeFinder
     attr_reader :columns, :attribute_name
 
-    def self.build(exception)
-      columns        = exception.frame_binding.eval("self.class").columns
-      attribute_name = exception.original_message.gsub("unknown attribute: ", "")
-
-      new(attribute_name, columns)
-    end
-
-    def initialize(attribute_name, columns)
-      @attribute_name, @columns = attribute_name, columns
+    def initialize(exception)
+      @columns        = exception.frame_binding.eval("self.class").columns
+      @attribute_name = exception.original_message.gsub("unknown attribute: ", "")
     end
 
     def did_you_mean?

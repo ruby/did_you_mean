@@ -2,17 +2,11 @@ module DidYouMean
   class SimilarNameFinder
     attr_reader :name, :_methods, :_local_variables, :original_message
 
-    def self.build(exception)
-      methods          = exception.frame_binding.eval("methods")
-      local_variables  = exception.frame_binding.eval("local_variables")
-      original_message = exception.original_message
-
-      new(exception.name, methods, local_variables, original_message)
-    end
-
-    def initialize(name, methods, local_variables, original_message)
-      @name, @_methods, @_local_variables, @original_message =
-        name, methods, local_variables, original_message
+    def initialize(exception)
+      @name             = exception.name
+      @_methods         = exception.frame_binding.eval("methods")
+      @_local_variables = exception.frame_binding.eval("local_variables")
+      @original_message = exception.original_message
     end
 
     def did_you_mean?

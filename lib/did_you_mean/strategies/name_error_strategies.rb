@@ -1,13 +1,17 @@
 module DidYouMean
   module NameErrorStrategies
-    def self.build(exception)
+    def self.included(*)
+      raise "Do not include this module since it overrides Class.new method."
+    end
+
+    def self.new(exception)
       klass = if /uninitialized constant/ =~ exception.original_message
         SimilarClassFinder
       else
         SimilarNameFinder
       end
 
-      klass.build(exception)
+      klass.new(exception)
     end
   end
 

@@ -2,12 +2,8 @@ module DidYouMean
   class SimilarClassFinder
     attr_reader :name, :original_message
 
-    def self.build(exception)
-      new(exception.name, exception.original_message)
-    end
-
-    def initialize(name, original_message)
-      @name, @original_message = name, original_message
+    def initialize(exception)
+      @name, @original_message = exception.name, exception.original_message
     end
 
     def did_you_mean?

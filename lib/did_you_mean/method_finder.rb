@@ -11,13 +11,13 @@ module DidYouMean
 
     def similar_methods
       @similar_methods ||= method_collection.select do |method|
-        ::Text::Levenshtein.distance(method.to_s, target_method) <= sensitiveness
+        ::Text::Levenshtein.distance(method.to_s, target_method) <= threshold
       end
     end
 
     private
 
-    def sensitiveness
+    def threshold
       (target_method.size * 0.3).ceil
     end
   end

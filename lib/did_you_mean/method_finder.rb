@@ -6,12 +6,12 @@ module DidYouMean
 
     def initialize(method_collection, target_method)
       @method_collection = method_collection.uniq
-      @target_method     = target_method
+      @target_method     = target_method.to_s
     end
 
     def similar_methods
       @similar_methods ||= method_collection.select do |method|
-        ::Text::Levenshtein.distance(method.to_s, target_method.to_s) <= sensitiveness
+        ::Text::Levenshtein.distance(method.to_s, target_method) <= sensitiveness
       end
     end
 

@@ -40,6 +40,14 @@ extern "C" {
 #define UNINITIALIZED_VAR(x) x
 #endif
 
+#if __has_attribute(warn_unused_result)
+#define WARN_UNUSED_RESULT(x) x __attribute__((warn_unused_result))
+#elif defined(__GNUC__) && (__GNUC__ * 1000 + __GNUC_MINOR__) >= 3004
+#define WARN_UNUSED_RESULT(x) x __attribute__((warn_unused_result))
+#else
+#define WARN_UNUSED_RESULT(x) x
+#endif
+
 #ifdef HAVE_VALGRIND_MEMCHECK_H
 # include <valgrind/memcheck.h>
 # ifndef VALGRIND_MAKE_MEM_DEFINED
@@ -412,6 +420,52 @@ struct RRational {
 
 #define RRATIONAL(obj) (R_CAST(RRational)(obj))
 
+struct RSymbol {
+    struct RBasic basic;
+    VALUE fstr;
+    ID type;
+};
+
+struct RFloat {
+    struct RBasic basic;
+    double float_value;
+};
+
+#define RFLOAT(obj)  (R_CAST(RFloat)(obj))
+
+struct RComplex {
+    struct RBasic basic;
+    const VALUE real;
+    const VALUE imag;
+};
+
+#define RCOMPLEX(obj) (R_CAST(RComplex)(obj))
+
+#ifdef RCOMPLEX_SET_REAL        /* shortcut macro for internal only */
+#undef RCOMPLEX_SET_REAL
+#undef RCOMPLEX_SET_REAL
+#define RCOMPLEX_SET_REAL(cmp, r) RB_OBJ_WRITE((cmp), &((struct RComplex *)(cmp))->real,(r))
+#define RCOMPLEX_SET_IMAG(cmp, i) RB_OBJ_WRITE((cmp), &((struct RComplex *)(cmp))->imag,(i))
+#endif
+
+struct RHash {
+    struct RBasic basic;
+    struct st_table *ntbl;      /* possibly 0 */
+    int iter_lev;
+    const VALUE ifnone;
+};
+
+#define RHASH(obj)   (R_CAST(RHash)(obj))
+
+#ifdef RHASH_ITER_LEV
+#undef RHASH_ITER_LEV
+#undef RHASH_IFNONE
+#undef RHASH_SIZE
+#define RHASH_ITER_LEV(h) (RHASH(h)->iter_lev)
+#define RHASH_IFNONE(h) (RHASH(h)->ifnone)
+#define RHASH_SIZE(h) (RHASH(h)->ntbl ? (st_index_t)RHASH(h)->ntbl->num_entries : 0)
+#endif
+
 /* class.c */
 void rb_class_subclass_add(VALUE super, VALUE klass);
 void rb_class_remove_from_super_subclasses(VALUE);
@@ -457,9 +511,10 @@ RCLASS_SET_SUPER(VALUE klass, VALUE super)
 struct vtm; /* defined by timev.h */
 
 /* array.c */
-VALUE rb_ary_last(int, VALUE *, VALUE);
+VALUE rb_ary_last(int, const VALUE *, VALUE);
 void rb_ary_set_len(VALUE, long);
 void rb_ary_delete_same(VALUE, VALUE);
+VALUE rb_ary_tmp_new_fill(long capa);
 
 /* bignum.c */
 VALUE rb_big_fdiv(VALUE x, VALUE y);
@@ -472,10 +527,10 @@ void rb_class_foreach_subclass(VALUE klass, void(*f)(VALUE));
 void rb_class_detach_subclasses(VALUE);
 void rb_class_detach_module_subclasses(VALUE);
 void rb_class_remove_from_module_subclasses(VALUE);
-VALUE rb_obj_methods(int argc, VALUE *argv, VALUE obj);
-VALUE rb_obj_protected_methods(int argc, VALUE *argv, VALUE obj);
-VALUE rb_obj_private_methods(int argc, VALUE *argv, VALUE obj);
-VALUE rb_obj_public_methods(int argc, VALUE *argv, VALUE obj);
+VALUE rb_obj_methods(int argc, const VALUE *argv, VALUE obj);
+VALUE rb_obj_protected_methods(int argc, const VALUE *argv, VALUE obj);
+VALUE rb_obj_private_methods(int argc, const VALUE *argv, VALUE obj);
+VALUE rb_obj_public_methods(int argc, const VALUE *argv, VALUE obj);
 int rb_obj_basic_to_s_p(VALUE);
 VALUE rb_special_singleton_class(VALUE);
 VALUE rb_singleton_class_clone_and_attach(VALUE obj, VALUE attach);
@@ -584,7 +639,11 @@ void Init_heap(void);
 void *ruby_mimmalloc(size_t size);
 void ruby_mimfree(void *ptr);
 void rb_objspace_set_event_hook(const rb_event_flag_t event);
-void rb_gc_writebarrier_remember_promoted(VALUE obj);
+#if USE_RGENGC
+void rb_gc_writebarrier_remember(VALUE obj);
+#else
+#define rb_gc_writebarrier_remember(obj) 0
+#endif
 void ruby_gc_set_params(int safe_level);
 
 #if defined(HAVE_MALLOC_USABLE_SIZE) || defined(HAVE_MALLOC_SIZE) || defined(_WIN32)
@@ -641,7 +700,7 @@ VALUE rb_math_cos(VALUE);
 VALUE rb_math_cosh(VALUE);
 VALUE rb_math_exp(VALUE);
 VALUE rb_math_hypot(VALUE, VALUE);
-VALUE rb_math_log(int argc, VALUE *argv);
+VALUE rb_math_log(int argc, const VALUE *argv);
 VALUE rb_math_sin(VALUE);
 VALUE rb_math_sinh(VALUE);
 #if 0
@@ -725,6 +784,7 @@ rb_float_new_inline(double d)
 #define rb_float_new(d)   rb_float_new_inline(d)
 
 /* object.c */
+void rb_obj_copy_ivar(VALUE dest, VALUE obj);
 VALUE rb_obj_equal(VALUE obj1, VALUE obj2);
 VALUE rb_class_search_ancestor(VALUE klass, VALUE super);
 
@@ -754,16 +814,9 @@ int rb_is_attrset_name(VALUE name);
 int rb_is_local_name(VALUE name);
 int rb_is_method_name(VALUE name);
 int rb_is_junk_name(VALUE name);
-void rb_gc_mark_parser(void);
-void rb_gc_mark_symbols(int full_mark);
 ID rb_make_internal_id(void);
 void rb_gc_free_dsymbol(VALUE);
 VALUE rb_str_dynamic_intern(VALUE);
-ID rb_check_id_without_pindown(VALUE *);
-ID rb_sym2id_without_pindown(VALUE);
-#ifdef RUBY_ENCODING_H
-ID rb_check_id_cstr_without_pindown(const char *, long, rb_encoding *);
-#endif
 ID rb_id_attrget(ID id);
 
 /* proc.c */
@@ -850,7 +903,9 @@ size_t rb_strftime(char *s, size_t maxsize, const char *format, rb_encoding *enc
 #endif
 
 /* string.c */
+void Init_frozen_strings(void);
 VALUE rb_fstring(VALUE);
+VALUE rb_fstring_new(const char *ptr, long len);
 int rb_str_buf_cat_escaped_char(VALUE result, unsigned int c, int unicode_p);
 int rb_str_symname_p(VALUE);
 VALUE rb_str_quote_unprintable(VALUE);
@@ -911,7 +966,6 @@ VALUE rb_sourcefilename(void);
 void rb_vm_pop_cfunc_frame(void);
 
 /* vm_dump.c */
-void rb_vm_bugreport(void);
 void rb_print_backtrace(void);
 
 /* vm_eval.c */
@@ -937,8 +991,8 @@ void Init_prelude(void);
 
 /* vm_backtrace.c */
 void Init_vm_backtrace(void);
-VALUE rb_vm_thread_backtrace(int argc, VALUE *argv, VALUE thval);
-VALUE rb_vm_thread_backtrace_locations(int argc, VALUE *argv, VALUE thval);
+VALUE rb_vm_thread_backtrace(int argc, const VALUE *argv, VALUE thval);
+VALUE rb_vm_thread_backtrace_locations(int argc, const VALUE *argv, VALUE thval);
 
 VALUE rb_make_backtrace(void);
 void rb_backtrace_print_as_bugreport(void);
@@ -1005,6 +1059,12 @@ VALUE rb_gcd_normal(VALUE self, VALUE other);
 VALUE rb_gcd_gmp(VALUE x, VALUE y);
 #endif
 
+/* string.c */
+#ifdef RUBY_ENCODING_H
+/* internal use */
+VALUE rb_setup_fake_str(struct RString *fake_str, const char *name, long len, rb_encoding *enc);
+#endif
+
 /* util.c */
 extern const signed char ruby_digit36_to_number_table[];
 
@@ -1020,6 +1080,7 @@ st_table *rb_st_copy(VALUE obj, struct st_table *orig_tbl);
 size_t rb_obj_memsize_of(VALUE);
 #define RB_OBJ_GC_FLAGS_MAX 5
 size_t rb_obj_gc_flags(VALUE, ID[], size_t);
+void rb_gc_mark_values(long n, const VALUE *values);
 
 RUBY_SYMBOL_EXPORT_END
 

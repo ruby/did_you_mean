@@ -29,15 +29,18 @@
  * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
  * SUCH DAMAGE.
  */
+
 #ifndef REGINT_H
 #ifndef RUBY_EXTERN
 #include "ruby/config.h"
 #include "ruby/defines.h"
 #endif
+#endif
+
 #ifdef ONIG_ESCAPE_UCHAR_COLLISION
 #undef ONIG_ESCAPE_UCHAR_COLLISION
 #endif
-#endif
+
 #include "ruby/oniguruma.h"
 
 RUBY_SYMBOL_EXPORT_BEGIN
@@ -99,15 +102,22 @@ typedef struct {
 
 
 typedef struct {
-  const UChar *name;
-  int       ctype;
   short int len;
+  const UChar name[6];
+  int       ctype;
 } PosixBracketEntryType;
 
-#define PosixBracketEntryInit(name, ctype) {(const UChar *)name, ctype, (short int)(sizeof(name) - 1)}
+#define POSIX_BRACKET_ENTRY_INIT(name, ctype) \
+  {(short int )(sizeof(name) - 1), (name), (ctype)}
+
+#ifndef numberof
+#define numberof(array) (int )(sizeof(array) / sizeof((array)[0]))
+#endif
+
 
 #define USE_CRNL_AS_LINE_TERMINATOR
 #define USE_UNICODE_PROPERTIES
+#define USE_UNICODE_AGE_PROPERTIES
 /* #define USE_UNICODE_CASE_FOLD_TURKISH_AZERI */
 /* #define USE_UNICODE_ALL_LINE_TERMINATORS */  /* see Unicode.org UTS #18 */
 
@@ -158,6 +168,7 @@ ONIG_EXTERN int onigenc_unicode_apply_all_case_fold P_((OnigCaseFoldType flag, O
 
 #define UTF16_IS_SURROGATE_FIRST(c)    (((c) & 0xfc) == 0xd8)
 #define UTF16_IS_SURROGATE_SECOND(c)   (((c) & 0xfc) == 0xdc)
+#define UTF16_IS_SURROGATE(c)          (((c) & 0xf8) == 0xd8)
 
 #define ONIGENC_ISO_8859_1_TO_LOWER_CASE(c) \
   OnigEncISO_8859_1_ToLowerCaseTable[c]
@@ -197,9 +208,9 @@ ONIG_EXTERN const unsigned short OnigEncAsciiCtypeTable[];
 
 
 #ifdef ONIG_ENC_REGISTER
-extern int ONIG_ENC_REGISTER(const char *, OnigEncodingType*);
+extern int ONIG_ENC_REGISTER(const char *, OnigEncoding);
 #define OnigEncodingName(n) encoding_##n
-#define OnigEncodingDeclare(n) static OnigEncodingType OnigEncodingName(n)
+#define OnigEncodingDeclare(n) static const OnigEncodingType OnigEncodingName(n)
 #define OnigEncodingDefine(f,n)			     \
     OnigEncodingDeclare(n);			     \
     void Init_##f(void) {			     \
@@ -209,7 +220,7 @@ extern int ONIG_ENC_REGISTER(const char *, OnigEncodingType*);
     OnigEncodingDeclare(n)
 #else
 #define OnigEncodingName(n) OnigEncoding##n
-#define OnigEncodingDeclare(n) OnigEncodingType OnigEncodingName(n)
+#define OnigEncodingDeclare(n) const OnigEncodingType OnigEncodingName(n)
 #define OnigEncodingDefine(f,n) OnigEncodingDeclare(n)
 #endif
 

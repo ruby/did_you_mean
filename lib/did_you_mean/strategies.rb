@@ -1,4 +1,5 @@
 require 'did_you_mean/strategies/null_finder'
+require 'did_you_mean/strategies/base_finder'
 
 module DidYouMean
   @@strategies = Hash.new(NullFinder)

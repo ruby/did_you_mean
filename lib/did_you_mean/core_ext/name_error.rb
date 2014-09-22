@@ -52,7 +52,7 @@ class NameError
   alias             to_s to_s_with_did_you_mean
 
   def did_you_mean?
-    method_finder.did_you_mean? if not method_finder.empty?
+    method_finder.did_you_mean?
   end
 
   def method_finder

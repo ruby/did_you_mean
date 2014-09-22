@@ -8,7 +8,7 @@ class SimilarAttributeFinderTest < Minitest::Test
   end
 
   def test_similar_columns
-    assert_includes @error.method_finder.similar_attributes.include, "first_name"
+    assert_includes @error.method_finder.similar_attributes, "first_name"
   end
 
   def test_did_you_mean?

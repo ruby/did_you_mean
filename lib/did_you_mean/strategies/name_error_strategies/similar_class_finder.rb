@@ -1,22 +1,9 @@
 module DidYouMean
-  class SimilarClassFinder
-    attr_reader :name, :original_message
+  class SimilarClassFinder < BaseFinder
+    attr_reader :class_name, :original_message
 
     def initialize(exception)
-      @name, @original_message = exception.name, exception.original_message
-    end
-
-    def did_you_mean?
-      return if empty?
-
-      output = "\n\n"
-      output << "   Did you mean? #{similar_classes.first}\n"
-      output << similar_classes[1..-1].map{|word| "#{' ' * 17}#{word}\n" }.join
-      output
-    end
-
-    def empty?
-      similar_classes.empty?
+      @class_name, @original_message = exception.name, exception.original_message
     end
 
     def similar_classes
@@ -30,11 +17,12 @@ module DidYouMean
         end
       end.flatten
     end
+    alias similar_words similar_classes
 
     private
 
     def name_from_message
-      name || /([A-Z]\w*$)/.match(original_message)[0]
+      class_name || /([A-Z]\w*$)/.match(original_message)[0]
     end
 
     def scope_base

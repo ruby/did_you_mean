@@ -1,5 +1,5 @@
 module DidYouMean
-  class SimilarAttributeFinder
+  class SimilarAttributeFinder < BaseFinder
     attr_reader :columns, :attribute_name
 
     def initialize(exception)
@@ -7,27 +7,18 @@ module DidYouMean
       @attribute_name = exception.original_message.gsub("unknown attribute: ", "")
     end
 
-    def did_you_mean?
-      return if empty?
-
-      output = "\n\n"
-      output << "    Did you mean? #{format(similar_columns.first)}\n"
-      output << similar_columns[1..-1].map{|word| "#{' ' * 18}#{format(word)}\n" }.join
-      output
+    def word_collection
+      columns.map(&:name)
     end
 
-    def empty?
-      similar_columns.empty?
-    end
+    alias similar_attributes similar_words
+    alias target_word attribute_name
 
-    def similar_columns
-      @similar_columns ||= MethodMatcher.new(columns.map(&:name), attribute_name).similar_methods
-    end
-
-    private
-
-    def format(name)
-      "%s: %s" % [name, columns.detect{|c| c.name == name }.type]
+    def format(column_name)
+      "%{column}: %{type}" % {
+        column: column_name,
+        type:   columns.detect{|c| c.name == column_name }.type
+      }
     end
   end
 

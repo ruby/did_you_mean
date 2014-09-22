@@ -32,9 +32,9 @@ class SimilarMethodFinderTest < Minitest::Test
 
   def test_similar_methods
     assert @errors[:from_instance_method].method_finder.similar_methods.include?(:first_name)
-    assert  @errors[:from_private_method].method_finder.similar_methods.include?(:friends)
-    assert   @errors[:from_module_method].method_finder.similar_methods.include?(:from_module)
-    assert    @errors[:from_class_method].method_finder.similar_methods.include?(:load)
+    assert @errors[:from_private_method].method_finder.similar_methods.include?(:friends)
+    assert @errors[:from_module_method].method_finder.similar_methods.include?(:from_module)
+    assert @errors[:from_class_method].method_finder.similar_methods.include?(:load)
   end
 
   def test_similar_methods_for_long_method_name
@@ -51,8 +51,8 @@ class SimilarMethodFinderTest < Minitest::Test
 
   def test_message
     assert_match @errors[:from_instance_method].did_you_mean?, @errors[:from_instance_method].message
-    assert_match  @errors[:from_private_method].did_you_mean?,  @errors[:from_private_method].message
-    assert_match   @errors[:from_module_method].did_you_mean?,   @errors[:from_module_method].message
-    assert_match    @errors[:from_class_method].did_you_mean?,    @errors[:from_class_method].message
+    assert_match @errors[:from_private_method].did_you_mean?,  @errors[:from_private_method].message
+    assert_match @errors[:from_module_method].did_you_mean?,   @errors[:from_module_method].message
+    assert_match @errors[:from_class_method].did_you_mean?,    @errors[:from_class_method].message
   end
 end

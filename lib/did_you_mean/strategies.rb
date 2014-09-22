@@ -1,16 +1,6 @@
+require 'did_you_mean/strategies/null_finder'
+
 module DidYouMean
-  class NullFinder
-    def self.build(*)
-      new
-    end
-
-    def did_you_mean?; end
-
-    def empty?
-      true
-    end
-  end
-
   @@strategies = Hash.new(NullFinder)
 
   def self.strategies

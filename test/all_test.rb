@@ -1,3 +1,4 @@
+require_relative 'null_finder_test'
 require_relative 'similar_name_finder_test'
 require_relative 'similar_method_finder_test'
 

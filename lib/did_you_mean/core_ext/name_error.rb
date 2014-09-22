@@ -1,30 +1,20 @@
-begin
-  require "binding_of_caller"
-rescue LoadError => e
-  puts "could not load binding_of_caller. please make sure it is included in the Gemfile."
-  raise e
-end
+require "binding_of_caller"
 
 class NameError
   begin
     require "active_support/core_ext/name_error"
 
-    if method_defined?(:missing_name)
-      def missing_name_without_did_you_mean
-        if /undefined local variable or method/ !~ original_message
-          $1 if /((::)?([A-Z]\w*)(::[A-Z]\w*)*)$/ =~ original_message
-        end
+    def missing_name_without_did_you_mean
+      if /undefined local variable or method/ !~ original_message
+        $1 if /((::)?([A-Z]\w*)(::[A-Z]\w*)*)$/ =~ original_message
       end
+    end if method_defined?(:missing_name)
 
-      alias missing_name_with_did_you_mean missing_name
-      alias missing_name missing_name_without_did_you_mean
-    end
-  rescue LoadError
-  end
+    alias missing_name_with_did_you_mean missing_name
+    alias missing_name missing_name_without_did_you_mean
+  rescue LoadError; end
 
-  original_set_backtrace = instance_method(:set_backtrace)
-
-  define_method :set_backtrace do |*args|
+  def set_backtrace_with_exception_lock(*args)
     unless Thread.current[:__did_you_mean_exception_lock]
       Thread.current[:__did_you_mean_exception_lock] = true
       begin
@@ -33,15 +23,14 @@ class NameError
         Thread.current[:__did_you_mean_exception_lock] = false
       end
     end
-    original_set_backtrace.bind(self).call(*args)
-  end
-  
-  def __did_you_mean_bindings_stack
-    @__did_you_mean_bindings_stack || []
+    set_backtrace_without_exception_lock(*args)
   end
 
+  alias set_backtrace_without_exception_lock set_backtrace
+  alias set_backtrace set_backtrace_with_exception_lock
+
   def frame_binding
-    @frame_binding ||= __did_you_mean_bindings_stack.first
+    @frame_binding ||= (@__did_you_mean_bindings_stack || []).first
   end
 
   def to_s_with_did_you_mean

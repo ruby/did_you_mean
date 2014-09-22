@@ -18,6 +18,10 @@ appraise "activerecord_41" do
   gem "activerecord", "~> 4.1.0"
 end
 
+appraise "activerecord_42" do
+  gem "activerecord", "~> 4.2.0.beta1"
+end
+
 appraise "activerecord_edge" do
   git 'git://github.com/rails/rails.git' do
     gem 'activerecord', require: 'activerecord'

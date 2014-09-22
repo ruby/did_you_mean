@@ -6,6 +6,8 @@ rvm:
   - 2.1.0
   - 2.1.1
   - 2.1.2
+  - 2.1.3
+  - 2.2.0-preview1
   - ruby-head
 
 gemfile:
@@ -14,6 +16,7 @@ gemfile:
   - gemfiles/activerecord_32.gemfile
   - gemfiles/activerecord_40.gemfile
   - gemfiles/activerecord_41.gemfile
+  - gemfiles/activerecord_42.gemfile
   - gemfiles/activerecord_edge.gemfile
 
 matrix:

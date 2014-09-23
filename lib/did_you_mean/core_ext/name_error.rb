@@ -31,7 +31,7 @@ class NameError
   end
 
   def to_s_with_did_you_mean
-    original_message + did_you_mean?.to_s
+    original_message + did_you_mean?.to_s rescue original_message
   end
 
   alias original_message to_s

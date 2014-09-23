@@ -4,14 +4,11 @@ class NameError
   begin
     require "active_support/core_ext/name_error"
 
-    def missing_name_without_did_you_mean
+    def missing_name
       if /undefined local variable or method/ !~ original_message
         $1 if /((::)?([A-Z]\w*)(::[A-Z]\w*)*)$/ =~ original_message
       end
     end if method_defined?(:missing_name)
-
-    alias missing_name_with_did_you_mean missing_name
-    alias missing_name missing_name_without_did_you_mean
   rescue LoadError; end
 
   def set_backtrace_with_exception_lock(*args)

@@ -10,7 +10,7 @@ module DidYouMean
       output = "\n\n"
       output << "    Did you mean? #{format(similar_words.first)}\n"
       output << similar_words[1..-1].map{|word| "#{' ' * 18}#{format(word)}\n" }.join
-      output
+      output << " " # for pry
     end
 
     def similar_words

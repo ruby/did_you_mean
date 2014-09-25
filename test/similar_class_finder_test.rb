@@ -30,7 +30,7 @@ class SimpleSimilarClassFinderTest < Minitest::Test
   end
 
   def test_similar_classes
-    assert @error.method_finder.similar_classes.include?("Book")
+    assert_includes @error.method_finder.similar_classes, "Book"
   end
 end
 
@@ -40,7 +40,7 @@ class SimilarClassFinderInsideClassTest < Minitest::Test
   end
 
   def test_similar_classes
-    assert @error.method_finder.similar_classes.include?("Book")
+    assert_includes @error.method_finder.similar_classes, "Book"
   end
 end
 
@@ -50,7 +50,7 @@ class SimilarClassFinderInsideNestedClassTest < Minitest::Test
   end
 
   def test_similar_classes
-    assert @error.method_finder.similar_classes.include?("Book::TableOfContents")
+    assert_includes @error.method_finder.similar_classes, "Book::TableOfContents"
   end
 end
 
@@ -60,7 +60,7 @@ class SimilarClassFinderForClassWithNamespaceTest < Minitest::Test
   end
 
   def test_similar_classes
-    assert @error.method_finder.similar_classes.include?("Book::TableOfContents")
+    assert_includes @error.method_finder.similar_classes, "Book::TableOfContents"
   end
 end
 
@@ -70,7 +70,7 @@ class SimilarClassFinderFromInstanceTest < Minitest::Test
   end
 
   def test_similar_classes
-    assert @error.method_finder.similar_classes.include?("Book::TableOfContents")
+    assert_includes @error.method_finder.similar_classes, "Book::TableOfContents"
   end
 end
 
@@ -80,6 +80,6 @@ class SimilarClassFinderFromNestedInstanceTest < Minitest::Test
   end
 
   def test_similar_classes
-    assert @error.method_finder.similar_classes.include?("Book::TableOfContents")
+    assert_includes @error.method_finder.similar_classes, "Book::TableOfContents"
   end
 end

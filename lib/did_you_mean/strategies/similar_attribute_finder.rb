@@ -7,7 +7,7 @@ module DidYouMean
       @attribute_name = exception.original_message.gsub("unknown attribute: ", "")
     end
 
-    def word_collection
+    def words
       columns.map(&:name)
     end
 

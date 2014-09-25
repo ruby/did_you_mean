@@ -6,7 +6,7 @@ module DidYouMean
       @method_name, @receiver = exception.name, exception.args.first
     end
 
-    def word_collection
+    def words
       receiver.methods + receiver.singleton_methods
     end
 

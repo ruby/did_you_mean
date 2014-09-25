@@ -35,11 +35,11 @@ module DidYouMean
     end
 
     def similar_methods
-      @similar_methods ||= DidYouMean::MethodMatcher.new(_methods, name).similar_methods
+      @similar_methods ||= WordCollection.new(_methods).similar_to(name)
     end
 
     def similar_local_variables
-      @similar_local_variables ||= DidYouMean::MethodMatcher.new(_local_variables, name).similar_methods
+      @similar_local_variables ||= WordCollection.new(_local_variables).similar_to(name)
     end
 
     def undefined_local_variable_or_method?

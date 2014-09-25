@@ -8,7 +8,7 @@ module DidYouMean
 
     def similar_classes
       @similar_classes ||= scopes.map do |scope|
-        DidYouMean::MethodMatcher.new(scope.constants, name_from_message).similar_methods.map do |constant_name|
+        WordCollection.new(scope.constants).similar_to(name_from_message).map do |constant_name|
           if scope === Object
             constant_name.to_s
           else

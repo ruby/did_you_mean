@@ -14,7 +14,7 @@ module DidYouMean
     end
 
     def similar_words
-      @similar_words ||= MethodMatcher.new(word_collection, target_word).similar_methods
+      @similar_words ||= WordCollection.new(words).similar_to(target_word)
     end
 
     def empty?

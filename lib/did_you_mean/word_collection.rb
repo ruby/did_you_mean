@@ -1,22 +1,24 @@
 module DidYouMean
-  class MethodMatcher
-    attr_reader :method_collection, :target_method
+  class WordCollection
+    include Enumerable
+    attr_reader :words
 
-    def initialize(method_collection, target_method)
-      @method_collection = method_collection.uniq
-      @target_method     = target_method.to_s
+    def initialize(words)
+      @words = words.uniq
     end
 
-    def similar_methods
-      @similar_methods ||= method_collection.select do |method|
-        Levenshtein.distance(method.to_s, target_method) <= threshold
+    def each(&block) words.each(&block); end
+
+    def similar_to(target_word)
+      select do |word|
+        Levenshtein.distance(word.to_s, target_word.to_s) <= threshold(target_word)
       end
     end
 
     private
 
-    def threshold
-      (target_method.size * 0.3).ceil
+    def threshold(word)
+      (word.size * 0.3).ceil
     end
   end
 

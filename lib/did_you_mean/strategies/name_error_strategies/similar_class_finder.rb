@@ -6,33 +6,47 @@ module DidYouMean
       @class_name, @original_message = exception.name, exception.original_message
     end
 
-    def similar_classes
-      @similar_classes ||= scopes.map do |scope|
-        WordCollection.new(scope.constants).similar_to(name_from_message).map do |constant_name|
-          if scope === Object
-            constant_name.to_s
-          else
-            "#{scope}::#{constant_name}"
-          end
+    def similar_words
+      super.map(&:full_name)
+    end
+    alias similar_classes similar_words
+
+    def words
+      scopes.map do |scope|
+        scope.constants.map do |constant_name|
+          ConstantName.new(constant_name, scope)
         end
       end.flatten
     end
-    alias similar_words similar_classes
-
-    private
 
     def name_from_message
       class_name || /([A-Z]\w*$)/.match(original_message)[0]
     end
-
-    def scope_base
-      @scope_base ||= (/(([A-Z]\w*::)*)([A-Z]\w*)$/ =~ original_message ? $1 : "").split("::")
-    end
+    alias target_word name_from_message
 
     def scopes
       @scopes ||= scope_base.size.times.map do |count|
         eval(scope_base[0..(- count)].join("::"))
       end.reverse << Object
+    end
+
+    private
+
+    def scope_base
+      @scope_base ||= (/(([A-Z]\w*::)*)([A-Z]\w*)$/ =~ original_message ? $1 : "").split("::")
+    end
+
+    class ConstantName < String
+      attr_reader :scope
+
+      def initialize(str, scope)
+        super(str.to_s)
+        @scope = scope.to_s
+      end
+
+      def full_name
+        scope == "Object" ? to_s : "#{scope}::#{to_s}"
+      end
     end
   end
 end

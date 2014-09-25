@@ -1,5 +1,5 @@
 module DidYouMean
-  class SimilarNameFinder
+  class SimilarNameFinder < BaseFinder
     attr_reader :name, :_methods, :_local_variables, :original_message
 
     def initialize(exception)
@@ -9,41 +9,48 @@ module DidYouMean
       @original_message = exception.original_message
     end
 
-    def did_you_mean?
-      return if empty?
-
-      output = "\n\n"
-      output << "   Did you mean?\n"
-
-      unless similar_methods.empty?
-        output << "     instance methods: ##{similar_methods.first}\n"
-        output << similar_methods[1..-1].map{|word| "#{' ' * 23}##{word}\n" }.join
-      end
-
-      output << "\n" if !similar_methods.empty? && !similar_local_variables.empty?
-
-      unless similar_local_variables.empty?
-        output << "      local variables: #{similar_local_variables.map.first}\n"
-        output << similar_local_variables[1..-1].map{|word| "#{' ' * 23}##{word}\n" }.join
-      end
-
-      output
+    def words
+      local_variable_names + method_names
     end
 
-    def empty?
-      !undefined_local_variable_or_method? || (similar_methods.empty? && similar_local_variables.empty?)
+    alias target_word name
+
+    def local_variable_names
+      _local_variables.map {|word| LocalVariableName.new(word.to_s) }
+    end
+
+    def method_names
+      _methods.map {|word| MethodName.new(word.to_s) }
     end
 
     def similar_methods
-      @similar_methods ||= WordCollection.new(_methods).similar_to(name)
+      similar_words.select{|word| word.is_a?(MethodName) }
     end
 
     def similar_local_variables
-      @similar_local_variables ||= WordCollection.new(_local_variables).similar_to(name)
+      similar_words.select{|word| word.is_a?(LocalVariableName) }
+    end
+
+    def empty?
+      !undefined_local_variable_or_method? || super
     end
 
     def undefined_local_variable_or_method?
       original_message.include?("undefined local variable or method")
+    end
+
+    private
+
+    def format(word)
+      "#{word.prefix}#{word}"
+    end
+
+    class MethodName < String
+      def prefix; "#"; end
+    end
+
+    class LocalVariableName < String
+      def prefix; ""; end
     end
   end
 end

@@ -4,7 +4,7 @@ module DidYouMean
     attr_reader :words
 
     def initialize(words)
-      @words = words.uniq
+      @words = words
     end
 
     def each(&block) words.each(&block); end

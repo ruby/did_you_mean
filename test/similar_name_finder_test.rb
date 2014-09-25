@@ -36,14 +36,10 @@ class SimilarNameFinderTest < Minitest::Test
   end
 
   def test_did_you_mean?
-    assert_match "Did you mean?", @errors[:from_instance_method].did_you_mean?
-    assert_match "instance methods: #first_name", @errors[:from_instance_method].did_you_mean?
+    assert_match "Did you mean? #first_name",  @errors[:from_instance_method].did_you_mean?
+    assert_match "Did you mean? #from_module", @errors[:from_module_method].did_you_mean?
 
-    assert_match "Did you mean?", @errors[:from_module_method].did_you_mean?
-    assert_match "instance methods: #from_module", @errors[:from_module_method].did_you_mean?
-
-    assert_match "Did you mean?", @instance_variable_error.did_you_mean?
-    assert_match "local variables: user", @instance_variable_error.did_you_mean?
+    assert_match "Did you mean? user", @instance_variable_error.did_you_mean?
   end
 
   def test_message

@@ -20,16 +20,16 @@ module DidYouMean
       _local_variables.map {|word| LocalVariableName.new(word.to_s) }
     end
 
+    def similar_local_variables
+      similar_words.select{|word| word.is_a?(LocalVariableName) }
+    end
+
     def method_names
       _methods.map {|word| MethodName.new(word.to_s) }
     end
 
     def similar_methods
       similar_words.select{|word| word.is_a?(MethodName) }
-    end
-
-    def similar_local_variables
-      similar_words.select{|word| word.is_a?(LocalVariableName) }
     end
 
     def empty?

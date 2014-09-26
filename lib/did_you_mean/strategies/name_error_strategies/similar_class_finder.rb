@@ -7,18 +7,16 @@ module DidYouMean
       @class_name, @original_message = exception.name, exception.original_message
     end
 
+    def words
+      scopes.map do |scope|
+        scope.constants.map {|name| ConstantName.new(name, scope) }
+      end.flatten
+    end
+
     def similar_words
       super.map(&:full_name)
     end
     alias similar_classes similar_words
-
-    def words
-      scopes.map do |scope|
-        scope.constants.map do |constant_name|
-          ConstantName.new(constant_name, scope)
-        end
-      end.flatten
-    end
 
     def name_from_message
       class_name || /([A-Z]\w*$)/.match(original_message)[0]

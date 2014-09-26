@@ -15,11 +15,11 @@ module DidYouMean
         e = i + 1
         str2.each_char.each_with_index do |char2, j|
           cost = (char1 == char2) ? 0 : 1
-          x = min3(
+          x = [
             d[j+1] + 1, # insertion
             e + 1,      # deletion
             d[j] + cost # substitution
-          )
+          ].min
           d[j] = e
           e = x
         end
@@ -29,18 +29,5 @@ module DidYouMean
       x
     end
     module_function :distance
-
-    private
-
-    def min3(a, b, c) # :nodoc:
-      if a < b && a < c
-        a
-      elsif b < a && b < c
-        b
-      else
-        c
-      end
-    end
-    module_function :min3
   end
 end

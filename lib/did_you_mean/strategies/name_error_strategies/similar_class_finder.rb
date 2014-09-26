@@ -1,5 +1,6 @@
 module DidYouMean
-  class SimilarClassFinder < BaseFinder
+  class SimilarClassFinder
+    include BaseFinder
     attr_reader :class_name, :original_message
 
     def initialize(exception)

@@ -1,5 +1,6 @@
 module DidYouMean
-  class SimilarAttributeFinder < BaseFinder
+  class SimilarAttributeFinder
+    include BaseFinder
     attr_reader :columns, :attribute_name
 
     def initialize(exception)

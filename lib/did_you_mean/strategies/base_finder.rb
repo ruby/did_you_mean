@@ -1,9 +1,5 @@
 module DidYouMean
-  class BaseFinder
-    def new(*)
-      raise NotImplementedError, "DidYouMean::BaseFinder is an abstract class"
-    end
-
+  module BaseFinder
     def did_you_mean?
       return if empty?
 

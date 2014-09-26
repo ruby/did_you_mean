@@ -1,5 +1,6 @@
 module DidYouMean
-  class SimilarMethodFinder < BaseFinder
+  class SimilarMethodFinder
+    include BaseFinder
     attr_reader :method_name, :receiver
 
     def initialize(exception)

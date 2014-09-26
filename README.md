@@ -1,8 +1,77 @@
-# Did You Mean!?? [![Build Status](https://travis-ci.org/yuki24/did_you_mean.png?branch=master)](https://travis-ci.org/yuki24/did_you_mean)
+# did_you_mean [![Build Status](https://travis-ci.org/yuki24/did_you_mean.svg?branch=master)](https://travis-ci.org/yuki24/did_you_mean)
 
-Google tells you the right keyword if you made a typo. This gem gives similar experience when you get `NoMethodError` or `NameError` in Ruby.
+'Did you mean?' experience in Ruby. No, Really.
+
+## Installation
+
+Add this line to your application's Gemfile:
+
+```
+gem 'did_you_mean', group: [:development, :test]
+```
 
 ## Examples
+
+### NameError
+
+#### Correcting a Misspelled Method Name
+
+```ruby
+class User
+  attr_accessor :first_name, :last_name
+
+  def to_s
+    "#{f1rst_name} #{last_name}" # f1rst_name ???
+  end
+end
+
+user.to_s
+# => NameError: undefined local variable or method `f1rst_name' for #<User:0x0000000928fad8>
+#
+#     Did you mean? #first_name
+#
+```
+
+#### Correcting a Misspelled Class Name
+
+```ruby
+class Book
+  class TableOfContents
+    # ...
+  end
+end
+
+Book::TableofContents # TableofContents ???
+# => NameError: uninitialized constant Book::TableofContents
+#
+#     Did you mean? Book::TableOfContents
+#
+```
+
+### NoMethodError
+
+```ruby
+# In a Rails controller:
+params.with_inddiferent_access
+# => NoMethodError: undefined method `with_inddiferent_access' for {}:Hash
+#
+#     Did you mean? #with_indifferent_access
+#
+```
+
+### ActiveRecord::UnknownAttributeError
+
+```ruby
+User.new(nmee: "wrong flrst name")
+# => ActiveRecord::UnknownAttributeError: unknown attribute: nmee
+#
+#     Did you mean? name: string
+#
+```
+
+## 'Did You Mean' Experience is Everywhere
+
+*did\_you\_mean* gem saves your time in almost any situlations.
 
 On irb:
 
@@ -12,21 +81,13 @@ On rspec:
 
 ![Did you mean? on BetterErrors](https://raw2.github.com/yuki24/did_you_mean/1c6cdc7c425325671752d261dcadd1e048e1dcad/docs/rspec_example.png)
 
-On BetterErrors:
+And even on BetterErrors:
 
 ![Did you mean? on BetterErrors](https://raw2.github.com/yuki24/did_you_mean/4e6d4b405777f44ecb2a0e28c4abb1e438aa33ff/docs/better_errors_example.png)
 
-## Installation
-
-Add this line to your application's Gemfile:
-
-```
-gem 'did_you_mean', :group => :development
-```
-
 ### Support
 
-This gem only supports Ruby 1.9.3, 2.0.0, 2.1.0, 2.1.1, 2.1.2 and ruby-head. All other ruby implementations are **NOT** supported.
+This gem only supports Ruby 1.9.3, 2.0.0, 2.1.x, 2.2.0-preview1 and ruby-head. Any other ruby implementations are **NOT** supported.
 
 ## Contributing
 

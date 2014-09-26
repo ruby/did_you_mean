@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Yuki Nishijima"]
   spec.email         = ["mail@yukinishijima.net"]
   spec.summary       = '"Did you mean?" experience in Ruby'
-  spec.description   = 'It adds "did you mean?" experience on NoMethodError and NameError because of a typo.'
+  spec.description   = '"did you mean?" experience in Ruby: the error message will tell you the right one when you misspelled something.'
   spec.homepage      = "https://github.com/yuki24/did_you_mean"
   spec.license       = "MIT"
 

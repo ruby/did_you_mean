@@ -1,4 +1,4 @@
-script: "bundle install && bundle exec rake test"
+script: bundle exec rake test
 
 rvm:
   - 1.9.3

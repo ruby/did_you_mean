@@ -1,18 +1,13 @@
-require "bundler/gem_tasks"
+require 'bundler/gem_tasks'
+require 'rake/extensiontask'
 
-begin
-  require 'rake/extensiontask'
-
-  Rake::ExtensionTask.new('did_you_mean') do |ext|
-    ext.name    = "method_missing"
-    ext.lib_dir = "lib/did_you_mean"
-  end
-rescue LoadError
-  abort "This Rakefile requires rake-compiler (gem install rake-compiler)"
+Rake::ExtensionTask.new('did_you_mean') do |ext|
+  ext.name    = "method_missing"
+  ext.lib_dir = "lib/did_you_mean"
 end
 
 desc "run tests"
-task :default => [:test]
+task default: [:test]
 
 desc "Run tests"
 task :test do

@@ -1,6 +1,6 @@
-require "binding_of_caller"
-
 class NameError
+  attr_reader :frame_binding
+
   begin
     require "active_support/core_ext/name_error"
 
@@ -10,25 +10,6 @@ class NameError
       end
     end if method_defined?(:missing_name)
   rescue LoadError; end
-
-  def set_backtrace_with_exception_lock(*args)
-    unless Thread.current[:__did_you_mean_exception_lock]
-      Thread.current[:__did_you_mean_exception_lock] = true
-      begin
-        @__did_you_mean_bindings_stack = binding.callers.drop(1)
-      ensure
-        Thread.current[:__did_you_mean_exception_lock] = false
-      end
-    end
-    set_backtrace_without_exception_lock(*args)
-  end
-
-  alias set_backtrace_without_exception_lock set_backtrace
-  alias set_backtrace set_backtrace_with_exception_lock
-
-  def frame_binding
-    @frame_binding ||= (@__did_you_mean_bindings_stack || []).first
-  end
 
   def to_s_with_did_you_mean
     original_message + did_you_mean?.to_s rescue original_message

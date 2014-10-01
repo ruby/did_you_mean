@@ -25,6 +25,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rake"
   spec.add_development_dependency "rake-compiler"
   spec.add_development_dependency "wwtd"
-  spec.add_development_dependency "sqlite3"
   spec.add_development_dependency "minitest"
 end

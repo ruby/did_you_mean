@@ -6,6 +6,8 @@ rvm:
   - 2.1
   - 2.2.0-preview1
   - ruby-head
+  - jruby
+  - rbx
 
 gemfile:
   - gemfiles/activerecord_30.gemfile
@@ -17,4 +19,7 @@ gemfile:
   - gemfiles/activerecord_edge.gemfile
 
 matrix:
+  allow_failures:
+    - rvm: jruby
+    - rvm: rbx
   fast_finish: true

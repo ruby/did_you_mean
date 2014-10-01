@@ -6,7 +6,7 @@
 
 Add this line to your application's Gemfile:
 
-```
+```ruby
 gem 'did_you_mean', group: [:development, :test]
 ```
 

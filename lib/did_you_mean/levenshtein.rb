@@ -11,17 +11,16 @@ module DidYouMean
       d = (0..m).to_a
       x = nil
 
-      str1.each_char.each_with_index do |char1, i|
-        e = i + 1
-        str2.each_char.each_with_index do |char2, j|
+      str1.each_char.with_index(1) do |char1, i|
+        str2.each_char.with_index do |char2, j|
           cost = (char1 == char2) ? 0 : 1
           x = min3(
             d[j+1] + 1, # insertion
-            e + 1,      # deletion
+            i + 1,      # deletion
             d[j] + cost # substitution
           )
-          d[j] = e
-          e = x
+          d[j] = i
+          i = x
         end
         d[m] = x
       end

@@ -19,10 +19,10 @@ class NameError
   alias             to_s to_s_with_did_you_mean
 
   def did_you_mean?
-    method_finder.did_you_mean?
+    finder.did_you_mean?
   end
 
-  def method_finder
-    @method_finder ||= DidYouMean.finders[self.class.to_s].new(self)
+  def finder
+    @finder ||= DidYouMean.finders[self.class.to_s].new(self)
   end
 end

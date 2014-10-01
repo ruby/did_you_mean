@@ -31,15 +31,15 @@ class SimilarMethodFinderTest < Minitest::Test
   end
 
   def test_similar_methods
-    assert_includes @errors[:from_instance_method].method_finder.similar_methods, :first_name
-    assert_includes @errors[:from_private_method].method_finder.similar_methods, :friends
-    assert_includes @errors[:from_module_method].method_finder.similar_methods, :from_module
-    assert_includes @errors[:from_class_method].method_finder.similar_methods, :load
+    assert_includes @errors[:from_instance_method].finder.similar_methods, :first_name
+    assert_includes @errors[:from_private_method].finder.similar_methods, :friends
+    assert_includes @errors[:from_module_method].finder.similar_methods, :from_module
+    assert_includes @errors[:from_class_method].finder.similar_methods, :load
   end
 
   def test_similar_methods_for_long_method_name
     error = assert_raises(NoMethodError){ User.new.dependents }
-    assert_includes error.method_finder.similar_methods, :descendants
+    assert_includes error.finder.similar_methods, :descendants
   end
 
   def test_did_you_mean?

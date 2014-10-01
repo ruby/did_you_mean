@@ -1,5 +1,5 @@
 module DidYouMean
-  module NameErrorStrategies
+  module NameErrorFinders
     def self.included(*)
       raise "Do not include this module since it overrides Class.new method."
     end
@@ -15,8 +15,8 @@ module DidYouMean
     end
   end
 
-  strategies["NameError"] = NameErrorStrategies
+  finders["NameError"] = NameErrorFinders
 end
 
-require 'did_you_mean/strategies/name_error_strategies/similar_name_finder'
-require 'did_you_mean/strategies/name_error_strategies/similar_class_finder'
+require 'did_you_mean/finders/name_error_finders/similar_name_finder'
+require 'did_you_mean/finders/name_error_finders/similar_class_finder'

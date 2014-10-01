@@ -27,5 +27,5 @@ module DidYouMean
     end
   end
 
-  strategies["NoMethodError"] = SimilarMethodFinder
+  finders["NoMethodError"] = SimilarMethodFinder
 end

@@ -23,5 +23,5 @@ module DidYouMean
     end
   end
 
-  strategies["ActiveRecord::UnknownAttributeError"] = SimilarAttributeFinder
+  finders["ActiveRecord::UnknownAttributeError"] = SimilarAttributeFinder
 end

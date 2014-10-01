@@ -23,16 +23,16 @@ module DidYouMean
     def did_you_mean?; end
   end
 
-  def self.strategies
-    @@strategies ||= Hash.new(NullFinder)
+  def self.finders
+    @@finders ||= Hash.new(NullFinder)
   end
 end
 
-require 'did_you_mean/strategies/name_error_strategies'
-require 'did_you_mean/strategies/similar_attribute_finder'
+require 'did_you_mean/finders/name_error_finders'
+require 'did_you_mean/finders/similar_attribute_finder'
 
 begin
   require 'did_you_mean/method_missing'
-  require 'did_you_mean/strategies/similar_method_finder'
+  require 'did_you_mean/finders/similar_method_finder'
 rescue LoadError
 end

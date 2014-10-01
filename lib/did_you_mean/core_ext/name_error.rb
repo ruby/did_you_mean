@@ -23,6 +23,6 @@ class NameError
   end
 
   def method_finder
-    @method_finder ||= DidYouMean.strategies[self.class.to_s].new(self)
+    @method_finder ||= DidYouMean.finders[self.class.to_s].new(self)
   end
 end

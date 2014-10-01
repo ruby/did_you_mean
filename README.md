@@ -71,7 +71,7 @@ User.new(nmee: "wrong flrst name")
 
 ## 'Did You Mean' Experience is Everywhere
 
-*did\_you\_mean* gem saves your time in almost any situlations.
+*did\_you\_mean* gem saves your time in almost any situations.
 
 On irb:
 

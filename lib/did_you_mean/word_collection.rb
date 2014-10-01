@@ -12,8 +12,10 @@ module DidYouMean
     def each(&block) words.each(&block); end
 
     def similar_to(target_word)
+      target_word_str = target_word.to_s
+      threshold = threshold(target_word)
       select do |word|
-        Levenshtein.distance(word.to_s, target_word.to_s) <= threshold(target_word)
+        Levenshtein.distance(word.to_s, target_word_str) <= threshold
       end
     end
 

@@ -1,4 +1,4 @@
-# did_you_mean [![Build Status](https://travis-ci.org/yuki24/did_you_mean.svg?branch=master)](https://travis-ci.org/yuki24/did_you_mean)
+# did_you_mean [![Gem Version](https://badge.fury.io/rb/did_you_mean.svg)](http://badge.fury.io/rb/did_you_mean) [![Build Status](https://travis-ci.org/yuki24/did_you_mean.svg?branch=master)](https://travis-ci.org/yuki24/did_you_mean)
 
 'Did you mean?' experience in Ruby. No, Really.
 

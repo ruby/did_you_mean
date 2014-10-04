@@ -12,7 +12,6 @@ module DidYouMean
       columns.map(&:name)
     end
 
-    alias similar_attributes similar_words
     alias target_word attribute_name
 
     def format(column_name)

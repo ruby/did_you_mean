@@ -26,9 +26,9 @@ class SimilarNameFinderTest < Minitest::Test
     end
   end
 
-  def test_similar_methods
-    assert_includes @errors[:from_instance_method].finder.similar_methods, "first_name"
-    assert_includes @errors[:from_module_method].finder.similar_methods, "from_module"
+  def test_similar_words
+    assert_includes @errors[:from_instance_method].finder.similar_words, "first_name"
+    assert_includes @errors[:from_module_method].finder.similar_words, "from_module"
   end
 
   def test_similar_local_variables

@@ -13,15 +13,14 @@ module DidYouMean
       end.flatten
     end
 
-    def similar_words
-      super.map(&:full_name)
-    end
-    alias similar_classes similar_words
-
     def name_from_message
       class_name || /([A-Z]\w*$)/.match(original_message)[0]
     end
     alias target_word name_from_message
+
+    def similar_words
+      super.map(&:full_name)
+    end
 
     def scopes
       @scopes ||= scope_base.size.times.map do |count|

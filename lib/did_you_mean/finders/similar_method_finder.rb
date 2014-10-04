@@ -11,7 +11,6 @@ module DidYouMean
       receiver.methods + receiver.singleton_methods
     end
 
-    alias similar_methods similar_words
     alias target_word method_name
 
     def format(word)

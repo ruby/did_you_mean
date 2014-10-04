@@ -14,6 +14,5 @@ end
 platforms :rbx do
   gem 'rubysl', '~> 2.0'
   gem 'racc'
-  gem 'minitest'
   gem 'rubinius-developer_tools'
 end

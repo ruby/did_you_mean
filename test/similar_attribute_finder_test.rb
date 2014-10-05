@@ -7,15 +7,11 @@ class SimilarAttributeFinderTest < Minitest::Test
     end
   end
 
-  def test_similar_columns
+  def test_similar_words
     assert_includes @error.finder.similar_words, "first_name"
   end
 
   def test_did_you_mean?
     assert_match "Did you mean? first_name: string", @error.did_you_mean?
-  end
-
-  def test_message
-    assert_match @error.did_you_mean?, @error.message
   end
 end

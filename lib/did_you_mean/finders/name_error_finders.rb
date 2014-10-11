@@ -7,8 +7,10 @@ module DidYouMean
     def self.new(exception)
       klass = if /uninitialized constant/ =~ exception.original_message
         SimilarClassFinder
-      else
+      elsif /undefined local variable or method/ =~ exception.original_message
         SimilarNameFinder
+      else
+        NullFinder
       end
 
       klass.new(exception)

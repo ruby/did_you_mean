@@ -32,14 +32,6 @@ module DidYouMean
       similar_words.select{|word| word.is_a?(MethodName) }
     end
 
-    def empty?
-      !undefined_local_variable_or_method? || super
-    end
-
-    def undefined_local_variable_or_method?
-      original_message.include?("undefined local variable or method")
-    end
-
     private
 
     def format(word)

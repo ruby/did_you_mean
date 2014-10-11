@@ -1,13 +1,12 @@
 module DidYouMean
   class SimilarNameFinder
     include BaseFinder
-    attr_reader :name, :_methods, :_local_variables, :original_message
+    attr_reader :name, :_methods, :_local_variables
 
     def initialize(exception)
       @name             = exception.name
       @_methods         = exception.frame_binding.eval("methods")
       @_local_variables = exception.frame_binding.eval("local_variables")
-      @original_message = exception.original_message
     end
 
     def words
@@ -31,8 +30,6 @@ module DidYouMean
     def similar_methods
       similar_words.select{|word| word.is_a?(MethodName) }
     end
-
-    private
 
     def format(word)
       "#{word.prefix}#{word}"

@@ -8,9 +8,9 @@ module DidYouMean
     end
 
     def words
-      scopes.map do |scope|
+      scopes.flat_map do |scope|
         scope.constants.map {|name| ConstantName.new(name, scope) }
-      end.flatten
+      end
     end
 
     def name_from_message

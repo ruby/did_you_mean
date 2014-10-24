@@ -13,12 +13,11 @@ module DidYouMean
 
       str1.each_char.with_index(1) do |char1, i|
         str2.each_char.with_index do |char2, j|
-          cost = (char1 == char2) ? 0 : 1
-          x = min3(
-            d[j+1] + 1, # insertion
-            i + 1,      # deletion
-            d[j] + cost # substitution
-          )
+          insertion_cost    = d[j+1] + 1
+          deletion_cost     = i + 1
+          substitution_cost = d[j] + ((char1 == char2) ? 0 : 1)
+
+          x = [insertion_cost, deletion_cost, substitution_cost].min
           d[j] = i
           i = x
         end
@@ -28,18 +27,5 @@ module DidYouMean
       x
     end
     module_function :distance
-
-    private
-
-    def min3(a, b, c) # :nodoc:
-      if a < b && a < c
-        a
-      elsif b < c
-        b
-      else
-        c
-      end
-    end
-    module_function :min3
   end
 end

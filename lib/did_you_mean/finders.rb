@@ -1,3 +1,5 @@
+require "did_you_mean/word_collection"
+
 module DidYouMean
   module BaseFinder
     def did_you_mean?

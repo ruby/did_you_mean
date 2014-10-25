@@ -20,9 +20,12 @@ if mri?
     Rake::Task['compile'].reenable
     Rake::Task['compile'].invoke
 
-    $stdout.puts("\033[33m")
-    sh "bundle exec ruby test/all_test.rb"
-    $stdout.puts("\033[0m")
+    begin
+      $stdout.puts("\033[33m")
+      sh "bundle exec ruby test/all_test.rb"
+    ensure
+      $stdout.puts("\033[0m")
+    end
 
     Rake::Task['clobber'].execute
   end

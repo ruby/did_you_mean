@@ -71,23 +71,18 @@ User.new(nmee: "wrong flrst name")
 
 ## 'Did You Mean' Experience is Everywhere
 
-*did\_you\_mean* gem saves your time in almost any situations.
+_did\_you\_mean_ gem automagically puts method suggestions into the error message. This means you'll have the "Did you mean?" experience almost everywhere:
 
-On irb:
+![Did you mean? on BetterErrors](https://raw2.github.com/yuki24/did_you_mean/master/docs/did_you_mean_example.png)
 
-![Did you mean? on BetterErrors](https://raw2.github.com/yuki24/did_you_mean/86fbb784a6783a20774a34b9d02553cfb5ab54b0/docs/irb_example.png)
+## Support
 
-On rspec:
+_did\_you\_mean_ gem supports the following implementations:
 
-![Did you mean? on BetterErrors](https://raw2.github.com/yuki24/did_you_mean/1c6cdc7c425325671752d261dcadd1e048e1dcad/docs/rspec_example.png)
+ * MRI 1.9.3, 2.0.0, 2.1.x, 2.2.0-preview1 and ruby-head
+ * JRuby (tested against 1.7.16)
 
-And even on BetterErrors:
-
-![Did you mean? on BetterErrors](https://raw2.github.com/yuki24/did_you_mean/4e6d4b405777f44ecb2a0e28c4abb1e438aa33ff/docs/better_errors_example.png)
-
-### Support
-
-This gem only supports Ruby 1.9.3, 2.0.0, 2.1.x, 2.2.0-preview1 and ruby-head. Any other ruby implementations are **NOT** supported.
+Any other implementations are **NOT** supported (Rubinius support is work in progress).
 
 ## Contributing
 

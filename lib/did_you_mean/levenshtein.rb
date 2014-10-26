@@ -32,7 +32,7 @@ module DidYouMean
     private
 
     # detects the minimum value out of three arguments. This method is
-    # faster than `[a, b, c].min` and puts less GC presure.
+    # faster than `[a, b, c].min` and puts less GC pressure.
     # See https://github.com/yuki24/did_you_mean/pull/1 for a performance
     # benchmark.
     def min3(a, b, c)

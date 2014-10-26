@@ -5,7 +5,7 @@ module DidYouMean
 
     def initialize(exception)
       @columns        = exception.frame_binding.eval("self.class").columns
-      @attribute_name = (/unknown attribute(: | ')(\w+)('* for .*)*/ =~ exception.original_message) && $2
+      @attribute_name = (/unknown attribute(: | ')(\w+)/ =~ exception.original_message) && $2
     end
 
     def words

@@ -1,5 +1,5 @@
 module DidYouMean
-  module Levenshtein
+  module Levenshtein # :nodoc:
     # This code is based directly on the Text gem implementation
     # Returns a value representing the "cost" of transforming str1 into str2
     def distance(str1, str2)
@@ -31,7 +31,11 @@ module DidYouMean
 
     private
 
-    def min3(a, b, c) # :nodoc:
+    # detects the minimum value out of three arguments. This method is
+    # faster than `[a, b, c].min` and puts less GC presure.
+    # See https://github.com/yuki24/did_you_mean/pull/1 for a performance
+    # benchmark.
+    def min3(a, b, c)
       if a < b && a < c
         a
       elsif b < c

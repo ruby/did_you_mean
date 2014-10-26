@@ -28,9 +28,4 @@ end
 
 require 'did_you_mean/finders/name_error_finders'
 require 'did_you_mean/finders/similar_attribute_finder'
-
-begin
-  require 'did_you_mean/method_missing'
-  require 'did_you_mean/finders/similar_method_finder'
-rescue LoadError
-end
+require 'did_you_mean/finders/similar_method_finder'

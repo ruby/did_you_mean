@@ -2,15 +2,12 @@ require_relative 'null_finder_test'
 require_relative 'name_error_extension_test'
 require_relative 'similar_name_finder_test'
 
-begin
-  require 'did_you_mean/method_missing'
-
-  # only run the tests below when method_missing extension exists
+if defined?(RUBY_ENGINE) && %w(ruby jruby).include?(RUBY_ENGINE)
   require_relative 'similar_method_finder_test'
   require_relative 'no_method_error_extension_test'
-rescue LoadError => e
-  puts "didn't run the tests for NoMethodError extension: #{e.to_s}"
-  puts "running tests for #{RUBY_ENGINE}"
+else
+  puts "didn't run the tests for NoMethodError extension."
+  puts "running tests for #{RUBY_ENGINE}." if defined?(RUBY_ENGINE)
 end
 
 if defined?(ActiveRecord)

@@ -4,15 +4,28 @@ def mri?
   defined?(RUBY_ENGINE) && RUBY_ENGINE == "ruby"
 end
 
+def jruby?
+  defined?(JRuby)
+end
+
 desc "run tests"
 task default: [:test]
 
-if mri?
-  require 'rake/extensiontask'
+if mri? || jruby?
+  if mri?
+    require 'rake/extensiontask'
 
-  Rake::ExtensionTask.new('did_you_mean') do |ext|
-    ext.name    = "method_missing"
-    ext.lib_dir = "lib/did_you_mean"
+    Rake::ExtensionTask.new('did_you_mean') do |ext|
+      ext.name    = "method_missing"
+      ext.lib_dir = "lib/did_you_mean"
+    end
+  elsif jruby?
+    require 'rake/javaextensiontask'
+
+    Rake::JavaExtensionTask.new('did_you_mean') do |ext|
+      ext.name    = "receiver_capturer"
+      ext.lib_dir = "lib/did_you_mean"
+    end
   end
 
   desc "Run tests"

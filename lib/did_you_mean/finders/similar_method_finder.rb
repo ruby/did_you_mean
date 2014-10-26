@@ -26,5 +26,17 @@ module DidYouMean
     end
   end
 
-  finders["NoMethodError"] = SimilarMethodFinder
+  if defined?(RUBY_ENGINE)
+    finders["NoMethodError"] = SimilarMethodFinder
+
+    case RUBY_ENGINE
+    when 'ruby'
+      require 'did_you_mean/method_missing'
+    when 'jruby'
+      require 'did_you_mean/receiver_capturer'
+      org.yukinishijima.ReceiverCapturer.setup(JRuby.runtime)
+    else
+      finders.delete("NoMethodError")
+    end
+  end
 end

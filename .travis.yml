@@ -21,5 +21,8 @@ gemfile:
 matrix:
   allow_failures:
     - rvm: jruby
+      gemfile: gemfiles/activerecord_42.gemfile
+    - rvm: jruby
+      gemfile: gemfiles/activerecord_edge.gemfile
     - rvm: rbx
   fast_finish: true

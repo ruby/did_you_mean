@@ -51,7 +51,7 @@ if mri? || jruby?
       $stdout.puts("\033[0m")
     end
   end
-else # for jRuby and Rubinius
+else # for Rubinius
   desc "Run tests"
   task :test do
     $stdout.puts("\033[33m")

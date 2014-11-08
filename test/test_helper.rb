@@ -1,6 +1,7 @@
 require 'minitest/autorun'
 require 'minitest/unit'
 require 'did_you_mean'
+require 'mail'
 
 begin
   MiniTest::Test

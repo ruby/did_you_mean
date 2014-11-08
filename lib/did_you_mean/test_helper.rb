@@ -7,5 +7,9 @@ module DidYouMean
     def assert_suggestions(array, *expected)
       expected.each {|s| assert_suggestion(array, s) }
     end
+
+    def assert_nothing_raised
+      yield
+    end
   end
 end

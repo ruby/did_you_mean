@@ -29,10 +29,10 @@ class SimilarMethodFinderTest < Minitest::Test
   end
 
   def test_similar_words
-    assert_includes @error_from_instance_method.finder.similar_words, :first_name
-    assert_includes @error_from_private_method.finder.similar_words,  :friends
-    assert_includes @error_from_module_method.finder.similar_words,   :from_module
-    assert_includes @error_from_class_method.finder.similar_words,    :load
+    assert_suggestion @error_from_instance_method.finder.similar_words, :first_name
+    assert_suggestion @error_from_private_method.finder.similar_words,  :friends
+    assert_suggestion @error_from_module_method.finder.similar_words,   :from_module
+    assert_suggestion @error_from_class_method.finder.similar_words,    :load
   end
 
   def test_did_you_mean?
@@ -44,6 +44,6 @@ class SimilarMethodFinderTest < Minitest::Test
 
   def test_similar_words_for_long_method_name
     error = assert_raises(NoMethodError){ User.new.dependents }
-    assert_includes error.finder.similar_words, :descendants
+    assert_suggestion error.finder.similar_words, :descendants
   end
 end

@@ -8,6 +8,9 @@ rescue NameError
   MiniTest::Test = MiniTest::Unit::TestCase
 end
 
+require 'did_you_mean/test_helper'
+MiniTest::Test.send :include, DidYouMean::TestHelper
+
 begin
   require 'active_record'
 

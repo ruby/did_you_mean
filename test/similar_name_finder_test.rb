@@ -34,23 +34,23 @@ class SimilarNameFinderTest < Minitest::Test
   end
 
   def test_similar_words
-    assert_includes @error_from_instance_method.finder.similar_words, "first_name"
-    assert_includes @error_from_module_method.finder.similar_words,   "from_module"
-    assert_includes @error_from_local_variable.finder.similar_words,  "user"
-    assert_includes @error_from_missing_at_sign.finder.similar_words, "email"
+    assert_suggestion @error_from_instance_method.finder.similar_words, "first_name"
+    assert_suggestion @error_from_module_method.finder.similar_words,   "from_module"
+    assert_suggestion @error_from_local_variable.finder.similar_words,  "user"
+    assert_suggestion @error_from_missing_at_sign.finder.similar_words, "email"
   end
 
   def test_similar_instance_methods
-    assert_includes @error_from_instance_method.finder.similar_methods, "first_name"
-    assert_includes @error_from_module_method.finder.similar_methods,   "from_module"
+    assert_suggestion @error_from_instance_method.finder.similar_methods, "first_name"
+    assert_suggestion @error_from_module_method.finder.similar_methods,   "from_module"
   end
 
   def test_similar_local_variables
-    assert_includes @error_from_local_variable.finder.similar_local_variables, "user"
+    assert_suggestion @error_from_local_variable.finder.similar_local_variables, "user"
   end
 
   def test_similar_instance_variables
-    assert_includes @error_from_missing_at_sign.finder.similar_instance_variables, "email"
+    assert_suggestion @error_from_missing_at_sign.finder.similar_instance_variables, "email"
   end
 
   def test_did_you_mean?

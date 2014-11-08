@@ -8,7 +8,7 @@ class SimilarAttributeFinderTest < Minitest::Test
   end
 
   def test_similar_words
-    assert_includes @error.finder.similar_words, "first_name"
+    assert_suggestion @error.finder.similar_words, "first_name"
   end
 
   def test_did_you_mean?

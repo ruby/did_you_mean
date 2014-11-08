@@ -135,13 +135,20 @@ union iseq_inline_storage_entry {
 struct rb_thread_struct;
 struct rb_control_frame_struct;
 
+typedef struct rb_call_info_kw_arg_struct {
+    int keyword_len;
+    ID keywords[1];
+} rb_call_info_kw_arg_t;
+
 /* rb_call_info_t contains calling information including inline cache */
 typedef struct rb_call_info_struct {
     /* fixed at compile time */
     ID mid;
+
     unsigned int flag;
     int orig_argc;
     rb_iseq_t *blockiseq;
+    rb_call_info_kw_arg_t *kw_arg;
 
     /* inline cache: keys */
     rb_serial_t method_state;
@@ -233,46 +240,74 @@ struct rb_iseq_struct {
     rb_call_info_t *callinfo_entries;
 
     /**
-     * argument information
+     * parameter information
      *
      *  def m(a1, a2, ..., aM,                    # mandatory
      *        b1=(...), b2=(...), ..., bN=(...),  # optional
      *        *c,                                 # rest
      *        d1, d2, ..., dO,                    # post
      *        e1:(...), e2:(...), ..., eK:(...),  # keyword
-     *        **f,                                # keyword rest
+     *        **f,                                # keyword_rest
      *        &g)                                 # block
      * =>
      *
-     *  argc           = M                 // or  0 if no mandatory arg
-     *  arg_opts       = N+1               // or  0 if no optional arg
-     *  arg_rest       = M+N               // or -1 if no rest arg
-     *  arg_opt_table  = [ (arg_opts entries) ]
-     *  arg_post_start = M+N+(*1)          // or 0 if no post arguments
-     *  arg_post_len   = O                 // or 0 if no post arguments
-     *  arg_keywords   = K                 // or 0 if no keyword arg
-     *  arg_block      = M+N+(*1)+O+K      // or -1 if no block arg
-     *  arg_keyword    = M+N+(*1)+O+K+(&1) // or -1 if no keyword arg/rest
-     *  arg_simple     = 0 if not simple arguments.
-     *                 = 1 if no opt, rest, post, block.
-     *                 = 2 if ambiguous block parameter ({|a|}).
-     *  arg_size       = M+N+O+(*1)+K+(&1)+(**1) argument size.
+     *  lead_num     = M
+     *  opt_num      = N
+     *  rest_start   = M+N
+     *  post_start   = M+N+(*1)
+     *  post_num     = O
+     *  keyword_num  = K
+     *  block_start  = M+N+(*1)+O+K
+     *  keyword_bits = M+N+(*1)+O+K+(&1)
+     *  size         = M+N+O+(*1)+K+(&1)+(**1) // parameter size.
      */
 
-    int argc;
-    int arg_simple;
-    int arg_rest;
-    int arg_block;
-    int arg_opts;
-    int arg_post_len;
-    int arg_post_start;
-    int arg_size;
-    VALUE *arg_opt_table;
-    int arg_keyword;
-    int arg_keyword_check; /* if this is true, raise an ArgumentError when unknown keyword argument is passed */
-    int arg_keywords;
-    int arg_keyword_required;
-    ID *arg_keyword_table;
+    struct {
+	struct {
+	    unsigned int has_lead   : 1;
+	    unsigned int has_opt    : 1;
+	    unsigned int has_rest   : 1;
+	    unsigned int has_post   : 1;
+	    unsigned int has_kw     : 1;
+	    unsigned int has_kwrest : 1;
+	    unsigned int has_block  : 1;
+
+	    unsigned int ambiguous_param0 : 1; /* {|a|} */
+	} flags;
+
+	int size;
+
+	int lead_num;
+	int opt_num;
+	int rest_start;
+	int post_start;
+	int post_num;
+	int block_start;
+
+	VALUE *opt_table; /* (opt_num + 1) entries. */
+	/* opt_num and opt_table:
+	 *
+	 * def foo o1=e1, o2=e2, ..., oN=eN
+	 * #=>
+	 *   # prologue code
+	 *   A1: e1
+	 *   A2: e2
+	 *   ...
+	 *   AN: eN
+	 *   AL: body
+	 * opt_num = N
+	 * opt_table = [A1, A2, ..., AN, AL]
+	 */
+
+	struct rb_iseq_param_keyword {
+	    int num;
+	    int required_num;
+	    int bits_start;
+	    int rest_start;
+	    ID *table;
+	    VALUE *default_values;
+	} *keyword;
+    } param;
 
     /* catch table */
     struct iseq_catch_table *catch_table;
@@ -560,6 +595,8 @@ typedef struct rb_ensure_list {
 
 typedef char rb_thread_id_string_t[sizeof(rb_nativethread_id_t) * 2 + 3];
 
+typedef struct rb_fiber_struct rb_fiber_t;
+
 typedef struct rb_thread_struct {
     struct list_node vmlt_node;
     VALUE self;
@@ -681,8 +718,8 @@ typedef struct rb_thread_struct {
     struct rb_trace_arg_struct *trace_arg; /* trace information */
 
     /* fiber */
-    VALUE fiber;
-    VALUE root_fiber;
+    rb_fiber_t *fiber;
+    rb_fiber_t *root_fiber;
     rb_jmpbuf_t root_jmpbuf;
 
     /* ensure & callcc */
@@ -769,6 +806,7 @@ extern const rb_data_type_t ruby_binding_data_type;
 typedef struct {
     VALUE env;
     VALUE path;
+    VALUE blockprocval;	/* for GC mark */
     unsigned short first_lineno;
 } rb_binding_t;
 
@@ -790,7 +828,7 @@ enum vm_check_match_type {
 #define VM_CALL_TAILCALL        (0x01 << 5) /* located at tail position */
 #define VM_CALL_SUPER           (0x01 << 6) /* super */
 #define VM_CALL_OPT_SEND        (0x01 << 7) /* internal flag */
-#define VM_CALL_ARGS_SKIP_SETUP (0x01 << 8) /* (flag & (SPLAT|BLOCKARG)) && blockiseq == 0 */
+#define VM_CALL_ARGS_SIMPLE     (0x01 << 8) /* (ci->flag & (SPLAT|BLOCKARG)) && ci->blockiseq == NULL && ci->kw_arg == NULL */
 
 enum vm_special_object_type {
     VM_SPECIAL_OBJECT_VMCORE = 1,
@@ -809,7 +847,7 @@ enum vm_special_object_type {
 #define VM_FRAME_MAGIC_LAMBDA 0xa1
 #define VM_FRAME_MAGIC_RESCUE 0xb1
 #define VM_FRAME_MAGIC_MASK_BITS 8
-#define VM_FRAME_MAGIC_MASK   (~(~0<<VM_FRAME_MAGIC_MASK_BITS))
+#define VM_FRAME_MAGIC_MASK   (~(~(VALUE)0<<VM_FRAME_MAGIC_MASK_BITS))
 
 #define VM_FRAME_TYPE(cfp) ((cfp)->flag & VM_FRAME_MAGIC_MASK)
 
@@ -885,6 +923,7 @@ rb_block_t *rb_vm_control_frame_block_ptr(rb_control_frame_t *cfp);
 /* VM related object allocate functions */
 VALUE rb_thread_alloc(VALUE klass);
 VALUE rb_proc_wrap(VALUE klass, rb_proc_t *); /* may use with rb_proc_alloc */
+VALUE rb_binding_alloc(VALUE klass);
 
 /* for debug */
 extern void rb_vmdebug_stack_dump_raw(rb_thread_t *, rb_control_frame_t *);
@@ -906,9 +945,9 @@ int rb_thread_method_id_and_class(rb_thread_t *th, ID *idp, VALUE *klassp);
 VALUE rb_vm_invoke_proc(rb_thread_t *th, rb_proc_t *proc,
 			int argc, const VALUE *argv, const rb_block_t *blockptr);
 VALUE rb_vm_make_proc(rb_thread_t *th, const rb_block_t *block, VALUE klass);
+VALUE rb_vm_make_binding(rb_thread_t *th, const rb_control_frame_t *src_cfp);
 VALUE rb_vm_make_env_object(rb_thread_t *th, rb_control_frame_t *cfp);
 VALUE rb_vm_env_local_variables(VALUE envval);
-VALUE rb_binding_new_with_cfp(rb_thread_t *th, const rb_control_frame_t *src_cfp);
 VALUE *rb_binding_add_dynavars(rb_binding_t *bind, int dyncount, const ID *dynvars);
 void rb_vm_inc_const_missing_count(void);
 void rb_vm_gvl_destroy(rb_vm_t *vm);

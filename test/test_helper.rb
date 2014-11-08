@@ -23,7 +23,7 @@ begin
 
   class CreateAllTables < ActiveRecord::Migration
     def self.up
-      create_table(:users) {|t| t.string :first_name; t.integer :last_name }
+      create_table(:users) {|t| t.string :first_name }
     end
   end
   ActiveRecord::Migration.verbose = false

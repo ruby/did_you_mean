@@ -19,7 +19,7 @@ appraise "activerecord_41" do
 end
 
 appraise "activerecord_42" do
-  gem "activerecord", "~> 4.2.0.beta2"
+  gem "activerecord", "~> 4.2.0.beta4"
 end
 
 appraise "activerecord_edge" do

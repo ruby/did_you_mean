@@ -73,7 +73,7 @@ User.new(nmee: "wrong flrst name")
 
 _did\_you\_mean_ gem automagically puts method suggestions into the error message. This means you'll have the "Did you mean?" experience almost everywhere:
 
-![Did you mean? on BetterErrors](https://raw2.github.com/yuki24/did_you_mean/master/docs/did_you_mean_example.png)
+![Did you mean? on BetterErrors](https://raw.githubusercontent.com/yuki24/did_you_mean/master/docs/did_you_mean_example.png)
 
 ## Support
 

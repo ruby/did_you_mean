@@ -48,6 +48,17 @@ Book::TableofContents # TableofContents ???
 #
 ```
 
+#### Suggesting an instance variable name
+
+```ruby
+@full_name = "Yuki Nishijima"
+first_name, last_name = full_name.split(" ")
+# => NameError: undefined local variable or method `full_name' for main:Object
+#
+#     Did you mean? @full_name
+#
+```
+
 ### NoMethodError
 
 ```ruby

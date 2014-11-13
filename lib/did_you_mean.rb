@@ -31,3 +31,5 @@ module DidYouMean
     @@enabled = tmp
   end
 end
+
+require 'did_you_mean/railtie' if defined?(Rails)

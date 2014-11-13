@@ -23,3 +23,5 @@ ext/**/*.so
 ext/**/Makefile
 
 lib/**/*.so
+
+.travis.yml.osx

@@ -2,6 +2,8 @@
 
 'Did you mean?' experience in Ruby. No, Really.
 
+**For those who are still using 0.6.0, 0.7.0 and 0.8.0, please upgrade to 0.9.0 as they have a serious bug with Ruby 2.1.3 and 2.1.4 installed on Max OS X.**
+
 ## Installation
 
 Add this line to your application's Gemfile:

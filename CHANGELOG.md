@@ -1,3 +1,12 @@
+## [v0.9.1](https://github.com/yuki24/did_you_mean/tree/v0.9.1)
+
+_<sup>released on 2014-11-16 18:54:24 UTC</sup>_
+
+#### Internal Changes
+
+- Shrink the gem size by removing unneeded ruby header files.
+- Now it forces everyone to upgrade the gem when they upgrade Ruby to a new version. This avoids introducing a bug like [#14](https://github.com/yuki24/did_you_mean/issues/14 "Compatibility with `letter\_opener` gem").
+
 ## [v0.9.0](https://github.com/yuki24/did_you_mean/tree/v0.9.0)
 
 _<sup>released on 2014-11-09 01:26:31 UTC</sup>_

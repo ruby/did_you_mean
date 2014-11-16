@@ -24,6 +24,8 @@ first_name, last_name = full_name.split(" ")
 
 _<sup>released on 2014-10-27 02:03:13 UTC</sup>_
 
+**This version has been yanked from rubygems.org as it has a serious bug with Ruby 2.1.3 and 2.1.4 installed on Max OS X. Please upgrade to 0.9.0 as soon as possible.**
+
 #### New Features
 
 - JRuby support!
@@ -37,6 +39,8 @@ _<sup>released on 2014-10-27 02:03:13 UTC</sup>_
 ## [v0.7.0](https://github.com/yuki24/did_you_mean/tree/v0.7.0)
 
 _<sup>released on 2014-09-26 03:37:18 UTC</sup>_
+
+**This version has been yanked from rubygems.org as it has a serious bug with Ruby 2.1.3 and 2.1.4 installed on Max OS X. Please upgrade to 0.9.0 as soon as possible.**
 
 #### New Features
 
@@ -53,6 +57,8 @@ _<sup>released on 2014-09-26 03:37:18 UTC</sup>_
 ## [v0.6.0](https://github.com/yuki24/did_you_mean/tree/v0.6.0)
 
 _<sup>released on 2014-05-18 00:23:24 UTC</sup>_
+
+**This version has been yanked from rubygems.org as it has a serious bug with Ruby 2.1.3 and 2.1.4 installed on Max OS X. Please upgrade to 0.9.0 as soon as possible.**
 
 #### New Features
 

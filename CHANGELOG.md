@@ -1,3 +1,11 @@
+## [v0.9.2](https://github.com/yuki24/did_you_mean/tree/v0.9.2)
+
+_<sup>released on 2014-11-17 15:32:33 UTC</sup>_
+
+#### Bug Fixes
+
+- Fixed a bug where did\_you\_mean doesn't compile on Ruby 2.1.2/2.1.5 ( [#16](https://github.com/yuki24/did_you_mean/issues/16 "Gem building failed on Debian 6.0.10 x86\_64"))
+
 ## [v0.9.1](https://github.com/yuki24/did_you_mean/tree/v0.9.1)
 
 _<sup>released on 2014-11-16 18:54:24 UTC</sup>_

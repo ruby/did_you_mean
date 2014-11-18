@@ -1,3 +1,11 @@
+## [v0.9.4](https://github.com/yuki24/did_you_mean/tree/v0.9.4)
+
+_<sup>released on 2014-11-18 03:51:41 UTC</sup>_
+
+#### Bug Fixes
+
+- Fixed a bug where no suggestions will be made in JRuby
+
 ## [v0.9.3](https://github.com/yuki24/did_you_mean/tree/v0.9.3)
 
 _<sup>released on 2014-11-18 03:19:24 UTC</sup>_

@@ -35,6 +35,7 @@ module DidYouMean
     when 'jruby'
       require 'did_you_mean/receiver_capturer'
       org.yukinishijima.ReceiverCapturer.setup(JRuby.runtime)
+      NoMethodError.send(:attr, :receiver)
     else
       finders.delete("NoMethodError")
     end

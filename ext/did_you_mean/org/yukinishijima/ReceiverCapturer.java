@@ -51,8 +51,7 @@ public class ReceiverCapturer extends JavaMethodNBlock {
     private void appendReceiverToException(RaiseException exception, IRubyObject self) {
         if (exception.getException() instanceof RubyNoMethodError) {
             RubyNoMethodError noMethodError = (RubyNoMethodError) exception.getException();
-            RubyArray array = (RubyArray) noMethodError.args();
-            array.append(self);
+            noMethodError.setInstanceVariable("@receiver", self);
         }
     }
 }

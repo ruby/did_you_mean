@@ -4,7 +4,7 @@ module DidYouMean
     attr_reader :method_name, :receiver
 
     def initialize(exception)
-      @method_name, @receiver = exception.name, exception.args.first
+      @method_name, @receiver = exception.name, exception.receiver
     end
 
     def words

@@ -9,6 +9,6 @@ class NoMethodErrorExtensionTest < Minitest::Test
   end
 
   def test_receiver
-    assert_same @receiver, @error.args.first
+    assert_same @receiver, @error.receiver
   end
 end

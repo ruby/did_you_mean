@@ -16,7 +16,7 @@ if mri? || jruby?
     require 'rake/extensiontask'
 
     Rake::ExtensionTask.new('did_you_mean') do |ext|
-      ext.name    = "method_missing"
+      ext.name    = "method_receiver"
       ext.lib_dir = "lib/did_you_mean"
     end
   elsif jruby?

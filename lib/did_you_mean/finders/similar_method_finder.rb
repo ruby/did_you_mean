@@ -31,7 +31,7 @@ module DidYouMean
 
     case RUBY_ENGINE
     when 'ruby'
-      require 'did_you_mean/method_missing'
+      require 'did_you_mean/method_receiver'
     when 'jruby'
       require 'did_you_mean/receiver_capturer'
       org.yukinishijima.ReceiverCapturer.setup(JRuby.runtime)

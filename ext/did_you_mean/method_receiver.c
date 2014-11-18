@@ -11,7 +11,7 @@ name_err_receiver(VALUE self)
 }
 
 void
-Init_method_missing()
+Init_method_receiver()
 {
   VALUE err_mesg = rb_funcall(rb_cNameErrorMesg, '!', 3, Qnil, Qnil, Qnil);
   type = RTYPEDDATA(err_mesg)->type;

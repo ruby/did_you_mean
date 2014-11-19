@@ -13,4 +13,21 @@ module DidYouMean
       exception.instance_variable_set(:@frame_binding, binding)
     end
   })
+
+  @@enabled = true
+
+  def self.enabled?
+    @@enabled
+  end
+
+  def self.disabled?
+    !enabled?
+  end
+
+  def self.without_suggestions
+    tmp, @@enabled = @@enabled, false
+    yield
+  ensure
+    @@enabled = tmp
+  end
 end

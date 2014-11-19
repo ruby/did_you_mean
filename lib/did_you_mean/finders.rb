@@ -3,7 +3,7 @@ require "did_you_mean/word_collection"
 module DidYouMean
   module BaseFinder
     def did_you_mean?
-      return if suggestions.empty?
+      return if DidYouMean.disabled? || suggestions.empty?
 
       output = "\n\n"
       output << "    Did you mean? #{format(suggestions.first)}\n"

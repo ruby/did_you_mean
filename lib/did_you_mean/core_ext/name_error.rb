@@ -22,6 +22,10 @@ class NameError
     finder.did_you_mean?
   end
 
+  def suggestions
+    finder.suggestions
+  end
+
   def finder
     @finder ||= DidYouMean.finders[self.class.to_s].new(self)
   end

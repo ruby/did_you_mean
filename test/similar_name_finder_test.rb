@@ -34,10 +34,10 @@ class SimilarNameFinderTest < Minitest::Test
   end
 
   def test_similar_words
-    assert_suggestion @error_from_instance_method.finder.suggestions, "first_name"
-    assert_suggestion @error_from_module_method.finder.suggestions,   "from_module"
-    assert_suggestion @error_from_local_variable.finder.suggestions,  "user"
-    assert_suggestion @error_from_missing_at_sign.finder.suggestions, "email"
+    assert_suggestion @error_from_instance_method.suggestions, "first_name"
+    assert_suggestion @error_from_module_method.suggestions,   "from_module"
+    assert_suggestion @error_from_local_variable.suggestions,  "user"
+    assert_suggestion @error_from_missing_at_sign.suggestions, "email"
   end
 
   def test_similar_instance_methods

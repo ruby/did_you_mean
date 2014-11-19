@@ -11,7 +11,17 @@ module DidYouMean
     module ErrorPageExtension
       prepend_features ::BetterErrors::ErrorPage
 
-      def do_variables(opts)
+      # for better_errors >= 2.0.0
+      def initialize(*)
+        DidYouMean.without_suggestions { super }
+      end
+
+      # for better_errors < 2.0.0
+      def render(*)
+        DidYouMean.without_suggestions { super }
+      end
+
+      def do_variables(*)
         result = super
         error  = @exception.exception
 

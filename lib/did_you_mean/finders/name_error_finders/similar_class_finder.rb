@@ -18,7 +18,7 @@ module DidYouMean
     end
     alias target_word name_from_message
 
-    def similar_words
+    def suggestions
       super.map(&:full_name)
     end
 

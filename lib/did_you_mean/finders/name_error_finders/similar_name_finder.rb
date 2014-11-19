@@ -23,7 +23,7 @@ module DidYouMean
     end
 
     def similar_local_variables
-      similar_words.select{|word| word.is_a?(LocalVariableName) }
+      suggestions.select{|word| word.is_a?(LocalVariableName) }
     end
 
     def method_names
@@ -31,7 +31,7 @@ module DidYouMean
     end
 
     def similar_methods
-      similar_words.select{|word| word.is_a?(MethodName) }
+      suggestions.select{|word| word.is_a?(MethodName) }
     end
 
     def instance_variable_names
@@ -39,7 +39,7 @@ module DidYouMean
     end
 
     def similar_instance_variables
-      similar_words.select {|word| word.is_a?(InstanceVariableName) }
+      suggestions.select {|word| word.is_a?(InstanceVariableName) }
     end
 
     def format(word)

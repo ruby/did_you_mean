@@ -3,16 +3,16 @@ require "did_you_mean/word_collection"
 module DidYouMean
   module BaseFinder
     def did_you_mean?
-      return if similar_words.empty?
+      return if suggestions.empty?
 
       output = "\n\n"
-      output << "    Did you mean? #{format(similar_words.first)}\n"
-      output << similar_words.drop(1).map{|word| "#{' ' * 18}#{format(word)}\n" }.join
+      output << "    Did you mean? #{format(suggestions.first)}\n"
+      output << suggestions.drop(1).map{|word| "#{' ' * 18}#{format(word)}\n" }.join
       output << " " # for pry
     end
 
-    def similar_words
-      @similar_words ||= WordCollection.new(words).similar_to(target_word)
+    def suggestions
+      @suggestions ||= WordCollection.new(words).similar_to(target_word)
     end
   end
 

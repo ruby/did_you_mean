@@ -30,7 +30,7 @@ class SimpleSimilarClassFinderTest < Minitest::Test
   end
 
   def test_similar_words
-    assert_suggestion @error.finder.similar_words, "Book"
+    assert_suggestion @error.finder.suggestions, "Book"
   end
 end
 
@@ -40,7 +40,7 @@ class SimilarClassFinderInsideClassTest < Minitest::Test
   end
 
   def test_similar_words
-    assert_suggestion @error.finder.similar_words, "Book"
+    assert_suggestion @error.finder.suggestions, "Book"
   end
 end
 
@@ -50,7 +50,7 @@ class SimilarClassFinderInsideNestedClassTest < Minitest::Test
   end
 
   def test_similar_words
-    assert_suggestion @error.finder.similar_words, "Book::TableOfContents"
+    assert_suggestion @error.finder.suggestions, "Book::TableOfContents"
   end
 end
 
@@ -60,7 +60,7 @@ class SimilarClassFinderForClassWithNamespaceTest < Minitest::Test
   end
 
   def test_similar_words
-    assert_suggestion @error.finder.similar_words, "Book::TableOfContents"
+    assert_suggestion @error.finder.suggestions, "Book::TableOfContents"
   end
 end
 
@@ -70,7 +70,7 @@ class SimilarClassFinderFromInstanceTest < Minitest::Test
   end
 
   def test_similar_words
-    assert_suggestion @error.finder.similar_words, "Book::TableOfContents"
+    assert_suggestion @error.finder.suggestions, "Book::TableOfContents"
   end
 end
 
@@ -80,6 +80,6 @@ class SimilarClassFinderFromNestedInstanceTest < Minitest::Test
   end
 
   def test_similar_words
-    assert_suggestion @error.finder.similar_words, "Book::TableOfContents"
+    assert_suggestion @error.finder.suggestions, "Book::TableOfContents"
   end
 end

@@ -15,3 +15,4 @@ if defined?(ActiveRecord)
 end
 
 require_relative 'similar_class_finder_test'
+require_relative 'better_errors_integration_test'

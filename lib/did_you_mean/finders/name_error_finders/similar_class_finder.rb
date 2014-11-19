@@ -28,6 +28,8 @@ module DidYouMean
       end.reverse << Object
     end
 
+    public :format
+
     private
 
     def scope_base

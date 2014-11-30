@@ -23,9 +23,9 @@ module DidYouMean
     end
 
     def scopes
-      @scopes ||= scope_base.size.times.map do |count|
-        eval(scope_base[0..(- count)].join("::"))
-      end.reverse << Object
+      @scopes ||= scope_base.inject([Object]) do |_scopes, scope|
+        _scopes << _scopes.last.const_get(scope)
+      end.reverse
     end
 
     public :format

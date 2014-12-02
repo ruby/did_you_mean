@@ -8,14 +8,12 @@ module DidYouMean
     end
 
     def words
-      (receiver.methods + receiver.singleton_methods).uniq
+      (receiver.methods + receiver.singleton_methods).uniq.map do |name|
+        StringDelegator.new(name.to_s, :method, prefix: separator)
+      end
     end
 
     alias target_word method_name
-
-    def format(word)
-      "#{separator}#{word}"
-    end
 
     def class_method?
       receiver.is_a? Class

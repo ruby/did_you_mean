@@ -4,24 +4,18 @@ module DidYouMean
     attr_reader :method_name, :receiver
 
     def initialize(exception)
-      @method_name, @receiver = exception.name, exception.receiver
+      @method_name = exception.name
+      @receiver    = exception.receiver
+      @separator   = @receiver.is_a?(Class) ? "." : "#"
     end
 
     def words
       (receiver.methods + receiver.singleton_methods).uniq.map do |name|
-        StringDelegator.new(name.to_s, :method, prefix: separator)
+        StringDelegator.new(name.to_s, :method, prefix: @separator)
       end
     end
 
     alias target_word method_name
-
-    def class_method?
-      receiver.is_a? Class
-    end
-
-    def separator
-      class_method? ? "." : "#"
-    end
   end
 
   finders["NoMethodError"] = SimilarMethodFinder

@@ -1,13 +1,14 @@
-script: bundle exec rake test
+language: ruby
 
 rvm:
   - 1.9.3
   - 2.0.0
   - 2.1.5
-  - 2.2.0-preview1
+  - 2.2.0-preview2
   - ruby-head
   - jruby
-  - rbx
+  - jruby-head
+  - rbx-2.4.1
 
 gemfile:
   - gemfiles/better_errors_200.gemfile
@@ -20,24 +21,27 @@ gemfile:
   - gemfiles/activerecord_42.gemfile
   - gemfiles/activerecord_edge.gemfile
 
+script: bundle exec rake test
+
 matrix:
   exclude:
     - rvm: 1.9.3
       gemfile: gemfiles/better_errors_110.gemfile
     - rvm: jruby
       gemfile: gemfiles/better_errors_110.gemfile
-    - rvm: rbx
+    - rvm: rbx-2.4.1
       gemfile: gemfiles/better_errors_110.gemfile
     - rvm: 1.9.3
       gemfile: gemfiles/better_errors_200.gemfile
     - rvm: jruby
       gemfile: gemfiles/better_errors_200.gemfile
-    - rvm: rbx
+    - rvm: rbx-2.4.1
       gemfile: gemfiles/better_errors_200.gemfile
   allow_failures:
     - rvm: jruby
       gemfile: gemfiles/activerecord_42.gemfile
     - rvm: jruby
       gemfile: gemfiles/activerecord_edge.gemfile
-    - rvm: rbx
+    - rvm: jruby-head
+    - rvm: rbx-2.4.1
   fast_finish: true

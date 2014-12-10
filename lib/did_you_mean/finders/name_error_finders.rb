@@ -5,17 +5,14 @@ module DidYouMean
     end
 
     def self.new(exception)
-      klass = if /uninitialized constant/ =~ exception.original_message
+      case exception.original_message
+      when /uninitialized constant/
         SimilarClassFinder
-      elsif /undefined local variable or method/ =~ exception.original_message
-        SimilarNameFinder
-      elsif /undefined method/ =~ exception.original_message # for Rubinius
+      when /undefined local variable or method/, /undefined method/
         SimilarNameFinder
       else
         NullFinder
-      end
-
-      klass.new(exception)
+      end.new(exception)
     end
   end
 

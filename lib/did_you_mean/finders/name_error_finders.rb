@@ -9,6 +9,8 @@ module DidYouMean
         SimilarClassFinder
       elsif /undefined local variable or method/ =~ exception.original_message
         SimilarNameFinder
+      elsif /undefined method/ =~ exception.original_message # for Rubinius
+        SimilarNameFinder
       else
         NullFinder
       end

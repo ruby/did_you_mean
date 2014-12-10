@@ -36,6 +36,21 @@ module DidYouMean
       require 'did_you_mean/receiver_capturer'
       org.yukinishijima.ReceiverCapturer.setup(JRuby.runtime)
       NoMethodError.send(:attr, :receiver)
+    when 'rbx'
+      require 'did_you_mean/core_ext/rubinius'
+      NoMethodError.send(:attr, :receiver)
+
+      module SimilarMethodFinder::RubiniusSupport
+        def self.new(exception)
+          if exception.receiver === exception.frame_binding.eval("self")
+            NameErrorFinders.new(exception)
+          else
+            SimilarMethodFinder.new(exception)
+          end
+        end
+      end
+
+      finders["NoMethodError"] = SimilarMethodFinder::RubiniusSupport
     else
       finders.delete("NoMethodError")
     end

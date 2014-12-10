@@ -1,3 +1,5 @@
+NAME_ERROR = RUBY_ENGINE == 'rbx' ? NoMethodError : NameError
+
 require 'minitest/autorun'
 require 'minitest/unit'
 require 'did_you_mean'

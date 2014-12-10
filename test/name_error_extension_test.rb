@@ -7,14 +7,14 @@ class NameErrorExtensionTest < Minitest::Test
   end
 
   def setup
-    @old_finder = DidYouMean.finders["NameError"]
-    DidYouMean.finders["NameError"] = TestFinder
+    @old_finder = DidYouMean.finders[NAME_ERROR.to_s]
+    DidYouMean.finders[NAME_ERROR.to_s] = TestFinder
 
-    @error = assert_raises(NameError){ doesnt_exist }
+    @error = assert_raises(NAME_ERROR){ doesnt_exist }
   end
 
   def teardown
-    DidYouMean.finders["NameError"] = @old_finder
+    DidYouMean.finders[NAME_ERROR.to_s] = @old_finder
   end
 
   def test_message?

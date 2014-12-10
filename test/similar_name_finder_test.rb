@@ -21,14 +21,14 @@ class SimilarNameFinderTest < Minitest::Test
   def setup
     user = User.new.extend(UserModule)
 
-    @error_from_instance_method = assert_raises(NameError){ user.call_flrst_name }
-    @error_from_module_method   = assert_raises(NameError){ user.call_fr0m_module }
-    @error_from_missing_at_sign = assert_raises(NameError){ user.to_s }
+    @error_from_instance_method = assert_raises(NAME_ERROR){ user.call_flrst_name }
+    @error_from_module_method   = assert_raises(NAME_ERROR){ user.call_fr0m_module }
+    @error_from_missing_at_sign = assert_raises(NAME_ERROR){ user.to_s }
 
     # Use begin + rescue as #assert_raises changes a scope.
-    @error_from_local_variable  = begin
+    @error_from_local_variable = begin
       userr
-    rescue NameError => e
+    rescue NAME_ERROR => e
       e
     end
   end

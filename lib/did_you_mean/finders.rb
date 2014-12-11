@@ -1,3 +1,4 @@
+require "delegate"
 require "did_you_mean/word_collection"
 
 module DidYouMean

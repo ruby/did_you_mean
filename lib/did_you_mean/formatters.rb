@@ -1,7 +1,7 @@
 module DidYouMean
   module Formatters
     class Plain
-      def initialize(suggestions)
+      def initialize(suggestions = [])
         @suggestions = suggestions
       end
 
@@ -40,8 +40,6 @@ module DidYouMean
         output << @suggestions.drop(1).map{|word| "#{' ' * 18}#{format(word)}\n" }.join
         output << " "
       end
-
-      private
 
       def format(name)
         case name.type

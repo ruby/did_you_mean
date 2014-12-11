@@ -4,9 +4,9 @@ module DidYouMean
     attr_reader :name, :_methods, :_local_variables, :_instance_variables
 
     def initialize(exception)
-      @name             = exception.name
-      @_methods         = exception.frame_binding.eval("methods")
-      @_local_variables = exception.frame_binding.eval("local_variables")
+      @name                = exception.name
+      @_methods            = exception.frame_binding.eval("methods")
+      @_local_variables    = exception.frame_binding.eval("local_variables")
       @_instance_variables = exception.frame_binding.eval("instance_variables").map do |name|
         name.to_s.tr("@", "")
       end

@@ -6,14 +6,6 @@ appraise "better_errors_110" do
   gem "better_errors", "~> 1.1.0"
 end
 
-appraise "activerecord_30" do
-  gem "activerecord", "~> 3.0.0"
-end
-
-appraise "activerecord_31" do
-  gem "activerecord", "~> 3.1.0"
-end
-
 appraise "activerecord_32" do
   gem "activerecord", "~> 3.2.0"
 end

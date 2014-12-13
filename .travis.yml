@@ -13,8 +13,6 @@ rvm:
 gemfile:
   - gemfiles/better_errors_200.gemfile
   - gemfiles/better_errors_110.gemfile
-  - gemfiles/activerecord_30.gemfile
-  - gemfiles/activerecord_31.gemfile
   - gemfiles/activerecord_32.gemfile
   - gemfiles/activerecord_40.gemfile
   - gemfiles/activerecord_41.gemfile

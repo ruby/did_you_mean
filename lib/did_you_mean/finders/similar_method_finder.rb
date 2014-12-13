@@ -26,33 +26,31 @@ module DidYouMean
     end
   end
 
-  if defined?(RUBY_ENGINE)
-    finders["NoMethodError"] = SimilarMethodFinder
+  finders["NoMethodError"] = SimilarMethodFinder
 
-    case RUBY_ENGINE
-    when 'ruby'
-      require 'did_you_mean/method_receiver'
-    when 'jruby'
-      require 'did_you_mean/receiver_capturer'
-      org.yukinishijima.ReceiverCapturer.setup(JRuby.runtime)
-      NoMethodError.send(:attr, :receiver)
-    when 'rbx'
-      require 'did_you_mean/core_ext/rubinius'
-      NoMethodError.send(:attr, :receiver)
+  case RUBY_ENGINE
+  when 'ruby'
+    require 'did_you_mean/method_receiver'
+  when 'jruby'
+    require 'did_you_mean/receiver_capturer'
+    org.yukinishijima.ReceiverCapturer.setup(JRuby.runtime)
+    NoMethodError.send(:attr, :receiver)
+  when 'rbx'
+    require 'did_you_mean/core_ext/rubinius'
+    NoMethodError.send(:attr, :receiver)
 
-      module SimilarMethodFinder::RubiniusSupport
-        def self.new(exception)
-          if exception.receiver === exception.frame_binding.eval("self")
-            NameErrorFinders.new(exception)
-          else
-            SimilarMethodFinder.new(exception)
-          end
+    module SimilarMethodFinder::RubiniusSupport
+      def self.new(exception)
+        if exception.receiver === exception.frame_binding.eval("self")
+          NameErrorFinders.new(exception)
+        else
+          SimilarMethodFinder.new(exception)
         end
       end
-
-      finders["NoMethodError"] = SimilarMethodFinder::RubiniusSupport
-    else
-      finders.delete("NoMethodError")
     end
+
+    finders["NoMethodError"] = SimilarMethodFinder::RubiniusSupport
+  else
+    finders.delete("NoMethodError")
   end
 end

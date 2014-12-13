@@ -1,7 +1,7 @@
 require 'bundler/gem_tasks'
 
 def mri?
-  defined?(RUBY_ENGINE) && RUBY_ENGINE == "ruby"
+  RUBY_ENGINE == "ruby"
 end
 
 def jruby?

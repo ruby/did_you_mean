@@ -25,7 +25,7 @@ module DidYouMean
     def scopes
       @scopes ||= scope_base.inject([Object]) do |_scopes, scope|
         _scopes << _scopes.last.const_get(scope)
-      end.reverse
+      end
     end
 
     public :format

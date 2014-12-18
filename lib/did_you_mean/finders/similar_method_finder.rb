@@ -6,7 +6,7 @@ module DidYouMean
     def initialize(exception)
       @method_name = exception.name
       @receiver    = exception.receiver
-      @separator   = @receiver.is_a?(Class) ? "." : "#"
+      @separator   = @receiver.is_a?(Class) ? DOT : POUND
     end
 
     def words

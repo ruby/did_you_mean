@@ -8,7 +8,7 @@ module DidYouMean
       @_methods            = exception.frame_binding.eval("methods")
       @_local_variables    = exception.frame_binding.eval("local_variables")
       @_instance_variables = exception.frame_binding.eval("instance_variables").map do |name|
-        name.to_s.tr("@", "")
+        name.to_s.tr(AT, EMPTY)
       end
     end
 
@@ -23,7 +23,7 @@ module DidYouMean
     end
 
     def method_names
-      _methods.map {|word| StringDelegator.new(word.to_s, :method, prefix: "#".freeze) }
+      _methods.map {|word| StringDelegator.new(word.to_s, :method, prefix: POUND) }
     end
 
     def instance_variable_names

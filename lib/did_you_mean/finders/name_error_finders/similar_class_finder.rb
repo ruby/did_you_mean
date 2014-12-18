@@ -10,7 +10,7 @@ module DidYouMean
     def words
       scopes.flat_map do |scope|
         scope.constants.map do |c|
-          StringDelegator.new(c.to_s, :constant, prefix: (scope == Object ? "" : "#{scope}::"))
+          StringDelegator.new(c.to_s, :constant, prefix: (scope == Object ? EMPTY : "#{scope}::"))
         end
       end
     end

@@ -3,6 +3,11 @@ require "did_you_mean/word_collection"
 
 module DidYouMean
   module BaseFinder
+    AT    = "@".freeze
+    POUND = "#".freeze
+    DOT   = ".".freeze
+    EMPTY = "".freeze
+
     def did_you_mean?
       return if DidYouMean.disabled? || suggestions.empty?
 

@@ -9,7 +9,9 @@ module DidYouMean
 
     def words
       scopes.flat_map do |scope|
-        scope.constants.map {|name| ConstantName.new(name, scope) }
+        scope.constants.map do |c|
+          StringDelegator.new(c.to_s, :constant, prefix: (scope == Object ? "" : "#{scope}::"))
+        end
       end
     end
 
@@ -19,7 +21,7 @@ module DidYouMean
     alias target_word name_from_message
 
     def suggestions
-      super.map(&:full_name)
+      super.map(&:with_prefix)
     end
 
     def scopes
@@ -28,25 +30,10 @@ module DidYouMean
       end
     end
 
-    public :format
-
     private
 
     def scope_base
       @scope_base ||= (/(([A-Z]\w*::)*)([A-Z]\w*)$/ =~ original_message ? $1 : "").split("::")
-    end
-
-    class ConstantName < String
-      attr_reader :scope
-
-      def initialize(str, scope)
-        super(str.to_s)
-        @scope = scope.to_s
-      end
-
-      def full_name
-        scope == "Object" ? to_s : "#{scope}::#{to_s}"
-      end
     end
   end
 end

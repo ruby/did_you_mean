@@ -4,6 +4,10 @@ module DidYouMean
       if defined?(::BetterErrors) && RUBY_ENGINE == "ruby" && RUBY_VERSION >= "2.0.0"
         require 'did_you_mean/better_errors'
       end
+
+      if defined?(Pry)
+        require 'did_you_mean/pry'
+      end
     end
   end
 end

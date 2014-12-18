@@ -1,3 +1,4 @@
+require "delegate"
 require "did_you_mean/word_collection"
 
 module DidYouMean
@@ -5,14 +6,31 @@ module DidYouMean
     def did_you_mean?
       return if DidYouMean.disabled? || suggestions.empty?
 
-      output = "\n\n"
-      output << "    Did you mean? #{format(suggestions.first)}\n"
-      output << suggestions.drop(1).map{|word| "#{' ' * 18}#{format(word)}\n" }.join
-      output << " " # for pry
+      DidYouMean.formatter.new(suggestions).to_s
     end
 
     def suggestions
       @suggestions ||= WordCollection.new(words).similar_to(target_word)
+    end
+
+    class StringDelegator < ::Delegator
+      attr :type, :options
+
+      def initialize(name, type, options = {})
+        super(name)
+        @name, @type, @options = name, type, options
+      end
+
+      def __getobj__
+        @name
+      end
+
+      def with_prefix
+        self.class.new("#{options[:prefix]}#{@name}", @type)
+      end
+
+      # StringDelegator Does not allow to replace the object.
+      def __setobj__(*); end
     end
   end
 

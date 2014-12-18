@@ -27,7 +27,7 @@ module DidYouMean
 
         if error.is_a?(NameError) && error.did_you_mean?
           @suggestions = error.suggestions
-          @formatter   = error.finder
+          @formatter   = Formatters::Plain.new
 
           result[:html].prepend DidYouMean::BetterErrors.template.result(binding)
 

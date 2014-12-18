@@ -38,3 +38,6 @@ begin
   require 'did_you_mean/better_errors'
 rescue LoadError
 end
+
+require 'pry'
+require_relative 'helpers/repl_tester'

@@ -9,17 +9,10 @@ module DidYouMean
     end
 
     def words
-      columns.map(&:name)
+      columns.map {|c| StringDelegator.new(c.name, :attribute, column_type: c.type) }
     end
 
     alias target_word attribute_name
-
-    def format(column_name)
-      "%{column}: %{type}" % {
-        column: column_name,
-        type:   columns.detect{|c| c.name == column_name }.type
-      }
-    end
   end
 
   finders["ActiveRecord::UnknownAttributeError"] = SimilarAttributeFinder

@@ -13,3 +13,4 @@ if defined?(::BetterErrors)
 end
 
 require_relative 'similar_class_finder_test'
+require_relative 'pry_formatter_test'

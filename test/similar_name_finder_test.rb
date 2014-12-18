@@ -40,19 +40,6 @@ class SimilarNameFinderTest < Minitest::Test
     assert_suggestion @error_from_missing_at_sign.suggestions, "email"
   end
 
-  def test_similar_instance_methods
-    assert_suggestion @error_from_instance_method.finder.similar_methods, "first_name"
-    assert_suggestion @error_from_module_method.finder.similar_methods,   "from_module"
-  end
-
-  def test_similar_local_variables
-    assert_suggestion @error_from_local_variable.finder.similar_local_variables, "user"
-  end
-
-  def test_similar_instance_variables
-    assert_suggestion @error_from_missing_at_sign.finder.similar_instance_variables, "email"
-  end
-
   def test_did_you_mean?
     assert_match "Did you mean? #first_name",  @error_from_instance_method.did_you_mean?
     assert_match "Did you mean? #from_module", @error_from_module_method.did_you_mean?

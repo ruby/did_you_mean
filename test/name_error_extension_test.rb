@@ -7,40 +7,59 @@ class NameErrorExtensionTest < Minitest::Test
   end
 
   def setup
-    @old_finder = DidYouMean.finders[NAME_ERROR.to_s]
+    @org = DidYouMean.finders[NAME_ERROR.to_s]
     DidYouMean.finders[NAME_ERROR.to_s] = TestFinder
 
     @error = assert_raises(NAME_ERROR){ doesnt_exist }
   end
 
   def teardown
-    DidYouMean.finders[NAME_ERROR.to_s] = @old_finder
+    DidYouMean.finders[NAME_ERROR.to_s] = @org
   end
 
-  def test_message?
+  def test_message
     assert_match "Y U SO SLOW?", @error.to_s
     assert_match "Y U SO SLOW?", @error.message
   end
+end
 
-  def test_whitelisted_message?
-    @error = safe_constantize
-    assert @error.to_s =~ /doesnt_exist/
-    assert @error.message =~ /doesnt_exist/
+class IgnoreCallersTest < Minitest::Test
+  class Boomer
+    def initialize(*)
+      raise Exception, "finder was created when it shouldn't!"
+    end
   end
 
-  def test_note_whitelisted_message?
-    @error = not_safe_constantize
-    assert_match "Y U SO SLOW?", @error.to_s
-    assert_match "Y U SO SLOW?", @error.message
+  def setup
+    @org = DidYouMean.finders[NAME_ERROR.to_s]
+    DidYouMean.finders[NAME_ERROR.to_s] = Boomer
+
+    @error = assert_raises(NAME_ERROR){ doesnt_exist }
+  end
+
+  def teardown
+    DidYouMean.finders[NAME_ERROR.to_s] = @org
+  end
+
+  def test_ignore_missing_name
+    assert_nothing_raised { missing_name }
+  end
+
+  def test_ignore_safe_constantize
+    assert_nothing_raised { safe_constantize }
   end
 
   private
 
   def safe_constantize
-    assert_raises(NAME_ERROR){ doesnt_exist }
+    @error.message
   end
 
-  def not_safe_constantize
-    assert_raises(NAME_ERROR){ doesnt_exist }
+  def missing_name
+    @error.message
+  end
+
+  def assert_nothing_raised
+    yield
   end
 end

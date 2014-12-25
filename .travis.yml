@@ -30,6 +30,12 @@ matrix:
       gemfile: gemfiles/better_errors_110.gemfile
     - rvm: 1.9.3
       gemfile: gemfiles/better_errors_200.gemfile
+    - rvm: 1.9.3
+      gemfile: gemfiles/activerecord_edge.gemfile
+    - rvm: 2.0.0
+      gemfile: gemfiles/activerecord_edge.gemfile
+    - rvm: 2.1.5
+      gemfile: gemfiles/activerecord_edge.gemfile
     - rvm: jruby
       gemfile: gemfiles/better_errors_200.gemfile
   allow_failures:

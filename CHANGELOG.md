@@ -1,14 +1,24 @@
-## [v0.9.4](https://github.com/yuki24/did_you_mean/tree/v0.9.4)
+## [v0.9.5](https://github.com/yuki24/did_you_mean/tree/v0.9.5)
 
-_<sup>released on 2014-11-18 03:51:41 UTC</sup>_
+_<sup>released on 2015-01-07 12:41:23 UTC</sup>_
 
 #### Bug Fixes
 
-- Fixed a bug where no suggestions will be made in JRuby
+- Whitelist `#safe_constantize` method from `ActiveSupport::Inflector` to avoid significant performance slowdown ( [@tleish](https://github.com/tleish), [#19](https://github.com/yuki24/did_you_mean/issues/19 "Significant Slowdown when Using Debugger"), [#20](https://github.com/yuki24/did_you_mean/pull/20 "Whitelisting safe\_constantize (ActiveSupport::Inflector) method"))
+
+## [v0.9.4](https://github.com/yuki24/did_you_mean/tree/v0.9.4)
+
+_<sup>released on 2014-11-19 20:00:00 UTC</sup>_
+
+#### Bug Fixes
+
+- Fixed a bug where no suggestions will be made on JRuby
 
 ## [v0.9.3](https://github.com/yuki24/did_you_mean/tree/v0.9.3)
 
-_<sup>released on 2014-11-18 03:19:24 UTC</sup>_
+_<sup>released on 2014-11-18 03:50:11 UTC</sup>_
+
+**This version has been yanked from rubygems.org as it doesn't work with jRuby at all. Please upgrade to 0.9.4 or higher as soon as possible.**
 
 #### Internal Changes
 
@@ -25,6 +35,8 @@ _<sup>released on 2014-11-17 15:32:33 UTC</sup>_
 ## [v0.9.1](https://github.com/yuki24/did_you_mean/tree/v0.9.1)
 
 _<sup>released on 2014-11-16 18:54:24 UTC</sup>_
+
+**This version has been yanked from rubygems.org as it doesn't compile on Ruby 2.1.2 and 2.1.5. Please upgrade to 0.9.4 or higher as soon as possible.**
 
 #### Internal Changes
 
@@ -57,7 +69,7 @@ first_name, last_name = full_name.split(" ")
 
 _<sup>released on 2014-10-27 02:03:13 UTC</sup>_
 
-**This version has been yanked from rubygems.org as it has a serious bug with Ruby 2.1.3 and 2.1.4 installed on Max OS X. Please upgrade to 0.9.0 as soon as possible.**
+**This version has been yanked from rubygems.org as it has a serious bug with Ruby 2.1.3 and 2.1.4 installed on Max OS X. Please upgrade to 0.9.4 or higher as soon as possible.**
 
 #### New Features
 
@@ -73,7 +85,7 @@ _<sup>released on 2014-10-27 02:03:13 UTC</sup>_
 
 _<sup>released on 2014-09-26 03:37:18 UTC</sup>_
 
-**This version has been yanked from rubygems.org as it has a serious bug with Ruby 2.1.3 and 2.1.4 installed on Max OS X. Please upgrade to 0.9.0 as soon as possible.**
+**This version has been yanked from rubygems.org as it has a serious bug with Ruby 2.1.3 and 2.1.4 installed on Max OS X. Please upgrade to 0.9.4 or higher as soon as possible.**
 
 #### New Features
 

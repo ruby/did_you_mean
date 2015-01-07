@@ -1,3 +1,11 @@
+## [v0.9.5](https://github.com/yuki24/did_you_mean/tree/v0.9.5)
+
+_<sup>released on 2015-01-07 12:41:23 UTC</sup>_
+
+#### Bug Fixes
+
+- Whitelist `#safe_constantize` method from `ActiveSupport::Inflector` to avoid significant performance slowdown ( [@tleish](https://github.com/tleish), [#19](https://github.com/yuki24/did_you_mean/issues/19 "Significant Slowdown when Using Debugger"), [#20](https://github.com/yuki24/did_you_mean/pull/20 "Whitelisting safe\_constantize (ActiveSupport::Inflector) method"))
+
 ## [v0.9.4](https://github.com/yuki24/did_you_mean/tree/v0.9.4)
 
 _<sup>released on 2014-11-18 03:51:41 UTC</sup>_

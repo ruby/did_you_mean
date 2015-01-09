@@ -1,3 +1,4 @@
+require 'ostruct'
 require 'did_you_mean/levenshtein'
 
 module DidYouMean
@@ -14,8 +15,10 @@ module DidYouMean
     def similar_to(target_word)
       target_word = target_word.to_s
       threshold   = threshold(target_word)
-
-      select {|word| Levenshtein.distance(word.to_s, target_word) <= threshold }
+      map { |word| OpenStruct.new( word: word, distance: Levenshtein.distance(word.to_s, target_word) ) }.
+        select {|similar| similar.distance <= threshold }.
+        sort{ |a, b| a.distance <=> b.distance }.
+        map {|similar| similar.word }
     end
 
     private

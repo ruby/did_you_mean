@@ -49,7 +49,10 @@ module DidYouMean
     def similar_class_suggestions
       exception = OpenStruct.new name: @receiver, original_message: @original_message
       SimilarClassFinder.new(exception).suggestions.
-        select { |suggestion| suggestion.to_s != @receiver.to_s }.
+        select do |suggestion|
+          const = Kernel.const_get(suggestion.to_s)
+          (const.is_a?(Class) || const.is_a?(Module)) && suggestion.to_s != @receiver.to_s
+        end.
         map(&:with_prefix)
     end
   end

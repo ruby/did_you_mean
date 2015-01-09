@@ -9,11 +9,13 @@ module DidYouMean
     end
 
     def words
-      scopes.flat_map do |scope|
+      consts = scopes.flat_map do |scope|
         scope.constants.map do |c|
           StringDelegator.new(c.to_s, :constant, prefix: (scope == Object ? EMPTY : "#{scope}::"))
         end
       end
+
+     (consts + consts.map(&:with_prefix)).uniq { |const| const.to_s }
     end
 
     def name_from_message
@@ -44,7 +46,7 @@ module DidYouMean
     end
 
     def scope_base
-      @scope_base ||= (/(([A-Z]\w*::)*)([A-Z]\w*)$/ =~ original_message ? $1 : "").split("::")
+      @scope_base ||= (/(([A-Z]\w*::)*)([A-Z]\w*)(:[A-Z]\w*)?$/ =~ original_message ? $1 : "").split("::")
     end
   end
 end

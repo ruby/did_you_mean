@@ -9,7 +9,7 @@ module DidYouMean
       @method_name = exception.name
       @receiver    = exception.receiver
       @original_message = exception.original_message
-      @separator   = @receiver.is_a?(Class) ? DOT : POUND
+      @separator   = receiver_is_class_or_method? ? DOT : POUND
     end
 
     def words
@@ -19,15 +19,19 @@ module DidYouMean
     end
 
     def suggestions
-      super + similar_classes
+      super + similar_classes_method_suggestions
     end
 
     alias target_word method_name
 
     private
 
-    def similar_classes
-      return [] unless @receiver.is_a?(Class)
+    def receiver_is_class_or_method?
+      @receiver.is_a?(Class) || @receiver.is_a?(Module)
+    end
+
+    def similar_classes_method_suggestions
+      return [] unless receiver_is_class_or_method?
       similar_class = SimilarClassFinder.new(OpenStruct.new name: @receiver, original_message: @original_message)
       similar_class.suggestions.map(&:with_prefix).
         select { |suggestion| Kernel.const_get(suggestion.to_s).respond_to? @method_name }.

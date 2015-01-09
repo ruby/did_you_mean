@@ -9,14 +9,12 @@ module DidYouMean
       @method_name = exception.name
       @receiver    = exception.receiver
       @original_message = exception.original_message
-      @separator   = receiver_is_class_or_method? ? DOT : POUND
       @base_class_name = base_class_name
-      @prefix = prefix
     end
 
     def words
       (receiver.methods + receiver.singleton_methods).uniq.map do |name|
-        StringDelegator.new(name.to_s, :method, prefix: @prefix)
+        StringDelegator.new(name.to_s, :method, prefix: prefix)
       end
     end
 
@@ -30,8 +28,10 @@ module DidYouMean
     private
 
     def prefix
-      separator = @base_class_name.to_s
-      separator << (receiver_is_class_or_method? ? DOT : POUND)
+      @prefix ||= begin
+        separator = @base_class_name.to_s
+        separator << (receiver_is_class_or_method? ? DOT : POUND)
+      end
     end
 
     def receiver_is_class_or_method?

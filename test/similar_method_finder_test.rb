@@ -54,10 +54,6 @@ class SimilarMethodFinderTest < Minitest::Test
     assert_suggestion @error_from_similar_module_method.suggestions,    %w{hash class SimilarMethodFinderTest::User.pass SimilarMethodFinderTest::User.hash SimilarMethodFinderTest::User.class SimilarMethodFinderTest::UserModule.hash SimilarMethodFinderTest::UserModule.class SimilarMethodFinderTest.hash SimilarMethodFinderTest.class}
   end
 
-  def test_other
-    assert_suggestion @error_from_similar_class_method.suggestions,    %w{last_names SimilarMethodFinderTest::User.last_name}
-  end
-
   def test_did_you_mean?
     assert_match "Did you mean? #first_name",  @error_from_instance_method.did_you_mean?
     assert_match "Did you mean? #friends",     @error_from_private_method.did_you_mean?

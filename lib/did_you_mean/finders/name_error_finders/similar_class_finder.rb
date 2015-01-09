@@ -5,6 +5,7 @@ module DidYouMean
 
     def initialize(exception)
       @class_name, @original_message = exception.name, exception.original_message
+      autoload_class_name_inflector
     end
 
     def words
@@ -31,6 +32,16 @@ module DidYouMean
     end
 
     private
+
+    def autoload_class_name_inflector
+      return unless defined?(Rails)
+      class_name_inflector = class_name_is_singular? ? class_name.to_s.pluralize : class_name.to_s.singularize
+      class_name_inflector.safe_constantize
+    end
+
+    def class_name_is_singular?
+      class_name.to_s.pluralize.singularize == class_name.to_s
+    end
 
     def scope_base
       @scope_base ||= (/(([A-Z]\w*::)*)([A-Z]\w*)$/ =~ original_message ? $1 : "").split("::")

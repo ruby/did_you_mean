@@ -106,4 +106,4 @@ _did\_you\_mean_ gem supports the following implementations:
 
 ## License
 
-Copyright (c) 2014 Yuki Nishijima. See MIT-LICENSE for further details.
+Copyright (c) 2015 Yuki Nishijima. See MIT-LICENSE for further details.

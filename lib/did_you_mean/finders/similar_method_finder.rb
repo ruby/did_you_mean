@@ -1,3 +1,5 @@
+require 'ostruct'
+
 module DidYouMean
   class SimilarMethodFinder
     include BaseFinder
@@ -6,6 +8,7 @@ module DidYouMean
     def initialize(exception)
       @method_name = exception.name
       @receiver    = exception.receiver
+      @original_message = exception.original_message
       @separator   = @receiver.is_a?(Class) ? DOT : POUND
     end
 
@@ -15,7 +18,23 @@ module DidYouMean
       end
     end
 
+    def suggestions
+      super + similar_classes
+    end
+
     alias target_word method_name
+
+    private
+
+    def similar_classes
+      return [] unless @receiver.is_a?(Class)
+      similar_class = SimilarClassFinder.new(OpenStruct.new name: @receiver, original_message: @original_message)
+      similar_class.suggestions.map(&:with_prefix).
+        select { |suggestion| Kernel.const_get(suggestion.to_s).respond_to? @method_name }.
+        map do |delegator|
+        StringDelegator.new("#{delegator.to_s}.#@method_name" , :method)
+      end
+    end
   end
 
   finders["NoMethodError"] = SimilarMethodFinder

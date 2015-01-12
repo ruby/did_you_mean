@@ -2,6 +2,7 @@ require_relative 'null_finder_test'
 require_relative 'name_error_extension_test'
 require_relative 'similar_name_finder_test'
 require_relative 'similar_method_finder_test'
+require_relative 'similar_class_method_finder_test'
 require_relative 'no_method_error_extension_test'
 
 if defined?(ActiveRecord)

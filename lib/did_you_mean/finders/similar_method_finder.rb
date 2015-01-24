@@ -10,7 +10,9 @@ module DidYouMean
     end
 
     def words
-      (receiver.methods + receiver.singleton_methods).uniq.map do |name|
+      method_names = receiver.methods + receiver.singleton_methods
+      method_names.delete(@method_name)
+      method_names.uniq.map do |name|
         StringDelegator.new(name.to_s, :method, prefix: @separator)
       end
     end

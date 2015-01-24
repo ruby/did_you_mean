@@ -6,9 +6,12 @@ class SimilarMethodFinderTest < Minitest::Test
     def first_name; end
     def descendants; end
 
-    private
+    protected
+    def the_protected_method; end
 
+    private
     def friend; end
+    def the_private_method; end
 
     class << self
       def load; end
@@ -45,5 +48,13 @@ class SimilarMethodFinderTest < Minitest::Test
   def test_similar_words_for_long_method_name
     error = assert_raises(NoMethodError){ User.new.dependents }
     assert_suggestion error.suggestions, "descendants"
+  end
+
+  def test_private_methods_should_not_be_suggested
+    error = assert_raises(NoMethodError){ User.new.the_protected_method }
+    refute_includes error.suggestions, 'the_protected_method'
+
+    error = assert_raises(NoMethodError){ User.new.the_private_method }
+    refute_includes error.suggestions, 'the_private_method'
   end
 end

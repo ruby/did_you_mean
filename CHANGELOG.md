@@ -1,3 +1,11 @@
+## [v0.9.6](https://github.com/yuki24/did_you_mean/tree/v0.9.6)
+
+_<sup>released on 2015-01-24 23:19:27 UTC</sup>_
+
+#### Bug Fixes
+
+- Fixed a bug where did\_you\_mean incorrectly suggests protected methods when it just isn't callable ( [@glittershark](https://github.com/glittershark), [#34](https://github.com/yuki24/did_you_mean/issues/34 "Did\_you\_mean incorrectly called when attempting to call protected/private method"))
+
 ## [v0.9.5](https://github.com/yuki24/did_you_mean/tree/v0.9.5)
 
 _<sup>released on 2015-01-07 12:41:23 UTC</sup>_

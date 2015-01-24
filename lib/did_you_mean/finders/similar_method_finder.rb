@@ -8,7 +8,9 @@ module DidYouMean
     end
 
     def words
-      (receiver.methods + receiver.singleton_methods).uniq
+      method_names = receiver.methods + receiver.singleton_methods
+      method_names.delete(@method_name)
+      method_names.uniq
     end
 
     alias target_word method_name

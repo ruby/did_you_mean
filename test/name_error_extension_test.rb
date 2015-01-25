@@ -51,13 +51,8 @@ class IgnoreCallersTest < Minitest::Test
 
   private
 
-  def safe_constantize
-    @error.message
-  end
-
-  def missing_name
-    @error.message
-  end
+  def safe_constantize; @error.message end
+  def missing_name;     @error.message end
 
   def assert_nothing_raised
     yield

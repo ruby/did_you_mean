@@ -20,8 +20,6 @@ module DidYouMean
     alias target_word method_name
   end
 
-  finders["NoMethodError"] = SimilarMethodFinder
-
   case RUBY_ENGINE
   when 'ruby'
     require 'did_you_mean/method_receiver'
@@ -42,9 +40,5 @@ module DidYouMean
         end
       end
     end
-
-    finders["NoMethodError"] = SimilarMethodFinder::RubiniusSupport
-  else
-    finders.delete("NoMethodError")
   end
 end

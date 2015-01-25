@@ -14,6 +14,4 @@ module DidYouMean
 
     alias target_word attribute_name
   end
-
-  finders["ActiveRecord::UnknownAttributeError"] = SimilarAttributeFinder
 end

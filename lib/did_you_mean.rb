@@ -39,6 +39,22 @@ module DidYouMean
   def self.formatter
     @@formatter ||= Formatters::Plain
   end
+
+  def self.finders
+    @@finders ||= Hash.new(NullFinder)
+  end
+
+  finders.merge!({
+    "NameError"                           => NameErrorFinders,
+    "ActiveRecord::UnknownAttributeError" => SimilarAttributeFinder
+  })
+
+  case RUBY_ENGINE
+  when 'ruby', 'jruby'
+    finders["NoMethodError"] = SimilarMethodFinder
+  when 'rbx'
+    finders["NoMethodError"] = SimilarMethodFinder::RubiniusSupport
+  end
 end
 
 require 'did_you_mean/railtie' if defined?(Rails)

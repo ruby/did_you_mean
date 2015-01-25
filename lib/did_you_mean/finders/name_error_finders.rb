@@ -15,8 +15,6 @@ module DidYouMean
       end.new(exception)
     end
   end
-
-  finders["NameError"] = NameErrorFinders
 end
 
 require 'did_you_mean/finders/name_error_finders/similar_name_finder'

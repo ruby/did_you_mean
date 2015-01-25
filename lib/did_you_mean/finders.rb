@@ -43,10 +43,6 @@ module DidYouMean
     def initialize(*); end
     def did_you_mean?; end
   end
-
-  def self.finders
-    @@finders ||= Hash.new(NullFinder)
-  end
 end
 
 require 'did_you_mean/finders/name_error_finders'

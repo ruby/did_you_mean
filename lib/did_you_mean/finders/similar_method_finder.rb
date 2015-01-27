@@ -6,6 +6,12 @@ module DidYouMean
     def initialize(exception)
       @method_name = exception.name
       @receiver    = exception.receiver
+      @location    = exception.backtrace.first
+      @ivar_names  = SimilarNameFinder.new(exception).ivar_names
+    end
+
+    def suggestions
+      super + WordCollection.new(@ivar_names).similar_to(receiver_name.to_s)
     end
 
     def words
@@ -15,6 +21,27 @@ module DidYouMean
     end
 
     alias target_word method_name
+
+    def receiver_name
+      return unless @receiver.nil?
+
+      abs_path, lineno, label =
+        /(.*):(.*):in `(.*)'/ =~ @location && [$1, $2.to_i, $3]
+
+      line =
+        case label
+        when "irb_binding"
+          Readline::HISTORY.to_a.last
+        when "__pry__"
+          Pry.history.to_a.last
+        else
+          File.open(abs_path) do |file|
+            file.detect { file.lineno == lineno }
+          end if File.exist?(abs_path)
+        end
+
+      /@(\w+)["|'|)]*\.#{@method_name}/ =~ line.to_s && $1
+    end
   end
 
   case RUBY_ENGINE

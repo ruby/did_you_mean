@@ -57,4 +57,14 @@ class SimilarMethodFinderTest < Minitest::Test
     error = assert_raises(NoMethodError){ User.new.the_private_method }
     refute_includes error.suggestions, 'the_private_method'
   end
+
+  def test_corrects_incorrect_ivar_name
+    skip if RUBY_ENGINE == 'rbx'
+
+    @number = 1
+    error = assert_raises(NoMethodError) { @nubmer.zero? }
+
+    assert_suggestion error.suggestions, "number"
+    assert_match "Did you mean? @number", error.did_you_mean?
+  end
 end

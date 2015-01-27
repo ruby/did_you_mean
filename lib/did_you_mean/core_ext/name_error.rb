@@ -19,7 +19,7 @@ class NameError
   alias             to_s to_s_with_did_you_mean
 
   def did_you_mean?
-    finder.did_you_mean?
+    DidYouMean.formatter.new(suggestions).to_s if DidYouMean.enabled? && !suggestions.empty?
   end
 
   def suggestions

@@ -3,7 +3,7 @@ require_relative 'test_helper'
 class NameErrorExtensionTest < Minitest::Test
   class TestFinder
     def initialize(*); end
-    def did_you_mean?; "Y U SO SLOW?"; end
+    def suggestions; ["Y U SO SLOW?"]; end
   end
 
   def setup
@@ -18,8 +18,8 @@ class NameErrorExtensionTest < Minitest::Test
   end
 
   def test_message
-    assert_match "Y U SO SLOW?", @error.to_s
-    assert_match "Y U SO SLOW?", @error.message
+    assert_match "Did you mean? Y U SO SLOW?", @error.to_s
+    assert_match "Did you mean? Y U SO SLOW?", @error.message
   end
 end
 

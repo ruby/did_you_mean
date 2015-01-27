@@ -10,7 +10,7 @@ module DidYouMean
     def words
       scopes.flat_map do |scope|
         scope.constants.map do |c|
-          StringDelegator.new(c.to_s, :constant, prefix: (scope == Object ? EMPTY : "#{scope}::"))
+          ClassName.new(c.to_s, scope == Object ? EMPTY : "#{scope}::")
         end
       end
     end
@@ -21,7 +21,7 @@ module DidYouMean
     alias target_word name_from_message
 
     def suggestions
-      super.map(&:with_prefix)
+      super.map(&:full_name)
     end
 
     def scopes

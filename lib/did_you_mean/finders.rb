@@ -1,11 +1,9 @@
-require "delegate"
+require "did_you_mean/names"
 require "did_you_mean/word_collection"
 
 module DidYouMean
   module BaseFinder
     AT    = "@".freeze
-    POUND = "#".freeze
-    DOT   = ".".freeze
     EMPTY = "".freeze
 
     def did_you_mean?
@@ -16,26 +14,6 @@ module DidYouMean
 
     def suggestions
       @suggestions ||= WordCollection.new(words).similar_to(target_word)
-    end
-
-    class StringDelegator < ::Delegator
-      attr :type, :options
-
-      def initialize(name, type, options = {})
-        super(name)
-        @name, @type, @options = name, type, options
-      end
-
-      def __getobj__
-        @name
-      end
-
-      def with_prefix
-        self.class.new("#{options[:prefix]}#{@name}", @type)
-      end
-
-      # StringDelegator Does not allow to replace the object.
-      def __setobj__(*); end
     end
   end
 

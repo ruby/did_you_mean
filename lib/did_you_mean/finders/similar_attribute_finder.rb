@@ -9,7 +9,7 @@ module DidYouMean
     end
 
     def words
-      columns.map {|c| StringDelegator.new(c.name, :attribute, column_type: c.type) }
+      columns.map {|c| ColumnName.new(c.name, c.type) }
     end
 
     alias target_word attribute_name

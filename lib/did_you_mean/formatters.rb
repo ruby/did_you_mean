@@ -13,15 +13,15 @@ module DidYouMean
       end
 
       def format(name)
-        case name.type
-        when :instance_variable
+        case name
+        when IvarName
           "@#{name}"
-        when :method
-          name.with_prefix
-        when :attribute
+        when MethodName
+          "##{name}"
+        when ColumnName
           "%{column}: %{type}" % {
             column: name,
-            type:   name.options[:column_type]
+            type:   name.type
           }
         else
           name
@@ -42,19 +42,19 @@ module DidYouMean
       end
 
       def format(name)
-        case name.type
-        when :instance_variable
+        case name
+        when IvarName
           yellow("@#{name}")
-        when :method
-          name.with_prefix
-        when :constant
+        when MethodName
+          "##{name}"
+        when ClassName
           name.split("::").map do |constant|
             blue(underline(constant))
           end.join("::")
-        when :attribute
+        when ColumnName
           "%{column}: %{type}" % {
             column: magenda(name),
-            type:   name.options[:column_type]
+            type:   name.type
           }
         else
           name

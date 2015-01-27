@@ -42,7 +42,7 @@ class SimilarMethodFinderTest < Minitest::Test
     assert_match "Did you mean? #first_name",  @error_from_instance_method.did_you_mean?
     assert_match "Did you mean? #friends",     @error_from_private_method.did_you_mean?
     assert_match "Did you mean? #from_module", @error_from_module_method.did_you_mean?
-    assert_match "Did you mean? .load",        @error_from_class_method.did_you_mean?
+    assert_match "Did you mean? #load",        @error_from_class_method.did_you_mean?
   end
 
   def test_similar_words_for_long_method_name

@@ -6,15 +6,12 @@ module DidYouMean
     def initialize(exception)
       @method_name = exception.name
       @receiver    = exception.receiver
-      @separator   = @receiver.is_a?(Class) ? DOT : POUND
     end
 
     def words
       method_names = receiver.methods + receiver.singleton_methods
-      method_names.delete(@method_name)
-      method_names.uniq.map do |name|
-        StringDelegator.new(name.to_s, :method, prefix: @separator)
-      end
+      method_names.delete(method_name)
+      method_names.uniq.map {|name| MethodName.new(name.to_s) }
     end
 
     alias target_word method_name

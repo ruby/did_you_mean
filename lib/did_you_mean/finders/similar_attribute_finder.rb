@@ -8,10 +8,8 @@ module DidYouMean
       @attribute_name = (/unknown attribute(: | ')(\w+)/ =~ exception.original_message) && $2
     end
 
-    def words
-      columns.map {|c| ColumnName.new(c.name, c.type) }
+    def searches
+      {attribute_name => columns.map{|c| ColumnName.new(c.name, c.type)} }
     end
-
-    alias target_word attribute_name
   end
 end

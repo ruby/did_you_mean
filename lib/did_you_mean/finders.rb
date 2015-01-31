@@ -7,7 +7,7 @@ module DidYouMean
     EMPTY = "".freeze
 
     def suggestions
-      @suggestions ||= WordCollection.new(words).similar_to(target_word)
+      @suggestions ||= searches.flat_map {|_, __| WordCollection.new(__).similar_to(_) }
     end
   end
 

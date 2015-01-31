@@ -12,10 +12,8 @@ module DidYouMean
       end
     end
 
-    def words
-      lvar_names + method_names + ivar_names
+    def searches
+      {name => (lvar_names + method_names + ivar_names)}
     end
-
-    alias target_word name
   end
 end

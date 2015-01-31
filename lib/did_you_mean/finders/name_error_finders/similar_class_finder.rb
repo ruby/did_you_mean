@@ -7,7 +7,11 @@ module DidYouMean
       @class_name, @original_message = exception.name, exception.original_message
     end
 
-    def words
+    def searches
+      {name_from_message => class_names}
+    end
+
+    def class_names
       scopes.flat_map do |scope|
         scope.constants.map do |c|
           ClassName.new(c.to_s, scope == Object ? EMPTY : "#{scope}::")
@@ -18,7 +22,6 @@ module DidYouMean
     def name_from_message
       class_name || /([A-Z]\w*$)/.match(original_message)[0]
     end
-    alias target_word name_from_message
 
     def suggestions
       super.map(&:full_name)

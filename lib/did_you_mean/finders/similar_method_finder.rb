@@ -10,17 +10,18 @@ module DidYouMean
       @ivar_names  = SimilarNameFinder.new(exception).ivar_names
     end
 
-    def suggestions
-      super + WordCollection.new(@ivar_names).similar_to(receiver_name.to_s)
+    def searches
+      {
+        method_name        => method_names,
+        receiver_name.to_s => @ivar_names
+      }
     end
 
-    def words
+    def method_names
       method_names = receiver.methods + receiver.singleton_methods
       method_names.delete(method_name)
       method_names.uniq.map {|name| MethodName.new(name.to_s) }
     end
-
-    alias target_word method_name
 
     def receiver_name
       return unless @receiver.nil?

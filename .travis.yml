@@ -9,7 +9,7 @@ rvm:
   - 2.1.5
   - 2.2.0
   - ruby-head
-  - jruby-1.7.17
+  - jruby-1.7.19
   - jruby-head
   - rbx-2.4.1
 
@@ -26,7 +26,7 @@ matrix:
   exclude:
     - rvm: 1.9.3
       gemfile: gemfiles/better_errors_110.gemfile
-    - rvm: jruby-1.7.17
+    - rvm: jruby-1.7.19
       gemfile: gemfiles/better_errors_110.gemfile
     - rvm: 1.9.3
       gemfile: gemfiles/better_errors_200.gemfile
@@ -36,7 +36,7 @@ matrix:
       gemfile: gemfiles/activerecord_edge.gemfile
     - rvm: 2.1.5
       gemfile: gemfiles/activerecord_edge.gemfile
-    - rvm: jruby-1.7.17
+    - rvm: jruby-1.7.19
       gemfile: gemfiles/better_errors_200.gemfile
   allow_failures:
     - rvm: jruby-head

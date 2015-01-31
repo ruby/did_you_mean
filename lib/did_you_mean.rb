@@ -53,7 +53,12 @@ module DidYouMean
   when 'ruby', 'jruby'
     finders["NoMethodError"] = SimilarMethodFinder
   when 'rbx'
-    finders["NoMethodError"] = SimilarMethodFinder::RubiniusSupport
+    finders["NoMethodError"] =
+      if (___ rescue $!).class === NameError # For rbx > 2.5.0
+        SimilarMethodFinder
+      else
+        SimilarMethodFinder::RubiniusSupport # For rbx < 2.5.0
+      end
   end
 end
 

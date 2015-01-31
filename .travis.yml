@@ -12,6 +12,7 @@ rvm:
   - jruby-1.7.19
   - jruby-head
   - rbx-2.4.1
+  - rbx-2.5.2
 
 gemfile:
   - gemfiles/better_errors_200.gemfile

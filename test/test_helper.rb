@@ -1,4 +1,4 @@
-NAME_ERROR = RUBY_ENGINE == 'rbx' ? NoMethodError : NameError
+NAME_ERROR = (___ rescue $!).class
 
 require 'minitest/autorun'
 require 'minitest/unit'

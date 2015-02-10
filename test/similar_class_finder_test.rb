@@ -1,5 +1,8 @@
 require_relative 'test_helper'
 
+module ACRONYM
+end
+
 class Project
   def self.bo0k
     Bo0k
@@ -31,6 +34,16 @@ class SimpleSimilarClassFinderTest < Minitest::Test
 
   def test_similar_words
     assert_suggestion @error.suggestions, "Book"
+  end
+end
+
+class CaseSpecificClassFinderTest < Minitest::Test
+  def setup
+    @error = assert_raises(NameError) { ::Acronym }
+  end
+
+  def test_similar_words
+    assert_suggestion @error.suggestions, "ACRONYM"
   end
 end
 

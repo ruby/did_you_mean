@@ -8,8 +8,6 @@ module DidYouMean
       return m if n.zero?
       return n if m.zero?
 
-      return 1 if str1.downcase == str2.downcase && str1 != str2
-
       d = (0..m).to_a
       x = nil
 

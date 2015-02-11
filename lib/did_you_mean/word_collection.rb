@@ -12,10 +12,10 @@ module DidYouMean
     def each(&block) words.each(&block); end
 
     def similar_to(target_word)
-      target_word = target_word.to_s
+      target_word = target_word.to_s.downcase
       threshold   = threshold(target_word)
 
-      map {|word| [Levenshtein.distance(word.to_s, target_word), word] }
+      map {|word| [Levenshtein.distance(word.to_s.downcase, target_word), word] }
         .select {|distance, _| distance <= threshold }
         .sort
         .map(&:last)

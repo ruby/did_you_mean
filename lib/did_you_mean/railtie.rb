@@ -5,7 +5,7 @@ module DidYouMean
         require 'did_you_mean/better_errors'
       end
 
-      if defined?(Pry)
+      if defined?(::Pry)
         require 'did_you_mean/pry'
       end
     end

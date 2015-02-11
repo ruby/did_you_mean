@@ -34,7 +34,7 @@ module DidYouMean
         when "irb_binding"
           Readline::HISTORY.to_a.last
         when "__pry__"
-          Pry.history.to_a.last
+          ::Pry.history.to_a.last
         else
           File.open(abs_path) do |file|
             file.detect { file.lineno == lineno }

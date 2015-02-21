@@ -18,6 +18,8 @@ class SimilarNameFinderTest < Minitest::Test
     def from_module; end
   end
 
+  @@does_exist = true
+
   def setup
     user = User.new.extend(UserModule)
 
@@ -31,6 +33,8 @@ class SimilarNameFinderTest < Minitest::Test
     rescue NAME_ERROR => e
       e
     end
+
+    @error_from_class_variable = assert_raises(NAME_ERROR){ @@doesnt_exist }
   end
 
   def test_similar_words
@@ -38,6 +42,7 @@ class SimilarNameFinderTest < Minitest::Test
     assert_suggestion @error_from_module_method.suggestions,   "from_module"
     assert_suggestion @error_from_local_variable.suggestions,  "user"
     assert_suggestion @error_from_missing_at_sign.suggestions, "email"
+    assert_suggestion @error_from_class_variable.suggestions,  "does_exist"
   end
 
   def test_did_you_mean?
@@ -45,5 +50,6 @@ class SimilarNameFinderTest < Minitest::Test
     assert_match "Did you mean? #from_module", @error_from_module_method.did_you_mean?
     assert_match "Did you mean? user",         @error_from_local_variable.did_you_mean?
     assert_match "Did you mean? @email",       @error_from_missing_at_sign.did_you_mean?
+    assert_match "Did you mean? @@does_exist", @error_from_class_variable.did_you_mean?
   end
 end

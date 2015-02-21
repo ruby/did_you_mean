@@ -3,6 +3,7 @@ require "delegate"
 module DidYouMean
   class Name       < SimpleDelegator; end
   class IvarName   < Name; end
+  class CvarName   < Name; end
   class MethodName < Name; end
 
   class ClassName  < Name

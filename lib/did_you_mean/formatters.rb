@@ -16,6 +16,8 @@ module DidYouMean
         case name
         when IvarName
           "@#{name}"
+        when CvarName
+          "@@#{name}"
         when MethodName
           "##{name}"
         when ColumnName

@@ -2,7 +2,7 @@
 
 'Did you mean?' experience in Ruby. No, Really.
 
-**For those who are still using 0.6.0, 0.7.0 and 0.8.0, please upgrade to the latest version (0.9.4) as they have a serious bug with Ruby 2.1.3 and 2.1.4 installed on Mac OS X.**
+**For those who are still using 0.6.0, 0.7.0 and 0.8.0, please upgrade to the latest version (0.9.6) as they have a serious bug with Ruby 2.1.3 and 2.1.4 installed on Mac OS X.**
 
 ## Installation
 

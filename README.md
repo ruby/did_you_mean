@@ -93,8 +93,8 @@ _did\_you\_mean_ gem automagically puts method suggestions into the error messag
 _did\_you\_mean_ gem supports the following implementations:
 
  * MRI 1.9.3, 2.0.0, 2.1.x, 2.2.0 and ruby-head
- * JRuby (tested against 1.7.17)
- * Rubinius (tested against 2.4.1)
+ * JRuby (tested against 1.7.19)
+ * Rubinius (tested against 2.4.1 and 2.5.2)
 
 ## Contributing
 

@@ -36,6 +36,16 @@ class PryFormatterTest < Minitest::Test
     assert_includes output, red("Did you mean?")
     assert_includes output, yellow("@name")
   end
+
+  def test_class_variable_name_format
+    output = ReplTester.start do
+      input 'self.class.class_variable_set(:@@name, "Yuki")'
+      input 'name'
+    end
+
+    assert_includes output, red("Did you mean?")
+    assert_includes output, yellow("@@name")
+  end
 =begin
   # This test occasionally fails due to a treading issue.
   def test_attribute_name_format

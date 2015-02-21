@@ -47,6 +47,8 @@ module DidYouMean
         case name
         when IvarName
           yellow("@#{name}")
+        when CvarName
+          yellow("@@#{name}")
         when MethodName
           "##{name}"
         when ClassName

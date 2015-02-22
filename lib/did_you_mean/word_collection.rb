@@ -13,18 +13,12 @@ module DidYouMean
 
     def similar_to(target_word)
       target_word = target_word.to_s.downcase
-      threshold   = threshold(target_word)
+      threshold   = (target_word.size * 0.3).ceil
 
       map {|word| [Levenshtein.distance(word.to_s.downcase, target_word), word] }
         .select {|distance, _| distance <= threshold }
         .sort
         .map(&:last)
-    end
-
-    private
-
-    def threshold(word)
-      (word.size * 0.3).ceil
     end
   end
 end

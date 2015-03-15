@@ -54,10 +54,10 @@ module DidYouMean
     finders["NoMethodError"] = SimilarMethodFinder
   when 'rbx'
     finders["NoMethodError"] =
-      if (___ rescue $!).class === NameError # For rbx > 2.5.0
+      if (___ rescue $!).class.to_s == "NameError" # For rbx > 2.5.0
         SimilarMethodFinder
       else
-        SimilarMethodFinder::RubiniusSupport # For rbx < 2.5.0
+        SimilarMethodFinder::RubiniusSupport       # For rbx < 2.5.0
       end
   end
 end

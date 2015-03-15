@@ -6,7 +6,9 @@ module DidYouMean
     def initialize(exception)
       @name          = exception.name
       @lvar_names    = exception.frame_binding.eval("local_variables").map(&:to_s)
-      @method_names  = exception.frame_binding.eval("methods").map {|name| MethodName.new(name.to_s) }
+      @method_names  = exception.frame_binding.eval("methods + private_methods").map do |name|
+        MethodName.new(name.to_s)
+      end
       @cvar_names    = exception.frame_binding.eval("self.class.class_variables").map do |name|
         CvarName.new(name.to_s.tr(AT, EMPTY))
       end

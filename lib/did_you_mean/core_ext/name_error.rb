@@ -7,16 +7,16 @@ class NameError
   ].freeze
   private_constant :IGNORED_CALLERS
 
-  def to_s_with_did_you_mean
-    msg = original_message
+  __to_s__ = instance_method(:to_s)
+  define_method(:original_message){ __to_s__.bind(self).call }
+
+  def to_s
+    msg = super
     msg << did_you_mean?.to_s if IGNORED_CALLERS.all? {|ignored| caller.first(8).grep(ignored).empty? }
     msg
   rescue
-    original_message
+    super
   end
-
-  alias original_message to_s
-  alias             to_s to_s_with_did_you_mean
 
   def did_you_mean?
     DidYouMean.formatter.new(suggestions).to_s if DidYouMean.enabled? && !suggestions.empty?

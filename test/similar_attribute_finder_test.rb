@@ -2,13 +2,7 @@ require_relative 'test_helper'
 
 class SimilarAttributeFinderTest < Minitest::Test
   def setup
-    error_class = if defined?(ActiveModel::AttributeAssignment::UnknownAttributeError)
-      ActiveModel::AttributeAssignment::UnknownAttributeError
-    else
-      ActiveRecord::UnknownAttributeError
-    end
-
-    @error = assert_raises(error_class) do
+    @error = assert_raises(ActiveRecord::UnknownAttributeError) do
       User.new(flrst_name: "wrong flrst name")
     end
   end

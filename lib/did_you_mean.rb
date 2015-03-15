@@ -45,9 +45,8 @@ module DidYouMean
   end
 
   finders.merge!({
-    "NameError"                                               => NameErrorFinders,
-    "ActiveRecord::UnknownAttributeError"                     => SimilarAttributeFinder,
-    "ActiveModel::AttributeAssignment::UnknownAttributeError" => SimilarAttributeFinder
+    "NameError"                           => NameErrorFinders,
+    "ActiveRecord::UnknownAttributeError" => SimilarAttributeFinder,
   })
 
   case RUBY_ENGINE

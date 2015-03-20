@@ -6,9 +6,6 @@ class SimilarNameFinderTest < Minitest::Test
       @email_address = 'email_address@address.net'
     end
 
-    def call_flrst_name;  f1rst_name; end
-    def call_fr0m_module; fr0m_module; end
-    def real_name;        cia_code_name end
     def first_name; end
     def to_s
       "#{@first_name} #{@last_name} <#{email_address}>"
@@ -28,8 +25,8 @@ class SimilarNameFinderTest < Minitest::Test
   def setup
     user = User.new.extend(UserModule)
 
-    @error_from_instance_method = assert_raises(NAME_ERROR){ user.call_flrst_name }
-    @error_from_module_method   = assert_raises(NAME_ERROR){ user.call_fr0m_module }
+    @error_from_instance_method = assert_raises(NAME_ERROR){ user.instance_eval { flrst_name } }
+    @error_from_module_method   = assert_raises(NAME_ERROR){ user.instance_eval { fr0m_module } }
     @error_from_missing_at_sign = assert_raises(NAME_ERROR){ user.to_s }
 
     # Use begin + rescue as #assert_raises changes a scope.
@@ -40,7 +37,7 @@ class SimilarNameFinderTest < Minitest::Test
     end
 
     @error_from_class_variable = assert_raises(NameError){ @@doesnt_exist }
-    @error_from_private_method = assert_raises(NAME_ERROR){ user.real_name }
+    @error_from_private_method = assert_raises(NAME_ERROR){ user.instance_eval { cia_code_name } }
   end
 
   def test_similar_words
@@ -51,7 +48,7 @@ class SimilarNameFinderTest < Minitest::Test
     assert_suggestion @error_from_private_method.suggestions,  "cia_codename"
 
     if RUBY_ENGINE != 'rbx'
-      assert_suggestion @error_from_class_variable.suggestions,  "does_exist"
+      assert_suggestion @error_from_class_variable.suggestions, "does_exist"
     end
   end
 

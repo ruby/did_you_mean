@@ -1,19 +1,7 @@
 require_relative 'test_helper'
 
 class WordCollectionTest < Minitest::Test
-  def setup
-    names = %w(
-      name12
-      name123
-      name1234
-      name12345
-      name123456
-    )
-
-    @word_collection = DidYouMean::WordCollection.new(names)
-  end
-
-  def test_similar_to
+  def test_similar_to_sorts_results_by_simiarity
     expected = %w(
       name123456
       name12345
@@ -21,6 +9,14 @@ class WordCollectionTest < Minitest::Test
       name123
     )
 
-    assert_equal expected, @word_collection.similar_to("name123456")
+    actual = DidYouMean::WordCollection.new(%w(
+      name12
+      name123
+      name1234
+      name12345
+      name123456
+    )).similar_to("name123456")
+
+    assert_equal expected, actual
   end
 end

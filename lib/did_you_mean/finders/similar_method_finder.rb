@@ -41,7 +41,7 @@ module DidYouMean
           end if File.exist?(abs_path)
         end
 
-      /@(\w+)["|'|)]*\.#{@method_name}/ =~ line.to_s && $1
+      /@(\w+)*\.#{@method_name}/ =~ line.to_s && $1
     end
   end
 

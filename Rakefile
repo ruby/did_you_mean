@@ -35,7 +35,7 @@ if mri? || jruby?
 
     begin
       $stdout.puts("\033[33m")
-      sh "bundle exec ruby test/all_test.rb"
+      sh "bundle exec ruby -w test/all_test.rb"
     ensure
       $stdout.puts("\033[0m")
     end
@@ -47,7 +47,7 @@ if mri? || jruby?
     desc "Run tests without re-compiling extensions"
     task :without_compile do
       $stdout.puts("\033[33m")
-      sh "bundle exec ruby test/all_test.rb"
+      sh "bundle exec ruby -w test/all_test.rb"
       $stdout.puts("\033[0m")
     end
   end
@@ -55,7 +55,7 @@ else # for Rubinius
   desc "Run tests"
   task :test do
     $stdout.puts("\033[33m")
-    sh "bundle exec ruby test/all_test.rb"
+    sh "bundle exec ruby -w test/all_test.rb"
     $stdout.puts("\033[0m")
   end
 end

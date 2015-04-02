@@ -1,3 +1,11 @@
+## [v0.9.7](https://github.com/yuki24/did_you_mean/tree/v0.9.7)
+
+_<sup>released on 2015-04-02 04:20:26 UTC</sup>_
+
+#### Bug Fixes
+
+- Fixed an issue where _did\_you\_mean_ doesn't install on JRuby properly.
+
 ## [v0.9.6](https://github.com/yuki24/did_you_mean/tree/v0.9.6)
 
 _<sup>released on 2015-01-24 23:19:27 UTC</sup>_

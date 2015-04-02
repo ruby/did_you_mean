@@ -11,11 +11,11 @@ class NameError
   define_method(:original_message){ __to_s__.bind(self).call }
 
   def to_s
-    msg = super
+    msg = original_message
     msg << did_you_mean?.to_s if IGNORED_CALLERS.all? {|ignored| caller.first(8).grep(ignored).empty? }
     msg
   rescue
-    super
+    original_message
   end
 
   def did_you_mean?

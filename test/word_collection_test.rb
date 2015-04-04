@@ -3,8 +3,13 @@ require_relative 'test_helper'
 class WordCollectionTest < Minitest::Test
 
   def test_similar_to
-    assert_suggestion 'drag_to',     collection('drag_to', similar_to: 'drag')
-    assert_suggestion 'descendants', collection('descendants', similar_to: 'dependents')
+    assert_suggestion 'foo',         collection('foo',                   similar_to: 'doo')
+    assert_suggestion 'drag_to',     collection('drag_to',               similar_to: 'drag')
+    assert_suggestion 'descendants', collection('descendants',           similar_to: 'dependents')
+    assert_suggestion 'email',       collection('email', 'fail', 'eval', similar_to: 'meail')
+    assert_suggestion 'email',       collection('email', 'fail', 'eval', similar_to: 'email')
+
+    assert_equal ['sub', 'sub!'], collection('sub', 'gsub', 'sub!', similar_to: 'suv')
   end
 
   def test_similar_to_sorts_results_by_simiarity

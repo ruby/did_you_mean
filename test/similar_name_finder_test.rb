@@ -41,14 +41,14 @@ class SimilarNameFinderTest < Minitest::Test
   end
 
   def test_similar_words
-    assert_suggestion @error_from_instance_method.suggestions, "first_name"
-    assert_suggestion @error_from_module_method.suggestions,   "from_module"
-    assert_suggestion @error_from_local_variable.suggestions,  "user"
-    assert_suggestion @error_from_missing_at_sign.suggestions, "email_address"
-    assert_suggestion @error_from_private_method.suggestions,  "cia_codename"
+    assert_suggestion "first_name",    @error_from_instance_method.suggestions
+    assert_suggestion "from_module",   @error_from_module_method.suggestions
+    assert_suggestion "user",          @error_from_local_variable.suggestions
+    assert_suggestion "email_address", @error_from_missing_at_sign.suggestions
+    assert_suggestion "cia_codename",  @error_from_private_method.suggestions
 
     if RUBY_ENGINE != 'rbx'
-      assert_suggestion @error_from_class_variable.suggestions, "does_exist"
+      assert_suggestion "does_exist", @error_from_class_variable.suggestions
     end
   end
 

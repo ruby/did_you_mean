@@ -32,10 +32,10 @@ class SimilarMethodFinderTest < Minitest::Test
   end
 
   def test_similar_words
-    assert_suggestion @error_from_instance_method.suggestions, "first_name"
-    assert_suggestion @error_from_private_method.suggestions,  "friends"
-    assert_suggestion @error_from_module_method.suggestions,   "from_module"
-    assert_suggestion @error_from_class_method.suggestions,    "load"
+    assert_suggestion "first_name",  @error_from_instance_method.suggestions
+    assert_suggestion "friends",     @error_from_private_method.suggestions
+    assert_suggestion "from_module", @error_from_module_method.suggestions
+    assert_suggestion "load",        @error_from_class_method.suggestions
   end
 
   def test_did_you_mean?
@@ -47,7 +47,7 @@ class SimilarMethodFinderTest < Minitest::Test
 
   def test_similar_words_for_long_method_name
     error = assert_raises(NoMethodError){ User.new.dependents }
-    assert_suggestion error.suggestions, "descendants"
+    assert_suggestion "descendants", error.suggestions
   end
 
   def test_private_methods_should_not_be_suggested
@@ -64,7 +64,7 @@ class SimilarMethodFinderTest < Minitest::Test
     @number = 1
     error = assert_raises(NoMethodError) { @nubmer.zero? }
 
-    assert_suggestion error.suggestions, "number"
+    assert_suggestion "number", error.suggestions
     assert_match "Did you mean? @number", error.did_you_mean?
   end
 end

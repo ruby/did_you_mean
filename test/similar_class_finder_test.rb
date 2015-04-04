@@ -27,72 +27,39 @@ class Book
   end
 end
 
-class SimpleSimilarClassFinderTest < Minitest::Test
-  def setup
-    @error = assert_raises(NameError) { ::Bo0k }
+class SimilarClassFinderTest < Minitest::Test
+  def test_suggestions
+    error = assert_raises(NameError) { ::Bo0k }
+    assert_suggestion "Book", error.suggestions
   end
 
-  def test_similar_words
-    assert_suggestion "Book", @error.suggestions
-  end
-end
-
-class CaseSpecificClassFinderTest < Minitest::Test
-  def setup
-    @error = assert_raises(NameError) { ::Acronym }
+  def test_suggestions_include_case_specific_class_name
+    error = assert_raises(NameError) { ::Acronym }
+    assert_suggestion "ACRONYM", error.suggestions
   end
 
-  def test_similar_words
-    assert_suggestion "ACRONYM", @error.suggestions
-  end
-end
-
-class SimilarClassFinderInsideClassTest < Minitest::Test
-  def setup
-    @error = assert_raises(NameError) { Project.bo0k }
+  def test_suggestions_include_top_level_class_name
+    error = assert_raises(NameError) { Project.bo0k }
+    assert_suggestion "Book", error.suggestions
   end
 
-  def test_similar_words
-    assert_suggestion "Book", @error.suggestions
-  end
-end
-
-class SimilarClassFinderInsideNestedClassTest < Minitest::Test
-  def setup
-    @error = assert_raises(NameError) { Book::Page.tableof_contents }
+  def test_names_in_suggestions_have_namespaces
+    error = assert_raises(NameError) { ::Book::TableofContents }
+    assert_suggestion "Book::TableOfContents", error.suggestions
   end
 
-  def test_similar_words
-    assert_suggestion "Book::TableOfContents", @error.suggestions
-  end
-end
-
-class SimilarClassFinderForClassWithNamespaceTest < Minitest::Test
-  def setup
-    @error = assert_raises(NameError) { ::Book::TableofContents }
+  def test_suggestions_searches_for_names_in_upper_level_scopes
+    error = assert_raises(NameError) { Book::Page.tableof_contents }
+    assert_suggestion "Book::TableOfContents", error.suggestions
   end
 
-  def test_similar_words
-    assert_suggestion "Book::TableOfContents", @error.suggestions
-  end
-end
-
-class SimilarClassFinderFromInstanceTest < Minitest::Test
-  def setup
-    @error = assert_raises(NameError) { ::Book.new.tableof_contents }
+  def test_suggestions_should_work_from_within_instance_method
+    error = assert_raises(NameError) { ::Book.new.tableof_contents }
+    assert_suggestion "Book::TableOfContents", error.suggestions
   end
 
-  def test_similar_words
-    assert_suggestion "Book::TableOfContents", @error.suggestions
-  end
-end
-
-class SimilarClassFinderFromNestedInstanceTest < Minitest::Test
-  def setup
-    @error = assert_raises(NameError) { ::Book::Page.new.tableof_contents }
-  end
-
-  def test_similar_words
-    assert_suggestion "Book::TableOfContents", @error.suggestions
+  def test_suggestions_should_work_from_within_instance_method_on_nested_class
+    error = assert_raises(NameError) { ::Book::Page.new.tableof_contents }
+    assert_suggestion "Book::TableOfContents", error.suggestions
   end
 end

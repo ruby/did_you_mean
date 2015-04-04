@@ -23,26 +23,35 @@ class SimilarMethodFinderTest < Minitest::Test
   end
 
   def setup
-    user = User.new.extend(UserModule)
-
-    @error_from_instance_method = assert_raises(NoMethodError){ user.flrst_name }
-    @error_from_private_method  = assert_raises(NoMethodError){ user.friend }
-    @error_from_module_method   = assert_raises(NoMethodError){ user.fr0m_module }
-    @error_from_class_method    = assert_raises(NoMethodError){ User.l0ad }
+    @user = User.new.extend(UserModule)
   end
 
-  def test_similar_words
-    assert_suggestion "first_name",  @error_from_instance_method.suggestions
-    assert_suggestion "friends",     @error_from_private_method.suggestions
-    assert_suggestion "from_module", @error_from_module_method.suggestions
-    assert_suggestion "load",        @error_from_class_method.suggestions
+  def test_suggestions_include_instance_method
+    error = assert_raises(NoMethodError){ @user.flrst_name }
+
+    assert_suggestion "first_name", error.suggestions
+    assert_match "Did you mean? #first_name",  error.did_you_mean?
   end
 
-  def test_did_you_mean?
-    assert_match "Did you mean? #first_name",  @error_from_instance_method.did_you_mean?
-    assert_match "Did you mean? #friends",     @error_from_private_method.did_you_mean?
-    assert_match "Did you mean? #from_module", @error_from_module_method.did_you_mean?
-    assert_match "Did you mean? #load",        @error_from_class_method.did_you_mean?
+  def test_suggestions_include_private_method
+    error = assert_raises(NoMethodError){ @user.friend }
+
+    assert_suggestion "friends", error.suggestions
+    assert_match "Did you mean? #friends", error.did_you_mean?
+  end
+
+  def test_suggestions_include_method_from_module
+    error = assert_raises(NoMethodError){ @user.fr0m_module }
+
+    assert_suggestion "from_module", error.suggestions
+    assert_match "Did you mean? #from_module", error.did_you_mean?
+  end
+
+  def test_suggestions_include_class_method
+    error = assert_raises(NoMethodError){ User.l0ad }
+
+    assert_suggestion "load", error.suggestions
+    assert_match "Did you mean? #load", error.did_you_mean?
   end
 
   def test_similar_words_for_long_method_name

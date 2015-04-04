@@ -31,7 +31,7 @@ end
 
 desc "Run tests"
 if RUBY_ENGINE != 'rbx'
-  task test: [:compile, "test:without_compile", :clobber]
+  task test: [:clobber, :compile, "test:without_compile"]
 else
   task test: "test:without_compile"
 end

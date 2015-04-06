@@ -18,6 +18,8 @@ test/tmp
 test/version_tmp
 tmp
 
+benchmark/results
+
 ext/**/*.o
 ext/**/*.so
 ext/**/Makefile

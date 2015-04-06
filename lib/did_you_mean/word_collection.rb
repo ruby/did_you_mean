@@ -1,4 +1,4 @@
-require "jaro_winkler"
+require "did_you_mean/jaro_winkler"
 
 module DidYouMean
   class WordCollection

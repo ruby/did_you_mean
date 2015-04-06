@@ -21,7 +21,6 @@ Gem::Specification.new do |spec|
 
   spec.required_ruby_version = '>= 1.9.3'
 
-  spec.add_dependency "jaro_winkler", "~> 1.3.5"
   spec.add_dependency "interception"
 
   spec.add_development_dependency "bundler", "~> 1.5"

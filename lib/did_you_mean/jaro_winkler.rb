@@ -11,12 +11,16 @@ module DidYouMean
       window     = (length2 / 2).floor - 1
       prev_index = -1
 
+      # Create an array of the codepoints for the str2 outside
+      # of the loop to avoid duplicating it.
+      str2_codepoints = str2.codepoints
+
       str1.each_codepoint.with_index do |char1, i|
         start = (i >= window) ? i - window : 0
 
         matched = false
         found   = false
-        str2[start, i + window + 1].each_codepoint.with_index do |char2, j|
+        str2_codepoints[start, i + window + 1].each_with_index do |char2, j|
           if char1 == char2
             matched = true
 

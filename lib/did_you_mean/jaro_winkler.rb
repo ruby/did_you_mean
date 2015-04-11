@@ -6,38 +6,42 @@ module DidYouMean
       str1, str2 = str2, str1 if str1.length > str2.length
       length1, length2 = str1.length, str2.length
 
-      m          = 0
-      t          = 0
-      window     = (length2 / 2).floor - 1
-      prev_index = -1
+      m          = 0.0
+      t          = 0.0
+      range      = (length2 / 2).floor - 1
+      flags1     = []
+      flags2     = []
 
-      # Create an array of the codepoints for the str2 outside
-      # of the loop to avoid duplicating it.
+      # Avoid duplicating enumerable objects
+      str1_codepoints = str1.codepoints
       str2_codepoints = str2.codepoints
 
-      str1.each_codepoint.with_index do |char1, i|
-        start = (i >= window) ? i - window : 0
+      str1_codepoints.each_with_index do |char1, i|
+        start = (i >= range) ? i - range : 0
 
-        matched = false
-        found   = false
-        str2_codepoints[start, i + window + 1].each_with_index do |char2, j|
-          if char1 == char2
-            matched = true
-
-            str2_index = start + j
-            if !found && str2_index > prev_index
-              prev_index = str2_index
-              found = true
-            end
-          end
-        end
-        if matched
-          m += 1
-          t += 1 unless found
-        end
+        str2_codepoints[start, i + range + 1].each_with_index do |char2, j|
+          if !flags2[j + start] && char1 == char2
+            flags2[j + start] = true
+            flags1[i]         = true
+            m += 1
+            break
+           end
+         end
       end
 
-      m = m.to_f
+      k = 0
+      str1_codepoints.each_with_index do |char1, i|
+        if flags1[i]
+          index = k
+          k = k.upto(length2) do |j|
+            index = j
+            break(j + 1) if flags2[j]
+          end
+          t += 1 if char1 != str2_codepoints[index]
+         end
+       end
+      t = (t / 2).floor
+
       m == 0 ? 0 : (m / length1 + m / length2 + (m - t) / m) / 3
     end
   end

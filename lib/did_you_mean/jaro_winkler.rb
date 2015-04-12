@@ -19,31 +19,46 @@ module DidYouMean
       # On Ruby 1.9.3, #codepoints returns an Enumerator, not an array
       str2_codepoints = str2_codepoints.to_a if str2_codepoints.is_a?(Enumerator)
 
-      str1_codepoints.each_with_index do |char1, i|
+      i = 0
+      while i < length1
+        char1 = str1_codepoints[i]
         start = (i >= range) ? i - range : 0
         last  = i + range
+        j     = start
 
-        start.upto(last) do |j|
+        while j <= last
           if flags2[j] == 0 && char1 == str2_codepoints[j]
             flags2 |= (1 << j)
             flags1 |= (1 << i)
             m += 1
             break
           end
+
+          j += 1
         end
+
+        i += 1
       end
 
-      k = 0
-      str1_codepoints.each_with_index do |char1, i|
+      k = i = 0
+      while i < length1
+        char1 = str1_codepoints[i]
+
         if flags1[i] != 0
-          index = k
-          k = k.upto(length2) do |j|
+          j = index = k
+
+          k = while(j < length2)
             index = j
             break(j + 1) if flags2[j] != 0
+
+            j += 1
           end
+
           t += 1 if char1 != str2_codepoints[index]
-         end
-       end
+        end
+
+        i += 1
+      end
       t = (t / 2).floor
 
       m == 0 ? 0 : (m / length1 + m / length2 + (m - t) / m) / 3

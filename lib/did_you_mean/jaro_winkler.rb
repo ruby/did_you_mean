@@ -21,15 +21,16 @@ module DidYouMean
 
       str1_codepoints.each_with_index do |char1, i|
         start = (i >= range) ? i - range : 0
+        last  = i + range
 
-        str2_codepoints[start, i + range + 1].each_with_index do |char2, j|
-          if !flags2[j + start] && char1 == char2
-            flags2[j + start] = true
-            flags1[i]         = true
+        start.upto(last) do |j|
+          if !flags2[j] && char1 == str2_codepoints[j]
+            flags2[j] = true
+            flags1[i] = true
             m += 1
             break
-           end
-         end
+          end
+        end
       end
 
       k = 0

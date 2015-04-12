@@ -61,8 +61,11 @@ module DidYouMean
       if jaro_distance > THRESHOLD
         codepoints2  = str2.codepoints.to_a
         prefix_bonus = 0
-        str1[0, 4].each_codepoint.with_index do |char1, i|
+
+        i = 0
+        str1[0, 4].each_codepoint do |char1|
           char1 == codepoints2[i] ? prefix_bonus += 1 : break
+          i += 1
         end
 
         jaro_distance + (prefix_bonus * WEIGHT * (1 - jaro_distance))

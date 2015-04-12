@@ -1,4 +1,4 @@
-require 'did_you_mean/levenshtein'
+require "did_you_mean/jaro_winkler"
 
 module DidYouMean
   class WordCollection
@@ -13,11 +13,12 @@ module DidYouMean
 
     def similar_to(target_word)
       target_word = target_word.to_s.downcase
-      threshold   = (target_word.size * 0.3).ceil
+      threshold   = target_word.length > 3 ? 0.831 : 0.77
 
-      map {|word| [Levenshtein.distance(word.to_s.downcase, target_word), word] }
-        .select {|distance, _| distance <= threshold }
+      map {|word| [JaroWinkler.distance(word.to_s.downcase, target_word), word] }
+        .select {|distance, _| distance >= threshold }
         .sort
+        .reverse
         .map(&:last)
     end
   end

@@ -54,11 +54,6 @@ class SimilarMethodFinderTest < Minitest::Test
     assert_match "Did you mean? #load", error.did_you_mean?
   end
 
-  def test_similar_words_for_long_method_name
-    error = assert_raises(NoMethodError){ User.new.dependents }
-    assert_suggestion "descendants", error.suggestions
-  end
-
   def test_private_methods_should_not_be_suggested
     error = assert_raises(NoMethodError){ User.new.the_protected_method }
     refute_includes error.suggestions, 'the_protected_method'

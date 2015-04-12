@@ -12,7 +12,9 @@ class NameError
 
   def to_s
     msg = original_message
-    msg << did_you_mean?.to_s if IGNORED_CALLERS.all? {|ignored| caller.first(8).grep(ignored).empty? }
+    bt  = caller.first(6)
+
+    msg << did_you_mean?.to_s if IGNORED_CALLERS.all? {|ignored| bt.grep(ignored).empty? }
     msg
   rescue
     original_message

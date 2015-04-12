@@ -9,8 +9,8 @@ module DidYouMean
       m          = 0.0
       t          = 0.0
       range      = (length2 / 2).floor - 1
-      flags1     = []
-      flags2     = []
+      flags1     = 0
+      flags2     = 0
 
       # Avoid duplicating enumerable objects
       str1_codepoints = str1.codepoints
@@ -24,9 +24,9 @@ module DidYouMean
         last  = i + range
 
         start.upto(last) do |j|
-          if !flags2[j] && char1 == str2_codepoints[j]
-            flags2[j] = true
-            flags1[i] = true
+          if flags2[j] == 0 && char1 == str2_codepoints[j]
+            flags2 |= (1 << j)
+            flags1 |= (1 << i)
             m += 1
             break
           end
@@ -35,11 +35,11 @@ module DidYouMean
 
       k = 0
       str1_codepoints.each_with_index do |char1, i|
-        if flags1[i]
+        if flags1[i] != 0
           index = k
           k = k.upto(length2) do |j|
             index = j
-            break(j + 1) if flags2[j]
+            break(j + 1) if flags2[j] != 0
           end
           t += 1 if char1 != str2_codepoints[index]
          end

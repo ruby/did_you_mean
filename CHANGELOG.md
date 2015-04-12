@@ -1,3 +1,11 @@
+## [v0.9.8](https://github.com/yuki24/did_you_mean/tree/v0.9.8)
+
+_<sup>released on 2015-04-12 01:55:27 UTC</sup>_
+
+#### Internal Changes
+
+- Speed up Levenshtein by 50% and reduce 97% of memory usage
+
 ## [v0.9.7](https://github.com/yuki24/did_you_mean/tree/v0.9.7)
 
 _<sup>released on 2015-04-02 04:20:26 UTC</sup>_

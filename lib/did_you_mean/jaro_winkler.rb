@@ -19,13 +19,11 @@ module DidYouMean
 
       i = 0
       while i < length1
-        char1 = str1_codepoints[i]
-        start = (i >= range) ? i - range : 0
-        last  = i + range
-        j     = start
+        last = i + range
+        j    = (i >= range) ? i - range : 0
 
         while j <= last
-          if flags2[j] == 0 && char1 == str2_codepoints[j]
+          if flags2[j] == 0 && str1_codepoints[i] == str2_codepoints[j]
             flags2 |= (1 << j)
             flags1 |= (1 << i)
             m += 1
@@ -40,19 +38,17 @@ module DidYouMean
 
       k = i = 0
       while i < length1
-        char1 = str1_codepoints[i]
-
         if flags1[i] != 0
           j = index = k
 
-          k = while(j < length2)
+          k = while j < length2
             index = j
             break(j + 1) if flags2[j] != 0
 
             j += 1
           end
 
-          t += 1 if char1 != str2_codepoints[index]
+          t += 1 if str1_codepoints[i] != str2_codepoints[index]
         end
 
         i += 1

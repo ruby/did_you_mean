@@ -16,6 +16,9 @@ module DidYouMean
       str1_codepoints = str1.codepoints
       str2_codepoints = str2.codepoints
 
+      # On Ruby 1.9.3, #codepoints returns an Enumerator, not an array
+      str2_codepoints = str2_codepoints.to_a if str2_codepoints.is_a?(Enumerator)
+
       str1_codepoints.each_with_index do |char1, i|
         start = (i >= range) ? i - range : 0
 

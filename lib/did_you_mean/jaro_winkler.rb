@@ -63,8 +63,8 @@ module DidYouMean
         prefix_bonus = 0
 
         i = 0
-        str1[0, 4].each_codepoint do |char1|
-          char1 == codepoints2[i] ? prefix_bonus += 1 : break
+        str1.each_codepoint do |char1|
+          char1 == codepoints2[i] && i < 4 ? prefix_bonus += 1 : break
           i += 1
         end
 

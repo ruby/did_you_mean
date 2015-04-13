@@ -44,32 +44,32 @@ module DidYouMean
       end
 
       def format(name)
-        case name
-        when IvarName
-          yellow("@#{name}")
-        when CvarName
-          yellow("@@#{name}")
-        when MethodName
-          "##{name}"
-        when ClassName
-          name.split("::").map do |constant|
-            blue(underline(constant))
-          end.join("::")
-        when ColumnName
-          "%{column}: %{type}" % {
-            column: magenda(name),
-            type:   name.type
-          }
-        else
-          name
-        end
+        code = case name
+               when IvarName
+                 "@#{name}"
+               when CvarName
+                 "@@#{name}"
+               when MethodName
+                 "##{name}"
+               when ClassName
+                 name
+               when ColumnName
+                 "%{column}: %{type}" % {
+                   column: name,
+                   type:   name.type
+                 }
+               else
+                 name
+               end
+
+        ::Pry::Helpers::BaseHelpers.colorize_code(code)
       end
 
-      def       red(str); "\e[31m#{str}\e[0m" end
-      def    yellow(str); "\e[33m#{str}\e[0m" end
-      def      blue(str); "\e[34m#{str}\e[0m" end
-      def   magenda(str); "\e[35m#{str}\e[0m" end
-      def underline(str); "\e[4m#{str}\e[0m"  end
+      private
+
+      def red(str)
+        "\e[31m#{str}\e[0m"
+      end
     end
   end
 end

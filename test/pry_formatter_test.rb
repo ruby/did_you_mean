@@ -17,14 +17,14 @@ class PryFormatterTest < Minitest::Test
     output = ReplTester.start { input 'Obejct' }
 
     assert_includes output, red("Did you mean?")
-    assert_includes output, blue(underline("Object"))
+    assert_includes output, "\e[1;34;4mObject\e[0m"
   end
 
   def test_method_name_format
     output = ReplTester.start { input 'self.methosd' }
 
     assert_includes output, red("Did you mean?")
-    assert_includes output, " #methods\n"
+    assert_includes output, "\e[1;34m#methods\e[0m"
   end
 
   def test_instance_variable_name_format
@@ -34,7 +34,7 @@ class PryFormatterTest < Minitest::Test
     end
 
     assert_includes output, red("Did you mean?")
-    assert_includes output, yellow("@name")
+    assert_includes output, "@name" # no color
   end
 
   def test_class_variable_name_format
@@ -44,7 +44,7 @@ class PryFormatterTest < Minitest::Test
     end
 
     assert_includes output, red("Did you mean?")
-    assert_includes output, yellow("@@name")
+    assert_includes output, "\e[36m@@name\e[0m"
   end
 =begin
   # This test occasionally fails due to a treading issue.

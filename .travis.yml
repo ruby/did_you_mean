@@ -4,11 +4,7 @@ cache:    bundler
 sudo:     false
 
 before_install:
-  - git clone --depth=50 --branch=master https://github.com/bundler/bundler.git && cd bundler
-  - gem build bundler.gemspec
-  - gem i bundler-1.9.1.gem
-  - bundler -v
-  - cd -
+  - gem i bundler -v=1.9.3
 
 rvm:
   - 1.9.3

@@ -69,19 +69,23 @@ module DidYouMean
       jaro_distance = Jaro.distance(str1, str2)
 
       if jaro_distance > THRESHOLD
-        codepoints2  = str2.codepoints.to_a
-        prefix_bonus = 0
-
-        i = 0
-        str1.each_codepoint do |char1|
-          char1 == codepoints2[i] && i < 4 ? prefix_bonus += 1 : break
-          i += 1
-        end
-
-        jaro_distance + (prefix_bonus * WEIGHT * (1 - jaro_distance))
+        jaro_distance + (prefix_bonus(str1, str2) * WEIGHT * (1 - jaro_distance))
       else
         jaro_distance
       end
+    end
+
+    def prefix_bonus(str1, str2)
+      codepoints2 = str2.codepoints.to_a
+      result      = 0
+
+      i = 0
+      str1.each_codepoint do |char1|
+        char1 == codepoints2[i] && i < 4 ? result += 1 : break
+        i += 1
+      end
+
+      result
     end
   end
 end

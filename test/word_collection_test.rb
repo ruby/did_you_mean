@@ -3,13 +3,21 @@ require_relative 'test_helper'
 class WordCollectionTest < Minitest::Test
 
   def test_similar_to
-    assert_suggestion 'foo',         collection('foo',                   similar_to: 'doo')
-    assert_suggestion 'drag_to',     collection('drag_to',               similar_to: 'drag')
-    assert_suggestion 'descendants', collection('descendants',           similar_to: 'dependents')
-    assert_suggestion 'email',       collection('email', 'fail', 'eval', similar_to: 'meail')
-    assert_suggestion 'email',       collection('email', 'fail', 'eval', similar_to: 'email')
+    assert_suggestion 'foo',         collection('foo', 'fork')          .similar_to('doo')
+    assert_suggestion 'drag_to',     collection('drag_to')              .similar_to('drag')
+    assert_suggestion 'descendants', collection('descendants')          .similar_to('dependents')
+    assert_suggestion 'email',       collection('email', 'fail', 'eval').similar_to('email')
+    assert_suggestion 'fail',        collection('email', 'fail', 'eval').similar_to('fial')
+    assert_suggestion 'eval',        collection('email', 'fail', 'eval').similar_to('eavl')
+    assert_suggestion 'sub',         collection('sub', 'gsub', 'sub!')  .similar_to('suv')
+    assert_suggestion 'sub!',        collection('sub', 'gsub', 'sub!')  .similar_to('suv!')
+    assert_suggestion 'gsub!',       collection('sub', 'gsub', 'gsub!') .similar_to('gsuv!')
 
-    assert_equal ['sub', 'sub!'], collection('sub', 'gsub', 'sub!', similar_to: 'suv')
+    assert_suggestion 'and_call_original', collection('and_call_original').similar_to('and_call_through')
+    assert_suggestion 'groups', collection(%w(groups group_url groups_url group_path)).similar_to('group')
+
+    assert_empty collection('proc').similar_to 'product_path'
+    assert_empty collection('fork').similar_to 'fooo'
   end
 
   def test_similar_to_sorts_results_by_simiarity
@@ -35,11 +43,6 @@ class WordCollectionTest < Minitest::Test
   private
 
   def collection(*args)
-    if args.last.is_a?(Hash)
-      options = args.pop
-      DidYouMean::WordCollection.new(args).similar_to(options[:similar_to])
-    else
-      DidYouMean::WordCollection.new(args)
-    end
+    DidYouMean::WordCollection.new(args.flatten)
   end
 end

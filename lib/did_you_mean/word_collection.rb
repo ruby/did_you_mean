@@ -1,4 +1,4 @@
-require "did_you_mean/jaro_winkler"
+require "did_you_mean/edit_distance"
 
 module DidYouMean
   class WordCollection

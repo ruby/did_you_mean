@@ -2,7 +2,7 @@
 require_relative 'test_helper'
 
 class JaroWinklerTest < Minitest::Test
-  def test_jaro_winkler_distance
+  def test_distance
     assert_distance 0.9667, 'henka',      'henkan'
     assert_distance 1.0,    'al',         'al'
     assert_distance 0.9611, 'martha',     'marhta'
@@ -15,7 +15,7 @@ class JaroWinklerTest < Minitest::Test
     assert_distance 0.9067, 'does_exist', 'doesnt_exist'
   end
 
-  def test_jarowinkler_distance_with_utf8_strings
+  def test_distance_with_utf8_strings
     assert_distance 0.9818, '變形金剛4:絕跡重生', '變形金剛4: 絕跡重生'
     assert_distance 0.8222, '連勝文',             '連勝丼'
     assert_distance 0.8222, '馬英九',             '馬英丸'
@@ -26,5 +26,61 @@ class JaroWinklerTest < Minitest::Test
 
   def assert_distance(score, str1, str2)
     assert_equal score, DidYouMean::JaroWinkler.distance(str1, str2).round(4)
+  end
+end
+
+class JaroNishijimaTest < Minitest::Test
+  def test_distance
+    assert_distance 0.9167, 'henka',      'henkan'
+    assert_distance 1.0,    'al',         'al'
+    assert_distance 0.9583, 'martha',     'marhta'
+    assert_distance 0.7714, 'jones',      'johnson'
+    assert_distance 0.9375, 'abcvwxyz',   'zabcvwxy'
+    assert_distance 0.9688, 'abcvwxyz',   'cabvwxyz'
+    assert_distance 0.825,  'dwayne',     'duane'
+    assert_distance 0.7313, 'dixon',      'dicksonx'
+    assert_distance 0.0,    'fvie',       'ten'
+    assert_distance 0.8417, 'does_exist', 'doesnt_exist'
+  end
+
+  def test_distance_with_utf8_strings
+    assert_distance 0.9545, '變形金剛4:絕跡重生', '變形金剛4: 絕跡重生'
+    assert_distance 0.8333, '連勝文',             '連勝丼'
+    assert_distance 0.8333, '馬英九',             '馬英丸'
+    assert_distance 0.75,   '良い',               'いい'
+  end
+
+  private
+
+  def assert_distance(score, str1, str2)
+    assert_equal score, DidYouMean::JaroNishijima.distance(str1, str2).round(4)
+  end
+end
+
+class JaroNishijimaWinklerTest < Minitest::Test
+  def test_distance
+    assert_distance 0.9367, 'henka',      'henkan'
+    assert_distance 1.0,    'al',         'al'
+    assert_distance 0.9658, 'martha',     'marhta'
+    assert_distance 0.7989, 'jones',      'johnson'
+    assert_distance 0.9375, 'abcvwxyz',   'zabcvwxy'
+    assert_distance 0.9688, 'abcvwxyz',   'cabvwxyz'
+    assert_distance 0.8355, 'dwayne',     'duane'
+    assert_distance 0.7635, 'dixon',      'dicksonx'
+    assert_distance 0.0,    'fvie',       'ten'
+    assert_distance 0.8797, 'does_exist', 'doesnt_exist'
+  end
+
+  def test_distance_with_utf8_strings
+    assert_distance 0.9655, '變形金剛4:絕跡重生', '變形金剛4: 絕跡重生'
+    assert_distance 0.8533, '連勝文',             '連勝丼'
+    assert_distance 0.8533, '馬英九',             '馬英丸'
+    assert_distance 0.75,   '良い',               'いい'
+  end
+
+  private
+
+  def assert_distance(score, str1, str2)
+    assert_equal score, DidYouMean::JaroNishijimaWinkler.distance(str1, str2).round(4)
   end
 end

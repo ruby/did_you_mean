@@ -59,6 +59,18 @@ module DidYouMean
     end
   end
 
+  module JaroNishijima
+    module_function
+
+    def distance(str1, str2)
+      length1, length2 = str1.length, str2.length
+      length1, length2 = length2, length1 if length1 > length2
+
+      jaro_distance = Jaro.distance(str1, str2)
+      jaro_distance == 0 ? 0 : ((jaro_distance * 3) + (length1.to_f / length2)) / 4.0
+    end
+  end
+
   module JaroWinkler
     WEIGHT    = 0.1
     THRESHOLD = 0.7
@@ -86,6 +98,23 @@ module DidYouMean
       end
 
       result
+    end
+  end
+
+  module JaroNishijimaWinkler
+    WEIGHT    = 0.06
+    THRESHOLD = 0.7
+
+    module_function
+
+    def distance(str1, str2)
+      _distance = JaroNishijima.distance(str1, str2)
+
+      if _distance > THRESHOLD
+        _distance + (JaroWinkler.prefix_bonus(str1, str2) * WEIGHT * (1 - _distance))
+      else
+        _distance
+      end
     end
   end
 

@@ -20,6 +20,17 @@ module DidYouMean
         .sort
         .reverse
         .map(&:last)
+        .select do |word|
+          word = word.to_s.downcase
+
+          threshold = if word.start_with?(target_word)
+            (word.size > target_word.size ? word : target_word).size * 0.32
+          else
+            target_word.size * 0.3
+          end.ceil
+
+          Levenshtein.distance(word, target_word) <= threshold
+        end
     end
   end
 end

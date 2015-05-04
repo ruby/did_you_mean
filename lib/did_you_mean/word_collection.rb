@@ -13,10 +13,10 @@ module DidYouMean
 
     def each(&block) words.each(&block); end
 
-    def similar_to(target_word)
-      target_word = MemoizingString.new(target_word.to_s.downcase)
+    def similar_to(input)
+      input = MemoizingString.new(input.to_s.downcase)
 
-      map {|word| Pair.new(word, target_word) }
+      map {|word| Pair.new(word, input) }
         .select(&:close_enough?)
         .sort {|a,b| a.levenshtein <=> b.levenshtein }
         .map(&:word)

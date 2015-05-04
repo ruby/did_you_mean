@@ -36,11 +36,11 @@ module DidYouMean
       end
 
       def jaro_winkler
-        @jaro_winkler ||= JaroWinkler.distance(word.to_s.downcase, input)
+        @jaro_winkler ||= JaroWinkler.distance(normalize(word), input)
       end
 
       def levenshtein
-        @levenshtein ||= Levenshtein.distance(word.to_s.downcase, input)
+        @levenshtein ||= Levenshtein.distance(normalize(word), input)
       end
 
       def close_enough?
@@ -48,6 +48,16 @@ module DidYouMean
       end
 
       private
+
+      def normalize(str_or_symbol)
+        if str_or_symbol.is_a?(Symbol)
+          str = str_or_symbol.to_s
+          str.downcase!
+          str
+        else
+          str_or_symbol.downcase
+        end
+      end
 
       def threshold
         num = (- 0.6 / levenshtein) + 1

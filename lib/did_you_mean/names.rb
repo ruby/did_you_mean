@@ -1,9 +1,7 @@
 require "delegate"
 
 module DidYouMean
-  class Name       < SimpleDelegator; end
-
-  class ClassName  < Name
+  class ClassName < SimpleDelegator
     attr :namespace
 
     def initialize(name, namespace = '')
@@ -16,7 +14,7 @@ module DidYouMean
     end
   end
 
-  class ColumnName < Name
+  class ColumnName < SimpleDelegator
     attr :type
 
     def initialize(name, type)

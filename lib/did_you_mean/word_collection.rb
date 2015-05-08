@@ -4,6 +4,8 @@ require "did_you_mean/jaro_winkler"
 
 module DidYouMean
   class WordCollection
+    EMPTY = "".freeze
+
     include Enumerable
     attr_reader :words
 
@@ -13,13 +15,40 @@ module DidYouMean
 
     def each(&block) words.each(&block); end
 
-    def similar_to(input)
+    def similar_to(input, filter = EMPTY)
       input = MemoizingString.new(input.to_s.downcase)
 
-      map {|word| Pair.new(word, input) }
-        .select(&:close_enough?)
-        .sort {|a,b| a.levenshtein <=> b.levenshtein }
-        .map(&:word)
+      select {|word| close_enough?(normalize(word, filter), input) }
+        .sort_by! {|word| JaroWinkler.distance(word.to_s, input) }
+        .reverse!
+    end
+
+    private
+
+    def normalize(str_or_symbol, filter = EMPTY) #:nodoc:
+      str = if str_or_symbol.is_a?(String)
+              str_or_symbol.downcase
+            else
+              str = str_or_symbol.to_s
+              str.downcase!
+              str
+            end
+
+      str.tr!(filter, EMPTY)
+      str
+    end
+
+    def close_enough?(word, input) #:nodoc:
+      jaro_winkler = JaroWinkler.distance(word, input)
+      threshold    = input.length > 3 ? 0.834 : 0.77
+
+      if jaro_winkler >= threshold
+        levenshtein = Levenshtein.distance(word, input)
+        bound       = (- 0.6 / levenshtein) + 1
+        bound       = bound + ((1 - bound) * ((levenshtein.to_f / input.length) ** Math::E))
+
+        levenshtein <= 1 || jaro_winkler >= bound
+      end
     end
 
     class MemoizingString < SimpleDelegator #:nodoc:
@@ -27,44 +56,6 @@ module DidYouMean
       def codepoints; @codepoints ||= super; end
     end
 
-    class Pair #:nodoc:
-      attr_reader :word, :input
-
-      def initialize(word, input)
-        @word  = word
-        @input = input
-      end
-
-      def jaro_winkler
-        @jaro_winkler ||= JaroWinkler.distance(normalize(word), input)
-      end
-
-      def levenshtein
-        @levenshtein ||= Levenshtein.distance(normalize(word), input)
-      end
-
-      def close_enough?
-        jaro_winkler >= (input.length > 3 ? 0.834 : 0.77) && (levenshtein <= 1 || jaro_winkler >= threshold)
-      end
-
-      private
-
-      def normalize(str_or_symbol)
-        if str_or_symbol.is_a?(Symbol)
-          str = str_or_symbol.to_s
-          str.downcase!
-          str
-        else
-          str_or_symbol.downcase
-        end
-      end
-
-      def threshold
-        num = (- 0.6 / levenshtein) + 1
-        num + ((1 - num) * ((levenshtein.to_f / input.length) ** Math::E))
-      end
-    end
-
-    private_constant :MemoizingString, :Pair
+    private_constant :MemoizingString
   end
 end

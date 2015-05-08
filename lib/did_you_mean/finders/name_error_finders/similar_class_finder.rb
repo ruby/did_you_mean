@@ -14,7 +14,7 @@ module DidYouMean
     def class_names
       scopes.flat_map do |scope|
         scope.constants.map do |c|
-          ClassName.new(c.to_s, scope == Object ? EMPTY : "#{scope}::")
+          ClassName.new(c, scope == Object ? EMPTY : "#{scope}::")
         end
       end
     end

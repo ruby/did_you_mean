@@ -14,8 +14,6 @@ module DidYouMean
 
       def format(name)
         case name
-        when MethodName
-          "##{name}"
         when ColumnName
           "%{column}: %{type}" % {
             column: name,
@@ -41,8 +39,6 @@ module DidYouMean
 
       def format(name)
         code = case name
-               when MethodName
-                 "##{name}"
                when ColumnName
                  "%{column}: %{type}" % {
                    column: name,

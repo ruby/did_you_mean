@@ -20,7 +20,8 @@ module DidYouMean
     def method_names
       method_names = receiver.methods + receiver.singleton_methods
       method_names.delete(method_name)
-      method_names.uniq.map {|name| MethodName.new(name.to_s) }
+      method_names.uniq!
+      method_names
     end
 
     def receiver_name

@@ -2,7 +2,6 @@ require "delegate"
 
 module DidYouMean
   class Name       < SimpleDelegator; end
-  class MethodName < Name; end
 
   class ClassName  < Name
     attr :namespace

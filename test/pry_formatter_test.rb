@@ -24,7 +24,7 @@ class PryFormatterTest < Minitest::Test
     output = ReplTester.start { input 'self.methosd' }
 
     assert_includes output, red("Did you mean?")
-    assert_includes output, "\e[1;34m#methods\e[0m"
+    assert_includes output, " methods\n" # no color
   end
 
   def test_instance_variable_name_format

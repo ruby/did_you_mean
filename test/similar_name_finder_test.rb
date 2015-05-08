@@ -29,8 +29,8 @@ class SimilarNameFinderTest < Minitest::Test
       @user.instance_eval { flrst_name }
     end
 
-    assert_suggestion "first_name", error.suggestions
-    assert_match "Did you mean? #first_name", error.did_you_mean?
+    assert_suggestion :first_name, error.suggestions
+    assert_match "Did you mean? first_name", error.did_you_mean?
   end
 
   def test_suggestions_include_method_from_module
@@ -38,15 +38,15 @@ class SimilarNameFinderTest < Minitest::Test
       @user.instance_eval { fr0m_module }
     end
 
-    assert_suggestion "from_module", error.suggestions
-    assert_match "Did you mean? #from_module", error.did_you_mean?
+    assert_suggestion :from_module, error.suggestions
+    assert_match "Did you mean? from_module", error.did_you_mean?
   end
 
   def test_suggestions_include_local_variable_name
     person  = nil
     error = (eprson rescue $!) # Do not use @assert_raises here as it changes a scope.
 
-    assert_suggestion "person", error.suggestions
+    assert_suggestion :person, error.suggestions
     assert_match "Did you mean? person", error.did_you_mean?
   end
 
@@ -62,8 +62,8 @@ class SimilarNameFinderTest < Minitest::Test
       @user.instance_eval { cia_code_name }
     end
 
-    assert_suggestion "cia_codename",  error.suggestions
-    assert_match "Did you mean? #cia_codename",  error.did_you_mean?
+    assert_suggestion :cia_codename,  error.suggestions
+    assert_match "Did you mean? cia_codename",  error.did_you_mean?
   end
 
   @@does_exist = true

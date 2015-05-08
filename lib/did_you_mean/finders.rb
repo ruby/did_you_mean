@@ -10,6 +10,10 @@ module DidYouMean
     def suggestions
       @suggestions ||= searches.flat_map {|_, __| WordCollection.new(__).similar_to(_, FILTER) }
     end
+
+    def searches
+      raise NotImplementedError
+    end
   end
 
   class NullFinder

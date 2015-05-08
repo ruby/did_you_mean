@@ -1,12 +1,13 @@
 require 'memory_profiler'
-require_relative '../test/test_helper'
+require 'did_you_mean'
 
-def foo; end
-public :foo
+# public def foo; end
+# error      = (self.fooo rescue $!)
+# executable = -> { error.to_s }
 
-error  = (self.fooo rescue $!)
-report = MemoryProfiler.report do
-  100.times { error.to_s }
-end
+METHODS    = ''.methods
+INPUT      = 'start_with?'
+collection = DidYouMean::WordCollection.new(METHODS)
+executable = proc { collection.similar_to(INPUT) }
 
-report.pretty_print
+MemoryProfiler.report { 100.times(&executable) }.pretty_print

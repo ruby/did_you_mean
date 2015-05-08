@@ -43,8 +43,6 @@ module DidYouMean
         code = case name
                when MethodName
                  "##{name}"
-               when ClassName
-                 name
                when ColumnName
                  "%{column}: %{type}" % {
                    column: name,

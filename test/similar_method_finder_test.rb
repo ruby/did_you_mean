@@ -68,7 +68,7 @@ class SimilarMethodFinderTest < Minitest::Test
     @number = 1
     error = assert_raises(NoMethodError) { @nubmer.zero? }
 
-    assert_suggestion "number", error.suggestions
+    assert_suggestion :@number, error.suggestions
     assert_match "Did you mean? @number", error.did_you_mean?
   end
 end

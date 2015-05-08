@@ -9,12 +9,8 @@ module DidYouMean
       @method_names  = exception.frame_binding.eval("methods + private_methods").map do |name|
         MethodName.new(name.to_s)
       end
-      @cvar_names    = exception.frame_binding.eval("self.class.class_variables").map do |name|
-        CvarName.new(name.to_s.tr(AT, EMPTY))
-      end
-      @ivar_names    = exception.frame_binding.eval("instance_variables").map do |name|
-        IvarName.new(name.to_s.tr(AT, EMPTY))
-      end
+      @cvar_names    = exception.frame_binding.eval("self.class.class_variables")
+      @ivar_names    = exception.frame_binding.eval("instance_variables")
     end
 
     def searches

@@ -53,7 +53,7 @@ class SimilarNameFinderTest < Minitest::Test
   def test_suggestions_include_instance_variable_name
     error = assert_raises(NAME_ERROR){ @user.to_s }
 
-    assert_suggestion "email_address", error.suggestions
+    assert_suggestion :@email_address, error.suggestions
     assert_match "Did you mean? @email_address", error.did_you_mean?
   end
 
@@ -73,7 +73,7 @@ class SimilarNameFinderTest < Minitest::Test
 
     error = assert_raises(NameError){ @@doesnt_exist }
 
-    assert_suggestion "does_exist", error.suggestions
+    assert_suggestion :@@does_exist, error.suggestions
     assert_match "Did you mean? @@does_exist", error.did_you_mean?
   end
 end

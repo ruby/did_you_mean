@@ -3,11 +3,12 @@ require "did_you_mean/word_collection"
 
 module DidYouMean
   module BaseFinder
-    AT    = "@".freeze
-    EMPTY = "".freeze
+    AT     = "@".freeze
+    EMPTY  = "".freeze
+    FILTER = AT
 
     def suggestions
-      @suggestions ||= searches.flat_map {|_, __| WordCollection.new(__).similar_to(_) }
+      @suggestions ||= searches.flat_map {|_, __| WordCollection.new(__).similar_to(_, FILTER) }
     end
   end
 

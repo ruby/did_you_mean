@@ -14,10 +14,6 @@ module DidYouMean
 
       def format(name)
         case name
-        when IvarName
-          "@#{name}"
-        when CvarName
-          "@@#{name}"
         when MethodName
           "##{name}"
         when ColumnName
@@ -45,10 +41,6 @@ module DidYouMean
 
       def format(name)
         code = case name
-               when IvarName
-                 "@#{name}"
-               when CvarName
-                 "@@#{name}"
                when MethodName
                  "##{name}"
                when ClassName

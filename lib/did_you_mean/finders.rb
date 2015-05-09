@@ -1,4 +1,3 @@
-require "did_you_mean/names"
 require "did_you_mean/word_collection"
 
 module DidYouMean

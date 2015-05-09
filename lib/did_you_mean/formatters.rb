@@ -13,15 +13,7 @@ module DidYouMean
       end
 
       def format(name)
-        case name
-        when ColumnName
-          "%{column}: %{type}" % {
-            column: name,
-            type:   name.type
-          }
-        else
-          name
-        end
+        name
       end
     end
   end

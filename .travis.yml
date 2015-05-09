@@ -18,8 +18,6 @@ rvm:
   - rbx-2.5.3
 
 gemfile:
-  - gemfiles/better_errors_200.gemfile
-  - gemfiles/better_errors_110.gemfile
   - gemfiles/activerecord_32.gemfile
   - gemfiles/activerecord_40.gemfile
   - gemfiles/activerecord_41.gemfile
@@ -28,14 +26,6 @@ gemfile:
 
 matrix:
   exclude:
-    - rvm: 1.9.3
-      gemfile: gemfiles/better_errors_110.gemfile
-    - rvm: jruby-1.7.20
-      gemfile: gemfiles/better_errors_110.gemfile
-    - rvm: 1.9.3
-      gemfile: gemfiles/better_errors_200.gemfile
-    - rvm: jruby-1.7.20
-      gemfile: gemfiles/better_errors_200.gemfile
     - rvm: 1.9.3
       gemfile: gemfiles/activerecord_edge.gemfile
     - rvm: 2.0.0

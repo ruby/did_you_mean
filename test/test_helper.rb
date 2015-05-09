@@ -32,12 +32,3 @@ begin
   CreateAllTables.up
 rescue LoadError
 end
-
-begin
-  require 'better_errors'
-  require 'did_you_mean/better_errors'
-rescue LoadError
-end
-
-require 'pry'
-require 'helpers/repl_tester'

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-require_relative 'test_helper'
+require 'test_helper'
 
 class JaroWinklerTest < Minitest::Test
   def test_jaro_winkler_distance

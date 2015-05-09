@@ -1,6 +1,6 @@
-require_relative 'test_helper'
+require 'test_helper'
 
-class SimilarMethodFinderTest < Minitest::Test
+class MethodNameTest < Minitest::Test
   class User
     def friends; end
     def first_name; end

@@ -1,6 +1,6 @@
-require_relative 'test_helper'
+require 'test_helper'
 
-class SimilarAttributeFinderTest < Minitest::Test
+class AttributeNameTest < Minitest::Test
   def setup
     @error = assert_raises(ActiveRecord::UnknownAttributeError) do
       User.new(flrst_name: "wrong flrst name")

@@ -1,6 +1,6 @@
-require_relative 'test_helper'
+require 'test_helper'
 
-class NullFinderTest < Minitest::Test
+class UncorrectableNameTest < Minitest::Test
   class FirstNameError < NameError; end
 
   def setup

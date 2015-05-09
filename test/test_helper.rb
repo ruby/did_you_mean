@@ -40,4 +40,4 @@ rescue LoadError
 end
 
 require 'pry'
-require_relative 'helpers/repl_tester'
+require 'helpers/repl_tester'

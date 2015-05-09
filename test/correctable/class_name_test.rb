@@ -1,4 +1,4 @@
-require_relative 'test_helper'
+require 'test_helper'
 
 module ACRONYM
 end
@@ -27,7 +27,7 @@ class Book
   end
 end
 
-class SimilarClassFinderTest < Minitest::Test
+class ClassNameTest < Minitest::Test
   def test_suggestions
     error = assert_raises(NameError) { ::Bo0k }
     assert_suggestion "Book", error.suggestions

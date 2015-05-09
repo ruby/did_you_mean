@@ -1,6 +1,6 @@
-require_relative 'test_helper'
+require 'test_helper'
 
-class SimilarNameFinderTest < Minitest::Test
+class VariableNameTest < Minitest::Test
   class User
     def initialize
       @email_address = 'email_address@address.net'

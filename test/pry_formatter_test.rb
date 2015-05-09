@@ -1,4 +1,4 @@
-require_relative 'test_helper'
+require 'test_helper'
 require 'term/ansicolor'
 require 'did_you_mean/pry'
 

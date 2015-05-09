@@ -3,7 +3,7 @@ require "interception"
 require "did_you_mean/version"
 require "did_you_mean/core_ext/name_error"
 require "did_you_mean/finders"
-require "did_you_mean/formatters"
+require "did_you_mean/formatter"
 
 module DidYouMean
   Interception.listen do |exception, binding|
@@ -37,7 +37,7 @@ module DidYouMean
   end
 
   def self.formatter
-    @@formatter ||= Formatters::Plain
+    @@formatter ||= Formatter
   end
 
   def self.finders

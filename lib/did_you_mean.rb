@@ -44,11 +44,7 @@ module DidYouMean
     @@finders ||= Hash.new(NullFinder)
   end
 
-  finders.merge!({
-    "NameError"                           => NameErrorFinders,
-    "ActiveRecord::UnknownAttributeError" => AttributeFinder,
-    "ActiveModel::UnknownAttributeError"  => AttributeFinder,
-  })
+  finders.merge!("NameError" => NameErrorFinders)
 
   case RUBY_ENGINE
   when 'ruby', 'jruby'

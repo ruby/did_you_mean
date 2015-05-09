@@ -46,19 +46,19 @@ module DidYouMean
 
   finders.merge!({
     "NameError"                           => NameErrorFinders,
-    "ActiveRecord::UnknownAttributeError" => SimilarAttributeFinder,
-    "ActiveModel::UnknownAttributeError"  => SimilarAttributeFinder,
+    "ActiveRecord::UnknownAttributeError" => AttributeFinder,
+    "ActiveModel::UnknownAttributeError"  => AttributeFinder,
   })
 
   case RUBY_ENGINE
   when 'ruby', 'jruby'
-    finders["NoMethodError"] = SimilarMethodFinder
+    finders["NoMethodError"] = MethodFinder
   when 'rbx'
     finders["NoMethodError"] =
       if (___ rescue $!).class.to_s == "NameError" # For rbx > 2.5.0
-        SimilarMethodFinder
+        MethodFinder
       else
-        SimilarMethodFinder::RubiniusSupport       # For rbx < 2.5.0
+        MethodFinder::RubiniusSupport              # For rbx < 2.5.0
       end
   end
 end

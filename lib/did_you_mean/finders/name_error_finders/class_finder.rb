@@ -1,5 +1,5 @@
 module DidYouMean
-  class SimilarClassFinder
+  class ClassFinder
     include BaseFinder
     attr_reader :class_name, :original_message
 

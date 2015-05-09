@@ -1,5 +1,5 @@
 module DidYouMean
-  class SimilarMethodFinder
+  class MethodFinder
     include BaseFinder
     attr_reader :method_name, :receiver
 
@@ -7,7 +7,7 @@ module DidYouMean
       @method_name = exception.name
       @receiver    = exception.receiver
       @location    = exception.backtrace.first
-      @ivar_names  = SimilarNameFinder.new(exception).ivar_names
+      @ivar_names  = NameFinder.new(exception).ivar_names
     end
 
     def searches
@@ -57,12 +57,12 @@ module DidYouMean
     require 'did_you_mean/core_ext/rubinius'
     NoMethodError.send(:attr, :receiver)
 
-    module SimilarMethodFinder::RubiniusSupport
+    module MethodFinder::RubiniusSupport
       def self.new(exception)
         if exception.receiver === exception.frame_binding.eval("self")
           NameErrorFinders.new(exception)
         else
-          SimilarMethodFinder.new(exception)
+          MethodFinder.new(exception)
         end
       end
     end

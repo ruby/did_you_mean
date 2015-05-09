@@ -1,5 +1,5 @@
 module DidYouMean
-  class SimilarNameFinder
+  class NameFinder
     include BaseFinder
     attr_reader :name, :method_names, :lvar_names, :ivar_names, :cvar_names
 

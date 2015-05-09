@@ -1,5 +1,5 @@
 module DidYouMean
-  class SimilarAttributeFinder
+  class AttributeFinder
     include BaseFinder
     attr_reader :columns, :attribute_name
 

@@ -7,9 +7,9 @@ module DidYouMean
     def self.new(exception)
       case exception.original_message
       when /uninitialized constant/
-        SimilarClassFinder
+        ClassFinder
       when /undefined local variable or method/, /undefined method/, /uninitialized class variable/
-        SimilarNameFinder
+        NameFinder
       else
         NullFinder
       end.new(exception)
@@ -17,5 +17,5 @@ module DidYouMean
   end
 end
 
-require 'did_you_mean/finders/name_error_finders/similar_name_finder'
-require 'did_you_mean/finders/name_error_finders/similar_class_finder'
+require 'did_you_mean/finders/name_error_finders/name_finder'
+require 'did_you_mean/finders/name_error_finders/class_finder'

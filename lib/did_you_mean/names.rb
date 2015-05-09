@@ -1,19 +1,6 @@
 require "delegate"
 
 module DidYouMean
-  class ClassName < SimpleDelegator
-    attr :namespace
-
-    def initialize(name, namespace = '')
-      super(name)
-      @namespace = namespace
-    end
-
-    def full_name
-      self.class.new("#{namespace}#{__getobj__}")
-    end
-  end
-
   class ColumnName < SimpleDelegator
     attr :type
 

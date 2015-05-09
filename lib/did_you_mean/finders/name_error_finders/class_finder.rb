@@ -1,3 +1,5 @@
+require 'delegate'
+
 module DidYouMean
   class ClassFinder
     include BaseFinder
@@ -38,5 +40,20 @@ module DidYouMean
     def scope_base
       @scope_base ||= (/(([A-Z]\w*::)*)([A-Z]\w*)$/ =~ original_message ? $1 : "").split("::")
     end
+
+    class ClassName < SimpleDelegator
+      attr :namespace
+
+      def initialize(name, namespace = '')
+        super(name)
+        @namespace = namespace
+      end
+
+      def full_name
+        self.class.new("#{namespace}#{__getobj__}")
+      end
+    end
+
+    private_constant :ClassName
   end
 end

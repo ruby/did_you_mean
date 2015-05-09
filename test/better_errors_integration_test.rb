@@ -18,4 +18,4 @@ class BetterErrorsIntegrationTest < Minitest::Test
     assert_includes html, "Did you mean?"
     assert_includes html, "Object"
   end
-end
+end if defined?(::BetterErrors)

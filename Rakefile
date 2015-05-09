@@ -1,17 +1,5 @@
 require 'bundler/gem_tasks'
 
-namespace :test do
-  desc "Run tests without re-compiling extensions"
-  task :without_compile do
-    begin
-      $stdout.puts "\033[33m"
-      sh "bundle exec ruby test/all_test.rb"
-    ensure
-      $stdout.puts "\033[0m"
-    end
-  end
-end
-
 case RUBY_ENGINE
 when "ruby"
   require 'rake/extensiontask'
@@ -29,10 +17,15 @@ when "jruby"
   end
 end
 
-desc "Run tests"
-if RUBY_ENGINE != 'rbx'
-  task test: [:clobber, :compile, "test:without_compile"]
-else
-  task test: "test:without_compile"
+require 'rake/testtask'
+
+Rake::TestTask.new do |task|
+  task.libs << "test"
+  task.pattern = 'test/**/*_test.rb'
+  task.verbose = true
+  # task.warning = true
 end
+
+desc "Run tests"
+task test: [:clobber, :compile] if RUBY_ENGINE != 'rbx'
 task default: :test

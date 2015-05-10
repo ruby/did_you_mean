@@ -46,17 +46,7 @@ module DidYouMean
     end
   end
 
-  case RUBY_ENGINE
-  when 'ruby'
-    require 'did_you_mean/method_receiver'
-  when 'jruby'
-    require 'did_you_mean/receiver_capturer'
-    org.yukinishijima.ReceiverCapturer.setup(JRuby.runtime)
-    NoMethodError.send(:attr, :receiver)
-  when 'rbx'
-    require 'did_you_mean/core_ext/rubinius'
-    NoMethodError.send(:attr, :receiver)
-
+  if RUBY_ENGINE == 'rbx'
     module MethodFinder::RubiniusSupport
       def self.new(exception)
         if exception.receiver === exception.frame_binding.eval("self")

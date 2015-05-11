@@ -16,23 +16,6 @@ module DidYouMean
     end
   end
 
-  @@enabled = true
-
-  def self.enabled?
-    @@enabled
-  end
-
-  def self.disabled?
-    !enabled?
-  end
-
-  def self.without_suggestions
-    tmp, @@enabled = @@enabled, false
-    yield
-  ensure
-    @@enabled = tmp
-  end
-
   def self.formatter=(formatter)
     @@formatter = formatter
   end

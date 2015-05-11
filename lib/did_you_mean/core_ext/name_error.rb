@@ -26,7 +26,7 @@ module DidYouMean
     end
 
     def did_you_mean?
-      DidYouMean.formatter.new(suggestions).to_s if !suggestions.empty?
+      Formatter.new(suggestions).to_s if !suggestions.empty?
     end
 
     def suggestions

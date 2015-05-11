@@ -16,14 +16,6 @@ module DidYouMean
     end
   end
 
-  def self.formatter=(formatter)
-    @@formatter = formatter
-  end
-
-  def self.formatter
-    @@formatter ||= Formatter
-  end
-
   def self.finders
     @@finders ||= Hash.new(NullFinder)
   end

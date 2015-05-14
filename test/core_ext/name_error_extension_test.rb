@@ -27,6 +27,14 @@ class NameErrorExtensionTest < Minitest::Test
     assert_match "Did you mean? Y U SO SLOW?", @error.to_s
     assert_match "Did you mean? Y U SO SLOW?", @error.message
   end
+
+  def test_to_s_does_not_make_disruptive_changes_to_error_message
+    error = assert_raises(NameError) do
+      raise NameError, "uninitialized constant Object".freeze
+    end
+
+    assert_equal 1, error.to_s.scan("Did you mean?").count
+  end
 end
 
 class IgnoreCallersTest < Minitest::Test

@@ -14,7 +14,7 @@ module DidYouMean
         define_method(:original_message){ __to_s__.bind(self).call }
 
         def to_s
-          msg = original_message
+          msg = original_message.dup
           bt  = caller.first(6)
 
           msg << did_you_mean?.to_s if IGNORED_CALLERS.all? {|ignored| bt.grep(ignored).empty? }

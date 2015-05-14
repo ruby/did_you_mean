@@ -1,3 +1,11 @@
+## [v0.9.10](https://github.com/yuki24/did_you_mean/tree/v0.9.10)
+
+_<sup>released on 2015-05-14 03:04:47 UTC</sup>_
+
+#### Bug Fixes
+
+- Fixed a bug where a duplicate "did you mean?" message was appended each time `#to_s` is called ( [@danfinnie](https://github.com/danfinnie), [#51](https://github.com/yuki24/did_you_mean/issues/51 "Duplicate output for constants in separate gem"))
+
 ## [v0.9.9](https://github.com/yuki24/did_you_mean/tree/v0.9.9)
 
 _<sup>released on 2015-05-13 03:48:19 UTC</sup>_

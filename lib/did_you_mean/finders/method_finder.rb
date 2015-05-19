@@ -6,6 +6,7 @@ module DidYouMean
     def initialize(exception)
       @method_name = exception.name
       @receiver    = exception.receiver
+      @binding     = exception.frame_binding
       @location    = exception.backtrace.first
       @ivar_names  = NameFinder.new(exception).ivar_names
     end
@@ -19,6 +20,7 @@ module DidYouMean
 
     def method_names
       method_names = receiver.methods + receiver.singleton_methods
+      method_names += receiver.private_methods if receiver.equal?(@binding.eval("self"))
       method_names.delete(method_name)
       method_names.uniq!
       method_names

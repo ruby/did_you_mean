@@ -5,6 +5,9 @@ class MethodNameTest < Minitest::Test
     def friends; end
     def first_name; end
     def descendants; end
+    def call_incorrect_private_method
+      raiae NoMethodError
+    end
 
     protected
     def the_protected_method; end
@@ -60,6 +63,13 @@ class MethodNameTest < Minitest::Test
 
     error = assert_raises(NoMethodError){ User.new.the_private_method }
     refute_includes error.suggestions, :the_private_method
+  end
+
+  def test_suggestions_when_private_method_is_called_with_args
+    error = assert_raises(NoMethodError){ @user.call_incorrect_private_method }
+
+    assert_suggestion :raise, error.suggestions
+    assert_match "Did you mean? raise", error.did_you_mean?
   end
 
   def test_corrects_incorrect_ivar_name

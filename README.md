@@ -72,16 +72,6 @@ params.with_inddiferent_access
 #
 ```
 
-### ActiveRecord::UnknownAttributeError
-
-```ruby
-User.new(nmee: "wrong flrst name")
-# => ActiveRecord::UnknownAttributeError: unknown attribute: nmee
-#
-#     Did you mean? name: string
-#
-```
-
 ## 'Did You Mean' Experience is Everywhere
 
 _did\_you\_mean_ gem automagically puts method suggestions into the error message. This means you'll have the "Did you mean?" experience almost everywhere:

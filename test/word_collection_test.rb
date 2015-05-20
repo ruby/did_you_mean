@@ -1,6 +1,23 @@
 require 'test_helper'
 
-class WordCollectionTest < Minitest::Test
+class FinderTest < Minitest::Test
+  class WordCollection
+    include DidYouMean::BaseFinder
+
+    def initialize(words)
+      @words = words
+    end
+
+    def similar_to(input, filter = EMPTY)
+      @suggestions, @input = nil, input
+
+      suggestions
+    end
+
+    def searches
+      { @input => @words }
+    end
+  end
 
   def test_similar_to
     assert_suggestion 'foo',               collection('foo', 'fork')          .similar_to('doo')
@@ -48,7 +65,7 @@ class WordCollectionTest < Minitest::Test
       name12
     )
 
-    actual = DidYouMean::WordCollection.new(%w(
+    actual = WordCollection.new(%w(
       name12
       name123
       name1234
@@ -62,6 +79,6 @@ class WordCollectionTest < Minitest::Test
   private
 
   def collection(*args)
-    DidYouMean::WordCollection.new(args.flatten)
+    WordCollection.new(args.flatten)
   end
 end

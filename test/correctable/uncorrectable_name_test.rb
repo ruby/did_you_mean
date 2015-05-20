@@ -9,11 +9,7 @@ class UncorrectableNameTest < Minitest::Test
     end
   end
 
-  def test_did_you_mean?
-    assert_nil @error.did_you_mean?
-  end
-
   def test_message
-    refute_includes "Did you mean?", @error.message
+    assert_equal "Other name error", @error.message
   end
 end

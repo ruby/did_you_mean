@@ -5,6 +5,8 @@ module DidYouMean
     end
 
     def to_s
+      return "" if @suggestions.empty?
+
       output = "\n\n"
       output << "    Did you mean? #{format(@suggestions.first)}\n"
       output << @suggestions.drop(1).map{|word| "#{' ' * 18}#{format(word)}\n" }.join

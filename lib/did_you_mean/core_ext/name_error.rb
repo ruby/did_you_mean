@@ -17,16 +17,12 @@ module DidYouMean
           msg = original_message.dup
           bt  = caller.first(6)
 
-          msg << did_you_mean?.to_s if IGNORED_CALLERS.all? {|ignored| bt.grep(ignored).empty? }
+          msg << Formatter.new(suggestions).to_s if IGNORED_CALLERS.all? {|ignored| bt.grep(ignored).empty? }
           msg
         rescue
           original_message
         end
       end
-    end
-
-    def did_you_mean?
-      Formatter.new(suggestions).to_s if !suggestions.empty?
     end
 
     def suggestions

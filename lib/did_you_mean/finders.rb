@@ -23,15 +23,13 @@ module DidYouMean
     private
 
     def close_enough?(word, input) #:nodoc:
-      jaro_winkler = JaroWinkler.distance(word, input)
-      threshold    = input.length > 3 ? 0.834 : 0.77
+      jw = JaroWinkler.distance(word, input)
 
-      if jaro_winkler >= threshold
-        levenshtein = Levenshtein.distance(word, input)
-        bound       = (- 0.6 / levenshtein) + 1
-        bound       = bound + ((1 - bound) * ((levenshtein.to_f / input.length) ** Math::E))
+      if jw >= (input.length > 3 ? 0.834 : 0.77)
+        l = Levenshtein.distance(word, input)
+        t = (- 0.6 / l) + 1
 
-        levenshtein <= 1 || jaro_winkler >= bound
+        l <= 1 || jw >= t + ((1 - t) * ((l.to_f / input.length) ** Math::E))
       end
     end
 

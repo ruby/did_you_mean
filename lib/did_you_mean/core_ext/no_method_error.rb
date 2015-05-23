@@ -15,7 +15,7 @@ when 'jruby'
         field.setAccessible(true)
         field.get(__message__)
       rescue
-        super
+        nil
       end
     end
 

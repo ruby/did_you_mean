@@ -8,11 +8,32 @@ module DidYouMean
 
     def suggestions
       @suggestions ||= searches.flat_map do |input, candidates|
-        input = MemoizingString.new(input.to_s.downcase)
+        input     = MemoizingString.new(normalize(input))
+        threshold = input.length > 3 ? 0.834 : 0.77
 
-        candidates.select {|candidate| close_enough?(normalize(candidate), input) }
+        seed = candidates.select {|candidate| JaroWinkler.distance(normalize(candidate), input) >= threshold }
           .sort_by! {|candidate| JaroWinkler.distance(candidate.to_s, input) }
           .reverse!
+
+        # Correct mistypes
+        threshold   = (input.length * 0.3).ceil
+        corrections = seed.select {|c| Levenshtein.distance(normalize(c), input) <= threshold }
+
+        # Correct misspells
+        if corrections.empty?
+          score = nil
+          corrections = seed.select do |candidate|
+            candidate = normalize(candidate)
+            length    = input.length < candidate.length ? input.length : candidate.length
+            levenshtein  = Levenshtein.distance(candidate, input)
+            jaro_winkler = JaroWinkler.distance(candidate, input)
+
+            score ||= jaro_winkler
+            Levenshtein.distance(candidate, input) < length && (score - jaro_winkler) < 0.01
+          end
+        end
+
+        corrections
       end
     end
 
@@ -21,17 +42,6 @@ module DidYouMean
     end
 
     private
-
-    def close_enough?(word, input) #:nodoc:
-      jw = JaroWinkler.distance(word, input)
-
-      if jw >= (input.length > 3 ? 0.834 : 0.77)
-        l = Levenshtein.distance(word, input)
-        t = (- 0.6 / l) + 1
-
-        l <= 1 || jw >= t + ((1 - t) * ((l.to_f / input.length) ** Math::E))
-      end
-    end
 
     def normalize(str_or_symbol) #:nodoc:
       str = if str_or_symbol.is_a?(String)

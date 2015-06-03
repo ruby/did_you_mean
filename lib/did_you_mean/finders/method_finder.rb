@@ -33,10 +33,10 @@ module DidYouMean
         /(.*):(.*):in `(.*)'/ =~ @location && [$1, $2.to_i, $3]
 
       line =
-        case label
-        when "irb_binding"
+        case abs_path
+        when "(irb)"
           Readline::HISTORY.to_a.last
-        when "__pry__"
+        when "(pry)"
           ::Pry.history.to_a.last
         else
           File.open(abs_path) do |file|

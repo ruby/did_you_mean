@@ -60,9 +60,6 @@ class FinderTest < Minitest::Test
   def test_similar_to_corrects_misspells
     assert_suggestion 'drag_to',          collection('drag_to')         .similar_to('drag')
     assert_suggestion 'set_result_count', collection('set_result_count').similar_to('set_result')
-
-    names = %w(and_throw and_call_original)
-    assert_equal names, collection(names).similar_to('and_call_through')
   end
 
   def test_similar_to_sorts_results_by_simiarity

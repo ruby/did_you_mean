@@ -21,16 +21,12 @@ module DidYouMean
 
         # Correct misspells
         if corrections.empty?
-          score = nil
           corrections = seed.select do |candidate|
             candidate = normalize(candidate)
             length    = input.length < candidate.length ? input.length : candidate.length
-            levenshtein  = Levenshtein.distance(candidate, input)
-            jaro_winkler = JaroWinkler.distance(candidate, input)
 
-            score ||= jaro_winkler
-            Levenshtein.distance(candidate, input) < length && (score - jaro_winkler) < 0.01
-          end
+            Levenshtein.distance(candidate, input) < length
+          end.first(1)
         end
 
         corrections

@@ -16,7 +16,7 @@ module DidYouMean
           .reverse!
 
         # Correct mistypes
-        threshold   = (input.length * 0.3).ceil
+        threshold   = (input.length * 0.25).ceil
         corrections = seed.select {|c| Levenshtein.distance(normalize(c), input) <= threshold }
 
         # Correct misspells

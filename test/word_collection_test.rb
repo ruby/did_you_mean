@@ -20,7 +20,7 @@ class FinderTest < Minitest::Test
   end
 
   def test_similar_to_corrects_mistypes
-    assert_suggestion 'descendants', collection('descendants')          .similar_to('dependents')
+
     assert_suggestion 'foo',         collection('foo', 'fork')          .similar_to('doo')
     assert_suggestion 'email',       collection('email', 'fail', 'eval').similar_to('meail')
     assert_suggestion 'fail',        collection('email', 'fail', 'eval').similar_to('fial')
@@ -58,6 +58,7 @@ class FinderTest < Minitest::Test
   end
 
   def test_similar_to_corrects_misspells
+    assert_suggestion 'descendants',      collection('descendants')     .similar_to('dependents')
     assert_suggestion 'drag_to',          collection('drag_to')         .similar_to('drag')
     assert_suggestion 'set_result_count', collection('set_result_count').similar_to('set_result')
   end

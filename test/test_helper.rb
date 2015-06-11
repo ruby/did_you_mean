@@ -11,4 +11,4 @@ rescue NameError
 end
 
 require 'did_you_mean/test_helper'
-MiniTest::Test.send :include, DidYouMean::TestHelper
+MiniTest::Test.include(DidYouMean::TestHelper)

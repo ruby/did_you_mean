@@ -35,4 +35,4 @@ module DidYouMean
   end
 end
 
-NameError.send(:include, DidYouMean::Correctable)
+NameError.include(DidYouMean::Correctable)

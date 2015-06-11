@@ -7,14 +7,14 @@ class NameErrorExtensionTest < Minitest::Test
   end
 
   def setup
-    @org = DidYouMean.finders[NAME_ERROR.to_s]
-    DidYouMean.finders[NAME_ERROR.to_s] = TestFinder
+    @org = DidYouMean.finders['NameError']
+    DidYouMean.finders['NameError'] = TestFinder
 
-    @error = assert_raises(NAME_ERROR){ doesnt_exist }
+    @error = assert_raises(NameError){ doesnt_exist }
   end
 
   def teardown
-    DidYouMean.finders[NAME_ERROR.to_s] = @org
+    DidYouMean.finders['NameError'] = @org
   end
 
   def test_message_provides_original_message
@@ -43,14 +43,14 @@ class IgnoreCallersTest < Minitest::Test
   end
 
   def setup
-    @org = DidYouMean.finders[NAME_ERROR.to_s]
-    DidYouMean.finders[NAME_ERROR.to_s] = Boomer
+    @org = DidYouMean.finders['NameError']
+    DidYouMean.finders['NameError'] = Boomer
 
-    @error = assert_raises(NAME_ERROR){ doesnt_exist }
+    @error = assert_raises(NameError){ doesnt_exist }
   end
 
   def teardown
-    DidYouMean.finders[NAME_ERROR.to_s] = @org
+    DidYouMean.finders['NameError'] = @org
   end
 
   def test_ignore_missing_name

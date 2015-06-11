@@ -25,7 +25,7 @@ class VariableNameTest < Minitest::Test
   end
 
   def test_suggestions_include_instance_method
-    error = assert_raises(NAME_ERROR) do
+    error = assert_raises(NameError) do
       @user.instance_eval { flrst_name }
     end
 
@@ -34,7 +34,7 @@ class VariableNameTest < Minitest::Test
   end
 
   def test_suggestions_include_method_from_module
-    error = assert_raises(NAME_ERROR) do
+    error = assert_raises(NameError) do
       @user.instance_eval { fr0m_module }
     end
 
@@ -51,14 +51,14 @@ class VariableNameTest < Minitest::Test
   end
 
   def test_suggestions_include_instance_variable_name
-    error = assert_raises(NAME_ERROR){ @user.to_s }
+    error = assert_raises(NameError){ @user.to_s }
 
     assert_suggestion :@email_address, error.suggestions
     assert_match "Did you mean? @email_address", error.to_s
   end
 
   def test_suggestions_include_private_method
-    error = assert_raises(NAME_ERROR) do
+    error = assert_raises(NameError) do
       @user.instance_eval { cia_code_name }
     end
 

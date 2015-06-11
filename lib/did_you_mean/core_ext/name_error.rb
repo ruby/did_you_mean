@@ -15,7 +15,7 @@ module DidYouMean
 
         def to_s
           msg = original_message.dup
-          bt  = caller.first(6)
+          bt  = caller(1, 6)
 
           msg << Formatter.new(suggestions).to_s if IGNORED_CALLERS.all? {|ignored| bt.grep(ignored).empty? }
           msg

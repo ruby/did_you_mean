@@ -14,20 +14,12 @@ Gem::Specification.new do |spec|
   spec.license       = "MIT"
 
   spec.files         = `git ls-files`.split($/)
+  spec.extensions    = ["ext/did_you_mean/extconf.rb"]
   spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]
 
-  spec.required_ruby_version = '>= 1.9.3'
-
-  case RUBY_ENGINE
-  when 'ruby'
-    spec.extensions = ["ext/did_you_mean/extconf.rb"]
-  when 'jruby'
-    spec.platform = 'java'
-  end
-
-  spec.add_dependency "interception"
+  spec.required_ruby_version = '>= 2.0.0'
 
   spec.add_development_dependency "bundler", "~> 1.5"
   spec.add_development_dependency "rake"

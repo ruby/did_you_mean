@@ -1,12 +1,9 @@
 require 'bundler/gem_tasks'
+require 'rake/extensiontask'
 
-if RUBY_ENGINE == "ruby"
-  require 'rake/extensiontask'
-
-  Rake::ExtensionTask.new 'did_you_mean' do |ext|
-    ext.name    = "method_receiver"
-    ext.lib_dir = "lib/did_you_mean"
-  end
+Rake::ExtensionTask.new 'did_you_mean' do |ext|
+  ext.name    = "method_receiver"
+  ext.lib_dir = "lib/did_you_mean"
 end
 
 require 'rake/testtask'
@@ -19,7 +16,7 @@ Rake::TestTask.new do |task|
 end
 
 desc "Run tests"
-task test: [:clobber, :compile] if RUBY_ENGINE == 'ruby'
+task test: [:clobber, :compile]
 task default: :test
 
 namespace :test do

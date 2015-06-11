@@ -47,16 +47,4 @@ module DidYouMean
       /@(\w+)*\.#{@method_name}/ =~ line.to_s && $1
     end
   end
-
-  if RUBY_ENGINE == 'rbx'
-    module MethodFinder::RubiniusSupport
-      def self.new(exception)
-        if exception.receiver === exception.frame_binding.eval("self")
-          NameErrorFinders.new(exception)
-        else
-          MethodFinder.new(exception)
-        end
-      end
-    end
-  end
 end

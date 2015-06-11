@@ -69,8 +69,6 @@ class VariableNameTest < Minitest::Test
   @@does_exist = true
 
   def test_suggestions_include_class_variable_name
-    skip if RUBY_ENGINE == 'rbx'
-
     error = assert_raises(NameError){ @@doesnt_exist }
 
     assert_suggestion :@@does_exist, error.suggestions

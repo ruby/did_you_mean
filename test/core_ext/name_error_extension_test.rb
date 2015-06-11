@@ -18,8 +18,6 @@ class NameErrorExtensionTest < Minitest::Test
   end
 
   def test_message_provides_original_message
-    skip if RUBY_ENGINE == 'rbx'
-
     assert_match "undefined local variable or method", @error.to_s
   end
 

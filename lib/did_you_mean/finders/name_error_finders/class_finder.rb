@@ -21,26 +21,8 @@ module DidYouMean
       end
     end
 
-    if RUBY_ENGINE == 'jruby'
-      # Always use the original error message to retrieve the user
-      # input since JRuby 1.7 behaves differently from MRI/Rubinius.
-      #
-      #   class Name; end
-      #   error = (Name::DoesNotExist rescue $!)
-      #
-      #   # on MRI/Rubinius
-      #   error.name #=> :DoesNotExist
-      #
-      #   # on JRuby <= 1.7
-      #   error.name #=> :'Name::DoesNotExist'
-      #
-      def name_from_message
-        /([A-Z]\w*$)/.match(original_message)[0]
-      end
-    else
-      def name_from_message
-        class_name || /([A-Z]\w*$)/.match(original_message)[0]
-      end
+    def name_from_message
+      class_name || /([A-Z]\w*$)/.match(original_message)[0]
     end
 
     def suggestions

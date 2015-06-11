@@ -73,8 +73,6 @@ class MethodNameTest < Minitest::Test
   end
 
   def test_corrects_incorrect_ivar_name
-    skip if RUBY_ENGINE == 'rbx'
-
     @number = 1
     error = assert_raises(NoMethodError) { @nubmer.zero? }
 

@@ -10,5 +10,10 @@ rescue NameError
   MiniTest::Test = MiniTest::Unit::TestCase
 end
 
-require 'did_you_mean/test_helper'
+module DidYouMean::TestHelper
+  def assert_suggestion(expected, array)
+    assert_equal [expected], array, "Expected #{array.inspect} to only include #{expected.inspect}"
+  end
+end
+
 MiniTest::Test.include(DidYouMean::TestHelper)

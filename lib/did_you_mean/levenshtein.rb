@@ -12,7 +12,7 @@ module DidYouMean
       x = nil
 
       # to avoid duplicating an enumerable object, create it outside of the loop
-      str2_codepoints = str2.codepoints.to_a
+      str2_codepoints = str2.codepoints
 
       str1.each_codepoint.with_index(1) do |char1, i|
         j = 0

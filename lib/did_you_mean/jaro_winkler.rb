@@ -13,9 +13,8 @@ module DidYouMean
       flags2     = 0
 
       # Avoid duplicating enumerable objects
-      # Also, call #to_a since #codepoints returns an Enumerator on Ruby 1.9.3.
-      str1_codepoints = str1.codepoints.to_a
-      str2_codepoints = str2.codepoints.to_a
+      str1_codepoints = str1.codepoints
+      str2_codepoints = str2.codepoints
 
       i = 0
       while i < length1
@@ -69,7 +68,7 @@ module DidYouMean
       jaro_distance = Jaro.distance(str1, str2)
 
       if jaro_distance > THRESHOLD
-        codepoints2  = str2.codepoints.to_a
+        codepoints2  = str2.codepoints
         prefix_bonus = 0
 
         i = 0

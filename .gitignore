@@ -19,6 +19,7 @@ test/version_tmp
 tmp
 log
 
+evaluation/dictionary.yml
 benchmark/results
 
 ext/**/*.o

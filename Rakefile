@@ -21,3 +21,23 @@ end
 desc "Run tests"
 task test: [:clobber, :compile] if RUBY_ENGINE == 'ruby'
 task default: :test
+
+namespace :test do
+  namespace :accuracy do
+    desc "Download Wiktionary's Simple English data and save it as a dictionary"
+    task :prepare do
+      sh 'ruby evaluation/dictionary_generator.rb'
+    end
+  end
+
+  desc "Calculate accuracy of the gems' spell checker"
+  task :accuracy do
+    if !File.exist?("evaluation/dictionary.yml")
+      puts 'Generating dictionary for evaluation:'
+      Rake::Task["test:accuracy:prepare"].execute
+      puts "\n"
+    end
+
+    sh 'bundle exec ruby evaluation/calculator.rb'
+  end
+end

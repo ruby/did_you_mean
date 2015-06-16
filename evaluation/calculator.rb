@@ -32,7 +32,7 @@ report "loading program" do
       module_function
       def distance(str1, str2)
         ::JaroWinkler.distance(str1, str2)
-      end
+      end if RUBY_ENGINE != 'jruby'
     end
   rescue LoadError, NameError
   end

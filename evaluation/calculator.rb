@@ -103,10 +103,6 @@ report "calculating accuracy" do
   puts "\n"
 end
 
-File.open(filename, 'w') do |file|
-  file.write(words_not_corrected.to_yaml)
-end
-
 puts "
 Evaulation result
 
@@ -114,5 +110,11 @@ Evaulation result
   Correct count: #{correct_count}
   Accuracy     : #{correct_count.to_f / total_count}
 
-Incorrect suggestions were logged to #{filename}.
 "
+
+Dir.mkdir('log') unless File.exist?('log')
+File.open(filename, 'w') do |file|
+  file.write(words_not_corrected.to_yaml)
+end
+
+puts "Incorrect suggestions were logged to #{filename}."

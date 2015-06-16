@@ -6,6 +6,9 @@ sudo:     false
 before_install:
   - gem i bundler -v=1.9.3
 
+after_success:
+  - bundle exec rake test:accuracy
+
 rvm:
   - 1.9.3
   - 2.0.0

@@ -1,3 +1,5 @@
+require "delegate"
+
 require "did_you_mean/levenshtein"
 require "did_you_mean/jaro_winkler"
 

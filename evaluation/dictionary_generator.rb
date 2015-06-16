@@ -2,7 +2,7 @@ require 'open-uri'
 require 'json'
 
 per_page = 500
-base_url = "http://simple.wiktionary.org/w/api.php?action=query&aplimit=#{per_page}&list=allpages&format=json"
+base_url = "https://simple.wiktionary.org/w/api.php?action=query&aplimit=#{per_page}&list=allpages&format=json"
 filename = "evaluation/dictionary.yml"
 count    = nil
 apfrom   = ""

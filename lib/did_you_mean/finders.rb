@@ -1,5 +1,3 @@
-require "delegate"
-
 require "did_you_mean/levenshtein"
 require "did_you_mean/jaro_winkler"
 
@@ -10,7 +8,7 @@ module DidYouMean
 
     def suggestions
       @suggestions ||= searches.flat_map do |input, candidates|
-        input     = MemoizingString.new(normalize(input))
+        input     = normalize(input)
         threshold = input.length > 3 ? 0.834 : 0.77
 
         seed = candidates.select {|candidate| JaroWinkler.distance(normalize(candidate), input) >= threshold }
@@ -53,13 +51,6 @@ module DidYouMean
       str.tr!(AT, EMPTY)
       str
     end
-
-    class MemoizingString < SimpleDelegator #:nodoc:
-      def length;     @length     ||= super; end
-      def codepoints; @codepoints ||= super; end
-    end
-
-    private_constant :MemoizingString
   end
 
   class NullFinder

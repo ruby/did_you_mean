@@ -5,6 +5,7 @@ gemspec
 
 gem 'benchmark-ips'
 gem 'memory_profiler'
+gem 'jaro_winkler', github: 'tonytonyjan/jaro_winkler', branch: 'issues/9'
 
 platforms :rbx do
   gem 'rubysl', '~> 2.0'

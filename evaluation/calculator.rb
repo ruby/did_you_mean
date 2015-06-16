@@ -26,6 +26,16 @@ report "loading program" do
   require 'set'
   require 'did_you_mean'
 
+  begin
+    require 'jaro_winkler'
+    DidYouMean::JaroWinkler.module_eval do
+      module_function def distance(str1, str2)
+        ::JaroWinkler.distance(str1, str2)
+      end
+    end
+  rescue LoadError, NameError
+  end
+
   class DidYouMean::WordCollection
     include DidYouMean::BaseFinder
 

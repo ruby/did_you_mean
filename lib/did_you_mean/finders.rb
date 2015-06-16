@@ -41,13 +41,12 @@ module DidYouMean
 
     def normalize(str_or_symbol) #:nodoc:
       str = if str_or_symbol.is_a?(String)
-              str_or_symbol.downcase
+              str_or_symbol.dup
             else
-              str = str_or_symbol.to_s
-              str.downcase!
-              str
+              str_or_symbol.to_s
             end
 
+      str.downcase!
       str.tr!(AT, EMPTY)
       str
     end

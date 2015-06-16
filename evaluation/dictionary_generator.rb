@@ -1,4 +1,5 @@
 require 'open-uri'
+require 'cgi'
 require 'json'
 
 per_page = 500
@@ -17,7 +18,7 @@ begin
   body   = open(url).read
   json   = JSON.load(body)
   count  = json["query"]["allpages"].size
-  apfrom = json["query"]["allpages"].last['title'] if count > 0
+  apfrom = CGI.escape(json["query"]["allpages"].last['title']) if count > 0
 
   titles += json["query"]["allpages"].map {|hash| hash["title"] }
   num    += 1

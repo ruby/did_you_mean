@@ -29,7 +29,8 @@ report "loading program" do
   begin
     require 'jaro_winkler'
     DidYouMean::JaroWinkler.module_eval do
-      module_function def distance(str1, str2)
+      module_function
+      def distance(str1, str2)
         ::JaroWinkler.distance(str1, str2)
       end
     end

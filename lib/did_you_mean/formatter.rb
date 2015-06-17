@@ -10,7 +10,7 @@ module DidYouMean
       output = "\n\n"
       output << "    Did you mean? #{format(@suggestions.first)}\n"
       output << @suggestions.drop(1).map{|word| "#{' '.freeze * 18}#{format(word)}\n" }.join
-      output << " ".freeze # for rspec
+      output << " ".freeze
     end
 
     def format(name)

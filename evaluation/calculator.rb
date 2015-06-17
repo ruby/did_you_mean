@@ -53,7 +53,8 @@ report "loading program" do
       { @input => @words }
     end
 
-    private def normalize(str); str; end
+    private
+    def normalize(str); str; end
   end if !defined?(DidYouMean::WordCollection)
 end
 

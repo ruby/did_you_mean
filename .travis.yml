@@ -8,6 +8,7 @@ before_install:
 
 after_success:
   - bundle exec rake test:accuracy
+  - bundle exec rake benchmark:memory
 
 rvm:
   - 1.9.3

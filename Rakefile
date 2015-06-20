@@ -41,3 +41,10 @@ namespace :test do
     sh 'bundle exec ruby evaluation/calculator.rb'
   end
 end
+
+namespace :benchmark do
+  desc "Measure memory usage by the did_you_mean gem"
+  task :memory do
+    sh 'bundle exec ruby benchmark/memory_usage.rb'
+  end
+end

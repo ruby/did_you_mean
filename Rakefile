@@ -1,11 +1,4 @@
 require 'bundler/gem_tasks'
-require 'rake/extensiontask'
-
-Rake::ExtensionTask.new 'did_you_mean' do |ext|
-  ext.name    = "method_receiver"
-  ext.lib_dir = "lib/did_you_mean"
-end
-
 require 'rake/testtask'
 
 Rake::TestTask.new do |task|
@@ -15,8 +8,6 @@ Rake::TestTask.new do |task|
   # task.warning = true
 end
 
-desc "Run tests"
-task test: [:clobber, :compile]
 task default: :test
 
 namespace :test do

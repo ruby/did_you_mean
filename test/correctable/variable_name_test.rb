@@ -4,6 +4,8 @@ class VariableNameTest < Minitest::Test
   class User
     def initialize
       @email_address = 'email_address@address.net'
+      @first_name    = nil
+      @last_name     = nil
     end
 
     def first_name; end
@@ -29,6 +31,11 @@ class VariableNameTest < Minitest::Test
       @user.instance_eval { flrst_name }
     end
 
+    @user.instance_eval do
+      remove_instance_variable :@first_name
+      remove_instance_variable :@last_name
+    end
+
     assert_suggestion :first_name, error.suggestions
     assert_match "Did you mean? first_name", error.to_s
   end
@@ -43,7 +50,7 @@ class VariableNameTest < Minitest::Test
   end
 
   def test_suggestions_include_local_variable_name
-    person  = nil
+    person = person = nil
     error = (eprson rescue $!) # Do not use @assert_raises here as it changes a scope.
 
     assert_suggestion :person, error.suggestions

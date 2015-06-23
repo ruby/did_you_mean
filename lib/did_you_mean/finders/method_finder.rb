@@ -29,8 +29,8 @@ module DidYouMean
     def receiver_name
       return unless @receiver.nil?
 
-      abs_path, lineno, label =
-        /(.*):(.*):in `(.*)'/ =~ @location && [$1, $2.to_i, $3]
+      abs_path, lineno =
+        /(.*):(.*):in `.*'/ =~ @location && [$1, $2.to_i]
 
       line =
         case abs_path

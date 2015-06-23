@@ -7,7 +7,7 @@ module DidYouMean
       @method_name = exception.name
       @receiver    = exception.receiver
       @binding     = exception.frame_binding
-      @location    = exception.backtrace.first
+      @location    = exception.backtrace_locations.first
       @ivar_names  = NameFinder.new(exception).ivar_names
     end
 
@@ -29,8 +29,7 @@ module DidYouMean
     def receiver_name
       return unless @receiver.nil?
 
-      abs_path, lineno =
-        /(.*):(.*):in `.*'/ =~ @location && [$1, $2.to_i]
+      abs_path, lineno = @location.absolute_path, @location.lineno
 
       line =
         case abs_path

@@ -45,8 +45,8 @@ report "loading program" do
     end
 
     def similar_to(input, filter = EMPTY)
-      @suggestions, @input = nil, input
-      suggestions
+      @corrections, @input = nil, input
+      corrections
     end
 
     def searches
@@ -119,4 +119,4 @@ File.open(filename, 'w') do |file|
   file.write(words_not_corrected.to_yaml)
 end
 
-puts "Incorrect suggestions were logged to #{filename}."
+puts "Incorrect corrections were logged to #{filename}."

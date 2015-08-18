@@ -37,7 +37,7 @@ _<sup>released on 2015-05-13 03:48:19 UTC</sup>_
 
 #### Small/Internal Changes
 
-- Order word suggestions based on Levenshtein distance ( [@tleish](https://github.com/tleish), [#31](https://github.com/yuki24/did_you_mean/pull/31 "Order word suggestions based on Levenshtein.distance."))
+- Order word corrections based on Levenshtein distance ( [@tleish](https://github.com/tleish), [#31](https://github.com/yuki24/did_you_mean/pull/31 "Order word corrections based on Levenshtein.distance."))
 - Reduce memory allocation by about 40%
 - Speed up Levenshtein distance calculation by about 40%
 - The Java extension has been replaced with a pure JRuby implementation
@@ -80,7 +80,7 @@ _<sup>released on 2014-11-19 20:00:00 UTC</sup>_
 
 #### Bug Fixes
 
-- Fixed a bug where no suggestions will be made on JRuby
+- Fixed a bug where no corrections will be made on JRuby
 
 ## [v0.9.3](https://github.com/yuki24/did_you_mean/tree/v0.9.3)
 
@@ -175,7 +175,7 @@ _<sup>released on 2014-05-18 00:23:24 UTC</sup>_
 
 #### New Features
 
-- Added basic support for constants. Now you'll see class name suggestions when you misspelled a class names/module names:
+- Added basic support for constants. Now you'll see class name corrections when you misspelled a class names/module names:
 
 ```ruby
 > Ocject

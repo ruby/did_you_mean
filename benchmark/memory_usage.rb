@@ -13,8 +13,8 @@ class DidYouMean::WordCollection
   end
 
   def similar_to(input, filter = EMPTY)
-    @suggestions, @input = nil, input
-    suggestions
+    @corrections, @input = nil, input
+    corrections
   end
 
   def searches

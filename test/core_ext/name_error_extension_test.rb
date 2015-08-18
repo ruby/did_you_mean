@@ -3,7 +3,7 @@ require 'test_helper'
 class NameErrorExtensionTest < Minitest::Test
   class TestFinder
     def initialize(*); end
-    def suggestions; ["Y U SO SLOW?"]; end
+    def corrections; ["Y U SO SLOW?"]; end
   end
 
   def setup

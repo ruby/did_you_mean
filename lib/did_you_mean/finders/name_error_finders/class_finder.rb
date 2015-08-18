@@ -25,7 +25,7 @@ module DidYouMean
       class_name || /([A-Z]\w*$)/.match(original_message)[0]
     end
 
-    def suggestions
+    def corrections
       super.map(&:full_name)
     end
 

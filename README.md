@@ -74,7 +74,7 @@ params.with_inddiferent_access
 
 ## 'Did You Mean' Experience is Everywhere
 
-_did\_you\_mean_ gem automagically puts method suggestions into the error message. This means you'll have the "Did you mean?" experience almost everywhere:
+_did\_you\_mean_ gem automagically puts method corrections into the error message. This means you'll have the "Did you mean?" experience almost everywhere:
 
 ![Did you mean? on BetterErrors](https://raw.githubusercontent.com/yuki24/did_you_mean/master/doc/did_you_mean_example.png)
 

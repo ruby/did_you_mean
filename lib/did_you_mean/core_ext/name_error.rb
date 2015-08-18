@@ -16,14 +16,14 @@ module DidYouMean
       msg = super.dup
       bt  = caller(1, 6)
 
-      msg << Formatter.new(suggestions).to_s if IGNORED_CALLERS.all? {|ignored| bt.grep(ignored).empty? }
+      msg << Formatter.new(corrections).to_s if IGNORED_CALLERS.all? {|ignored| bt.grep(ignored).empty? }
       msg
     rescue
       super
     end
 
-    def suggestions
-      finder.suggestions
+    def corrections
+      finder.corrections
     end
 
     def finder

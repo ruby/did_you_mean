@@ -6,8 +6,8 @@ module DidYouMean
     AT    = "@".freeze
     EMPTY = "".freeze
 
-    def suggestions
-      @suggestions ||= searches.flat_map do |input, candidates|
+    def corrections
+      @corrections ||= searches.flat_map do |input, candidates|
         input     = normalize(input)
         threshold = input.length > 3 ? 0.834 : 0.77
 
@@ -54,7 +54,7 @@ module DidYouMean
 
   class NullFinder
     def initialize(*);  end
-    def suggestions; [] end
+    def corrections; [] end
   end
 end
 

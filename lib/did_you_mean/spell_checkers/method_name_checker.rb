@@ -3,6 +3,10 @@ module DidYouMean
     include SpellCheckable
     attr_reader :method_name, :receiver
 
+    REPLS = {
+      "(irb)" => -> { Readline::HISTORY.to_a.last }
+    }
+
     def initialize(exception)
       @method_name = exception.name
       @receiver    = exception.receiver
@@ -29,21 +33,22 @@ module DidYouMean
     def receiver_name
       return unless @receiver.nil?
 
-      abs_path, lineno = @location.absolute_path, @location.lineno
+      abs_path = @location.absolute_path
+      lineno   = @location.lineno
 
-      line =
-        case abs_path
-        when "(irb)"
-          Readline::HISTORY.to_a.last
-        when "(pry)"
-          ::Pry.history.to_a.last
-        else
-          File.open(abs_path) do |file|
-            file.detect { file.lineno == lineno }
-          end if File.exist?(abs_path)
+      /@(\w+)*\.#{@method_name}/ =~ line(abs_path, lineno).to_s && $1
+    end
+
+    private
+
+    def line(abs_path, lineno)
+      if REPLS[abs_path]
+        REPLS[abs_path].call
+      elsif File.exist?(abs_path)
+        File.open(abs_path) do |file|
+          file.detect { file.lineno == lineno }
         end
-
-      /@(\w+)*\.#{@method_name}/ =~ line.to_s && $1
+      end
     end
   end
 end

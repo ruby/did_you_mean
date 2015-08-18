@@ -8,21 +8,18 @@ module DidYouMean
     ].freeze
     private_constant :IGNORED_CALLERS
 
-    def self.included(klass)
-      klass.class_eval do
-        __to_s__ = klass.instance_method(:to_s)
-        define_method(:original_message){ __to_s__.bind(self).call }
+    def original_message
+      method(:to_s).super_method.call
+    end
 
-        def to_s
-          msg = original_message.dup
-          bt  = caller(1, 6)
+    def to_s
+      msg = super.dup
+      bt  = caller(1, 6)
 
-          msg << Formatter.new(suggestions).to_s if IGNORED_CALLERS.all? {|ignored| bt.grep(ignored).empty? }
-          msg
-        rescue
-          original_message
-        end
-      end
+      msg << Formatter.new(suggestions).to_s if IGNORED_CALLERS.all? {|ignored| bt.grep(ignored).empty? }
+      msg
+    rescue
+      super
     end
 
     def suggestions

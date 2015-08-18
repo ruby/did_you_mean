@@ -2,12 +2,6 @@ module DidYouMean
   module Correctable
     attr_reader :frame_binding
 
-    IGNORED_CALLERS = [
-      /( |`)missing_name'/,
-      /( |`)safe_constantize'/
-    ].freeze
-    private_constant :IGNORED_CALLERS
-
     def original_message
       method(:to_s).super_method.call
     end

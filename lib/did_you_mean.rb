@@ -18,6 +18,11 @@ module DidYouMean
   end
   @@trace.enable
 
+  IGNORED_CALLERS = [
+    /( |`)missing_name'/,
+    /( |`)safe_constantize'/
+  ]
+
   def self.spell_checkers
     @@spell_checkers ||= Hash.new(NullChecker)
   end

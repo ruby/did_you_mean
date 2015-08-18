@@ -1,5 +1,6 @@
 module DidYouMean
   module Correctable
+    prepend_features NameError
     attr_reader :frame_binding
 
     def original_message
@@ -25,5 +26,3 @@ module DidYouMean
     end
   end
 end
-
-NameError.include(DidYouMean::Correctable)

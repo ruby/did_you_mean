@@ -12,7 +12,7 @@ module DidYouMean
   @@trace = TracePoint.new(:raise) do |tp|
     e, b = tp.raised_exception, tp.binding
 
-    if DidYouMean.spell_checkers.include?(e.class.to_s) && !e.instance_variable_defined?(:@frame_binding)
+    if SPELL_CHECKERS.include?(e.class.to_s) && !e.instance_variable_defined?(:@frame_binding)
       e.instance_variable_set(:@frame_binding, b)
     end
   end
@@ -23,11 +23,8 @@ module DidYouMean
     /( |`)safe_constantize'/
   ]
 
-  def self.spell_checkers
-    @@spell_checkers ||= Hash.new(NullChecker)
-  end
-
-  spell_checkers.merge!({
+  SPELL_CHECKERS = Hash.new(NullChecker)
+  SPELL_CHECKERS.merge!({
     "NameError"     => NameErrorCheckers,
     "NoMethodError" => MethodNameChecker
   })

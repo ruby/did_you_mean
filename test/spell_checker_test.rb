@@ -47,7 +47,7 @@ class SpellCheckerTest < Minitest::Test
       NullGroupMembership
     )
 
-    #assert_correction 'GroupMembership',          collection(group_classes).similar_to('GroupMemberhip')
+    assert_correction 'GroupMembership',          collection(group_classes).similar_to('GroupMemberhip')
     assert_correction 'GroupMembershipDecorator', collection(group_classes).similar_to('GroupMemberhipDecorator')
 
     names = %w(first_name_change first_name_changed? first_name_will_change!)

@@ -23,11 +23,11 @@ module DidYouMean
     end
 
     def corrections
-      finder.corrections
+      spell_checker.corrections
     end
 
-    def finder
-      @finder ||= DidYouMean.finders[self.class.to_s].new(self)
+    def spell_checker
+      @spell_checker ||= DidYouMean.spell_checkers[self.class.to_s].new(self)
     end
   end
 end

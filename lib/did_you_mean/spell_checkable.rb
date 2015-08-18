@@ -51,12 +51,4 @@ module DidYouMean
       str
     end
   end
-
-  class NullFinder
-    def initialize(*);  end
-    def corrections; [] end
-  end
 end
-
-require 'did_you_mean/finders/name_error_finders'
-require 'did_you_mean/finders/method_finder'

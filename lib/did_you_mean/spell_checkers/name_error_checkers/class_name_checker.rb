@@ -1,7 +1,7 @@
 require 'delegate'
 
 module DidYouMean
-  class ClassFinder
+  class ClassNameChecker
     include SpellCheckable
     attr_reader :class_name, :original_message
 

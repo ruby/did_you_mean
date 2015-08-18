@@ -1,20 +1,20 @@
 require 'test_helper'
 
 class NameErrorExtensionTest < Minitest::Test
-  class TestFinder
+  class TestSpellChecker
     def initialize(*); end
     def corrections; ["Y U SO SLOW?"]; end
   end
 
   def setup
-    @org = DidYouMean.finders['NameError']
-    DidYouMean.finders['NameError'] = TestFinder
+    @org = DidYouMean.spell_checkers['NameError']
+    DidYouMean.spell_checkers['NameError'] = TestSpellChecker
 
     @error = assert_raises(NameError){ doesnt_exist }
   end
 
   def teardown
-    DidYouMean.finders['NameError'] = @org
+    DidYouMean.spell_checkers['NameError'] = @org
   end
 
   def test_message_provides_original_message
@@ -38,19 +38,19 @@ end
 class IgnoreCallersTest < Minitest::Test
   class Boomer
     def initialize(*)
-      raise Exception, "finder was created when it shouldn't!"
+      raise Exception, "spell checker was created when it shouldn't!"
     end
   end
 
   def setup
-    @org = DidYouMean.finders['NameError']
-    DidYouMean.finders['NameError'] = Boomer
+    @org = DidYouMean.spell_checkers['NameError']
+    DidYouMean.spell_checkers['NameError'] = Boomer
 
     @error = assert_raises(NameError){ doesnt_exist }
   end
 
   def teardown
-    DidYouMean.finders['NameError'] = @org
+    DidYouMean.spell_checkers['NameError'] = @org
   end
 
   def test_ignore_missing_name

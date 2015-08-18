@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class FinderTest < Minitest::Test
+class SpellCheckerTest < Minitest::Test
   class WordCollection
     include DidYouMean::SpellCheckable
 

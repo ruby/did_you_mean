@@ -1,5 +1,5 @@
 module DidYouMean
-  class NameFinder
+  class VariableNameChecker
     include SpellCheckable
     attr_reader :name, :method_names, :lvar_names, :ivar_names, :cvar_names
 
@@ -14,7 +14,7 @@ module DidYouMean
     end
 
     def searches
-      {name => (lvar_names + method_names + ivar_names + cvar_names)}
+      { name => (lvar_names + method_names + ivar_names + cvar_names) }
     end
   end
 end

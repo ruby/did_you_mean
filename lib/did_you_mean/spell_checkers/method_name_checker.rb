@@ -1,5 +1,5 @@
 module DidYouMean
-  class MethodFinder
+  class MethodNameChecker
     include SpellCheckable
     attr_reader :method_name, :receiver
 
@@ -8,7 +8,7 @@ module DidYouMean
       @receiver    = exception.receiver
       @binding     = exception.frame_binding
       @location    = exception.backtrace_locations.first
-      @ivar_names  = NameFinder.new(exception).ivar_names
+      @ivar_names  = VariableNameChecker.new(exception).ivar_names
     end
 
     def searches

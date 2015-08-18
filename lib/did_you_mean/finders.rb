@@ -2,7 +2,7 @@ require "did_you_mean/levenshtein"
 require "did_you_mean/jaro_winkler"
 
 module DidYouMean
-  module BaseFinder
+  module SpellCheckable
     AT    = "@".freeze
     EMPTY = "".freeze
 

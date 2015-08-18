@@ -2,7 +2,7 @@ require 'delegate'
 
 module DidYouMean
   class ClassFinder
-    include BaseFinder
+    include SpellCheckable
     attr_reader :class_name, :original_message
 
     def initialize(exception)

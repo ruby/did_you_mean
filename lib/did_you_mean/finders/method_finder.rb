@@ -1,6 +1,6 @@
 module DidYouMean
   class MethodFinder
-    include BaseFinder
+    include SpellCheckable
     attr_reader :method_name, :receiver
 
     def initialize(exception)

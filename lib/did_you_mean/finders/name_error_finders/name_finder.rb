@@ -1,6 +1,6 @@
 module DidYouMean
   class NameFinder
-    include BaseFinder
+    include SpellCheckable
     attr_reader :name, :method_names, :lvar_names, :ivar_names, :cvar_names
 
     def initialize(exception)

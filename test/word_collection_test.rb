@@ -2,7 +2,7 @@ require 'test_helper'
 
 class FinderTest < Minitest::Test
   class WordCollection
-    include DidYouMean::BaseFinder
+    include DidYouMean::SpellCheckable
 
     def initialize(words)
       @words = words

@@ -6,7 +6,7 @@ require 'did_you_mean'
 # executable = -> { error.to_s }
 
 class DidYouMean::WordCollection
-  include DidYouMean::BaseFinder
+  include DidYouMean::SpellCheckable
 
   def initialize(words)
     @words = words

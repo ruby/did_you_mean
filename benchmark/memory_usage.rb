@@ -17,7 +17,7 @@ class DidYouMean::WordCollection
     corrections
   end
 
-  def searches
+  def candidates
     { @input => @words }
   end
 end if !defined?(DidYouMean::WordCollection)

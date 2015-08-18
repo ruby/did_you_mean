@@ -48,7 +48,7 @@ class ClassNameTest < Minitest::Test
     assert_correction "Book::TableOfContents", error.corrections
   end
 
-  def test_corrections_searches_for_names_in_upper_level_scopes
+  def test_corrections_candidates_for_names_in_upper_level_scopes
     error = assert_raises(NameError) { Book::Page.tableof_contents }
     assert_correction "Book::TableOfContents", error.corrections
   end

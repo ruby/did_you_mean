@@ -9,7 +9,7 @@ module DidYouMean
       @class_name, @original_message = exception.name, exception.original_message
     end
 
-    def searches
+    def candidates
       {name_from_message => class_names}
     end
 

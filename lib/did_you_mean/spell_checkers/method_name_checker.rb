@@ -15,7 +15,7 @@ module DidYouMean
       @ivar_names  = VariableNameChecker.new(exception).ivar_names
     end
 
-    def searches
+    def candidates
       {
         method_name        => method_names,
         receiver_name.to_s => @ivar_names

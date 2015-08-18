@@ -13,7 +13,7 @@ module DidYouMean
       @ivar_names   = receiver.instance_variables
     end
 
-    def searches
+    def candidates
       { name => (lvar_names + method_names + ivar_names + cvar_names) }
     end
   end

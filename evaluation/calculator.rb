@@ -49,7 +49,7 @@ report "loading program" do
       corrections
     end
 
-    def searches
+    def candidates
       { @input => @words }
     end
 

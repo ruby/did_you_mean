@@ -14,7 +14,7 @@ class SpellCheckerTest < Minitest::Test
       corrections
     end
 
-    def searches
+    def candidates
       { @input => @words }
     end
   end

@@ -7,7 +7,7 @@ module DidYouMean
     EMPTY = "".freeze
 
     def corrections
-      @corrections ||= searches.flat_map do |input, candidates|
+      @corrections ||= candidates.flat_map do |input, candidates|
         input     = normalize(input)
         threshold = input.length > 3 ? 0.834 : 0.77
 
@@ -33,7 +33,7 @@ module DidYouMean
       end
     end
 
-    def searches
+    def candidates
       raise NotImplementedError
     end
 

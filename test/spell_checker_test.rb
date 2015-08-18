@@ -8,7 +8,7 @@ class SpellCheckerTest < Minitest::Test
       @words = words
     end
 
-    def similar_to(input, filter = EMPTY)
+    def similar_to(input)
       @corrections, @input = nil, input
 
       corrections

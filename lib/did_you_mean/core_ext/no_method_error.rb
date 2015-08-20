@@ -1,7 +1,14 @@
 case RUBY_ENGINE
 when 'ruby'
-  require 'did_you_mean/method_receiver'
+  name_error = begin
+    raise_name_error
+  rescue NameError => e
+    e
+  end
 
+  unless name_error.respond_to?(:receiver)
+    require 'did_you_mean/method_receiver'
+  end
 when 'jruby'
   NoMethodError.class_eval do
     def to_s

@@ -38,13 +38,13 @@ module DidYouMean
     private
 
     def scope_base
-      @scope_base ||= (/(([A-Z]\w*::)*)([A-Z]\w*)$/ =~ original_message ? $1 : "").split("::")
+      @scope_base ||= (/(([A-Z]\w*::)*)([A-Z]\w*)$/ =~ original_message ? $1 : EMPTY).split("::")
     end
 
     class ClassName < SimpleDelegator
       attr :namespace
 
-      def initialize(name, namespace = '')
+      def initialize(name, namespace = ''.freeze)
         super(name)
         @namespace = namespace
       end

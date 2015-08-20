@@ -3,9 +3,6 @@ script:   bundle exec rake test
 cache:    bundler
 sudo:     false
 
-before_install:
-  - gem i bundler -v=1.9.3
-
 after_success:
   - bundle exec rake test:accuracy
   - bundle exec rake benchmark:memory

@@ -7,10 +7,9 @@ module DidYouMean
     def to_s
       return "".freeze if @corrections.empty?
 
-      output = "\n\n"
-      output << "    Did you mean? #{format(@corrections.first)}\n"
-      output << @corrections.drop(1).map{|word| "#{' '.freeze * 18}#{format(word)}\n" }.join
-      output << " ".freeze
+      output = "\n"
+      output << "Did you mean?  #{format(@corrections.first)}"
+      output << @corrections.drop(1).map{|word| "\n#{' '.freeze * 15}#{format(word)}" }.join
     end
 
     def format(name)

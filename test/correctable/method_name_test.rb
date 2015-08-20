@@ -33,28 +33,28 @@ class MethodNameTest < Minitest::Test
     error = assert_raises(NoMethodError){ @user.flrst_name }
 
     assert_correction :first_name, error.corrections
-    assert_match "Did you mean? first_name",  error.to_s
+    assert_match "Did you mean?  first_name",  error.to_s
   end
 
   def test_corrections_include_private_method
     error = assert_raises(NoMethodError){ @user.friend }
 
     assert_correction :friends, error.corrections
-    assert_match "Did you mean? friends", error.to_s
+    assert_match "Did you mean?  friends", error.to_s
   end
 
   def test_corrections_include_method_from_module
     error = assert_raises(NoMethodError){ @user.fr0m_module }
 
     assert_correction :from_module, error.corrections
-    assert_match "Did you mean? from_module", error.to_s
+    assert_match "Did you mean?  from_module", error.to_s
   end
 
   def test_corrections_include_class_method
     error = assert_raises(NoMethodError){ User.l0ad }
 
     assert_correction :load, error.corrections
-    assert_match "Did you mean? load", error.to_s
+    assert_match "Did you mean?  load", error.to_s
   end
 
   def test_private_methods_should_not_be_suggested
@@ -69,7 +69,7 @@ class MethodNameTest < Minitest::Test
     error = assert_raises(NoMethodError){ @user.call_incorrect_private_method }
 
     assert_correction :raise, error.corrections
-    assert_match "Did you mean? raise", error.to_s
+    assert_match "Did you mean?  raise", error.to_s
   end
 
   def test_corrects_incorrect_ivar_name
@@ -79,6 +79,6 @@ class MethodNameTest < Minitest::Test
     remove_instance_variable :@nubmer
 
     assert_correction :@number, error.corrections
-    assert_match "Did you mean? @number", error.to_s
+    assert_match "Did you mean?  @number", error.to_s
   end
 end

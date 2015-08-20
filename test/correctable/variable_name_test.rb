@@ -37,7 +37,7 @@ class VariableNameTest < Minitest::Test
     end
 
     assert_correction :first_name, error.corrections
-    assert_match "Did you mean? first_name", error.to_s
+    assert_match "Did you mean?  first_name", error.to_s
   end
 
   def test_corrections_include_method_from_module
@@ -46,7 +46,7 @@ class VariableNameTest < Minitest::Test
     end
 
     assert_correction :from_module, error.corrections
-    assert_match "Did you mean? from_module", error.to_s
+    assert_match "Did you mean?  from_module", error.to_s
   end
 
   def test_corrections_include_local_variable_name
@@ -54,14 +54,14 @@ class VariableNameTest < Minitest::Test
     error = (eprson rescue $!) # Do not use @assert_raises here as it changes a scope.
 
     assert_correction :person, error.corrections
-    assert_match "Did you mean? person", error.to_s
+    assert_match "Did you mean?  person", error.to_s
   end
 
   def test_corrections_include_instance_variable_name
     error = assert_raises(NameError){ @user.to_s }
 
     assert_correction :@email_address, error.corrections
-    assert_match "Did you mean? @email_address", error.to_s
+    assert_match "Did you mean?  @email_address", error.to_s
   end
 
   def test_corrections_include_private_method
@@ -69,8 +69,8 @@ class VariableNameTest < Minitest::Test
       @user.instance_eval { cia_code_name }
     end
 
-    assert_correction :cia_codename,  error.corrections
-    assert_match "Did you mean? cia_codename",  error.to_s
+    assert_correction :cia_codename, error.corrections
+    assert_match "Did you mean?  cia_codename",  error.to_s
   end
 
   @@does_exist = true
@@ -79,6 +79,6 @@ class VariableNameTest < Minitest::Test
     error = assert_raises(NameError){ @@doesnt_exist }
 
     assert_correction :@@does_exist, error.corrections
-    assert_match "Did you mean? @@does_exist", error.to_s
+    assert_match "Did you mean?  @@does_exist", error.to_s
   end
 end

@@ -3,6 +3,9 @@ script:   bundle exec rake test
 cache:    bundler
 sudo:     false
 
+before_install:
+  - 'if [[ "$TRAVIS_RUBY_VERSION" =~ "jruby" ]]; then rvm get head && rvm use --install $TRAVIS_RUBY_VERSION; fi'
+
 after_success:
   - bundle exec rake test:accuracy
   - bundle exec rake benchmark:memory

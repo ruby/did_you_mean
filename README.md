@@ -4,11 +4,7 @@
 
 ## Installation
 
-Add this line to your application's Gemfile:
-
-```ruby
-gem 'did_you_mean', group: [:development, :test]
-```
+This gem will automatically be activated when a Ruby process starts up. No special setup is required.
 
 ## Examples
 

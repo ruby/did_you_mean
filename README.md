@@ -2,8 +2,6 @@
 
 'Did you mean?' experience in Ruby. No, Really.
 
-**For those who are still using 0.6.0, 0.7.0 and 0.8.0, please upgrade to the latest version (0.9.6) as they have a serious bug with Ruby 2.1.3 and 2.1.4 installed on Mac OS X.**
-
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -77,14 +75,6 @@ params.with_inddiferent_access
 _did\_you\_mean_ gem automagically puts method corrections into the error message. This means you'll have the "Did you mean?" experience almost everywhere:
 
 ![Did you mean? on BetterErrors](https://raw.githubusercontent.com/yuki24/did_you_mean/master/doc/did_you_mean_example.png)
-
-## Support
-
-_did\_you\_mean_ gem supports the following implementations:
-
- * MRI 1.9.3, 2.0.0, 2.1.x, 2.2.x and ruby-head
- * JRuby 1.7.21, 9.0.0.0 and jruby-head
- * Rubinius 2.4.1 and 2.5.8
 
 ## Contributing
 

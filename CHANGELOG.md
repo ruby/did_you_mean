@@ -1,3 +1,28 @@
+## [v0.10.0](https://github.com/yuki24/did_you_mean/tree/v0.10.0)
+
+_<sup>released on 2015-08-21 06:44:11 UTC</sup>_
+
+#### New Features
+
+- Now it corrects an instance variable name if the ivar name is mistyped and `NoMethodError` is raised:
+
+```ruby
+@number = 1
+@nubmer.zero?
+# => NoMethodError: undefined method `zero?' for nil:NilClass
+#
+#     Did you mean? @number
+#
+```
+
+- Support for JRuby 9.0.0.0
+- Prefix-based correction ( [@tjohn](https://github.com/tjohn), [#50](https://github.com/yuki24/did_you_mean/issues/50 "Match start of method name"), [#49](https://github.com/yuki24/did_you_mean/issues/49 "Use Jaro distance instead of Jaro-Winkler distance"))
+- Correction search is about 75% faster than 0.9.10
+
+#### Breaking Changes
+
+- The ActiveRecord integration has been removed
+
 ## [v0.9.10](https://github.com/yuki24/did_you_mean/tree/v0.9.10)
 
 _<sup>released on 2015-05-14 03:04:47 UTC</sup>_

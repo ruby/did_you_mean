@@ -18,10 +18,7 @@ module DidYouMean
   end
   @@trace.enable
 
-  IGNORED_CALLERS = [
-    /( |`)missing_name'/,
-    /( |`)safe_constantize'/
-  ]
+  IGNORED_CALLERS = []
 
   SPELL_CHECKERS = Hash.new(NullChecker)
   SPELL_CHECKERS.merge!({

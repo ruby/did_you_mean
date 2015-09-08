@@ -47,26 +47,23 @@ class IgnoreCallersTest < Minitest::Test
 
   def setup
     @org, SPELL_CHECKERS['NameError'] = SPELL_CHECKERS['NameError'], Boomer
+    DidYouMean::IGNORED_CALLERS << /( |`)do_not_correct_typo'/
 
     @error = assert_raises(NameError){ doesnt_exist }
   end
 
   def teardown
     SPELL_CHECKERS['NameError'] = @org
+    DidYouMean::IGNORED_CALLERS.clear
   end
 
-  def test_ignore_missing_name
-    assert_nothing_raised { missing_name }
-  end
-
-  def test_ignore_safe_constantize
-    assert_nothing_raised { safe_constantize }
+  def test_ignore
+    assert_nothing_raised { do_not_correct_typo }
   end
 
   private
 
-  def safe_constantize; @error.message end
-  def missing_name;     @error.message end
+  def do_not_correct_typo; @error.message end
 
   def assert_nothing_raised
     yield

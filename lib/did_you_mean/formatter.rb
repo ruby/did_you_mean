@@ -1,3 +1,5 @@
+# -*- frozen-string-literal: true -*-
+
 module DidYouMean
   class Formatter
     def initialize(corrections = [])
@@ -5,10 +7,10 @@ module DidYouMean
     end
 
     def to_s
-      return "".freeze if @corrections.empty?
+      return "" if @corrections.empty?
 
-      output = "\nDid you mean?  "
-      output << @corrections.join("\n" << ' '.freeze * 15)
+      output = "\nDid you mean?  ".dup
+      output << @corrections.join("\n               ")
     end
   end
 end

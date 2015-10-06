@@ -1,11 +1,10 @@
+# -*- frozen-string-literal: true -*-
+
 require "did_you_mean/levenshtein"
 require "did_you_mean/jaro_winkler"
 
 module DidYouMean
   module SpellCheckable
-    AT    = "@".freeze
-    EMPTY = "".freeze
-
     def corrections
       @corrections ||= candidates.flat_map do |input, candidates|
         input     = normalize(input)
@@ -47,7 +46,7 @@ module DidYouMean
             end
 
       str.downcase!
-      str.tr!(AT, EMPTY)
+      str.tr!("@", "")
       str
     end
   end

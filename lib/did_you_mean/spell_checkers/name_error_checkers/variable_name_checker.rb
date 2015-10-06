@@ -1,10 +1,12 @@
+# -*- frozen-string-literal: true -*-
+
 module DidYouMean
   class VariableNameChecker
     include SpellCheckable
     attr_reader :name, :method_names, :lvar_names, :ivar_names, :cvar_names
 
     def initialize(exception)
-      @name       = exception.name.to_s.tr(AT, EMPTY)
+      @name       = exception.name.to_s.tr("@", "")
       @lvar_names = exception.frame_binding.local_variables
       receiver    = exception.frame_binding.receiver
 

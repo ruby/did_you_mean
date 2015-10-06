@@ -29,7 +29,7 @@ class NameErrorExtensionTest < Minitest::Test
 
   def test_to_s_does_not_make_disruptive_changes_to_error_message
     error = assert_raises(NameError) do
-      raise NameError, "uninitialized constant Object".freeze
+      raise NameError, "uninitialized constant Object"
     end
 
     assert_equal 1, error.to_s.scan("Did you mean?").count

@@ -1,3 +1,5 @@
+# -*- frozen-string-literal: true -*-
+
 require 'memory_profiler'
 require 'did_you_mean'
 
@@ -12,7 +14,7 @@ class DidYouMean::WordCollection
     @words = words
   end
 
-  def similar_to(input, filter = EMPTY)
+  def similar_to(input, filter = '')
     @corrections, @input = nil, input
     corrections
   end

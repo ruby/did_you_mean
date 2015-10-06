@@ -1,3 +1,5 @@
+# -*- frozen-string-literal: true -*-
+
 require 'delegate'
 
 module DidYouMean
@@ -16,7 +18,7 @@ module DidYouMean
     def class_names
       scopes.flat_map do |scope|
         scope.constants.map do |c|
-          ClassName.new(c, scope == Object ? EMPTY : "#{scope}::")
+          ClassName.new(c, scope == Object ? "" : "#{scope}::")
         end
       end
     end
@@ -38,13 +40,13 @@ module DidYouMean
     private
 
     def scope_base
-      @scope_base ||= (/(([A-Z]\w*::)*)([A-Z]\w*)$/ =~ original_message ? $1 : EMPTY).split("::")
+      @scope_base ||= (/(([A-Z]\w*::)*)([A-Z]\w*)$/ =~ original_message ? $1 : "").split("::")
     end
 
     class ClassName < SimpleDelegator
       attr :namespace
 
-      def initialize(name, namespace = ''.freeze)
+      def initialize(name, namespace = '')
         super(name)
         @namespace = namespace
       end

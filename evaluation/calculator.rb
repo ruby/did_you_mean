@@ -1,3 +1,5 @@
+# -*- frozen-string-literal: true -*-
+
 require 'benchmark'
 
 def report(message, &block)
@@ -44,7 +46,7 @@ report "loading program" do
       @words = words
     end
 
-    def similar_to(input, filter = EMPTY)
+    def similar_to(input, filter = '')
       @corrections, @input = nil, input
       corrections
     end
@@ -60,7 +62,7 @@ end
 
 report "loading dictionary" do
   yaml = open("evaluation/dictionary.yml").read
-  yaml = YAML.load(yaml).map{|word| word.downcase.tr(" ".freeze, "_".freeze) }
+  yaml = YAML.load(yaml).map{|word| word.downcase.tr(" ", "_") }
 
   DICTIONARY = Set.new(yaml)
 end
@@ -92,8 +94,8 @@ report "calculating accuracy" do
         correct_count += 1
       else
         words_not_corrected << {
-          correct         => incorrect,
-          'result'.freeze => corrections
+          correct  => incorrect,
+          'result' => corrections
         }
       end
     end

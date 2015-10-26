@@ -10,10 +10,10 @@ require "did_you_mean/formatter"
 
 module DidYouMean
   @@trace = TracePoint.new(:raise) do |tp|
-    e, b = tp.raised_exception, tp.binding
+    e = tp.raised_exception
 
     if SPELL_CHECKERS.include?(e.class.to_s) && !e.instance_variable_defined?(:@frame_binding)
-      e.instance_variable_set(:@frame_binding, b)
+      e.instance_variable_set(:@frame_binding, tp.binding)
     end
   end
   @@trace.enable

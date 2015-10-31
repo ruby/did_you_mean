@@ -1,14 +1,13 @@
 # -*- frozen-string-literal: true -*-
-
 require 'delegate'
 
 module DidYouMean
   class ClassNameChecker
     include SpellCheckable
-    attr_reader :class_name, :original_message
+    attr_reader :class_name
 
     def initialize(exception)
-      @class_name, @original_message = exception.name, exception.original_message
+      @class_name, @receiver = exception.name, exception.receiver
     end
 
     def candidates
@@ -28,15 +27,9 @@ module DidYouMean
     end
 
     def scopes
-      @scopes ||= scope_base.inject([Object]) do |_scopes, scope|
+      @scopes ||= @receiver.to_s.split("::").inject([Object]) do |_scopes, scope|
         _scopes << _scopes.last.const_get(scope)
-      end
-    end
-
-    private
-
-    def scope_base
-      @scope_base ||= (/(([A-Z]\w*::)*)([A-Z]\w*)$/ =~ original_message ? $1 : "").split("::")
+      end.uniq
     end
 
     class ClassName < SimpleDelegator

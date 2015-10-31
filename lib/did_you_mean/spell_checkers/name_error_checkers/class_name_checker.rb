@@ -12,7 +12,7 @@ module DidYouMean
     end
 
     def candidates
-      {name_from_message => class_names}
+      {class_name => class_names}
     end
 
     def class_names
@@ -21,10 +21,6 @@ module DidYouMean
           ClassName.new(c, scope == Object ? "" : "#{scope}::")
         end
       end
-    end
-
-    def name_from_message
-      class_name || /([A-Z]\w*$)/.match(original_message)[0]
     end
 
     def corrections

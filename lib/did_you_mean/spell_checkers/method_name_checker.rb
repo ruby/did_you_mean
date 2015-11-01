@@ -12,7 +12,7 @@ module DidYouMean
       @receiver    = exception.receiver
       @binding     = exception.frame_binding
       @location    = exception.backtrace_locations.first
-      @ivar_names  = VariableNameChecker.new(exception).ivar_names
+      @ivar_names  = @binding.receiver.instance_variables
     end
 
     def candidates

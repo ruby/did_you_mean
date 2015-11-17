@@ -8,11 +8,12 @@ module DidYouMean
     def initialize(exception)
       @name       = exception.name.to_s.tr("@", "")
       @lvar_names = exception.frame_binding.local_variables
-      receiver    = exception.frame_binding.receiver
+      receiver    = exception.receiver
 
       @method_names = receiver.methods + receiver.private_methods
-      @cvar_names   = receiver.class.class_variables
       @ivar_names   = receiver.instance_variables
+      @cvar_names   = receiver.class.class_variables
+      @cvar_names  += receiver.class_variables if receiver.kind_of?(Module)
     end
 
     def candidates

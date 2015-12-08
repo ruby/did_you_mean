@@ -72,7 +72,13 @@ class MethodNameTest < Minitest::Test
     assert_match "Did you mean?  raise", error.to_s
   end
 
+  D = DidYouMean
+  M = D::MethodNameChecker
+
   def test_corrects_incorrect_ivar_name
+    D::TRACE.enable
+    D::SPELL_CHECKERS['NoMethodError'] = M.dup.prepend(M::IvarNameCorrectable)
+
     @number = 1
     @nubmer = nil
     error = assert_raises(NoMethodError) { @nubmer.zero? }
@@ -80,5 +86,8 @@ class MethodNameTest < Minitest::Test
 
     assert_correction :@number, error.corrections
     assert_match "Did you mean?  @number", error.to_s
+  ensure
+    D::TRACE.disable
+    D::SPELL_CHECKERS['NoMethodError'] = M
   end
 end

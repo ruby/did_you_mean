@@ -28,7 +28,7 @@ module DidYouMean
         super
 
         @location   = exception.backtrace_locations.first
-        @ivar_names = exception.frame_binding.receiver.instance_variables
+        @ivar_names = exception.instance_variable_get(:@frame_binding).receiver.instance_variables
       end
 
       def candidates

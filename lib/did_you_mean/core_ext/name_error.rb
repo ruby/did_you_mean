@@ -1,7 +1,6 @@
 module DidYouMean
   module Correctable
     prepend_features NameError
-    attr_reader :frame_binding
 
     def original_message
       method(:to_s).super_method.call

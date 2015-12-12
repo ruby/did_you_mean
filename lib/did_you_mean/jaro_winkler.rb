@@ -9,6 +9,7 @@ module DidYouMean
       m          = 0.0
       t          = 0.0
       range      = (length2 / 2).floor - 1
+      range      = 0 if range < 0
       flags1     = 0
       flags2     = 0
 

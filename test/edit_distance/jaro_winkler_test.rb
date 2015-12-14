@@ -13,6 +13,7 @@ class JaroWinklerTest < Minitest::Test
     assert_distance 0.8133, 'dixon',      'dicksonx'
     assert_distance 0.0,    'fvie',       'ten'
     assert_distance 0.9067, 'does_exist', 'doesnt_exist'
+    assert_distance 1.0, 'x', 'x'
   end
 
   def test_jarowinkler_distance_with_utf8_strings

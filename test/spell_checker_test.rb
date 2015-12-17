@@ -9,7 +9,7 @@ class SpellCheckerTest < Minitest::Test
     end
   end
 
-  def test_similar_to_corrects_mistypes
+  def test_spell_checker_corrects_mistypes
     assert_spell 'foo',   input: 'doo',   dictionary: ['foo', 'fork']
     assert_spell 'email', input: 'meail', dictionary: ['email', 'fail', 'eval']
     assert_spell 'fail',  input: 'fial',  dictionary: ['email', 'fail', 'eval']
@@ -46,13 +46,13 @@ class SpellCheckerTest < Minitest::Test
     assert_empty SpellChecker.new('fooo',         ['fork']).corrections
   end
 
-  def test_similar_to_corrects_misspells
+  def test_spell_checker_corrects_misspells
     assert_spell 'descendants',      input: 'dependents', dictionary: ['descendants']
     assert_spell 'drag_to',          input: 'drag',       dictionary: ['drag_to']
     assert_spell 'set_result_count', input: 'set_result', dictionary: ['set_result_count']
   end
 
-  def test_similar_to_sorts_results_by_simiarity
+  def test_spell_checker_sorts_results_by_simiarity
     expected = %w(
       name123456
       name12345

@@ -1,5 +1,5 @@
 language: ruby
-script:   bundle exec rake test
+script:   bundle exec rake test test:verbose_formatter
 cache:    bundler
 sudo:     false
 

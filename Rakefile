@@ -8,6 +8,14 @@ Rake::TestTask.new do |task|
   task.warning = true
 end
 
+Rake::TestTask.new("test:verbose_formatter") do |task|
+  task.libs << "test"
+  task.pattern = 'test/verbose_formatter_test.rb'
+  task.verbose = true
+  task.warning = true
+  task.ruby_opts << "-rdid_you_mean/verbose_formatter"
+end
+
 task default: :test
 
 namespace :test do

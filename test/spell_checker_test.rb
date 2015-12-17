@@ -19,8 +19,8 @@ class SpellCheckerTest < Minitest::Test
     assert_spell 'sub!',  input: 'suv!',  dictionary: ['sub', 'gsub', 'sub!']
     assert_spell 'sub',   input: 'suv',   dictionary: ['sub', 'gsub', 'sub!']
 
-    assert_equal %w(gsub! gsub),     SpellChecker.new('gsuv!', %w(sub gsub gsub!)).corrections
-    assert_equal %w(sub! sub gsub!), SpellChecker.new('ssub!', %w(sub sub! gsub gsub!)).corrections
+    assert_spell %w(gsub! gsub),     input: 'gsuv!', dictionary: %w(sub gsub gsub!)
+    assert_spell %w(sub! sub gsub!), input: 'ssub!', dictionary: %w(sub sub! gsub gsub!)
 
     group_methods = %w(groups group_url groups_url group_path)
     assert_spell 'groups', input: 'group',  dictionary: group_methods
@@ -40,7 +40,7 @@ class SpellCheckerTest < Minitest::Test
     assert_spell 'GroupMembershipDecorator', dictionary: group_classes, input: 'GroupMemberhipDecorator'
 
     names = %w(first_name_change first_name_changed? first_name_will_change!)
-    assert_equal names, SpellChecker.new('first_name_change!', names).corrections
+    assert_spell names, input: 'first_name_change!', dictionary: names
 
     assert_empty SpellChecker.new('product_path', ['proc']).corrections
     assert_empty SpellChecker.new('fooo',         ['fork']).corrections
@@ -75,6 +75,6 @@ class SpellCheckerTest < Minitest::Test
 
   def assert_spell(expected, input: , dictionary: )
     corrections = SpellChecker.new(input, dictionary).corrections
-    assert_equal [expected], corrections, "Expected to suggest #{expected}, but got #{corrections.inspect}"
+    assert_equal Array(expected), corrections, "Expected to suggest #{expected}, but got #{corrections.inspect}"
   end
 end

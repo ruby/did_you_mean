@@ -3,7 +3,11 @@ require 'rake/testtask'
 
 Rake::TestTask.new do |task|
   task.libs << "test"
-  task.pattern = 'test/**/*_test.rb'
+
+  task.test_files = Dir['test/**/*_test.rb'].reject do |path|
+    /(verbose_formatter|extra_features)/ =~ path
+  end
+
   task.verbose = true
   task.warning = true
 end
@@ -14,6 +18,14 @@ Rake::TestTask.new("test:verbose_formatter") do |task|
   task.verbose = true
   task.warning = true
   task.ruby_opts << "-rdid_you_mean/verbose_formatter"
+end
+
+Rake::TestTask.new("test:extra_features") do |task|
+  task.libs << "test"
+  task.pattern = 'test/extra_features/**/*_test.rb'
+  task.verbose = true
+  task.warning = true
+  task.ruby_opts << "-rdid_you_mean/extra_features"
 end
 
 task default: :test

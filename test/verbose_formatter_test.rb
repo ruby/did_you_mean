@@ -14,4 +14,4 @@ class VerboseFormatterTest < Minitest::Test
        
     MESSAGE
   end
-end if defined?(DidYouMean::VerboseFormatter)
+end

@@ -28,7 +28,7 @@ Rake::TestTask.new("test:extra_features") do |task|
   task.ruby_opts << "-rdid_you_mean/extra_features"
 end
 
-task default: :test
+task default: %i(test test:verbose_formatter test:extra_features)
 
 namespace :test do
   namespace :accuracy do

@@ -12,4 +12,5 @@ module DidYouMean
   NameError.send(:attr, :frame_binding)
 end
 
+require 'did_you_mean/extra_features/initializer_name_correction'
 require 'did_you_mean/extra_features/ivar_name_correction'

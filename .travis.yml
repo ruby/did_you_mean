@@ -8,4 +8,5 @@ after_success:
   - bundle exec rake benchmark:memory
 
 rvm:
+  - 2.3
   - ruby-head

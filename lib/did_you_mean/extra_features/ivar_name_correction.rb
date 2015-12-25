@@ -1,6 +1,6 @@
 module DidYouMean
   module ExtraFeatures
-    module IvarNameCorrectable
+    module IvarNameCorrection
       REPLS = {
         "(irb)" => -> { Readline::HISTORY.to_a.last }
       }
@@ -38,6 +38,6 @@ module DidYouMean
       end
     end
 
-    SPELL_CHECKERS['NoMethodError'].prepend(IvarNameCorrectable)
+    SPELL_CHECKERS['NoMethodError'].prepend(IvarNameCorrection)
   end
 end

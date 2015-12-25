@@ -1,8 +1,65 @@
+## [v1.0.0](https://github.com/yuki24/did_you_mean/tree/v1.0.0)
+
+_<sup>released on 2015-12-25 05:13:04 UTC</sup>_
+
+#### Features
+
+- Introduced a [verbose formatter](https://github.com/yuki24/did_you_mean#verbose-formatter)
+- Introduced an easy way to enabling [extra features](https://github.com/yuki24/did_you_mean#extra-features)
+
+#### Bug Fixes
+
+- Fixed a bug where the Jaro-Winkler implementation returns the wrong distance when 2 identical strings are given
+
+#### Internal Changes
+
+- Slightly changed the spell checking algorithm. Take a look at [<tt>e2f5b24</tt>](https://github.com/yuki24/did_you_mean/commit/e2f5b2437f967565e4830eab6077f73ae166e0a7) for more details. fixes [#60](https://github.com/yuki24/did_you_mean/issues/60)
+
+## [v1.0.0.rc1](https://github.com/yuki24/did_you_mean/tree/v1.0.0.rc1)
+
+_<sup>released on 2015-12-25 05:02:25 UTC</sup>_
+
+#### Internal Chagens
+
+- No longer uses `TracePoint` API by default. fixes [#55](https://github.com/yuki24/did_you_mean/issues/55) and [#56](https://github.com/yuki24/did_you_mean/issues/56)
+
+## [v1.0.0.beta3](https://github.com/yuki24/did_you_mean/tree/v1.0.0.beta3)
+
+_<sup>released on 2015-12-25 04:56:13 UTC</sup>_
+
+#### Internal Changes
+
+- Enable the `frozen-string-literal` pragma rather than calling `.freeze` everywhere
+- Use the `NameError#receiver` method in `DidYouMean:: ClassNameChecker` to know the namespace where the constant call is made
+- Refactored the `SpellCheckerTest`
+
+## [v1.0.0.beta2](https://github.com/yuki24/did_you_mean/tree/v1.0.0.beta2)
+
+_<sup>released on 2015-12-25 04:50:36 UTC</sup>_
+
+#### Bug Fixes
+
+- Fixed a bug where the gem doesn't install properly on Ruby 2.3.0dev
+
+## [v1.0.0.beta1](https://github.com/yuki24/did_you_mean/tree/v1.0.0.beta1)
+
+_<sup>released on 2015-12-25 05:27:53 UTC</sup>_
+
+#### Breaking Changes
+
+- Dropped support for MRIs older than 2.3, JRuby and Rubinus
+
+#### Internal Changes
+
+- The C extension has been removed since the `NameError#receiver` method has become part of the MRI 2.3
+- The interception gem has been removed from the dependencies
+- Removed code that was needed to support multiple Ruby implementations
+
 ## [v0.10.0](https://github.com/yuki24/did_you_mean/tree/v0.10.0)
 
 _<sup>released on 2015-08-21 06:44:11 UTC</sup>_
 
-#### New Features
+#### Features
 
 - Now it corrects an instance variable name if the ivar name is mistyped and `NoMethodError` is raised:
 
@@ -35,9 +92,12 @@ _<sup>released on 2015-05-14 03:04:47 UTC</sup>_
 
 _<sup>released on 2015-05-13 03:48:19 UTC</sup>_
 
-#### Small/Internal Changes
+#### Features
 
-- Order word corrections based on Levenshtein distance ( [@tleish](https://github.com/tleish), [#31](https://github.com/yuki24/did_you_mean/pull/31 "Order word corrections based on Levenshtein.distance."))
+- Order word suggestions based on Levenshtein distance ( [@tleish](https://github.com/tleish), [#31](https://github.com/yuki24/did_you_mean/pull/31))
+
+#### Internal Changes
+
 - Reduce memory allocation by about 40%
 - Speed up Levenshtein distance calculation by about 40%
 - The Java extension has been replaced with a pure JRuby implementation
@@ -80,7 +140,7 @@ _<sup>released on 2014-11-19 20:00:00 UTC</sup>_
 
 #### Bug Fixes
 
-- Fixed a bug where no corrections will be made on JRuby
+- Fixed a bug where no suggestions will be made on JRuby
 
 ## [v0.9.3](https://github.com/yuki24/did_you_mean/tree/v0.9.3)
 
@@ -115,7 +175,7 @@ _<sup>released on 2014-11-16 18:54:24 UTC</sup>_
 
 _<sup>released on 2014-11-09 01:26:31 UTC</sup>_
 
-#### New Features
+#### Features
 
 - did\_you\_mean now suggests instance variable names if `@` is missing ( [#12](https://github.com/yuki24/did_you_mean/issues/12 "Suggest instance- and class-vars"), [<tt>39d1e2b</tt>](https://github.com/yuki24/did_you_mean/commit/39d1e2bd66d6ff8acbc4dd5da922fc7e5fcefb20))
 
@@ -139,7 +199,7 @@ _<sup>released on 2014-10-27 02:03:13 UTC</sup>_
 
 **This version has been yanked from rubygems.org as it has a serious bug with Ruby 2.1.3 and 2.1.4 installed on Max OS X. Please upgrade to 0.9.4 or higher as soon as possible.**
 
-#### New Features
+#### Features
 
 - JRuby support!
 
@@ -155,7 +215,7 @@ _<sup>released on 2014-09-26 03:37:18 UTC</sup>_
 
 **This version has been yanked from rubygems.org as it has a serious bug with Ruby 2.1.3 and 2.1.4 installed on Max OS X. Please upgrade to 0.9.4 or higher as soon as possible.**
 
-#### New Features
+#### Features
 
 - Added support for Ruby 2.1.3, 2.2.0-preview1 and ruby-head
 - Added support for ActiveRecord 4.2.0.beta1
@@ -163,7 +223,7 @@ _<sup>released on 2014-09-26 03:37:18 UTC</sup>_
 - Removed `text` gem dependency
 - Better output on pry and Rspec
 
-#### Small/Internal Changes
+#### Internal Changes
 
 - A lot of internal refactoring
 
@@ -171,11 +231,11 @@ _<sup>released on 2014-09-26 03:37:18 UTC</sup>_
 
 _<sup>released on 2014-05-18 00:23:24 UTC</sup>_
 
-**This version has been yanked from rubygems.org as it has a serious bug with Ruby 2.1.3 and 2.1.4 installed on Max OS X. Please upgrade to 0.9.0 as soon as possible.**
+**This version has been yanked from rubygems.org as it has a serious bug with Ruby 2.1.3 and 2.1.4 installed on Max OS X. Please upgrade to 0.9.4 or higher as soon as possible.**
 
-#### New Features
+#### Features
 
-- Added basic support for constants. Now you'll see class name corrections when you misspelled a class names/module names:
+- Added basic support for constants. Now you'll see class name suggestions when you misspelled a class names/module names:
 
 ```ruby
 > Ocject
@@ -193,7 +253,7 @@ _<sup>released on 2014-05-18 00:23:24 UTC</sup>_
 
 _<sup>released on 2014-05-10 17:59:54 UTC</sup>_
 
-#### New Features
+#### Features
 
 - Added support for Ruby 2.1.2
 
@@ -201,7 +261,7 @@ _<sup>released on 2014-05-10 17:59:54 UTC</sup>_
 
 _<sup>released on 2014-04-20 02:10:31 UTC</sup>_
 
-#### New Features
+#### Features
 
 - did\_you\_mean now suggests a similar attribute name when you misspelled it.
 
@@ -221,16 +281,16 @@ User.new(flrst_name: "wrong flrst name")
 
 _<sup>released on 2014-03-20 23:16:20 UTC</sup>_
 
-#### Small/Internal Changes
+#### Features
 
 - Changed output for readability.
-- Better algorithm to find the correct method.
+- Made the spell checking algorithm slight better to find the correct method.
 
 ## [v0.3.0](https://github.com/yuki24/did_you_mean/tree/v0.3.0)
 
 _<sup>released on 2014-03-20 23:13:13 UTC</sup>_
 
-#### New Features
+#### Features
 
 - Added support for Ruby 2.1.1 and 2.2.0(head).
 
@@ -238,13 +298,13 @@ _<sup>released on 2014-03-20 23:13:13 UTC</sup>_
 
 _<sup>released on 2014-03-20 23:12:13 UTC</sup>_
 
-#### Incompatible Changes
-
-- dropped support for JRuby and Rubbinious.
-
-#### New Features
+#### Features
 
 - did\_you\_mean no longer makes Ruby slow.
+
+#### Breaking Changes
+
+- dropped support for JRuby and Rubbinious.
 
 ## [v0.1.0: First Release](https://github.com/yuki24/did_you_mean/tree/v0.1.0)
 

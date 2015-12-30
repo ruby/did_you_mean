@@ -27,8 +27,8 @@ module DidYouMean
     end
 
     def scopes
-      @scopes ||= @receiver.to_s.split("::").inject([Object]) do |_scopes, scope|
-        _scopes << _scopes.last.const_get(scope)
+      @scopes ||= @receiver.to_s.split("::").inject([Object]) do |s, scope|
+        s << _scopes.last.const_get(scope)
       end.uniq
     end
 

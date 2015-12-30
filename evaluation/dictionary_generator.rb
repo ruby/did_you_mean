@@ -9,7 +9,7 @@ apfrom   = ""
 num      = 0
 titles   = []
 
-begin
+loop do
   url = base_url + "&apfrom=#{apfrom}"
 
   puts "downloading page %2d: #{url}" % num
@@ -21,7 +21,9 @@ begin
 
   titles += json["query"]["allpages"].map {|hash| hash["title"] }
   num    += 1
-end while count == per_page
+
+  break if count != per_page
+end
 
 require 'yaml'
 

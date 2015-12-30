@@ -5,7 +5,6 @@ require 'json'
 per_page = 500
 base_url = "https://simple.wiktionary.org/w/api.php?action=query&aplimit=#{per_page}&list=allpages&format=json"
 filename = "evaluation/dictionary.yml"
-count    = nil
 apfrom   = ""
 num      = 0
 titles   = []

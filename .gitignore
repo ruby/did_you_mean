@@ -18,6 +18,7 @@ test/tmp
 test/version_tmp
 tmp
 log
+.tags*
 
 evaluation/dictionary.yml
 benchmark/results

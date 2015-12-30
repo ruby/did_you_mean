@@ -5,12 +5,11 @@ require 'json'
 per_page = 500
 base_url = "https://simple.wiktionary.org/w/api.php?action=query&aplimit=#{per_page}&list=allpages&format=json"
 filename = "evaluation/dictionary.yml"
-count    = nil
 apfrom   = ""
 num      = 0
 titles   = []
 
-begin
+loop do
   url = base_url + "&apfrom=#{apfrom}"
 
   puts "downloading page %2d: #{url}" % num
@@ -22,7 +21,9 @@ begin
 
   titles += json["query"]["allpages"].map {|hash| hash["title"] }
   num    += 1
-end while count == per_page
+
+  break if count != per_page
+end
 
 require 'yaml'
 

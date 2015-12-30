@@ -46,7 +46,7 @@ report "loading program" do
       @words = words
     end
 
-    def similar_to(input, filter = '')
+    def similar_to(input, _ = '')
       @corrections, @input = nil, input
       corrections
     end

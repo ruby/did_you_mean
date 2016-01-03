@@ -14,7 +14,7 @@ class DidYouMean::WordCollection
     @words = words
   end
 
-  def similar_to(input, filter = '')
+  def similar_to(input)
     @corrections, @input = nil, input
     corrections
   end

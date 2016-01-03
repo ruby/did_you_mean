@@ -7,14 +7,14 @@ require 'did_you_mean'
 # error      = (self.fooo rescue $!)
 # executable = -> { error.to_s }
 
-class DidYouMean::WordCollection
+class SpellChecker
   include DidYouMean::SpellCheckable
 
   def initialize(words)
     @words = words
   end
 
-  def similar_to(input)
+  def correct(input)
     @corrections, @input = nil, input
     corrections
   end
@@ -22,12 +22,12 @@ class DidYouMean::WordCollection
   def candidates
     { @input => @words }
   end
-end if !defined?(DidYouMean::WordCollection)
+end
 
 METHODS    = ''.methods
 INPUT      = 'start_with?'
-collection = DidYouMean::WordCollection.new(METHODS)
-executable = proc { collection.similar_to(INPUT) }
+collection = SpellChecker.new(METHODS)
+executable = proc { collection.correct(INPUT) }
 
 GC.disable
 MemoryProfiler.report { 100.times(&executable) }.pretty_print

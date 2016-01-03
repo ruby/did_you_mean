@@ -26,7 +26,6 @@ puts "\n"
 report "loading program" do
   require 'yaml'
   require 'set'
-  require 'did_you_mean'
 
   begin
     require 'jaro_winkler'
@@ -39,14 +38,14 @@ report "loading program" do
   rescue LoadError, NameError
   end
 
-  class DidYouMean::WordCollection
+  class SpellChecker
     include DidYouMean::SpellCheckable
 
     def initialize(words)
       @words = words
     end
 
-    def similar_to(input)
+    def correct(input)
       @corrections, @input = nil, input
       corrections
     end
@@ -55,9 +54,8 @@ report "loading program" do
       { @input => @words }
     end
 
-    private
-    def normalize(str); str; end
-  end if !defined?(DidYouMean::WordCollection)
+    private def normalize(str); str; end
+  end
 end
 
 report "loading dictionary" do
@@ -68,7 +66,7 @@ report "loading dictionary" do
 end
 
 report "loading corrent/incorrect words" do
-  COLLECTION      = DidYouMean::WordCollection.new(DICTIONARY)
+  SPELL_CHECKER   = SpellChecker.new(DICTIONARY)
   INCORRECT_WORDS = YAML.load(open("evaluation/incorrect_words.yaml").read)
 end
 
@@ -77,44 +75,45 @@ correct_count       = 0
 words_not_corrected = []
 filename            = "log/words_not_corrected_#{Time.now.to_i}.yml"
 
-puts "
+puts <<-MSG
+
  Total number of test data: #{INCORRECT_WORDS.size}
       did_you_mean version: #{DidYouMean::VERSION}
 
-"
+MSG
 
 report "calculating accuracy" do
-  index = 0
-  INCORRECT_WORDS.each do |correct, incorrect|
-    if DICTIONARY.include?(correct)
+  INCORRECT_WORDS.each_with_index do |(expected, user_input), index|
+    if DICTIONARY.include?(expected)
       total_count += 1
 
-      corrections = COLLECTION.similar_to(incorrect)
-      if corrections.first == correct
+      corrections = SPELL_CHECKER.correct(user_input)
+      if corrections.first == expected
         correct_count += 1
       else
         words_not_corrected << {
-          correct  => incorrect,
-          'result' => corrections
+          'input'    => user_input,
+          'expected' => expected,
+          'actual'   => corrections
         }
       end
     end
 
-    index += 1
     puts "processed #{index} items" if index % 100 == 0
   end
 
   puts "\n"
 end
 
-puts "
+puts <<-MSG
+
 Evaulation result
 
   Total count  : #{total_count}
   Correct count: #{correct_count}
   Accuracy     : #{correct_count.to_f / total_count}
 
-"
+MSG
 
 Dir.mkdir('log') unless File.exist?('log')
 File.open(filename, 'w') do |file|

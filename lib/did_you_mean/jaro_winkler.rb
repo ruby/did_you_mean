@@ -42,11 +42,11 @@ module DidYouMean
           j = index = k
 
           k = while j < length2
-            index = j
-            break(j + 1) if flags2[j] != 0
+                index = j
+                break(j + 1) if flags2[j] != 0
 
-            j += 1
-          end
+                j += 1
+              end
 
           t += 1 if str1_codepoints[i] != str2_codepoints[index]
         end

@@ -19,16 +19,16 @@ module DidYouMean
         has_mistype = seed.rindex {|c| Levenshtein.distance(normalize(c), input) <= threshold }
 
         corrections = if has_mistype
-          seed.take(has_mistype + 1)
-        else
-          # Correct misspells
-          seed.select do |candidate|
-            candidate = normalize(candidate)
-            length    = input.length < candidate.length ? input.length : candidate.length
+                        seed.take(has_mistype + 1)
+                      else
+                        # Correct misspells
+                        seed.select do |candidate|
+                          candidate = normalize(candidate)
+                          length    = input.length < candidate.length ? input.length : candidate.length
 
-            Levenshtein.distance(candidate, input) < length
-          end.first(1)
-        end
+                          Levenshtein.distance(candidate, input) < length
+                        end.first(1)
+                      end
 
         corrections
       end

@@ -108,4 +108,4 @@ OBject
 
 ## License
 
-Copyright (c) 2015 Yuki Nishijima. See MIT-LICENSE for further details.
+Copyright (c) 2014-16 Yuki Nishijima. See MIT-LICENSE for further details.

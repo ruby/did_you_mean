@@ -5,7 +5,7 @@ class NameErrorExtensionTest < Minitest::Test
 
   class TestSpellChecker
     def initialize(*); end
-    def corrections; ["Y U SO SLOW?"]; end
+    def corrections; ["does_exist"]; end
   end
 
   def setup
@@ -18,13 +18,14 @@ class NameErrorExtensionTest < Minitest::Test
     SPELL_CHECKERS['NameError'] = @org
   end
 
-  def test_message_provides_original_message
-    assert_match "undefined local variable or method", @error.to_s
-  end
-
   def test_message
-    assert_match "Did you mean?  Y U SO SLOW?", @error.to_s
-    assert_match "Did you mean?  Y U SO SLOW?", @error.message
+    message = <<~MESSAGE.chomp
+      undefined local variable or method `doesnt_exist' for #{method(:to_s).super_method.call}
+      Did you mean?  does_exist
+    MESSAGE
+
+    assert_equal message, @error.to_s
+    assert_equal message, @error.message
   end
 
   def test_to_s_does_not_make_disruptive_changes_to_error_message

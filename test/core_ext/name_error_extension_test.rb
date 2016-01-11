@@ -32,6 +32,7 @@ class NameErrorExtensionTest < Minitest::Test
       raise NameError, "uninitialized constant Object"
     end
 
+    error.to_s
     assert_equal 1, error.to_s.scan("Did you mean?").count
   end
 end

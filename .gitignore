@@ -4,7 +4,6 @@
 .config
 .yardoc
 Gemfile.lock
-gemfiles/*.lock
 InstalledFiles
 _yardoc
 coverage
@@ -12,19 +11,9 @@ doc/
 lib/bundler/man
 pkg
 rdoc
-spec/reports
 test/tmp
 test/version_tmp
 tmp
 log
-
 evaluation/dictionary.yml
 benchmark/results
-
-ext/**/*.o
-ext/**/*.so
-ext/**/Makefile
-
-lib/**/*.so
-
-.travis.yml.osx

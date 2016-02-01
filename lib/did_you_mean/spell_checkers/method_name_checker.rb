@@ -16,7 +16,6 @@ module DidYouMean
     def method_names
       method_names = receiver.methods + receiver.singleton_methods
       method_names += receiver.private_methods if @has_args
-      method_names.delete(method_name)
       method_names.uniq!
       method_names
     end

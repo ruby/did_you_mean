@@ -11,8 +11,9 @@ module DidYouMean
         threshold = input.length > 3 ? 0.834 : 0.77
 
         seed = candidates.select {|candidate| JaroWinkler.distance(normalize(candidate), input) >= threshold }
-          .sort_by! {|candidate| JaroWinkler.distance(candidate.to_s, input) }
-          .reverse!
+        seed.reject! {|candidate| input == candidate.to_s }
+        seed.sort_by! {|candidate| JaroWinkler.distance(candidate.to_s, input) }
+        seed.reverse!
 
         # Correct mistypes
         threshold   = (input.length * 0.25).ceil

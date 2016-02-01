@@ -55,7 +55,6 @@ class SpellCheckerTest < Minitest::Test
 
   def test_spell_checker_sorts_results_by_simiarity
     expected = %w(
-      name123456
       name12345
       name1234
       name123
@@ -70,6 +69,12 @@ class SpellCheckerTest < Minitest::Test
     )).corrections
 
     assert_equal expected, actual
+  end
+
+  def test_spell_checker_excludes_input_from_dictionary
+    assert_empty SpellChecker.new('input', ['input']).corrections
+    assert_empty SpellChecker.new('input', [:input]).corrections
+    assert_empty SpellChecker.new(:input, ['input']).corrections
   end
 
   private

@@ -5,4 +5,4 @@ gemspec
 
 gem 'benchmark-ips'
 gem 'memory_profiler'
-gem 'jaro_winkler', '>= 1.4.0'
+gem 'jaro_winkler', '>= 1.4.0' if RUBY_VERSION < '2.4.0'

@@ -1,11 +1,14 @@
 module DidYouMean
   module ExtraFeatures
     module KeyErrorWithNameAndKeys
+      FILE_REGEXP = %r"#{Regexp.quote(__FILE__)}"
+
       def fetch(name, *)
         super
       rescue KeyError => e
         e.instance_variable_set(:@name, name)
         e.instance_variable_set(:@keys, keys)
+        $@.delete_if { |s| FILE_REGEXP =~ s } if $@
         raise e
       end
     end

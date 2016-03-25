@@ -36,18 +36,6 @@ class NameErrorExtensionTest < Minitest::Test
     error.to_s
     assert_equal 1, error.to_s.scan("Did you mean?").count
   end
-
-  def test_struct_name_error
-    check_name_struct = Struct.new(:check_name)
-    error = assert_raises(NameError) do
-      check_name_struct.new[:doesnt_exist]
-    end
-
-    assert_equal <<~MESSAGE.chomp, error.to_s
-      no member 'doesnt_exist' in struct
-      Did you mean?  does_exist
-    MESSAGE
-  end
 end
 
 class IgnoreCallersTest < Minitest::Test

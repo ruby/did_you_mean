@@ -81,4 +81,12 @@ class VariableNameTest < Minitest::Test
     assert_correction :@@does_exist, error.corrections
     assert_match "Did you mean?  @@does_exist", error.to_s
   end
+
+  def test_struct_name_error
+    value = Struct.new(:does_exist).new
+    error = assert_raises(NameError){ value[:doesnt_exist] }
+
+    assert_correction [:does_exist, :does_exist=], error.corrections
+    assert_match "Did you mean?  does_exist", error.to_s
+  end
 end

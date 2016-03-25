@@ -11,7 +11,10 @@ module DidYouMean
       case exception.original_message
       when /uninitialized constant/
         ClassNameChecker
-      when /undefined local variable or method/, /undefined method/, /uninitialized class variable/
+      when /undefined local variable or method/,
+           /undefined method/,
+           /uninitialized class variable/,
+           /no member '.*' in struct/
         VariableNameChecker
       else
         NullChecker

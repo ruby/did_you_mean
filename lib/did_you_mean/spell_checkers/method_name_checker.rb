@@ -6,7 +6,7 @@ module DidYouMean
     def initialize(exception)
       @method_name = exception.name
       @receiver    = exception.receiver
-      @has_args    = !exception.args&.empty?
+      @private_call = exception.private_call?
     end
 
     def candidates
@@ -15,7 +15,7 @@ module DidYouMean
 
     def method_names
       method_names = receiver.methods + receiver.singleton_methods
-      method_names += receiver.private_methods if @has_args
+      method_names += receiver.private_methods if @private_call
       method_names.uniq!
       method_names
     end

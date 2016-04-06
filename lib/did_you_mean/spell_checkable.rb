@@ -17,13 +17,11 @@ module DidYouMean
 
         # Correct mistypes
         threshold   = (input.length * 0.25).ceil
-        has_mistype = seed.rindex {|c| Levenshtein.distance(normalize(c), input) <= threshold }
+        corrections = seed.select {|c| Levenshtein.distance(normalize(c), input) <= threshold }
 
-        corrections = if has_mistype
-          seed.take(has_mistype + 1)
-        else
-          # Correct misspells
-          seed.select do |candidate|
+        # Correct misspells
+        if corrections.empty?
+          corrections = seed.select do |candidate|
             candidate = normalize(candidate)
             length    = input.length < candidate.length ? input.length : candidate.length
 

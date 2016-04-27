@@ -3,7 +3,7 @@ script:   bundle exec rake
 cache:    bundler
 sudo:     false
 
-install:
+before_install:
   - gem install bundler
 
 after_success:

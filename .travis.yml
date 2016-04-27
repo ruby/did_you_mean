@@ -10,3 +10,4 @@ after_success:
 rvm:
   - 2.3.0
   - ruby-head
+  - jruby-head

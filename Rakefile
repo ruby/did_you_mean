@@ -28,7 +28,12 @@ Rake::TestTask.new("test:extra_features") do |task|
   task.ruby_opts << "-rdid_you_mean/extra_features"
 end
 
-task default: %i(test test:verbose_formatter test:extra_features)
+if RUBY_ENGINE != 'jruby'
+  task default: %i(test test:verbose_formatter test:extra_features)
+else
+  task default: %i(test test:verbose_formatter)
+end
+
 
 namespace :test do
   namespace :accuracy do

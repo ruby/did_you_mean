@@ -1,6 +1,5 @@
 module DidYouMean
   class MethodNameChecker
-    include SpellCheckable
     attr_reader :method_name, :receiver
 
     def initialize(exception)
@@ -9,8 +8,8 @@ module DidYouMean
       @private_call = exception.private_call?
     end
 
-    def candidates
-      { method_name => method_names }
+    def corrections
+      @corrections ||= SpellChecker.new(dictionary: method_names).correct(method_name)
     end
 
     def method_names

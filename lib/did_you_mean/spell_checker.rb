@@ -4,37 +4,35 @@ require "did_you_mean/levenshtein"
 require "did_you_mean/jaro_winkler"
 
 module DidYouMean
-  module SpellCheckable
-    def corrections
-      @corrections ||= candidates.flat_map do |input, candidates|
-        input     = normalize(input)
-        threshold = input.length > 3 ? 0.834 : 0.77
-
-        seed = candidates.select {|candidate| JaroWinkler.distance(normalize(candidate), input) >= threshold }
-        seed.reject! {|candidate| input == candidate.to_s }
-        seed.sort_by! {|candidate| JaroWinkler.distance(candidate.to_s, input) }
-        seed.reverse!
-
-        # Correct mistypes
-        threshold   = (input.length * 0.25).ceil
-        corrections = seed.select {|c| Levenshtein.distance(normalize(c), input) <= threshold }
-
-        # Correct misspells
-        if corrections.empty?
-          corrections = seed.select do |candidate|
-            candidate = normalize(candidate)
-            length    = input.length < candidate.length ? input.length : candidate.length
-
-            Levenshtein.distance(candidate, input) < length
-          end.first(1)
-        end
-
-        corrections
-      end
+  class SpellChecker
+    def initialize(dictionary: )
+      @dictionary = dictionary
     end
 
-    def candidates
-      raise NotImplementedError
+    def correct(input)
+      input     = normalize(input)
+      threshold = input.length > 3 ? 0.834 : 0.77
+
+      words = @dictionary.select {|word| JaroWinkler.distance(normalize(word), input) >= threshold }
+      words.reject! {|word| input == word.to_s }
+      words.sort_by! {|word| JaroWinkler.distance(word.to_s, input) }
+      words.reverse!
+
+      # Correct mistypes
+      threshold   = (input.length * 0.25).ceil
+      corrections = words.select {|c| Levenshtein.distance(normalize(c), input) <= threshold }
+
+      # Correct misspells
+      if corrections.empty?
+        corrections = words.select do |word|
+          word   = normalize(word)
+          length = input.length < word.length ? input.length : word.length
+
+          Levenshtein.distance(word, input) < length
+        end.first(1)
+      end
+
+      corrections
     end
 
     private

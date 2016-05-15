@@ -1,6 +1,7 @@
 # -*- frozen-string-literal: true -*-
 
 require 'benchmark'
+require 'did_you_mean'
 
 def report(message, &block)
   time = 1000 * Benchmark.realtime(&block)
@@ -21,7 +22,7 @@ def report(message, &block)
   time
 end
 
-puts "\n"
+puts "did_you_mean version: #{DidYouMean::VERSION}\n\n"
 
 report "loading program" do
   require 'yaml'
@@ -37,25 +38,6 @@ report "loading program" do
     end
   rescue LoadError, NameError
   end
-
-  class SpellChecker
-    include DidYouMean::SpellCheckable
-
-    def initialize(words)
-      @words = words
-    end
-
-    def correct(input)
-      @corrections, @input = nil, input
-      corrections
-    end
-
-    def candidates
-      { @input => @words }
-    end
-
-    private def normalize(str); str; end
-  end
 end
 
 report "loading dictionary" do
@@ -66,7 +48,7 @@ report "loading dictionary" do
 end
 
 report "loading corrent/incorrect words" do
-  SPELL_CHECKER   = SpellChecker.new(DICTIONARY)
+  SPELL_CHECKER   = DidYouMean::SpellChecker.new(dictionary: DICTIONARY)
   INCORRECT_WORDS = YAML.load(open("evaluation/incorrect_words.yaml").read)
 end
 
@@ -78,7 +60,6 @@ filename            = "log/words_not_corrected_#{Time.now.to_i}.yml"
 puts <<-MSG
 
  Total number of test data: #{INCORRECT_WORDS.size}
-      did_you_mean version: #{DidYouMean::VERSION}
 
 MSG
 

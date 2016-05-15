@@ -1,14 +1,6 @@
 require 'test_helper'
 
 class SpellCheckerTest < Minitest::Test
-  SpellChecker = Struct.new(:input, :words) do
-    include DidYouMean::SpellCheckable
-
-    def candidates
-      { input => words }
-    end
-  end
-
   def test_spell_checker_corrects_mistypes
     assert_spell 'foo',   input: 'doo',   dictionary: ['foo', 'fork']
     assert_spell 'email', input: 'meail', dictionary: ['email', 'fail', 'eval']
@@ -42,8 +34,8 @@ class SpellCheckerTest < Minitest::Test
     names = %w(first_name_change first_name_changed? first_name_will_change!)
     assert_spell names, input: 'first_name_change!', dictionary: names
 
-    assert_empty SpellChecker.new('product_path', ['proc']).corrections
-    assert_empty SpellChecker.new('fooo',         ['fork']).corrections
+    assert_empty DidYouMean::SpellChecker.new(dictionary: ['proc']).correct('product_path')
+    assert_empty DidYouMean::SpellChecker.new(dictionary: ['fork']).correct('fooo')
   end
 
   def test_spell_checker_corrects_misspells
@@ -59,27 +51,27 @@ class SpellCheckerTest < Minitest::Test
       name123
     )
 
-    actual = SpellChecker.new("name123456", %w(
+    actual = DidYouMean::SpellChecker.new(dictionary: %w(
       name12
       name123
       name1234
       name12345
       name123456
-    )).corrections
+    )).correct('name123456')
 
     assert_equal expected, actual
   end
 
   def test_spell_checker_excludes_input_from_dictionary
-    assert_empty SpellChecker.new('input', ['input']).corrections
-    assert_empty SpellChecker.new('input', [:input]).corrections
-    assert_empty SpellChecker.new(:input, ['input']).corrections
+    assert_empty DidYouMean::SpellChecker.new(dictionary: ['input']).correct('input')
+    assert_empty DidYouMean::SpellChecker.new(dictionary: [:input]).correct('input')
+    assert_empty DidYouMean::SpellChecker.new(dictionary: ['input']).correct(:input)
   end
 
   private
 
   def assert_spell(expected, input: , dictionary: )
-    corrections = SpellChecker.new(input, dictionary).corrections
+    corrections = DidYouMean::SpellChecker.new(dictionary: dictionary).correct(input)
     assert_equal Array(expected), corrections, "Expected to suggest #{expected}, but got #{corrections.inspect}"
   end
 end

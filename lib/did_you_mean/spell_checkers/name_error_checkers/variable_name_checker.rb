@@ -2,7 +2,6 @@
 
 module DidYouMean
   class VariableNameChecker
-    include SpellCheckable
     attr_reader :name, :method_names, :lvar_names, :ivar_names, :cvar_names
 
     def initialize(exception)
@@ -16,8 +15,10 @@ module DidYouMean
       @cvar_names  += receiver.class_variables if receiver.kind_of?(Module)
     end
 
-    def candidates
-      { name => (lvar_names + method_names + ivar_names + cvar_names) }
+    def corrections
+      @corrections ||= SpellChecker
+                     .new(dictionary: (lvar_names + method_names + ivar_names + cvar_names))
+                     .correct(name)
     end
   end
 end

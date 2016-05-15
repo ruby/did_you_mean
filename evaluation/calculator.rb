@@ -36,7 +36,8 @@ report "loading program" do
         ::JaroWinkler.distance(str1, str2)
       end if RUBY_ENGINE != 'jruby'
     end
-  rescue LoadError, NameError
+  rescue LoadError, NameError => e
+    puts "couldn't load the jaro_winkler gem: #{e.message}\n\n"
   end
 end
 

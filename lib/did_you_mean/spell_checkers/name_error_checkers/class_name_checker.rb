@@ -3,15 +3,14 @@ require 'delegate'
 
 module DidYouMean
   class ClassNameChecker
-    include SpellCheckable
     attr_reader :class_name
 
     def initialize(exception)
       @class_name, @receiver = exception.name, exception.receiver
     end
 
-    def candidates
-      {class_name => class_names}
+    def corrections
+      @corrections ||= SpellChecker.new(dictionary: class_names).correct(class_name).map(&:full_name)
     end
 
     def class_names
@@ -20,10 +19,6 @@ module DidYouMean
           ClassName.new(c, scope == Object ? "" : "#{scope}::")
         end
       end
-    end
-
-    def corrections
-      super.map(&:full_name)
     end
 
     def scopes

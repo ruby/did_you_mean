@@ -7,26 +7,9 @@ require 'did_you_mean'
 # error      = (self.fooo rescue $!)
 # executable = -> { error.to_s }
 
-class SpellChecker
-  include DidYouMean::SpellCheckable
-
-  def initialize(words)
-    @words = words
-  end
-
-  def correct(input)
-    @corrections, @input = nil, input
-    corrections
-  end
-
-  def candidates
-    { @input => @words }
-  end
-end
-
 METHODS    = ''.methods
 INPUT      = 'start_with?'
-collection = SpellChecker.new(METHODS)
+collection = DidYouMean::SpellChecker.new(dictionary: METHODS)
 executable = proc { collection.correct(INPUT) }
 
 GC.disable

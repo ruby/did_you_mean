@@ -2,7 +2,7 @@ require 'test_helper'
 
 class VerboseFormatterTest < Minitest::Test
   def setup
-    @error = assert_raises(NameError){ self.inspectt }
+    @error = assert_raises(NoMethodError){ self.inspectt }
   end
 
   def test_message

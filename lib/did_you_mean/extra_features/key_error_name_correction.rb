@@ -9,27 +9,23 @@ module DidYouMean
         e.instance_variable_set(:@name, name)
         e.instance_variable_set(:@keys, keys)
         $@.delete_if { |s| FILE_REGEXP =~ s } if $@
+
         raise e
       end
     end
     Hash.prepend KeyErrorWithNameAndKeys
-    KeyError.send(:attr, :name, :keys)
 
     class KeyNameChecker
-      include SpellCheckable
       def initialize(key_error)
-        @name = key_error.name
-        @keys = key_error.keys
-      end
-
-      def candidates
-        { @name => @keys }
+        @name = key_error.instance_variable_get(:@name)
+        @keys = key_error.instance_variable_get(:@keys)
       end
 
       def corrections
-        super.map(&:inspect)
+        @corrections ||= SpellChecker.new(dictionary: @keys).correct(@name).map(&:inspect)
       end
     end
+
     SPELL_CHECKERS["KeyError"] = KeyNameChecker
     KeyError.prepend DidYouMean::Correctable
   end

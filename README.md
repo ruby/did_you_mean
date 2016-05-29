@@ -69,7 +69,17 @@ require 'did_you_mean/experimental'
 #    Did you mean?  @full_name
 ```
 
+### Correcting a Hash Key Name
+
+```ruby
+hash = {foo: 1, bar: 2, baz: 3}
+hash.fetch(:fooo)
+# KeyError: key not found: :fooo
+# Did you mean?  :foo
+```
+
 ### Displaying a Warning When `initialize` is Incorrectly Typed
+
 ```ruby
 require 'did_you_mean/experimental'
 

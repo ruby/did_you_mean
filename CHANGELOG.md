@@ -5,7 +5,7 @@ _<sup>released on 2015-12-25 05:13:04 UTC</sup>_
 #### Features
 
 - Introduced a [verbose formatter](https://github.com/yuki24/did_you_mean#verbose-formatter)
-- Introduced an easy way to enabling [extra features](https://github.com/yuki24/did_you_mean#extra-features)
+- Introduced an easy way to enabling [experimental features](https://github.com/yuki24/did_you_mean#experimental-features)
 
 #### Bug Fixes
 

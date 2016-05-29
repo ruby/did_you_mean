@@ -1,5 +1,5 @@
 module DidYouMean
-  module ExtraFeatures
+  module Experimental
     module KeyErrorWithNameAndKeys
       FILE_REGEXP = %r"#{Regexp.quote(__FILE__)}"
 

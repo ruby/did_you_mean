@@ -1,6 +1,6 @@
 require "test_helper"
 
-class KeyErrorWithExtraFeaturesTest < Minitest::Test
+class ExperimentalKeyErrorNameCorrectionTest < Minitest::Test
   def test_corrects_hash_key_name
     hash = { "foo" => 1, bar: 2 }
 

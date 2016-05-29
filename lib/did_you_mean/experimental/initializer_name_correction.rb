@@ -1,7 +1,7 @@
 # -*- frozen-string-literal: true -*-
 
 module DidYouMean
-  module ExtraFeatures
+  module Experimental
     module InitializerNameCorrection
       def method_added(name)
         super

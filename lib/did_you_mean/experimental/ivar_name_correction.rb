@@ -1,5 +1,5 @@
 module DidYouMean
-  module ExtraFeatures
+  module Experimental
     module IvarNameCorrection
       REPLS = {
         "(irb)" => -> { Readline::HISTORY.to_a.last }

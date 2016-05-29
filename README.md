@@ -52,16 +52,16 @@ full_name.starts_with?("Y")
 #    Did you mean?  start_with?
 ```
 
-## Extra Features
+## Experimental Features
 
-Aside from the basic features above, the `did_you_mean` gem comes with 2 extra features. They can be enabled by calling `require 'did_you_mean/extra_features'`.
+Aside from the basic features above, the `did_you_mean` gem comes with experimental features. They can be enabled by calling `require 'did_you_mean/experimental'`.
 
-**Keep in mind that these extra features should never be enabled in production as they impact Ruby's performance and uses an unstable Ruby API.**
+**Keep in mind that these experimental features should never be enabled in production as they would impact Ruby's performance and uses an unstable Ruby API.**
 
 ### Correcting an Instance Variable When It's Incorrectly Typed
 
 ```ruby
-require 'did_you_mean/extra_features'
+require 'did_you_mean/experimental'
 
 @full_name = "Yuki Nishijima"
 @full_anme.split(" ")
@@ -71,7 +71,7 @@ require 'did_you_mean/extra_features'
 
 ### Displaying a Warning When `initialize` is Incorrectly Typed
 ```ruby
-require 'did_you_mean/extra_features'
+require 'did_you_mean/experimental'
 
 class Person
   def intialize

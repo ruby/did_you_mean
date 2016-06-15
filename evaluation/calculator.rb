@@ -48,7 +48,7 @@ report "loading dictionary" do
   DICTIONARY = Set.new(yaml)
 end
 
-report "loading corrent/incorrect words" do
+report "loading correct/incorrect words" do
   SPELL_CHECKER   = DidYouMean::SpellChecker.new(dictionary: DICTIONARY)
   INCORRECT_WORDS = YAML.load(open("evaluation/incorrect_words.yaml").read)
 end

@@ -1,5 +1,6 @@
 require 'minitest/autorun'
 require 'minitest/unit'
+require 'purdytest'
 require 'did_you_mean'
 
 module DidYouMean::TestHelper

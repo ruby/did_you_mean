@@ -56,7 +56,7 @@ full_name.starts_with?("Y")
 
 Aside from the basic features above, the `did_you_mean` gem comes with experimental features. They can be enabled by calling `require 'did_you_mean/experimental'`.
 
-**Keep in mind that these experimental features should never be enabled in production as they would impact Ruby's performance and uses an unstable Ruby API.**
+**Keep in mind that these experimental features should never be enabled in production as they would impact Ruby's performance and use some unstable Ruby APIs.**
 
 ### Correcting an Instance Variable When It's Incorrectly Typed
 

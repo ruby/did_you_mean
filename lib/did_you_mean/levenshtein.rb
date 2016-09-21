@@ -1,6 +1,8 @@
 module DidYouMean
   module Levenshtein # :nodoc:
     # This code is based directly on the Text gem implementation
+    # Copyright (c) 2006-2013 Paul Battley, Michael Neumann, Tim Fletcher.
+    #
     # Returns a value representing the "cost" of transforming str1 into str2
     def distance(str1, str2)
       n = str1.length

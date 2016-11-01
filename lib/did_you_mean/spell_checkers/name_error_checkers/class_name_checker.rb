@@ -1,4 +1,4 @@
-# -*- frozen-string-literal: true -*-
+# frozen-string-literal: true
 require 'delegate'
 
 module DidYouMean

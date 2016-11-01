@@ -1,4 +1,4 @@
-# -*- frozen-string-literal: true -*-
+# frozen-string-literal: true
 require 'did_you_mean/formatter'
 
 module DidYouMean

@@ -1,4 +1,4 @@
-# -*- frozen-string-literal: true -*-
+# frozen-string-literal: true
 
 module DidYouMean
   module Experimental

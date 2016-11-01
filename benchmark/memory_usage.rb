@@ -1,4 +1,4 @@
-# -*- frozen-string-literal: true -*-
+# frozen-string-literal: true
 
 require 'memory_profiler'
 require 'did_you_mean'

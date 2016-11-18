@@ -2,6 +2,9 @@ module DidYouMean
   class MethodNameChecker
     attr_reader :method_name, :receiver
 
+    NAMES_TO_EXCLUDE = { NilClass => nil.methods }
+    NAMES_TO_EXCLUDE.default = []
+
     def initialize(exception)
       @method_name  = exception.name
       @receiver     = exception.receiver
@@ -9,7 +12,7 @@ module DidYouMean
     end
 
     def corrections
-      @corrections ||= SpellChecker.new(dictionary: method_names).correct(method_name)
+      @corrections ||= SpellChecker.new(dictionary: method_names).correct(method_name) - NAMES_TO_EXCLUDE[@receiver.class]
     end
 
     def method_names

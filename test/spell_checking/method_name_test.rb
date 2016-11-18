@@ -71,4 +71,19 @@ class MethodNameTest < Minitest::Test
     assert_correction :raise, error.corrections
     assert_match "Did you mean?  raise", error.to_s
   end
+
+  def test_exclude_methods_on_nil
+    error = assert_raises(NoMethodError){ nil.map }
+    assert_empty error.corrections
+  end
+
+  def test_does_not_exclude_custom_methods_on_nil
+    def nil.empty?
+    end
+
+    error = assert_raises(NoMethodError){ nil.empty }
+    assert_correction :empty?, error.corrections
+  ensure
+    NilClass.class_eval { undef empty? }
+  end
 end

@@ -89,4 +89,9 @@ class VariableNameTest < Minitest::Test
     assert_correction [:does_exist, :does_exist=], error.corrections
     assert_match "Did you mean?  does_exist", error.to_s
   end
+
+  def test_exclude_typical_incorrect_suggestions
+    error = assert_raises(NameError){ foo }
+    assert_empty error.corrections
+  end
 end

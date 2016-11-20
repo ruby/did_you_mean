@@ -1,3 +1,29 @@
+## [v1.0.2](https://github.com/yuki24/did_you_mean/tree/v1.0.2)
+
+_<sup>released on 2016-06-20 18:03:07 UTC</sup>_
+
+#### Features
+
+- Experimental features are officially available through `require 'did_you_mean/experimental'`
+
+#### Deprecations
+
+- `require 'did_you_mean/extra_features'` is now deprecated in favor of `require 'did_you_mean/experimental'`
+
+#### Internal Changes
+
+- Replaced the `DidYouMean::SpellCheckable` module with the `DidYouMean::SpellChecker` class. This is a slower implementation but close to the model explained in [this talk](https://speakerdeck.com/yuki24/saving-people-from-typos), more reusable and possibly makes it easier to expose the class as a public interface.
+
+## [v1.0.1](https://github.com/yuki24/did_you_mean/tree/v1.0.1)
+
+_<sup>released on 2016-05-15 05:17:22 UTC</sup>_
+
+#### Bug Fixes
+
+- Fixed a bug where the gem suggests what is actually typed by the user: [<tt>1c52c88</tt>](https://github.com/yuki24/did_you_mean/commit/1c52c887c62b0921e799f94bcc4a846dc7cbc057)
+- Fixed features that didn't work on JRuby 9.1.0.0: [<tt>dc48dde</tt>](https://github.com/yuki24/did_you_mean/commit/dc48dde1b2a8f05aab1fcf897e1cb3075a206f53), [<tt>4de23f8</tt>](https://github.com/yuki24/did_you_mean/commit/4de23f880502c80c5f321371d39c08bb0fa34040), [<tt>00e3059</tt>](https://github.com/yuki24/did_you_mean/commit/00e305971060d150fae4817b5e895d6478b37579). The local variable name correction is still disabled. Also see: [jruby/jruby#3480](https://github.com/jruby/jruby/issues/3480)
+
+
 ## [v1.0.0](https://github.com/yuki24/did_you_mean/tree/v1.0.0)
 
 _<sup>released on 2015-12-25 05:13:04 UTC</sup>_
@@ -9,7 +35,7 @@ _<sup>released on 2015-12-25 05:13:04 UTC</sup>_
 
 #### Bug Fixes
 
-- Fixed a bug where the Jaro-Winkler implementation returns the wrong distance when 2 identical strings are given
+- Fixed a bug where the Jaro-Winkler implementation returns the wrong distance when 2 identical strings are given. fixes [#58](https://github.com/yuki24/did_you_mean/pull/58)
 
 #### Internal Changes
 
@@ -29,7 +55,7 @@ _<sup>released on 2015-12-25 04:56:13 UTC</sup>_
 
 #### Internal Changes
 
-- Enable the `frozen-string-literal` pragma rather than calling `.freeze` everywhere
+- Use the `frozen-string-literal` pragma rather than calling `.freeze` everywhere
 - Use the `NameError#receiver` method in `DidYouMean:: ClassNameChecker` to know the namespace where the constant call is made
 - Refactored the `SpellCheckerTest`
 

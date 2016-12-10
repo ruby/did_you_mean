@@ -6,7 +6,7 @@ module DidYouMean
 
     def initialize(exception)
       @name       = exception.name.to_s.tr("@", "")
-      @lvar_names = exception.local_variables
+      @lvar_names = exception.respond_to?(:local_variables) ? exception.local_variables : []
       receiver    = exception.receiver
 
       @method_names = receiver.methods + receiver.private_methods

@@ -3,9 +3,9 @@ module DidYouMean
     attr_reader :method_name, :receiver
 
     def initialize(exception)
-      @method_name = exception.name
-      @receiver    = exception.receiver
-      @private_call = exception.private_call?
+      @method_name  = exception.name
+      @receiver     = exception.receiver
+      @private_call = exception.respond_to?(:private_call?) ? exception.private_call? : false
     end
 
     def corrections

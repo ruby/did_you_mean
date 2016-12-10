@@ -2,7 +2,7 @@
 
 ## Installation
 
-Ruby 2.3 ships with this gem and it will automatically be `require`d when a Ruby process starts up. No special setup is required.
+Ruby 2.3 and later ships with this gem and it will automatically be `require`d when a Ruby process starts up. No special setup is required.
 
 ## Examples
 

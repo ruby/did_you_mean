@@ -6,4 +6,3 @@ gemspec
 gem 'benchmark-ips'
 gem 'memory_profiler'
 gem 'jaro_winkler', '>= 1.4.0'
-gem 'purdytest'

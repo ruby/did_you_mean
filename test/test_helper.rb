@@ -1,6 +1,5 @@
 require 'minitest/autorun'
-require 'minitest/unit'
-require 'purdytest'
+require 'minitest/pride'
 require 'did_you_mean'
 
 puts "DidYouMean version: #{DidYouMean::VERSION}"

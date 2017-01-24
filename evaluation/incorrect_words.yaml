@@ -1,5 +1,7 @@
 # This data is based on Birkbeck Spelling Error Corpus: http://ota.ox.ac.uk/headers/0643.xml
 # More specifically, this is a yaml version of the data in FAWTHROP1DAT.643 and FAWTHROP2DAT.643.
+# released under the Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License.
+# https://creativecommons.org/licenses/by-nc-sa/3.0/
 ---
 abattoir: abbatoir
 abhorrence: abhorence

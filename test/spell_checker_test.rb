@@ -12,7 +12,7 @@ class SpellCheckerTest < Minitest::Test
     assert_spell 'sub',   input: 'suv',   dictionary: ['sub', 'gsub', 'sub!']
 
     assert_spell %w(gsub! gsub),     input: 'gsuv!', dictionary: %w(sub gsub gsub!)
-    assert_spell %w(sub! sub gsub!), input: 'ssub!', dictionary: %w(sub sub! gsub gsub!)
+    assert_spell %w(sub! sub gsub!), input: 'ssub!', dictionary: %w(sub sub! gsub sub gsub!)
 
     group_methods = %w(groups group_url groups_url group_path)
     assert_spell 'groups', input: 'group',  dictionary: group_methods

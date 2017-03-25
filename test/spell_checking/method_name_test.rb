@@ -9,6 +9,12 @@ class MethodNameTest < Minitest::Test
       raiae NoMethodError
     end
 
+    def raise_no_method_error
+      self.firstname
+    rescue NoMethodError => e
+      raise e, e.message, e.backtrace
+    end
+
     protected
     def the_protected_method; end
 
@@ -85,5 +91,29 @@ class MethodNameTest < Minitest::Test
     assert_correction :empty?, error.corrections
   ensure
     NilClass.class_eval { undef empty? }
+  end
+
+  def test_does_not_append_suggestions_twice
+    error = assert_raises NoMethodError do
+      begin
+        @user.firstname
+      rescue NoMethodError => e
+        raise e, e.message, e.backtrace
+      end
+    end
+
+    assert_equal 1, error.to_s.scan(/Did you mean/).count
+  end
+
+  def test_does_not_append_suggestions_three_times
+    error = assert_raises NoMethodError do
+      begin
+        @user.raise_no_method_error
+      rescue NoMethodError => e
+        raise e, e.message, e.backtrace
+      end
+    end
+
+    assert_equal 1, error.to_s.scan(/Did you mean/).count
   end
 end

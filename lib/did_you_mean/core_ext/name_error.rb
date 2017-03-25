@@ -10,7 +10,10 @@ module DidYouMean
       msg = super.dup
       bt  = caller(1, 6)
 
-      msg << Formatter.new(corrections).to_s if IGNORED_CALLERS.all? {|ignored| bt.grep(ignored).empty? }
+      if IGNORED_CALLERS.all? {|ignored| bt.grep(ignored).empty? } && (!cause.respond_to?(:corrections) || cause.corrections.empty?)
+        msg << Formatter.new(corrections).to_s
+      end
+
       msg
     rescue
       super

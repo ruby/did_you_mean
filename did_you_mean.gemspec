@@ -12,6 +12,7 @@ Gem::Specification.new do |spec|
   spec.description   = 'The gem that has been saving people from typos since 2014.'
   spec.homepage      = "https://github.com/yuki24/did_you_mean"
   spec.license       = "MIT"
+  spec.required_ruby_version = ">= 2.0"
 
   spec.files         = `git ls-files`.split($/)
   spec.test_files    = spec.files.grep(%r{^(test)/})

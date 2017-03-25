@@ -32,7 +32,7 @@ module DidYouMean
         end.first(1)
       end
 
-      corrections
+      corrections.uniq
     end
 
     private

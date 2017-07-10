@@ -1,5 +1,6 @@
 require "did_you_mean/version"
 require "did_you_mean/core_ext/name_error"
+require "did_you_mean/core_ext/rake_task_manager"
 
 require "did_you_mean/spell_checker"
 require 'did_you_mean/spell_checkers/name_error_checkers'

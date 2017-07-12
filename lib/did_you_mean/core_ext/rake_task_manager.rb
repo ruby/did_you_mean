@@ -9,7 +9,7 @@ module DidYouMean
 
         raise error, (error.to_s << message), error.backtrace
       rescue
-        raise error, error.to_s, error.backtrace
+        raise error, error.to_s, Rake.application.options.trace ? error.backtrace : ''
       end
     end
   end

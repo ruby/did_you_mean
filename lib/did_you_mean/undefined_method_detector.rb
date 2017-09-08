@@ -82,4 +82,3 @@ class UndefinedMethodDetector
 
   private_constant :CalledMethodDetector, :UndefinedMethod
 end
-

@@ -23,8 +23,6 @@ class UndefinedMethodDetector
       .map {|name, methods_calling_undefined_method| UndefinedMethod.new(name, methods_calling_undefined_method) }
   end
 
-  private
-
   def methods_defined_in(dir)
     all_defined_methods.select do |method|
       method.source_location && (method.source_location[0].start_with?(dir) || !method.source_location[0].start_with?('/'))
@@ -36,6 +34,8 @@ class UndefinedMethodDetector
   end
 
   METHOD_METHOD = Object.instance_method(:method)
+
+  private
 
   def all_defined_methods
     @all_defined_methods ||= ObjectSpace.each_object.flat_map do |obj|

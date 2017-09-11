@@ -16,9 +16,9 @@ at_exit {
     .flat_map do |undefined_method|
       undefined_method.called_by.map do |method_calling_undefined_method|
         {
-          "undefined_name": undefined_method.name,
-          "symbol_type": "method",
-          "path": "#{__dir__}/#{method_calling_undefined_method.source_location[0]}",
+          undefined_name: undefined_method.name,
+          symbol_type: "method",
+          path: "#{__dir__}/#{method_calling_undefined_method.source_location[0]}",
           lineno: undefined_method.lineno,
         }
       end

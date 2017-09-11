@@ -55,6 +55,8 @@ class UndefinedMethodDetector
   end
 
   class CalledMethodDetector
+    attr_reader :called_methods
+
     def initialize
       @called_methods = []
       @lineno = 0
@@ -63,8 +65,8 @@ class UndefinedMethodDetector
 
     def detect_called_methods(operands)
       if operands.is_a?(Array) && (operands[0] == :opt_send_simple || operands[0] == :opt_send_without_block)
-        @called_methods << [@lineno, operands[1][:mid]]
-      elsif operands.is_a?(Integer) && @depth == 1
+        @called_methods << [lineno, operands[1][:mid]]
+      elsif operands.is_a?(Integer) && depth == 1
         @lineno = operands
       elsif operands.is_a?(Array) && /^YARVInstructionSequence/ =~ operands[0].to_s && operands[13]
         detector = CalledMethodDetector.new
@@ -78,11 +80,9 @@ class UndefinedMethodDetector
       end
     end
 
-    def called_methods
-      @called_methods
-    end
-
     private
+
+    attr_reader :depth, :lineno
 
     def track_recursive_calls
       @depth += 1

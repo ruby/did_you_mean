@@ -11,7 +11,7 @@ PAYLOAD = {
 at_exit {
   detector = UndefinedMethodDetector.new(__dir__)
 
-  PAYLOAD['undefined_names'] = detector
+  PAYLOAD[:undefined_names] = detector
     .undefined_methods
     .flat_map do |undefined_method|
       undefined_method.called_by.map do |method_calling_undefined_method|

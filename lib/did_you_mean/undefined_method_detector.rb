@@ -19,8 +19,8 @@ class UndefinedMethodDetector
     end
 
     called_methods
-      .select {|called_method_name, _| !all_defined_method_names.include?(called_method_name) }
-      .map {|name, methods_calling_undefined_method| UndefinedMethod.new(name, methods_calling_undefined_method) }
+      .select {|called_method_name, _| !all_defined_method_names.include?(called_method_name.last) }
+      .map {|(lineno, name), methods_calling_undefined_method| UndefinedMethod.new(name, lineno, methods_calling_undefined_method) }
   end
 
   def methods_defined_in(dir)
@@ -57,26 +57,45 @@ class UndefinedMethodDetector
   class CalledMethodDetector
     def initialize
       @called_methods = []
+      @lineno = 0
+      @depth = 0
     end
 
     def detect_called_methods(operands)
       if operands.is_a?(Array) && (operands[0] == :opt_send_simple || operands[0] == :opt_send_without_block)
-        @called_methods << operands
-      else
-        operands.each {|op| detect_called_methods(op) } if operands.is_a?(Array)
+        @called_methods << [@lineno, operands[1][:mid]]
+      elsif operands.is_a?(Integer) && @depth == 1
+        @lineno = operands
+      elsif operands.is_a?(Array) && /^YARVInstructionSequence/ =~ operands[0].to_s && operands[13]
+        detector = CalledMethodDetector.new
+        detector.detect_called_methods(operands[13])
+
+        @called_methods += detector.called_methods
+      elsif operands.is_a?(Array)
+        track_recursive_calls do
+          operands.each {|op| detect_called_methods(op) }
+        end
       end
     end
 
     def called_methods
-      @called_methods.map {|op| op[1][:mid] }
+      @called_methods
+    end
+
+    private
+
+    def track_recursive_calls
+      @depth += 1
+      yield
+      @depth += -1
     end
   end
 
   class UndefinedMethod
-    attr_reader :name, :called_by
+    attr_reader :name, :lineno, :called_by
 
-    def initialize(name, called_by)
-      @name, @called_by = name, called_by
+    def initialize(name, lineno, called_by)
+      @name, @lineno, @called_by = name, lineno, called_by
     end
   end
 

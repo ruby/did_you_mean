@@ -19,7 +19,7 @@ at_exit {
           "undefined_name": undefined_method.name,
           "symbol_type": "method",
           "path": "#{__dir__}/#{method_calling_undefined_method.source_location[0]}",
-          "lineno": method_calling_undefined_method.source_location[1],
+          lineno: undefined_method.lineno,
           "suggestions": DidYouMean::SpellChecker.new(dictionary: detector.all_defined_method_names).correct(undefined_method.name).uniq
         }
       end

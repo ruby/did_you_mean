@@ -7,10 +7,7 @@ module DidYouMean
     end
 
     def to_s
-      return "" if @corrections.empty?
-
-      output = "\nDid you mean?  ".dup
-      output << @corrections.join("\n               ")
+      @corrections.empty? ? "" : "\nDid you mean?  #{@corrections.join("\n               ")}"
     end
   end
 end

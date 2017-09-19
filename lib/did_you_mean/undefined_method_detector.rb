@@ -3,6 +3,11 @@ class UndefinedMethodDetector
     @dir = dir
   end
 
+  NAMES_TO_EXCLUDE = [
+    'core#define_singleton_method',
+    'core#undef_method'
+  ]
+
   def undefined_methods
     called_methods = {}
 
@@ -21,6 +26,7 @@ class UndefinedMethodDetector
     called_methods
       .select {|called_method_name, _| !all_defined_method_names.include?(called_method_name.last) }
       .map {|(lineno, name), methods_calling_undefined_method| UndefinedMethod.new(name, lineno, methods_calling_undefined_method) }
+      .reject { |undefined_method| NAMES_TO_EXCLUDE.include?(undefined_method.name.to_s) }
   end
 
   def methods_defined_in(dir)
@@ -30,7 +36,7 @@ class UndefinedMethodDetector
   end
 
   def all_defined_method_names
-    @all_defined_method_names ||= all_defined_methods.map(&:name)
+    @all_defined_method_names ||= all_defined_methods.map(&:name).uniq
   end
 
   METHOD_METHOD = Object.instance_method(:method)

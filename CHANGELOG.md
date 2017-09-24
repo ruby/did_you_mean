@@ -1,6 +1,67 @@
+## [v1.1.2](https://github.com/yuki24/did_you_mean/tree/v1.1.2)
+
+_<sup>released on 2017-09-24 07:28:48 UTC</sup>_
+
+**This version is compatible with Ruby 2.4 and older**
+
+#### Bug Fixes
+
+- Fixed a bug where `did_you_mean` shows duplicate suggestions when the exception is raised multiple times ([#84](https://github.com/yuki24/did_you_mean/pull/84), [<tt>c2e4008</tt>](https://github.com/yuki24/did_you_mean/commit/c2e40083cef604c00ccd10efc6d7a5036ad9eb5b))
+
+
+## [v1.1.1](https://github.com/yuki24/did_you_mean/tree/v1.1.1)
+
+_<sup>released on 2017-09-24 07:24:02 UTC</sup>_
+
+### This version has been yanked from Rubygems.org and is not available.
+
+
+## [v1.1.0](https://github.com/yuki24/did_you_mean/tree/v1.1.0)
+
+_<sup>released on 2016-12-19 23:19:06 UTC</sup>_
+
+The version `1.1.0` only has support for Ruby 2.4.0 and later. Also, all patch releasess under `1.1.*` will only be compatible with Ruby 2.4.0 and later as well. Versions under `1.0.*` will still be maintained until Ruby 2.3 is deprecated. Any other versions below `1.0` will no longer be maintained.
+
+#### New Features
+
+- Suggest a method name on a NameError from the `Struct#[]` or `Struct#[]=` method ([#73](https://github.com/yuki24/did_you_mean/pull/73)):
+
+    ```ruby
+    Struct.new(:foo).new[:fooo]
+    # => NameError: no member 'fooo' in struct
+    # Did you mean? foo
+    # foo=
+    ```
+
+- Added a public interface for the gem's spell checker:
+
+    ```ruby
+    DidYouMean::SpellChecker.new(dictionary: ['email', 'fail', 'eval']).correct('meail')
+    # => ['email']
+    ```
+
+- Methods defined on `nil` by default are no longer suggested. Note that methods, defined after the gem is loaded, will still be suggested (e.g. ActiveSupport).
+
+#### Bug Fixes
+
+- Fixed a bug where private method names were added to the dictionary when an argument was passed in to a public method. Use the `NoMethodError#private_call?` method instead ([<tt>0a1b761</tt>](https://github.com/yuki24/did_you_mean/commit/0a1b7612252055e583a373b473932f789381ca0f))
+
+
+## [v1.0.3](https://github.com/yuki24/did_you_mean/tree/v1.0.3)
+
+_<sup>released on 2017-09-24 07:22:07 UTC</sup>_
+
+**This version is compatible with Ruby 2.3 and older**
+
+#### Bug Fixes
+
+- Fixed a bug where `did_you_mean` shows duplicate suggestions when the exception is raised multiple times ([#84](https://github.com/yuki24/did_you_mean/pull/84), [<tt>c2e4008</tt>](https://github.com/yuki24/did_you_mean/commit/c2e40083cef604c00ccd10efc6d7a5036ad9eb5b))
+
+
 ## [v1.0.2](https://github.com/yuki24/did_you_mean/tree/v1.0.2)
 
-_<sup>released on 2016-06-20 18:03:07 UTC</sup>_
+
+**This version is compatible with Ruby 2.3 and older**
 
 #### Features
 
@@ -22,7 +83,6 @@ _<sup>released on 2016-05-15 05:17:22 UTC</sup>_
 
 - Fixed a bug where the gem suggests what is actually typed by the user: [<tt>1c52c88</tt>](https://github.com/yuki24/did_you_mean/commit/1c52c887c62b0921e799f94bcc4a846dc7cbc057)
 - Fixed features that didn't work on JRuby 9.1.0.0: [<tt>dc48dde</tt>](https://github.com/yuki24/did_you_mean/commit/dc48dde1b2a8f05aab1fcf897e1cb3075a206f53), [<tt>4de23f8</tt>](https://github.com/yuki24/did_you_mean/commit/4de23f880502c80c5f321371d39c08bb0fa34040), [<tt>00e3059</tt>](https://github.com/yuki24/did_you_mean/commit/00e305971060d150fae4817b5e895d6478b37579). The local variable name correction is still disabled. Also see: [jruby/jruby#3480](https://github.com/jruby/jruby/issues/3480)
-
 
 ## [v1.0.0](https://github.com/yuki24/did_you_mean/tree/v1.0.0)
 
@@ -66,6 +126,7 @@ _<sup>released on 2015-12-25 04:50:36 UTC</sup>_
 #### Bug Fixes
 
 - Fixed a bug where the gem doesn't install properly on Ruby 2.3.0dev
+
 
 ## [v1.0.0.beta1](https://github.com/yuki24/did_you_mean/tree/v1.0.0.beta1)
 

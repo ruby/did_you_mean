@@ -1,6 +1,6 @@
 ## [v1.1.2](https://github.com/yuki24/did_you_mean/tree/v1.1.2)
 
-_<sup>released on 2017-09-24 07:28:48 UTC</sup>_
+_<sup>released at 2017-09-24 07:28:48 UTC</sup>_
 
 **This version is compatible with Ruby 2.4 and older**
 
@@ -8,17 +8,15 @@ _<sup>released on 2017-09-24 07:28:48 UTC</sup>_
 
 - Fixed a bug where `did_you_mean` shows duplicate suggestions when the exception is raised multiple times ([#84](https://github.com/yuki24/did_you_mean/pull/84), [<tt>c2e4008</tt>](https://github.com/yuki24/did_you_mean/commit/c2e40083cef604c00ccd10efc6d7a5036ad9eb5b))
 
-
 ## [v1.1.1](https://github.com/yuki24/did_you_mean/tree/v1.1.1)
 
-_<sup>released on 2017-09-24 07:24:02 UTC</sup>_
+_<sup>released at 2017-09-24 07:24:02 UTC</sup>_
 
 ### This version has been yanked from Rubygems.org and is not available.
 
-
 ## [v1.1.0](https://github.com/yuki24/did_you_mean/tree/v1.1.0)
 
-_<sup>released on 2016-12-19 23:19:06 UTC</sup>_
+_<sup>released at 2016-12-19 23:19:06 UTC</sup>_
 
 The version `1.1.0` only has support for Ruby 2.4.0 and later. Also, all patch releasess under `1.1.*` will only be compatible with Ruby 2.4.0 and later as well. Versions under `1.0.*` will still be maintained until Ruby 2.3 is deprecated. Any other versions below `1.0` will no longer be maintained.
 
@@ -46,10 +44,9 @@ The version `1.1.0` only has support for Ruby 2.4.0 and later. Also, all patch r
 
 - Fixed a bug where private method names were added to the dictionary when an argument was passed in to a public method. Use the `NoMethodError#private_call?` method instead ([<tt>0a1b761</tt>](https://github.com/yuki24/did_you_mean/commit/0a1b7612252055e583a373b473932f789381ca0f))
 
-
 ## [v1.0.3](https://github.com/yuki24/did_you_mean/tree/v1.0.3)
 
-_<sup>released on 2017-09-24 07:22:07 UTC</sup>_
+_<sup>released at 2017-09-24 07:22:07 UTC</sup>_
 
 **This version is compatible with Ruby 2.3 and older**
 
@@ -57,9 +54,9 @@ _<sup>released on 2017-09-24 07:22:07 UTC</sup>_
 
 - Fixed a bug where `did_you_mean` shows duplicate suggestions when the exception is raised multiple times ([#84](https://github.com/yuki24/did_you_mean/pull/84), [<tt>c2e4008</tt>](https://github.com/yuki24/did_you_mean/commit/c2e40083cef604c00ccd10efc6d7a5036ad9eb5b))
 
-
 ## [v1.0.2](https://github.com/yuki24/did_you_mean/tree/v1.0.2)
 
+_<sup>released at 2016-11-20 18:03:07 UTC</sup>_
 
 **This version is compatible with Ruby 2.3 and older**
 
@@ -77,7 +74,7 @@ _<sup>released on 2017-09-24 07:22:07 UTC</sup>_
 
 ## [v1.0.1](https://github.com/yuki24/did_you_mean/tree/v1.0.1)
 
-_<sup>released on 2016-05-15 05:17:22 UTC</sup>_
+_<sup>released at 2016-05-15 05:17:22 UTC</sup>_
 
 #### Bug Fixes
 
@@ -86,7 +83,7 @@ _<sup>released on 2016-05-15 05:17:22 UTC</sup>_
 
 ## [v1.0.0](https://github.com/yuki24/did_you_mean/tree/v1.0.0)
 
-_<sup>released on 2015-12-25 05:13:04 UTC</sup>_
+_<sup>released at 2015-12-25 05:13:04 UTC</sup>_
 
 #### Features
 
@@ -103,7 +100,7 @@ _<sup>released on 2015-12-25 05:13:04 UTC</sup>_
 
 ## [v1.0.0.rc1](https://github.com/yuki24/did_you_mean/tree/v1.0.0.rc1)
 
-_<sup>released on 2015-12-25 05:02:25 UTC</sup>_
+_<sup>released at 2015-12-25 05:02:25 UTC</sup>_
 
 #### Internal Chagens
 
@@ -111,7 +108,7 @@ _<sup>released on 2015-12-25 05:02:25 UTC</sup>_
 
 ## [v1.0.0.beta3](https://github.com/yuki24/did_you_mean/tree/v1.0.0.beta3)
 
-_<sup>released on 2015-12-25 04:56:13 UTC</sup>_
+_<sup>released at 2015-12-25 04:56:13 UTC</sup>_
 
 #### Internal Changes
 
@@ -121,16 +118,15 @@ _<sup>released on 2015-12-25 04:56:13 UTC</sup>_
 
 ## [v1.0.0.beta2](https://github.com/yuki24/did_you_mean/tree/v1.0.0.beta2)
 
-_<sup>released on 2015-12-25 04:50:36 UTC</sup>_
+_<sup>released at 2015-12-25 04:50:36 UTC</sup>_
 
 #### Bug Fixes
 
 - Fixed a bug where the gem doesn't install properly on Ruby 2.3.0dev
 
-
 ## [v1.0.0.beta1](https://github.com/yuki24/did_you_mean/tree/v1.0.0.beta1)
 
-_<sup>released on 2015-12-25 05:27:53 UTC</sup>_
+_<sup>released at 2015-12-25 05:27:53 UTC</sup>_
 
 #### Breaking Changes
 
@@ -144,7 +140,7 @@ _<sup>released on 2015-12-25 05:27:53 UTC</sup>_
 
 ## [v0.10.0](https://github.com/yuki24/did_you_mean/tree/v0.10.0)
 
-_<sup>released on 2015-08-21 06:44:11 UTC</sup>_
+_<sup>released at 2015-08-21 06:44:11 UTC</sup>_
 
 #### Features
 
@@ -169,7 +165,7 @@ _<sup>released on 2015-08-21 06:44:11 UTC</sup>_
 
 ## [v0.9.10](https://github.com/yuki24/did_you_mean/tree/v0.9.10)
 
-_<sup>released on 2015-05-14 03:04:47 UTC</sup>_
+_<sup>released at 2015-05-14 03:04:47 UTC</sup>_
 
 #### Bug Fixes
 
@@ -177,7 +173,7 @@ _<sup>released on 2015-05-14 03:04:47 UTC</sup>_
 
 ## [v0.9.9](https://github.com/yuki24/did_you_mean/tree/v0.9.9)
 
-_<sup>released on 2015-05-13 03:48:19 UTC</sup>_
+_<sup>released at 2015-05-13 03:48:19 UTC</sup>_
 
 #### Features
 
@@ -191,7 +187,7 @@ _<sup>released on 2015-05-13 03:48:19 UTC</sup>_
 
 ## [v0.9.8](https://github.com/yuki24/did_you_mean/tree/v0.9.8)
 
-_<sup>released on 2015-04-12 01:55:27 UTC</sup>_
+_<sup>released at 2015-04-12 01:55:27 UTC</sup>_
 
 #### Internal Changes
 
@@ -199,7 +195,7 @@ _<sup>released on 2015-04-12 01:55:27 UTC</sup>_
 
 ## [v0.9.7](https://github.com/yuki24/did_you_mean/tree/v0.9.7)
 
-_<sup>released on 2015-04-02 04:20:26 UTC</sup>_
+_<sup>released at 2015-04-02 04:20:26 UTC</sup>_
 
 #### Bug Fixes
 
@@ -207,7 +203,7 @@ _<sup>released on 2015-04-02 04:20:26 UTC</sup>_
 
 ## [v0.9.6](https://github.com/yuki24/did_you_mean/tree/v0.9.6)
 
-_<sup>released on 2015-01-24 23:19:27 UTC</sup>_
+_<sup>released at 2015-01-24 23:19:27 UTC</sup>_
 
 #### Bug Fixes
 
@@ -215,7 +211,7 @@ _<sup>released on 2015-01-24 23:19:27 UTC</sup>_
 
 ## [v0.9.5](https://github.com/yuki24/did_you_mean/tree/v0.9.5)
 
-_<sup>released on 2015-01-07 12:41:23 UTC</sup>_
+_<sup>released at 2015-01-07 12:41:23 UTC</sup>_
 
 #### Bug Fixes
 
@@ -223,7 +219,7 @@ _<sup>released on 2015-01-07 12:41:23 UTC</sup>_
 
 ## [v0.9.4](https://github.com/yuki24/did_you_mean/tree/v0.9.4)
 
-_<sup>released on 2014-11-19 20:00:00 UTC</sup>_
+_<sup>released at 2014-11-19 20:00:00 UTC</sup>_
 
 #### Bug Fixes
 
@@ -231,7 +227,7 @@ _<sup>released on 2014-11-19 20:00:00 UTC</sup>_
 
 ## [v0.9.3](https://github.com/yuki24/did_you_mean/tree/v0.9.3)
 
-_<sup>released on 2014-11-18 03:50:11 UTC</sup>_
+_<sup>released at 2014-11-18 03:50:11 UTC</sup>_
 
 **This version has been yanked from rubygems.org as it doesn't work with jRuby at all. Please upgrade to 0.9.4 or higher as soon as possible.**
 
@@ -241,7 +237,7 @@ _<sup>released on 2014-11-18 03:50:11 UTC</sup>_
 
 ## [v0.9.2](https://github.com/yuki24/did_you_mean/tree/v0.9.2)
 
-_<sup>released on 2014-11-17 15:32:33 UTC</sup>_
+_<sup>released at 2014-11-17 15:32:33 UTC</sup>_
 
 #### Bug Fixes
 
@@ -249,7 +245,7 @@ _<sup>released on 2014-11-17 15:32:33 UTC</sup>_
 
 ## [v0.9.1](https://github.com/yuki24/did_you_mean/tree/v0.9.1)
 
-_<sup>released on 2014-11-16 18:54:24 UTC</sup>_
+_<sup>released at 2014-11-16 18:54:24 UTC</sup>_
 
 **This version has been yanked from rubygems.org as it doesn't compile on Ruby 2.1.2 and 2.1.5. Please upgrade to 0.9.4 or higher as soon as possible.**
 
@@ -260,7 +256,7 @@ _<sup>released on 2014-11-16 18:54:24 UTC</sup>_
 
 ## [v0.9.0](https://github.com/yuki24/did_you_mean/tree/v0.9.0)
 
-_<sup>released on 2014-11-09 01:26:31 UTC</sup>_
+_<sup>released at 2014-11-09 01:26:31 UTC</sup>_
 
 #### Features
 
@@ -282,7 +278,7 @@ first_name, last_name = full_name.split(" ")
 
 ## [v0.8.0](https://github.com/yuki24/did_you_mean/tree/v0.8.0)
 
-_<sup>released on 2014-10-27 02:03:13 UTC</sup>_
+_<sup>released at 2014-10-27 02:03:13 UTC</sup>_
 
 **This version has been yanked from rubygems.org as it has a serious bug with Ruby 2.1.3 and 2.1.4 installed on Max OS X. Please upgrade to 0.9.4 or higher as soon as possible.**
 
@@ -298,7 +294,7 @@ _<sup>released on 2014-10-27 02:03:13 UTC</sup>_
 
 ## [v0.7.0](https://github.com/yuki24/did_you_mean/tree/v0.7.0)
 
-_<sup>released on 2014-09-26 03:37:18 UTC</sup>_
+_<sup>released at 2014-09-26 03:37:18 UTC</sup>_
 
 **This version has been yanked from rubygems.org as it has a serious bug with Ruby 2.1.3 and 2.1.4 installed on Max OS X. Please upgrade to 0.9.4 or higher as soon as possible.**
 
@@ -316,7 +312,7 @@ _<sup>released on 2014-09-26 03:37:18 UTC</sup>_
 
 ## [v0.6.0](https://github.com/yuki24/did_you_mean/tree/v0.6.0)
 
-_<sup>released on 2014-05-18 00:23:24 UTC</sup>_
+_<sup>released at 2014-05-18 00:23:24 UTC</sup>_
 
 **This version has been yanked from rubygems.org as it has a serious bug with Ruby 2.1.3 and 2.1.4 installed on Max OS X. Please upgrade to 0.9.4 or higher as soon as possible.**
 
@@ -338,7 +334,7 @@ _<sup>released on 2014-05-18 00:23:24 UTC</sup>_
 
 ## [v0.5.0](https://github.com/yuki24/did_you_mean/tree/v0.5.0)
 
-_<sup>released on 2014-05-10 17:59:54 UTC</sup>_
+_<sup>released at 2014-05-10 17:59:54 UTC</sup>_
 
 #### Features
 
@@ -346,7 +342,7 @@ _<sup>released on 2014-05-10 17:59:54 UTC</sup>_
 
 ## [v0.4.0](https://github.com/yuki24/did_you_mean/tree/v0.4.0)
 
-_<sup>released on 2014-04-20 02:10:31 UTC</sup>_
+_<sup>released at 2014-04-20 02:10:31 UTC</sup>_
 
 #### Features
 
@@ -366,7 +362,7 @@ User.new(flrst_name: "wrong flrst name")
 
 ## [v0.3.1](https://github.com/yuki24/did_you_mean/tree/v0.3.1)
 
-_<sup>released on 2014-03-20 23:16:20 UTC</sup>_
+_<sup>released at 2014-03-20 23:16:20 UTC</sup>_
 
 #### Features
 
@@ -375,7 +371,7 @@ _<sup>released on 2014-03-20 23:16:20 UTC</sup>_
 
 ## [v0.3.0](https://github.com/yuki24/did_you_mean/tree/v0.3.0)
 
-_<sup>released on 2014-03-20 23:13:13 UTC</sup>_
+_<sup>released at 2014-03-20 23:13:13 UTC</sup>_
 
 #### Features
 

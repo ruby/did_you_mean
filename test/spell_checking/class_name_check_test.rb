@@ -27,7 +27,7 @@ class Book
   end
 end
 
-class ClassNameTest < Minitest::Test
+class ClassNameCheckTest < Minitest::Test
   def test_corrections
     error = assert_raises(NameError) { ::Bo0k }
     assert_correction "Book", error.corrections

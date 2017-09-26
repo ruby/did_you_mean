@@ -1,6 +1,6 @@
 require "test_helper"
 
-class KeyErrorCheckerTest < Minitest::Test
+class KeyNameCheckTest < Minitest::Test
   def test_corrects_hash_key_name_with_fetch
     hash = { "foo" => 1, bar: 2 }
 
@@ -32,15 +32,13 @@ class KeyErrorCheckerTest < Minitest::Test
   end
 
   def test_corrects_env_key_name
-    begin
-      ENV["FOO"] = "1"
-      ENV["BAR"] = "2"
-      error = assert_raises(KeyError) { ENV.fetch("BAX") }
-      assert_correction %("BAR"), error.corrections
-      assert_match %(Did you mean?  "BAR"), error.to_s
-    ensure
-      ENV.delete("FOO")
-      ENV.delete("BAR")
-    end
+    ENV["FOO"] = "1"
+    ENV["BAR"] = "2"
+    error = assert_raises(KeyError) { ENV.fetch("BAX") }
+    assert_correction %("BAR"), error.corrections
+    assert_match %(Did you mean?  "BAR"), error.to_s
+  ensure
+    ENV.delete("FOO")
+    ENV.delete("BAR")
   end
 end

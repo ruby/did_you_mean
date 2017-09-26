@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class MethodNameTest < Minitest::Test
+class MethodNameCheckTest < Minitest::Test
   class User
     def friends; end
     def first_name; end

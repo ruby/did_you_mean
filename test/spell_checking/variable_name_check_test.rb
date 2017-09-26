@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class VariableNameTest < Minitest::Test
+class VariableNameCheckTest < Minitest::Test
   class User
     def initialize
       @email_address = 'email_address@address.net'

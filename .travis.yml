@@ -4,6 +4,8 @@ cache:    bundler
 sudo:     false
 
 before_install:
+  - rvm get head
+  - rvm reinstall ruby-head
   - gem install bundler
 
 after_success:

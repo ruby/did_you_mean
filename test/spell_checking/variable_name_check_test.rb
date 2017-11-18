@@ -72,10 +72,10 @@ class VariableNameCheckTest < Minitest::Test
       some_var = nol
     end
 
-    assert_correction false, false_error.corrections
+    assert_correction :false, false_error.corrections
     assert_match "Did you mean?  false", false_error.to_s
 
-    assert_correction true, true_error.corrections
+    assert_correction :true, true_error.corrections
     assert_match "Did you mean?  true", true_error.to_s
 
     assert_correction :nil, nil_error.corrections

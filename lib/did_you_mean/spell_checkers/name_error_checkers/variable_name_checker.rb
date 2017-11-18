@@ -6,7 +6,7 @@ module DidYouMean
 
     NAMES_TO_EXCLUDE = { 'foo' => [:fork] }
     NAMES_TO_EXCLUDE.default = []
-    RB_PREDEFINED_OBJECTS = [false, true, :nil]
+    RB_PREDEFINED_OBJECTS = [:false, :true, :nil]
 
     def initialize(exception)
       @name       = exception.name.to_s.tr("@", "")

@@ -10,6 +10,9 @@ class SpellCheckerTest < Minitest::Test
     assert_spell 'eval',  input: 'veal',  dictionary: ['email', 'fail', 'eval']
     assert_spell 'sub!',  input: 'suv!',  dictionary: ['sub', 'gsub', 'sub!']
     assert_spell 'sub',   input: 'suv',   dictionary: ['sub', 'gsub', 'sub!']
+    assert_spell 'nil',   input: 'nol',   dictionary: ['new', 'nil']
+    assert_spell 'false', input: 'fals',  dictionary: ['fail', 'false']
+    assert_spell 'true',  input: 'treu',  dictionary: ['try', 'true']
 
     assert_spell %w(gsub! gsub),     input: 'gsuv!', dictionary: %w(sub gsub gsub!)
     assert_spell %w(sub! sub gsub!), input: 'ssub!', dictionary: %w(sub sub! gsub gsub!)

@@ -5,6 +5,16 @@ module DidYouMean
         "(irb)" => -> { Readline::HISTORY.to_a.last }
       }
 
+      TRACE = TracePoint.trace(:raise) do |tp|
+        e = tp.raised_exception
+
+        if SPELL_CHECKERS.include?(e.class.to_s) && !e.instance_variable_defined?(:@frame_binding)
+          e.instance_variable_set(:@frame_binding, tp.binding)
+        end
+      end
+
+      NameError.send(:attr, :frame_binding)
+
       def initialize(no_method_error)
         super
 

@@ -1,16 +1,7 @@
-# frozen-string-literal: true
-require 'did_you_mean/formatter'
+require 'did_you_mean'
+require 'did_you_mean/formatters/verbose_formatter'
 
-module DidYouMean
-  module VerboseFormatter
-    prepend_features DidYouMean::Formatter
+DidYouMean.formatter = DidYouMean::VerboseFormatter.new
 
-    def to_s
-      return "" if @corrections.empty?
-
-      output = "\n\n    Did you mean? ".dup
-      output << @corrections.join("\n                  ")
-      output << "\n "
-    end
-  end
-end
+warn '`require "did_you_mean/verbose_formatter"\' has been deprecated and will be removed' \
+     " in the next major Ruby version. Please require 'did_you_mean/verbose' instead."

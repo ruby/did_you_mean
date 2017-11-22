@@ -7,7 +7,7 @@ require 'did_you_mean/spell_checkers/method_name_checker'
 require 'did_you_mean/spell_checkers/key_error_checker'
 require 'did_you_mean/spell_checkers/null_checker'
 
-require "did_you_mean/formatter"
+require "did_you_mean/formatters/plain_formatter"
 
 module DidYouMean
   class DeprecatedIgnoredCallers < Array
@@ -40,4 +40,14 @@ module DidYouMean
 
   NameError.prepend DidYouMean::Correctable
   KeyError.prepend DidYouMean::Correctable
+
+  def self.formatter
+    @@formatter
+  end
+
+  def self.formatter=(formatter)
+    @@formatter = formatter
+  end
+
+  self.formatter = PlainFormatter.new
 end

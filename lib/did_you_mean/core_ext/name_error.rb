@@ -8,7 +8,7 @@ module DidYouMean
       msg = super.dup
 
       if !cause.respond_to?(:corrections) || cause.corrections.empty?
-        msg << Formatter.new(corrections).to_s
+        msg << DidYouMean.formatter.message_for(corrections)
       end
 
       msg

@@ -65,9 +65,9 @@ hash.fetch(:fooo)
 
 Aside from the basic features above, the `did_you_mean` gem comes with experimental features. They can be enabled by calling `require 'did_you_mean/experimental'`.
 
-**Keep in mind that these experimental features should never be enabled in production as they would impact Ruby's performance and use some unstable Ruby APIs.**
+Note that **these experimental features should never be enabled in production as they would impact Ruby's performance and use some unstable Ruby APIs.**
 
-### Correcting an Instance Variable When It's Incorrectly Typed
+### Correcting an Instance Variable When It's Incorrectly Spelled
 
 ```ruby
 require 'did_you_mean/experimental'
@@ -78,7 +78,7 @@ require 'did_you_mean/experimental'
 #    Did you mean?  @full_name
 ```
 
-### Displaying a Warning When `initialize` is Incorrectly Typed
+### Displaying a Warning When `initialize` is Incorrectly Spelled
 
 ```ruby
 require 'did_you_mean/experimental'

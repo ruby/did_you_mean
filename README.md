@@ -100,7 +100,7 @@ OBject
 # => NameError: uninitialized constant OBject
 #    Did you mean?  Object
 
-require 'did_you_mean/verbose_formatter'
+require 'did_you_mean/verbose'
 OBject
 # => NameError: uninitialized constant OBject
 #

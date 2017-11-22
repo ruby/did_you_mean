@@ -6,9 +6,8 @@ module DidYouMean
 
     def to_s
       msg = super.dup
-      bt  = caller(1, 6)
 
-      if IGNORED_CALLERS.all? {|ignored| bt.grep(ignored).empty? } && (!cause.respond_to?(:corrections) || cause.corrections.empty?)
+      if !cause.respond_to?(:corrections) || cause.corrections.empty?
         msg << Formatter.new(corrections).to_s
       end
 

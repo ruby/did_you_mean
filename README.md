@@ -43,7 +43,7 @@ first_name, last_name = full_name.split(" ")
 #    Did you mean?  @@full_name
 ```
 
-### Correcting a Method Name
+### NoMethodError
 
 ```ruby
 full_name = "Yuki Nishijima"
@@ -52,7 +52,7 @@ full_name.starts_with?("Y")
 #    Did you mean?  start_with?
 ```
 
-### Correcting a Hash key name
+### KeyError
 
 ```ruby
 hash = {foo: 1, bar: 2, baz: 3}

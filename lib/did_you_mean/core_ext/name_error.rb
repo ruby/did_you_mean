@@ -1,8 +1,5 @@
 module DidYouMean
   module Correctable
-    prepend_features NameError
-    prepend_features KeyError
-
     def original_message
       method(:to_s).super_method.call
     end

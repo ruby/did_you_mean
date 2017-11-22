@@ -18,4 +18,7 @@ module DidYouMean
     "NoMethodError" => MethodNameChecker,
     "KeyError"      => KeyErrorChecker
   })
+
+  NameError.prepend DidYouMean::Correctable
+  KeyError.prepend DidYouMean::Correctable
 end

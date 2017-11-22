@@ -43,13 +43,22 @@ first_name, last_name = full_name.split(" ")
 #    Did you mean?  @@full_name
 ```
 
-### NoMethodError
+### Correcting a Method Name
 
 ```ruby
 full_name = "Yuki Nishijima"
 full_name.starts_with?("Y")
 # => NoMethodError: undefined method `starts_with?' for "Yuki Nishijima":String
 #    Did you mean?  start_with?
+```
+
+### Correcting a Hash key name
+
+```ruby
+hash = {foo: 1, bar: 2, baz: 3}
+hash.fetch(:fooo)
+# => KeyError: key not found: :fooo
+#    Did you mean?  :foo
 ```
 
 ## Experimental Features
@@ -67,15 +76,6 @@ require 'did_you_mean/experimental'
 @full_anme.split(" ")
 # => NoMethodError: undefined method `split' for nil:NilClass
 #    Did you mean?  @full_name
-```
-
-### Correcting a Hash Key Name
-
-```ruby
-hash = {foo: 1, bar: 2, baz: 3}
-hash.fetch(:fooo)
-# KeyError: key not found: :fooo
-# Did you mean?  :foo
 ```
 
 ### Displaying a Warning When `initialize` is Incorrectly Typed

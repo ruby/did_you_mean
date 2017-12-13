@@ -1,3 +1,5 @@
+require "did_you_mean/spell_checker"
+
 module DidYouMean
   class KeyErrorChecker
     def initialize(key_error)

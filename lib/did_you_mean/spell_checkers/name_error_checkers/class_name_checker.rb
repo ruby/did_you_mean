@@ -1,5 +1,6 @@
 # frozen-string-literal: true
 require 'delegate'
+require "did_you_mean/spell_checker"
 
 module DidYouMean
   class ClassNameChecker

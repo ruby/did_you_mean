@@ -1,5 +1,7 @@
 # frozen-string-literal: true
 
+require "did_you_mean/spell_checker"
+
 module DidYouMean
   class VariableNameChecker
     attr_reader :name, :method_names, :lvar_names, :ivar_names, :cvar_names

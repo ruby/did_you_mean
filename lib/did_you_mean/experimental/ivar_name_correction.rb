@@ -1,6 +1,22 @@
+# frozen-string-literal: true
+
+require 'did_you_mean'
+
 module DidYouMean
-  module Experimental
-    module IvarNameCorrection
+  module Experimental #:nodoc:
+    class IvarNameCheckerBuilder #:nodoc:
+      attr_reader :original_checker
+
+      def initialize(original_checker) #:nodoc:
+        @original_checker = original_checker
+      end
+
+      def new(no_method_error) #:nodoc:
+        IvarNameChecker.new(no_method_error, original_checker: @original_checker)
+      end
+    end
+
+    class IvarNameChecker #:nodoc:
       REPLS = {
         "(irb)" => -> { Readline::HISTORY.to_a.last }
       }
@@ -13,17 +29,17 @@ module DidYouMean
         end
       end
 
-      NameError.send(:attr, :frame_binding)
+      attr_reader :original_checker
 
-      def initialize(no_method_error)
-        super
+      def initialize(no_method_error, original_checker: )
+        @original_checker = original_checker.new(no_method_error)
 
         @location   = no_method_error.backtrace_locations.first
         @ivar_names = no_method_error.frame_binding.receiver.instance_variables
       end
 
       def corrections
-        super + ivar_name_corrections
+        original_checker.corrections + ivar_name_corrections
       end
 
       def ivar_name_corrections
@@ -33,12 +49,12 @@ module DidYouMean
       private
 
       def receiver_name
-        return unless receiver.nil?
+        return unless @original_checker.receiver.nil?
 
         abs_path = @location.absolute_path
         lineno   = @location.lineno
 
-        /@(\w+)*\.#{method_name}/ =~ line(abs_path, lineno).to_s && $1
+        /@(\w+)*\.#{@original_checker.method_name}/ =~ line(abs_path, lineno).to_s && $1
       end
 
       def line(abs_path, lineno)
@@ -51,7 +67,8 @@ module DidYouMean
         end
       end
     end
-
-    SPELL_CHECKERS['NoMethodError'].prepend(IvarNameCorrection)
   end
+
+  NameError.send(:attr, :frame_binding)
+  SPELL_CHECKERS['NoMethodError'] = Experimental::IvarNameCheckerBuilder.new(SPELL_CHECKERS['NoMethodError'])
 end

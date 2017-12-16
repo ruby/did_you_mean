@@ -18,7 +18,7 @@ _<sup>released at 2017-09-24 07:24:02 UTC</sup>_
 
 _<sup>released at 2016-12-19 23:19:06 UTC</sup>_
 
-The version `1.1.0` only has support for Ruby 2.4.0 and later. Also, all patch releasess under `1.1.*` will only be compatible with Ruby 2.4.0 and later as well. Versions under `1.0.*` will still be maintained until Ruby 2.3 is deprecated. Any other versions below `1.0` will no longer be maintained.
+The version `1.1.0` only has support for Ruby 2.4.0 and later. Also, all patch releases under `1.1.*` will only be compatible with Ruby 2.4.0 and later as well. Versions under `1.0.*` will still be maintained until Ruby 2.3 is deprecated. Any other versions below `1.0` will no longer be maintained.
 
 #### New Features
 
@@ -102,7 +102,7 @@ _<sup>released at 2015-12-25 05:13:04 UTC</sup>_
 
 _<sup>released at 2015-12-25 05:02:25 UTC</sup>_
 
-#### Internal Chagens
+#### Internal Changes
 
 - No longer uses `TracePoint` API by default. fixes [#55](https://github.com/yuki24/did_you_mean/issues/55) and [#56](https://github.com/yuki24/did_you_mean/issues/56)
 

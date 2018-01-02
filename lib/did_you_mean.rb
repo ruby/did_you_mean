@@ -10,27 +10,6 @@ require 'did_you_mean/spell_checkers/null_checker'
 require "did_you_mean/formatters/plain_formatter"
 
 module DidYouMean
-  class DeprecatedIgnoredCallers < Array
-    %i(
-      +
-      <<
-      []=
-      insert
-      unshift
-      push
-    ).each do |method_name|
-      eval <<-RUBY, nil, __FILE__, __LINE__ + 1
-        def #{method_name}(*)
-          warn "IGNORED_CALLERS has been deprecated and has no effect."
-
-          super
-        end
-      RUBY
-    end
-  end
-
-  IGNORED_CALLERS = DeprecatedIgnoredCallers.new
-
   SPELL_CHECKERS = Hash.new(NullChecker)
   SPELL_CHECKERS.merge!({
     "NameError"     => NameErrorCheckers,

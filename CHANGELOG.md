@@ -1,3 +1,15 @@
+## [v1.2.0](https://github.com/yuki24/did_you_mean/tree/v1.2.0)
+
+_<sup>released at 2018-01-02 20:49:35 UTC</sup>_
+
+**This version&nbsp;1.2.0&nbsp;only has support for Ruby 2.5.0 and later as it uses new features that are only available in 2.5. All future patch releases under&nbsp;1.2.\*&nbsp;will only be compatible with Ruby 2.5.0 and later as well. Versions earlier than&nbsp;1.1.\*&nbsp;will still be maintained until Ruby 2.4 is deprecated. Any other versions below&nbsp;1.0&nbsp;will no longer be maintained.**
+
+#### New features
+
+- The `KeyError` name suggestion feature has been promoted to a stable feature and is available by default ([<tt>acf5945</tt>](https://github.com/yuki24/did_you_mean/commit/acf59450dfb67eefae9b465ccc8029af46ae7dd0),&nbsp;[https://bugs.ruby-lang.org/issues/12063](https://bugs.ruby-lang.org/issues/12063))
+- Now suggests `true`, `false` or `nil` if a NameError occurs because of a typo in these names ([#94](https://github.com/yuki24/did_you_mean/pull/94), [@styd](https://github.com/styd))
+- New Formatter API: This provides a clean way to customize DidYouMean’s formatter without overriding the default formatter. Please refer to [the built-in verbose formatter](https://github.com/yuki24/did_you_mean/blob/671cdff/lib/did_you_mean/verbose.rb) for how to use it
+
 ## [v1.1.2](https://github.com/yuki24/did_you_mean/tree/v1.1.2)
 
 _<sup>released at 2017-09-24 07:28:48 UTC</sup>_

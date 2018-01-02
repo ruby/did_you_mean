@@ -37,11 +37,3 @@ class NameErrorExtensionTest < Minitest::Test
     assert_equal 1, error.to_s.scan("Did you mean?").count
   end
 end
-
-class DeprecatedIgnoreCallersTest < Minitest::Test
-  def test_ignore
-    assert_output nil, "IGNORED_CALLERS has been deprecated and has no effect.\n" do
-      DidYouMean::IGNORED_CALLERS << /( |`)do_not_correct_typo'/
-    end
-  end
-end

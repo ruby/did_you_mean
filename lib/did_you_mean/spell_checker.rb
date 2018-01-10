@@ -10,23 +10,24 @@ module DidYouMean
     end
 
     def correct(input)
-      input     = normalize(input)
-      threshold = input.length > 3 ? 0.834 : 0.77
+      input        = normalize(input)
+      input_length = input.length
+      threshold    = input_length > 3 ? 0.834 : 0.77
 
-      words = @dictionary.select {|word| JaroWinkler.distance(normalize(word), input) >= threshold }
-      words.reject! {|word| input == word.to_s }
+      words = @dictionary.reject {|word| input == word.to_s }
+      words.select! {|word| JaroWinkler.distance(normalize(word), input) >= threshold }
       words.sort_by! {|word| JaroWinkler.distance(word.to_s, input) }
       words.reverse!
 
       # Correct mistypes
-      threshold   = (input.length * 0.25).ceil
+      threshold   = (input_length * 0.25).ceil
       corrections = words.select {|c| Levenshtein.distance(normalize(c), input) <= threshold }
 
       # Correct misspells
       if corrections.empty?
         corrections = words.select do |word|
           word   = normalize(word)
-          length = input.length < word.length ? input.length : word.length
+          length = input_length < word.length ? input_length : word.length
 
           Levenshtein.distance(word, input) < length
         end.first(1)

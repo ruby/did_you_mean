@@ -7,11 +7,14 @@ module DidYouMean
     attr_reader :class_name
 
     def initialize(exception)
-      @class_name, @receiver = exception.name, exception.receiver
+      @class_name, @receiver, @original_message = exception.name, exception.receiver, exception.original_message
     end
 
     def corrections
-      @corrections ||= SpellChecker.new(dictionary: class_names).correct(class_name).map(&:full_name)
+      @corrections ||= SpellChecker.new(dictionary: class_names)
+                         .correct(class_name)
+                         .map(&:full_name)
+                         .reject {|qualified_name| @original_message.include?(qualified_name) }
     end
 
     def class_names

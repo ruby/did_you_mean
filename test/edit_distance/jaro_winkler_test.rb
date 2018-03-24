@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 require 'test_helper'
 
 # These tests were originally written by Jian Weihang (簡煒航) as part of his work

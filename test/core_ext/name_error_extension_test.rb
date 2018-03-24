@@ -20,7 +20,7 @@ class NameErrorExtensionTest < Minitest::Test
 
   def test_message
     message = <<~MESSAGE.chomp
-      undefined local variable or method `doesnt_exist' for #{method(:to_s).super_method.call}
+      undefined local variable or method `doesnt_exist' for #{to_s}
       Did you mean?  does_exist
     MESSAGE
 

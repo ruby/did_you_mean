@@ -82,6 +82,13 @@ class VariableNameCheckTest < Minitest::Test
     assert_match "Did you mean?  nil", nil_error.to_s
   end
 
+  def test_suggests_yield
+    error = assert_raises(NameError) { yeild }
+
+    assert_correction :yield, error.corrections
+    assert_match "Did you mean?  yield", error.to_s
+  end
+
   def test_corrections_include_instance_variable_name
     error = assert_raises(NameError){ @user.to_s }
 

@@ -14,7 +14,7 @@ class VerboseFormatterTest < Minitest::Test
 
   def test_message
     assert_equal <<~MESSAGE.chomp, @error.message
-      undefined local variable or method `doesnt_exist' for #{method(:to_s).super_method.call}
+      undefined local variable or method `doesnt_exist' for #{to_s}
 
           Did you mean? does_exist
        

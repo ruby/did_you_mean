@@ -7,7 +7,7 @@ class VerboseFormatterTest < Minitest::Test
 
   def test_message
     assert_equal <<~MESSAGE.chomp, @error.message
-      undefined method `inspectt' for #{method(:to_s).super_method.call}
+      undefined method `inspectt' for #{to_s}
 
           Did you mean? inspect
        

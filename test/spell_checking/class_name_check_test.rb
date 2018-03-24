@@ -62,4 +62,16 @@ class ClassNameCheckTest < Minitest::Test
     error = assert_raises(NameError) { ::Book::Page.new.tableof_contents }
     assert_correction "Book::TableOfContents", error.corrections
   end
+
+  def test_does_not_suggest_user_input
+    error = assert_raises(NameError) { ::Book::Cover }
+
+    # This is a weird require, but in a multi-threaded condition, a constant may
+    # be loaded between when a NameError occurred and when the spell checker
+    # attemps to find a possible suggestion. The manual require here simulates
+    # a race condition a single test.
+    require_relative '../fixtures/book'
+
+    assert_empty error.corrections
+  end
 end

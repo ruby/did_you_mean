@@ -1,3 +1,16 @@
+## [v1.2.1](https://github.com/yuki24/did_you_mean/tree/v1.2.1)
+
+_<sup>released at 2018-04-03 04:44:47 UTC</sup>_
+
+#### Bug Fixes
+
+- Fixed a bug where DYM suggests the same class name in the error message ([#102](https://github.com/yuki24/did_you_mean/issues/102), [@schneems](https://github.com/schneems))
+- Fixed a bug where the deprecated `DidYouMean::Formatter` has been removed unexpectedly ([#103](https://github.com/yuki24/did_you_mean/issues/103), [<tt>4b5ba32</tt>](https://github.com/yuki24/did_you_mean/commit/4b5ba3215975df1dd8e9c7eacffcf02abfffa92e))
+
+#### Other Changes
+
+- Non-production code that has a non-commercial lisence has been removed from gem releases ([#105](https://github.com/yuki24/did_you_mean/issues/105), [@jbotelho2-bb](https://github.com/jbotelho2-bb))
+
 ## [v1.2.0](https://github.com/yuki24/did_you_mean/tree/v1.2.0)
 
 _<sup>released at 2018-01-02 20:49:35 UTC</sup>_
@@ -14,7 +27,7 @@ _<sup>released at 2018-01-02 20:49:35 UTC</sup>_
 
 _<sup>released at 2017-09-24 07:28:48 UTC</sup>_
 
-**This version is compatible with Ruby 2.4 and older**
+**This version is only compatible with Ruby 2.4 and later.**
 
 #### Bug Fixes
 

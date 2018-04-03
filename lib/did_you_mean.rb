@@ -50,4 +50,20 @@ module DidYouMean
   end
 
   self.formatter = PlainFormatter.new
+
+  # Deprecated formatter
+  class Formatter #:nodoc:
+    def initialize(corrections = [])
+      @corrections = corrections
+    end
+
+    def to_s
+      return "" if @corrections.empty?
+
+      output = "\nDid you mean?  ".dup
+      output << @corrections.join("\n               ")
+    end
+  end
+
+  deprecate_constant :Formatter
 end

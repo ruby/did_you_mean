@@ -69,7 +69,11 @@ class VariableNameCheckTest < Minitest::Test
     end
 
     nil_error = assert_raises(NameError) do
-      some_var = nol
+      some_var = nul
+    end
+
+    file_error = assert_raises(NameError) do
+      __FIEL__
     end
 
     assert_correction :false, false_error.corrections
@@ -80,6 +84,9 @@ class VariableNameCheckTest < Minitest::Test
 
     assert_correction :nil, nil_error.corrections
     assert_match "Did you mean?  nil", nil_error.to_s
+
+    assert_correction :__FILE__, file_error.corrections
+    assert_match "Did you mean?  __FILE__", file_error.to_s
   end
 
   def test_suggests_yield

@@ -7,6 +7,35 @@ module DidYouMean
     NAMES_TO_EXCLUDE = { NilClass => nil.methods }
     NAMES_TO_EXCLUDE.default = []
 
+    # +MethodNameChecker::RB_RESERVED_WORDS+ is the list of reserved words in
+    # Ruby that take an argument. Unlike
+    # +VariableNameChecker::RB_RESERVED_WORDS+, those reserved words reqquires
+    # an argument, and a +NoMethodError+ is raised due to the presence of the
+    # argument.
+    #
+    # The +MethodNameChecker+ will use this list to suggest a reversed word if
+    # a +NoMethodError+ is raised and found closest matches.
+    #
+    # Also see +VariableNameChecker::RB_RESERVED_WORDS+.
+    RB_RESERVED_WORDS = %i(
+      alias
+      case
+      def
+      defined?
+      elsif
+      end
+      ensure
+      for
+      rescue
+      super
+      undef
+      unless
+      until
+      when
+      while
+      yield
+    )
+
     def initialize(exception)
       @method_name  = exception.name
       @receiver     = exception.receiver
@@ -14,7 +43,7 @@ module DidYouMean
     end
 
     def corrections
-      @corrections ||= SpellChecker.new(dictionary: method_names).correct(method_name) - NAMES_TO_EXCLUDE[@receiver.class]
+      @corrections ||= SpellChecker.new(dictionary: RB_RESERVED_WORDS + method_names).correct(method_name) - NAMES_TO_EXCLUDE[@receiver.class]
     end
 
     def method_names

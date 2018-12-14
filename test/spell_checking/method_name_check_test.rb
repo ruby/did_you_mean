@@ -116,4 +116,11 @@ class MethodNameCheckTest < Minitest::Test
 
     assert_equal 1, error.to_s.scan(/Did you mean/).count
   end
+
+  def test_suggests_yield
+    error = assert_raises(NoMethodError) { yeild(1) }
+
+    assert_correction :yield, error.corrections
+    assert_match "Did you mean?  yield", error.to_s
+  end
 end

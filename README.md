@@ -108,6 +108,45 @@ OBject
 #
 ```
 
+## Disabling `did_you_mean`
+
+Occasionally, you may want to disable the `did_you_mean` gem for e.g. debugging issues in the error object itself. You
+can disable it entirely by specifying `--disable-did_you_mean` option to the `ruby` command:
+
+```bash
+$ ruby --disable-did_you_mean -e "1.zeor?"
+-e:1:in `<main>': undefined method `zeor?' for 1:Integer (NameError)
+```
+
+When you do not have direct access to the `ruby` command (e.g. `rails console`, `irb`), you could applyoptions using the
+`RUBYOPT` environment variable:
+
+```bash
+$ RUBYOPT='--disable-did_you_mean' irb
+irb:0> 1.zeor?
+# => NoMethodError (undefined method `zeor?' for 1:Integer)
+```
+
+### Getting the original error message
+
+Sometimes, you do not want to disable the gem entirely, but need to get the original error message without suggestions
+(e.g. testing). In this case, you could use the `#original_message` method on the error object:
+
+```ruby
+no_method_error = begin
+                    1.zeor?
+                  rescue NoMethodError => error
+                    error
+                  end
+
+no_method_error.message
+# => NoMethodError (undefined method `zeor?' for 1:Integer)
+#    Did you mean?  zero?
+
+no_method_error.original_message
+# => NoMethodError (undefined method `zeor?' for 1:Integer)
+```
+
 ## Contributing
 
 1. Fork it (http://github.com/yuki24/did_you_mean/fork)

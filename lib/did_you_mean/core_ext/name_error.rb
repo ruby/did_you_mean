@@ -20,11 +20,11 @@ module DidYouMean
     end
 
     def corrections
-      spell_checker.corrections
+      @corrections ||= spell_checker.corrections
     end
 
     def spell_checker
-      @spell_checker ||= SPELL_CHECKERS[self.class.to_s].new(self)
+      SPELL_CHECKERS[self.class.to_s].new(self)
     end
   end
 end

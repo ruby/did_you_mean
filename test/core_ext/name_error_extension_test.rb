@@ -36,6 +36,18 @@ class NameErrorExtensionTest < Minitest::Test
     error.to_s
     assert_equal 1, error.to_s.scan("Did you mean?").count
   end
+
+  def test_correctable_error_objects_are_dumpable
+   error = begin
+             File.open('/tmp/file').sizee
+           rescue NoMethodError => e
+             e
+           end
+
+   error.to_s
+
+   assert_equal "undefined method `sizee' for #<File:/tmp/file>", Marshal.load(Marshal.dump(error)).original_message
+  end
 end
 
 class IgnoreCallersTest < Minitest::Test

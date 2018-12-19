@@ -9,7 +9,7 @@ module DidYouMean
 
     # +MethodNameChecker::RB_RESERVED_WORDS+ is the list of reserved words in
     # Ruby that take an argument. Unlike
-    # +VariableNameChecker::RB_RESERVED_WORDS+, those reserved words reqquires
+    # +VariableNameChecker::RB_RESERVED_WORDS+, these reserved words require
     # an argument, and a +NoMethodError+ is raised due to the presence of the
     # argument.
     #

@@ -13,7 +13,7 @@ class VerboseFormatterTest < Minitest::Test
 
   def test_message
     assert_equal <<~MESSAGE.chomp, @error.message
-      undefined local variable or method `zeor?' for 1:Integer
+      undefined method `zeor?' for 1:Integer
 
           Did you mean? zero?
        

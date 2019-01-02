@@ -1,16 +1,18 @@
+# frozen-string-literal: true
+
 require 'benchmark/ips'
 require 'did_you_mean'
 require 'did_you_mean/levenshtein'
 
-STR1, STR2 = "user_signed_in?", "user_logged_in?"
-
 Benchmark.ips do |x|
-  x.report "enumerable" do
-    DidYouMean::Levenshtein.before_distance STR1, STR2
+  x.report "original" do
+    DidYouMean::Levenshtein.distance "user_signed_in?", "user_logged_in?"
   end
 
-  x.report "while" do
-    DidYouMean::Levenshtein.after_distance STR1, STR2
+  # This #proposed method is not defined. Write your own method using this
+  # name so we can reliably run the benchmark and measure the difference.
+  x.report "proposed" do
+    DidYouMean::Levenshtein.proposed "user_signed_in?", "user_logged_in?"
   end
 
   x.compare!

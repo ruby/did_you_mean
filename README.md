@@ -108,6 +108,17 @@ OBject
 #
 ```
 
+## Using the `DidYouMean::SpellChecker`
+
+If you need to programmatically find the closest matches to the user input, you could do so by re-using the `DidYouMean::SpellChecker` object.
+
+```ruby
+spell_checker = DidYouMean::SpellChecker.new(dictionary: ['email', 'fail', 'eval'])
+
+spell_checker.correct('meail') # => ['email']
+spell_checker.correct('afil')  # => ['fail']
+```
+
 ## Disabling `did_you_mean`
 
 Occasionally, you may want to disable the `did_you_mean` gem for e.g. debugging issues in the error object itself. You

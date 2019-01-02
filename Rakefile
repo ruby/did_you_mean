@@ -27,7 +27,7 @@ namespace :test do
     end
   end
 
-  desc "Calculate accuracy of the gems' spell checker"
+  desc "Calculate accuracy of the gem's spell checker"
   task :accuracy do
     if !File.exist?("evaluation/dictionary.yml")
       puts 'Generating dictionary for evaluation:'
@@ -40,8 +40,32 @@ namespace :test do
 end
 
 namespace :benchmark do
-  desc "Measure memory usage by the did_you_mean gem"
+  namespace :ips do
+    desc "Measure performance of the gem's Jaro distance implementation"
+    task :jaro do
+      sh "ruby benchmark/jaro_winkler/speed.rb"
+    end
+
+    desc "Benchmark performance of the gem's Levenshtein distance implementation"
+    task :levenshtein do
+      sh "ruby benchmark/levenshtein/speed.rb"
+    end
+  end
+
+  desc "Benchmark memory usage in the gem's spell checker"
   task :memory do
-    sh 'ruby benchmark/memory_usage.rb'
+    sh "ruby benchmark/memory_usage.rb"
+  end
+
+  namespace :memory do
+    desc "Benchmark memory usage in the gem's Jaro distance implementation"
+    task :jaro do
+      sh "ruby benchmark/jaro_winkler/memory_usage.rb"
+    end
+
+    desc "Benchmark memory usage in the gem's Levenshtein distance implementation"
+    task :levenshtein do
+      sh "ruby benchmark/levenshtein/memory_usage.rb"
+    end
   end
 end

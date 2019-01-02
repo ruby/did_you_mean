@@ -4,7 +4,7 @@ require 'memory_profiler'
 require 'did_you_mean/levenshtein'
 
 report = MemoryProfiler.report do
-  80.times do
+  1000.times do
     DidYouMean::Levenshtein.distance "user_signed_in?", "user_logged_in?"
   end
 end

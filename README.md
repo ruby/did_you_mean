@@ -158,6 +158,29 @@ no_method_error.original_message
 # => NoMethodError (undefined method `zeor?' for 1:Integer)
 ```
 
+## Benchmarking
+
+Performance is very important as the `did_you_mean` gem attempts to find the closest matches on the fly right after an exception
+is thrown. You could use the following rake tasks to get insights into how the gem performs:
+
+```bash
+bundle exec rake benchmark:ips:jaro
+bundle exec rake benchmark:ips:levenshtein
+bundle exec rake benchmark:memory
+bundle exec rake benchmark:memory:jaro
+bundle exec rake benchmark:memory:levenshtein
+```
+
+**Be sure to always use `bundle exec` otherwise it will activate the pre-installed version of the `did_you_mean`
+ gem rather than using what's in the `lib/`.**
+
+You could also use the [`benchmark-driver`](https://github.com/benchmark-driver/benchmark-driver) gem to know how each
+Ruby performs differently.
+
+```bash
+bundle exec benchmark-driver benchmark/speed.yml --rbenv '2.6.0 --jit;2.6.0;2.5.3;truffleruby-1.0.0-rc10' --run-duration 30
+```
+
 ## Contributing
 
 1. Fork it (http://github.com/yuki24/did_you_mean/fork)

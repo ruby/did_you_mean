@@ -1,0 +1,13 @@
+prelude: |
+  require 'did_you_mean/spell_checker'
+
+  str1, str2 = "user_signed_in?", "user_logged_in?"
+  METHODS    = ''.methods
+  INPUT      = 'starts_with?'
+  collection = DidYouMean::SpellChecker.new(dictionary: METHODS)
+
+benchmark:
+  Jaro:          DidYouMean::Jaro.distance(str1, str2)
+  Jaro Winkler:  DidYouMean::JaroWinkler.distance(str1, str2)
+  Levenshtein:   DidYouMean::Levenshtein.distance(str1, str2)
+  Spell checker: collection.correct(INPUT)

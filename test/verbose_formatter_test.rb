@@ -4,8 +4,7 @@ class VerboseFormatterTest < Minitest::Test
   def setup
     require 'did_you_mean/verbose'
 
-    does_exist = does_exist = nil
-    @error = assert_raises(NameError){ doesnt_exist }
+    @error = assert_raises(NameError){ 1.zeor? }
   end
 
   def teardown
@@ -14,9 +13,9 @@ class VerboseFormatterTest < Minitest::Test
 
   def test_message
     assert_equal <<~MESSAGE.chomp, @error.message
-      undefined local variable or method `doesnt_exist' for #{to_s}
+      undefined local variable or method `zeor?' for 1:Integer
 
-          Did you mean? does_exist
+          Did you mean? zero?
        
     MESSAGE
   end

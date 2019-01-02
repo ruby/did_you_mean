@@ -50,11 +50,13 @@ class VariableNameCheckTest < Minitest::Test
   end
 
   def test_corrections_include_local_variable_name
-    person = person = nil
-    error = (eprson rescue $!) # Do not use @assert_raises here as it changes a scope.
+    if RUBY_ENGINE != "jruby"
+      person = person = nil
+      error = (eprson rescue $!) # Do not use @assert_raises here as it changes a scope.
 
-    assert_correction :person, error.corrections
-    assert_match "Did you mean?  person", error.to_s
+      assert_correction :person, error.corrections
+      assert_match "Did you mean?  person", error.to_s
+    end
   end
 
   def test_corrections_include_ruby_predefined_objects

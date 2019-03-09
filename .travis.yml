@@ -4,7 +4,7 @@ cache:    bundler
 sudo:     false
 
 before_install:
-  - gem install bundler
+  - gem install bundler -v=1.16.1
 
 after_success:
   - bundle exec rake test:accuracy

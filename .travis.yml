@@ -13,8 +13,3 @@ after_success:
 
 rvm:
   - 2.3.7
-  - jruby-head
-
-matrix:
-  allow_failures:
-    - rvm: jruby-head

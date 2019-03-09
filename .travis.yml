@@ -4,7 +4,6 @@ cache:    bundler
 sudo:     false
 
 before_install:
-  - gem uninstall bundler
   - gem install bundler -v=1.16.1
 
 after_success:

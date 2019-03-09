@@ -1,3 +1,36 @@
+## [v1.3.0](https://github.com/yuki24/did_you_mean/tree/v1.3.0)
+
+_<sup>released at 2018-12-18 15:37:10 UTC</sup>_
+
+**Starting version 1.3, the `did_you_mean` gem will be compatible with 2.6 and 2.5, and we will try to keep all subsequent versions compatible with Ruby 2.5 on an best-effort basis.**
+
+- Version 1.2.0 only has support for Ruby 2.5.0 and later as it uses new features that are only available in 2.5.
+- Versions earlier than 1.1.\* will still be maintained until Ruby 2.4 is deprecated.
+- Versions earlier than 1.0.\* is still maintained, but are likely to be deprecated as Ruby 2.3 will (probably) be deprecated in 2019.
+- Support for versions below 1.0 has already ended.
+
+#### New features
+
+- Suggest reserved words if there are close matches ([<tt>2a082a7</tt>](https://github.com/yuki24/did_you_mean/commit/2a082a71991f5afe2e27ce9538103eac4c428025))
+
+    ```ruby
+    results = yiedl
+    # NameError => undefined local variable or method `yiedl' for ...
+    # Did you mean? yield
+    ```
+
+#### Bug fixes
+
+- Fixes a bug where name errors can not be dumped ([#108](https://github.com/yuki24/did_you_mean/issues/108), [@jessebs](https://github.com/jessebs))
+
+## [v1.2.2](https://github.com/yuki24/did_you_mean/tree/v1.2.2)
+
+_<sup>released at 2019-03-09 23:17:22 UTC</sup>_
+
+#### Bug fixes
+
+- Fixes a bug where name errors can not be dumped ([#108](https://github.com/yuki24/did_you_mean/issues/108), [@jessebs](https://github.com/jessebs))
+
 ## [v1.2.1](https://github.com/yuki24/did_you_mean/tree/v1.2.1)
 
 _<sup>released at 2018-04-03 04:44:47 UTC</sup>_
@@ -22,6 +55,15 @@ _<sup>released at 2018-01-02 20:49:35 UTC</sup>_
 - The `KeyError` name suggestion feature has been promoted to a stable feature and is available by default ([<tt>acf5945</tt>](https://github.com/yuki24/did_you_mean/commit/acf59450dfb67eefae9b465ccc8029af46ae7dd0),&nbsp;[https://bugs.ruby-lang.org/issues/12063](https://bugs.ruby-lang.org/issues/12063))
 - Now suggests `true`, `false` or `nil` if a NameError occurs because of a typo in these names ([#94](https://github.com/yuki24/did_you_mean/pull/94), [@styd](https://github.com/styd))
 - New Formatter API: This provides a clean way to customize DidYouMean’s formatter without overriding the default formatter. Please refer to [the built-in verbose formatter](https://github.com/yuki24/did_you_mean/blob/671cdff/lib/did_you_mean/verbose.rb) for how to use it
+
+## [v1.1.3](https://github.com/yuki24/did_you_mean/tree/v1.1.3)
+
+_<sup>released at 2019-03-09 23:16:54 UTC</sup>_
+
+#### Bug fixes
+
+- Fixes a bug where name errors can not be dumped ([#108](https://github.com/yuki24/did_you_mean/issues/108), [@jessebs](https://github.com/jessebs))
+- Fixed a bug where DYM suggests the same class name in the error message ([#102](https://github.com/yuki24/did_you_mean/issues/102), [@schneems](https://github.com/schneems))
 
 ## [v1.1.2](https://github.com/yuki24/did_you_mean/tree/v1.1.2)
 
@@ -68,6 +110,15 @@ The version `1.1.0` only has support for Ruby 2.4.0 and later. Also, all patch r
 #### Bug Fixes
 
 - Fixed a bug where private method names were added to the dictionary when an argument was passed in to a public method. Use the `NoMethodError#private_call?` method instead ([<tt>0a1b761</tt>](https://github.com/yuki24/did_you_mean/commit/0a1b7612252055e583a373b473932f789381ca0f))
+
+## [v1.0.4](https://github.com/yuki24/did_you_mean/tree/v1.0.4)
+
+_<sup>released at 2019-03-09 23:16:38 UTC</sup>_
+
+#### Bug fixes
+
+- Fixes a bug where name errors can not be dumped ([#108](https://github.com/yuki24/did_you_mean/issues/108), [@jessebs](https://github.com/jessebs))
+- Fixed a bug where DYM suggests the same class name in the error message ([#102](https://github.com/yuki24/did_you_mean/issues/102), [@schneems](https://github.com/schneems))
 
 ## [v1.0.3](https://github.com/yuki24/did_you_mean/tree/v1.0.3)
 

@@ -11,8 +11,7 @@ after_success:
   - bundle exec rake benchmark:memory
 
 rvm:
-  - 2.3.1
-  - ruby-head
+  - 2.3.7
   - jruby-head
 
 matrix:

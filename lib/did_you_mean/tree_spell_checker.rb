@@ -24,4 +24,41 @@ class TreeSpellCheckerTest
       str.gsub("#{node}/", '') if str.include? "#{node}/"
     end.compact
   end
+
+  def possible_paths(nodes)
+    nodes.map do |node|
+      node.join '/'
+    end
+  end
+
+  def plausible_states(dictionary)
+    elements = relative_file_name.split('/')
+    all_states = parse(dictionary)
+    elements.each_with_index.map do |str, i|
+      next if all_states[i].nil?
+      if all_states[i].include? str
+        [str]
+      else
+        checker = ::DidYouMean::SpellChecker.new(:dictionary => all_states[i])
+        checker.correct(str)
+      end
+    end.compact
+  end
+
+  def parse(dictionary)
+    parts_a = dictionary.map do |a|
+      parts = a.split('/')
+      parts[0..-2]
+    end.to_set.to_a
+    max_parts = parts_a.map { |parts| parts.size }.max
+    nodes = [[], [], []]
+    (0...max_parts).each do |i|
+      parts_a.each do |parts|
+        nodes[i] << parts[i] unless parts[i].nil?
+      end
+    end
+    nodes.map do |node|
+      node.to_set.to_a
+    end
+  end
 end

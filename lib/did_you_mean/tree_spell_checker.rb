@@ -1,5 +1,10 @@
 # spell checker for a dictionary that has a tree structure
-class TreeSpellCheckerTest
+class TreeSpellChecker
+
+  def initialize(relative_file_name)
+    @relative_file_name = relative_file_name
+  end
+
   def structured(dictionary)
     states = plausible_states dictionary
     nodes = states[0].product(*states[1..-1])

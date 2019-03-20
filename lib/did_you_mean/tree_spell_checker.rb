@@ -1,5 +1,6 @@
 # spell checker for a dictionary that has a tree structure
 class TreeSpellChecker
+  attr_reader :relative_file_name
 
   def initialize(relative_file_name)
     @relative_file_name = relative_file_name
@@ -12,7 +13,7 @@ class TreeSpellChecker
     suffix = relative_file_name.split('/').last
     paths.map do |path|
       names = base_names(path, dictionary)
-      checker = ::DidYouMean::SpellChecker.new(:dictionary => names)
+      checker = ::DidYouMean::SpellChecker.new(dictionary: names)
       ideas = checker.correct(suffix)
       if ideas.empty?
         nil

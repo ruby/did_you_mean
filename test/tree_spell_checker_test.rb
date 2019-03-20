@@ -1,8 +1,9 @@
 require 'test_helper'
+require 'set'
 
 class TreeSpellCheckerTest  < Minitest::Test
 
-  def test_setup
+  def setup
     @dictionary = 
       %w(
         spec/models/concerns/vixen_spec.rb
@@ -49,7 +50,7 @@ class TreeSpellCheckerTest  < Minitest::Test
     assert_equal suggestions, [["spec"], ["models", "modals"], ["confirms", "concerns"]]
   end
 
-  def test_parses dictionary
+  def test_parses_dictionary
     states = @tsp.send(:parse, @dictionary)
     assert_equal states, [["spec"], ["models", "modals", "controllers"], ["concerns", "confirms"]]
   end

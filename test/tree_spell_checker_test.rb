@@ -81,5 +81,9 @@ class TreeSpellCheckerTest  < Minitest::Test
   end
 
   def test_parses_elementary_dictionary
+    dictionary = ['spec/models/user_spec.rb', 'spec/services/account_spec.rb']
+    tsp = TreeSpellChecker.new(dictionary: dictionary)
+    states = tsp.send(:parse)
+    assert_equal states, [['spec'], ['models', 'services']]
   end
 end

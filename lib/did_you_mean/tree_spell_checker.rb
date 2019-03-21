@@ -57,7 +57,7 @@ class TreeSpellChecker
       parts[0..-2]
     end.to_set.to_a
     max_parts = parts_a.map { |parts| parts.size }.max
-    nodes = [[], [], []]
+    nodes =Array.new(max_parts){[]}
     (0...max_parts).each do |i|
       parts_a.each do |parts|
         nodes[i] << parts[i] unless parts[i].nil?

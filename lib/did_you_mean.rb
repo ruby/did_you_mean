@@ -11,6 +11,7 @@ require "did_you_mean/formatters/plain_formatter"
 
 require "did_you_mean/tree_spell_checker"
 require "did_you_mean/human_typo"
+require 'pry'
 
 # The +DidYouMean+ gem adds functionality to suggest possible method/class
 # names upon errors such as +NameError+ and +NoMethodError+. In Ruby 2.3 or

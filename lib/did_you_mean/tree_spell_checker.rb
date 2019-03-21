@@ -1,18 +1,19 @@
 # spell checker for a dictionary that has a tree structure
 class TreeSpellChecker
-  attr_reader :relative_file_name
+  attr_reader :dictionary, :all_states
 
-  def initialize(relative_file_name)
-    @relative_file_name = relative_file_name
+  def initialize(dictionary:)
+    @dictionary = dictionary
+    @all_states = parse
   end
 
-  def structured(dictionary)
-    states = plausible_states dictionary
+  def correct(input)
+    states = plausible_states input
     nodes = states[0].product(*states[1..-1])
     paths = possible_paths nodes
-    suffix = relative_file_name.split('/').last
+    suffix = input.split('/').last
     paths.map do |path|
-      names = base_names(path, dictionary)
+      names = base_names(path)
       checker = ::DidYouMean::SpellChecker.new(dictionary: names)
       ideas = checker.correct(suffix)
       if ideas.empty?
@@ -25,7 +26,7 @@ class TreeSpellChecker
 
   private
 
-  def base_names(node, dictionary)
+  def base_names(node)
     dictionary.map do |str|
       str.gsub("#{node}/", '') if str.include? "#{node}/"
     end.compact
@@ -37,21 +38,20 @@ class TreeSpellChecker
     end
   end
 
-  def plausible_states(dictionary)
-    elements = relative_file_name.split('/')
-    all_states = parse(dictionary)
+  def plausible_states(input)
+    elements = input.split('/')
     elements.each_with_index.map do |str, i|
       next if all_states[i].nil?
       if all_states[i].include? str
         [str]
       else
-        checker = ::DidYouMean::SpellChecker.new(:dictionary => all_states[i])
+        checker = ::DidYouMean::SpellChecker.new(dictionary: all_states[i])
         checker.correct(str)
       end
     end.compact
   end
 
-  def parse(dictionary)
+  def parse
     parts_a = dictionary.map do |a|
       parts = a.split('/')
       parts[0..-2]

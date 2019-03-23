@@ -28,7 +28,6 @@ class TreeSpellCheckerTest  < Minitest::Test
       word = files[rand len]
       word_error = word[0..-2] #HumanTypo.new(word).correct
       suggestions = suggestions word_error, files
-  binding.pry unless suggestions.first.first == word
       check_first_is_right(word, suggestions, first_times)
     end
     pp "first_times #{first_times}"
@@ -36,10 +35,18 @@ class TreeSpellCheckerTest  < Minitest::Test
 
   def test_temp
     files = Dir["test/**/*.rb"]
-    word = "test/spell_checking/variable_name_check_test.rb"
-    word_error = "test/spell_checking/variable_name_check_test.r"
+    word = "test/spell_checker_test.rb"
+    word_error = "test/spell_checker_test.r"
     suggestions = suggestions word_error, files
-    assert_equal suggestions.first.first, word
+    assert_equal word, suggestions.first.first
+  end
+
+  def test_file_in_root
+    files = Dir["test/**/*.rb"]
+    word = "test/spell_checker_test.rb"
+    word_error = "test/spell_checker_test.r"
+    suggestions = suggestions word_error, files
+    assert_equal word, suggestions.first.first
   end
 
   def suggestions(word_error, files)

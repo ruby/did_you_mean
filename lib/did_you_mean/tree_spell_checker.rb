@@ -46,7 +46,7 @@ class TreeSpellChecker
   end
 
   def plausible_states(input)
-    elements = input.split('/')
+    elements = input.split('/')[0..-2]
     elements.each_with_index.map do |str, i|
       next if all_states[i].nil?
       if all_states[i].include? str

@@ -28,9 +28,18 @@ class TreeSpellCheckerTest  < Minitest::Test
       word = files[rand len]
       word_error = word[0..-2] #HumanTypo.new(word).correct
       suggestions = suggestions word_error, files
+  binding.pry unless suggestions.first.first == word
       check_first_is_right(word, suggestions, first_times)
     end
     pp "first_times #{first_times}"
+  end
+
+  def test_temp
+    files = Dir["test/**/*.rb"]
+    word = "test/spell_checking/variable_name_check_test.rb"
+    word_error = "test/spell_checking/variable_name_check_test.r"
+    suggestions = suggestions word_error, files
+    assert_equal suggestions.first.first, word
   end
 
   def suggestions(word_error, files)
@@ -49,6 +58,12 @@ class TreeSpellCheckerTest  < Minitest::Test
     exp = ["spec/models/concerns/vixen_spec.rb", "spec/models/concerns/vixenus_spec.rb"]
     suggestions = @tsp.correct(@test_str)
     assert_equal suggestions.to_set, exp.to_set
+  end
+
+  def test_works_when_input_is_correct
+    correct_input ='spec/models/concerns/vixenus_spec.rb' 
+    suggestions = @tsp.correct correct_input
+    assert_equal suggestions.first, correct_input
   end
 
   def test_find_out_base_names_in_a_node

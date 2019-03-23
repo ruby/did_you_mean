@@ -12,19 +12,26 @@ class TreeSpellChecker
     nodes = states[0].product(*states[1..-1])
     paths = possible_paths nodes
     suffix = input.split('/').last
+    ideas = find_ideas(paths, suffix)
+    ideas.compact.flatten
+  end
+
+  private
+
+  def find_ideas(paths, suffix)
     paths.map do |path|
       names = base_names(path)
       checker = ::DidYouMean::SpellChecker.new(dictionary: names)
       ideas = checker.correct(suffix)
       if ideas.empty?
         nil
+      elsif names.include? suffix
+        [path + '/' + suffix]
       else
         ideas.map { |str| path + '/' + str }
       end
-    end.compact.flatten
+    end
   end
-
-  private
 
   def base_names(node)
     dictionary.map do |str|

@@ -17,11 +17,11 @@ class HumanTypo
         @word = deletion(i_place)
       when :insert
         @word = insertion(i_place, rand_char)
-      when :transposition
+      when :transpose
         @word = transposition(i_place, toss)
       end
       i_place += exponential
-      break if i_place
+      break if i_place > len
     end
     word
   end
@@ -64,6 +64,8 @@ class HumanTypo
   end
 
   def deletion(i_place)
+    return word[0..-2] if i_place == len
+    return word[1..-1] if i_place.zero?
     word[0...i_place] + word[(i_place + 1)..-1]
   end
 

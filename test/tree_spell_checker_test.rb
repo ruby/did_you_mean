@@ -22,15 +22,40 @@ class TreeSpellCheckerTest  < Minitest::Test
 
   def test_human_typo_exercise
     first_times = [0, 0]
+    total_suggestions = [0, 0]
     files = Dir["test/**/*.rb"]
     len = files.length
-    10.times do
+    100.times do
       word = files[rand len]
-      word_error = word[0..-2] #HumanTypo.new(word).call
+      word_error = HumanTypo.new(word).call
       suggestions_a = group_suggestions word_error, files
-      check_first_is_right(word, suggestions_a, first_times)
+      check_first_is_right(word, suggestions_a, first_times, word_error)
+      check_no_suggestions(suggestions_a, total_suggestions)
     end
-    pp "first_times #{first_times}"
+    pp "first_times #{first_times}, totals #{total_suggestions}"
+  end
+
+  def group_suggestions(word_error, files)
+    a0 = TreeSpellChecker.new(dictionary: files).correct word_error
+    a1 = ::DidYouMean::SpellChecker.new(dictionary: files).correct word_error
+    [a0, a1]
+  end
+
+  def check_first_is_right(word, suggestions_a, first_times, word_error = nil)
+    suggestions_a.each_with_index.map do |a, i|
+      if word == a.first
+        first_times[i] += 1
+      else
+        pp "word: #{word}, wrong correction: #{a.first}"
+        pp "erro: #{word_error}"
+      end
+    end
+  end
+
+  def check_no_suggestions(suggestions_a, total_suggestions)
+    suggestions_a.each_with_index.map do |a, i|
+      total_suggestions[i] += a.length
+    end
   end
 
   def test_temp
@@ -47,18 +72,6 @@ class TreeSpellCheckerTest  < Minitest::Test
     word_error = 'test/spell_checker_test.r'
     suggestions_a = group_suggestions word_error, files
     assert_equal word, suggestions_a.first.first
-  end
-
-  def group_suggestions(word_error, files)
-    a0 = TreeSpellChecker.new(dictionary: files).correct word_error
-    a1 = ::DidYouMean::SpellChecker.new(dictionary: files).correct word_error
-    [a0, a1]
-  end
-
-  def check_first_is_right(word, suggestions_a, first_times)
-    suggestions_a.each_with_index.map do |a, i|
-      first_times[i] += 1 if word == a.first
-    end
   end
 
   def test_works_out_suggestions

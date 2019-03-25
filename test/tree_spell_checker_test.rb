@@ -26,49 +26,50 @@ class TreeSpellCheckerTest  < Minitest::Test
     len = files.length
     10.times do
       word = files[rand len]
-      word_error = word[0..-2] #HumanTypo.new(word).correct
-      suggestions = suggestions word_error, files
-      check_first_is_right(word, suggestions, first_times)
+      word_error = word[0..-2] #HumanTypo.new(word).call
+      suggestions_a = group_suggestions word_error, files
+      check_first_is_right(word, suggestions_a, first_times)
     end
     pp "first_times #{first_times}"
   end
 
   def test_temp
-    files = Dir["test/**/*.rb"]
-    word = "test/spell_checker_test.rb"
-    word_error = "test/spell_checker_test.r"
-    suggestions = suggestions word_error, files
-    assert_equal word, suggestions.first.first
+    files = Dir['test/**/*.rb']
+    word = 'test/spell_checker_test.rb'
+    word_error = 'test/spell_checker_test.r'
+    suggestions_a = group_suggestions word_error, files
+    assert_equal word, suggestions_a.first.first
   end
 
   def test_file_in_root
-    files = Dir["test/**/*.rb"]
-    word = "test/spell_checker_test.rb"
-    word_error = "test/spell_checker_test.r"
-    suggestions = suggestions word_error, files
-    assert_equal word, suggestions.first.first
+    files = Dir['test/**/*.rb']
+    word = 'test/spell_checker_test.rb'
+    word_error = 'test/spell_checker_test.r'
+    suggestions_a = group_suggestions word_error, files
+    assert_equal word, suggestions_a.first.first
   end
 
-  def suggestions(word_error, files)
+  def group_suggestions(word_error, files)
     a0 = TreeSpellChecker.new(dictionary: files).correct word_error
     a1 = ::DidYouMean::SpellChecker.new(dictionary: files).correct word_error
     [a0, a1]
   end
 
-  def check_first_is_right(word, suggestions, first_times)
-    suggestions.each_with_index.map do |a, i|
-      first_times[i] +=  1 if word == a.first
+  def check_first_is_right(word, suggestions_a, first_times)
+    suggestions_a.each_with_index.map do |a, i|
+      first_times[i] += 1 if word == a.first
     end
   end
 
   def test_works_out_suggestions
-    exp = ["spec/models/concerns/vixen_spec.rb", "spec/models/concerns/vixenus_spec.rb"]
+    exp = ['spec/models/concerns/vixen_spec.rb',
+           'spec/models/concerns/vixenus_spec.rb']
     suggestions = @tsp.correct(@test_str)
     assert_equal suggestions.to_set, exp.to_set
   end
 
   def test_works_when_input_is_correct
-    correct_input ='spec/models/concerns/vixenus_spec.rb' 
+    correct_input = 'spec/models/concerns/vixenus_spec.rb'
     suggestions = @tsp.correct correct_input
     assert_equal suggestions.first, correct_input
   end

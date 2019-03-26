@@ -25,7 +25,7 @@ class TreeSpellCheckerTest  < Minitest::Test
     total_suggestions = [0, 0]
     files = Dir["test/**/*.rb"]
     len = files.length
-    10.times do
+    100.times do
       word = files[rand len]
       word_error = HumanTypo.new(word).call
       suggestions_a = group_suggestions word_error, files
@@ -46,8 +46,6 @@ class TreeSpellCheckerTest  < Minitest::Test
       if word == a.first
         first_times[i] += 1
       else
-        pp "word: #{word}, wrong correction: #{a.first}"
-        pp "erro: #{word_error}"
       end
     end
   end
@@ -58,21 +56,19 @@ class TreeSpellCheckerTest  < Minitest::Test
     end
   end
 
-  def test_word_error
-    files = Dir['test/**/*.rb']
-    word = 'test/fixtures/book.rb'
-    word_error = 'test/fxtiures/book.rb'
-    suggestions_a = group_suggestions word_error, files
-    puts "suggestions_a: #{suggestions_a}"
-    assert_equal word, suggestions_a.first.first
-  end
-
   def test_file_in_root
     files = Dir['test/**/*.rb']
     word = 'test/spell_checker_test.rb'
     word_error = 'test/spell_checker_test.r'
     suggestions_a = group_suggestions word_error, files
     assert_equal word, suggestions_a.first.first
+  end
+
+  def test_no_plausible_states
+    files = Dir['test/**/*.rb']
+    word_error = 'testspell_checker_test.rb'
+    suggestions = TreeSpellChecker.new(dictionary: files).correct word_error
+    assert_equal [], suggestions
   end
 
   def test_works_out_suggestions

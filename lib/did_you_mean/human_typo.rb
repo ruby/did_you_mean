@@ -20,8 +20,9 @@ class HumanTypo
       when :transpose
         @word = transposition(i_place, toss)
       end
+      @len = word.length
       i_place += exponential
-      break if i_place > len
+      break if i_place >= len
     end
     word
   end
@@ -60,6 +61,8 @@ class HumanTypo
 
   # insert char after index of i_place
   def insertion(i_place, char)
+    return char + word if i_place == 0
+    return word + char if i_place == len - 1
     word[0..i_place] + char + word[(i_place + 1)..-1]
   end
 
@@ -74,10 +77,12 @@ class HumanTypo
   def transposition(i_place, direction)
     w = word.dup
     return w[1] + w[0] + word[2..-1] if i_place + direction < 0
-    return w[0...(len - 2)] + word[len - 1] + word[len - 2] if i_place + direction > len
+    return w[0...(len - 2)] + word[len - 1] + word[len - 2] if i_place + direction >= len
     w[i_place] = word[i_place + direction]
     w[i_place + direction] = word[i_place]
     w
+  rescue => e
+    binding.pry
   end
 
   def check_word

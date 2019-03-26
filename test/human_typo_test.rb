@@ -10,7 +10,6 @@ class HumanTypoTest < Minitest::Test
   def test_show_corrections
     10.times do
       word_error = HumanTypo.new(@word).call
-      pp "error: #{word_error}"
       refute_match @word, word_error
     end
   end
@@ -23,16 +22,24 @@ class HumanTypoTest < Minitest::Test
 
   def test_insertion
     assert_match @sh.send(:insertion, 7, 'X'), 'spec/serXvices/anything_spec'
+    assert_match @sh.send(:insertion, 0, 'X'), 'Xspec/services/anything_spec'
+    assert_match @sh.send(:insertion, @len - 1, 'X'), 'spec/services/anything_specX'
   end
 
   def test_transposition
     n = @word.length
     assert_match @sh.send(:transposition, 0, -1), 'psec/services/anything_spec'
-    assert_match @sh.send(:transposition, n, +1), 'spec/services/anything_spce'
+    assert_match @sh.send(:transposition, n - 1, +1), 'spec/services/anything_spce'
     assert_match @sh.send(:transposition, 4, +1), 'specs/ervices/anything_spec'
     assert_match @sh.send(:transposition, 4, -1), 'spe/cservices/anything_spec'
     assert_match @sh.send(:transposition, 21, -1), 'spec/services/anythign_spec'
     assert_match @sh.send(:transposition, 21, +1), 'spec/services/anythin_gspec'
+  end
+
+  def test_temp
+    w = 'test/spell_checking/uncorrectable_name_check_test.rb'
+    sh = HumanTypo.new(w)
+    sh.send(:transposition, 27, +1)
   end
 
   def test_for_change

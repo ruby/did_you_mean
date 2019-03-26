@@ -9,6 +9,7 @@ class TreeSpellChecker
 
   def correct(input)
     states = plausible_states input
+    return [] if states.empty?
     nodes = states[0].product(*states[1..-1])
     paths = possible_paths nodes
     suffix = input.split('/').last

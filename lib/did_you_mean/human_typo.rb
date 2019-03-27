@@ -3,7 +3,7 @@ class HumanTypo
   LAMBDA = 0.05
 
   def initialize(word)
-    @word = word
+    @word = word.dup
     check_word
     @len = word.length
   end
@@ -81,8 +81,6 @@ class HumanTypo
     w[i_place] = word[i_place + direction]
     w[i_place + direction] = word[i_place]
     w
-  rescue => e
-    binding.pry
   end
 
   def check_word

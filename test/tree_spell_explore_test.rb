@@ -20,6 +20,21 @@ class TreeSpellExploreTest  < Minitest::Test
     print_results first_times, total_suggestions, total_failures, n_repeat
   end
 
+  def test_human_typo
+    n_repeat = 1000
+    total_changes = 0
+    word = 'any_string_that_is_40_characters_long_sp'
+    n_repeat.times do
+      word_error = HumanTypo.new(word).call
+      total_changes += DidYouMean::Levenshtein.distance(word, word_error)
+      pp "distance #{DidYouMean::Levenshtein.distance(word, word_error)}"
+    end
+    mean_changes = (total_changes.to_f / n_repeat).round(1)
+    pp ''
+    puts "HumanTypo mean_changes =  #{mean_changes}"
+    pp ''
+  end
+
   private
 
   def group_suggestions(word_error, files)

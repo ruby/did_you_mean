@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class HumanTypoTest < Minitest::Test
+class TreeSpellHumanTypoTest < Minitest::Test
   def setup
     @word = 'spec/services/anything_spec'
     @sh = HumanTypo.new(@word)
@@ -34,12 +34,6 @@ class HumanTypoTest < Minitest::Test
     assert_match @sh.send(:transposition, 4, -1), 'spe/cservices/anything_spec'
     assert_match @sh.send(:transposition, 21, -1), 'spec/services/anythign_spec'
     assert_match @sh.send(:transposition, 21, +1), 'spec/services/anythin_gspec'
-  end
-
-  def test_temp
-    w = 'test/spell_checking/uncorrectable_name_check_test.rb'
-    sh = HumanTypo.new(w)
-    sh.send(:transposition, 27, +1)
   end
 
   def test_for_change

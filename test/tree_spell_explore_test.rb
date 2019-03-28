@@ -11,7 +11,7 @@ class TreeSpellExploreTest  < Minitest::Test
     len = files.length
     n_repeat.times do
       word = files[rand len]
-      word_error = HumanTypo.new(word).call
+      word_error = TreeSpellHumanTypo.new(word).call
       suggestions_a = group_suggestions word_error, files
       check_first_is_right word, suggestions_a, first_times
       check_no_suggestions suggestions_a, total_suggestions
@@ -25,7 +25,7 @@ class TreeSpellExploreTest  < Minitest::Test
     total_changes = 0
     word = 'any_string_that_is_40_characters_long_sp'
     n_repeat.times do
-      word_error = HumanTypo.new(word).call
+      word_error = TreeSpellHumanTypo.new(word).call
       total_changes += DidYouMean::Levenshtein.distance(word, word_error)
     end
     mean_changes = (total_changes.to_f / n_repeat).round(1)

@@ -1,9 +1,9 @@
-class HumanTypo
+class TreeSpellHumanTypo
 
   LAMBDA = 0.05
 
-  def initialize(word)
-    @word = word.dup
+  def initialize(input)
+    @word = input.dup
     check_word
     @len = word.length
   end

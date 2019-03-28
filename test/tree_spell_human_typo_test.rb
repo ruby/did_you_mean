@@ -3,7 +3,7 @@ require 'test_helper'
 class TreeSpellHumanTypoTest < Minitest::Test
   def setup
     @word = 'spec/services/anything_spec'
-    @sh = HumanTypo.new(@word)
+    @sh = TreeSpellHumanTypo.new(@word)
     @len = @word.length
   end
 

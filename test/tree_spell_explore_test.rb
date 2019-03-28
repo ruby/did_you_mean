@@ -27,7 +27,6 @@ class TreeSpellExploreTest  < Minitest::Test
     n_repeat.times do
       word_error = HumanTypo.new(word).call
       total_changes += DidYouMean::Levenshtein.distance(word, word_error)
-      pp "distance #{DidYouMean::Levenshtein.distance(word, word_error)}"
     end
     mean_changes = (total_changes.to_f / n_repeat).round(1)
     pp ''

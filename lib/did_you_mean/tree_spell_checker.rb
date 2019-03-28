@@ -1,9 +1,10 @@
 # spell checker for a dictionary that has a tree structure
 class TreeSpellChecker
-  attr_reader :dictionary, :all_states
+  attr_reader :dictionary, :all_states, :separator
 
-  def initialize(dictionary:)
+  def initialize(dictionary:, separator: '/')
     @dictionary = dictionary
+    @separator = separator
     @all_states = parse
   end
 
@@ -12,7 +13,7 @@ class TreeSpellChecker
     return [] if states.empty?
     nodes = states[0].product(*states[1..-1])
     paths = possible_paths nodes
-    suffix = input.split('/').last
+    suffix = input.split(separator).last
     ideas = find_ideas(paths, suffix)
     ideas.compact.flatten
   end
@@ -27,27 +28,27 @@ class TreeSpellChecker
       if ideas.empty?
         nil
       elsif names.include? suffix
-        [path + '/' + suffix]
+        [path + separator + suffix]
       else
-        ideas.map { |str| path + '/' + str }
+        ideas.map { |str| path + separator + str }
       end
     end
   end
 
   def base_names(node)
     dictionary.map do |str|
-      str.gsub("#{node}/", '') if str.include? "#{node}/"
+      str.gsub("#{node}#{separator}", '') if str.include? "#{node}/"
     end.compact
   end
 
   def possible_paths(nodes)
     nodes.map do |node|
-      node.join '/'
+      node.join separator
     end
   end
 
   def plausible_states(input)
-    elements = input.split('/')[0..-2]
+    elements = input.split(separator)[0..-2]
     elements.each_with_index.map do |str, i|
       next if all_states[i].nil?
       if all_states[i].include? str
@@ -61,7 +62,7 @@ class TreeSpellChecker
 
   def parse
     parts_a = dictionary.map do |a|
-      parts = a.split('/')
+      parts = a.split(separator)
       parts[0..-2]
     end.to_set.to_a
     max_parts = parts_a.map { |parts| parts.size }.max

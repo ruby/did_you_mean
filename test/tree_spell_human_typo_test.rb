@@ -32,4 +32,8 @@ class TreeSpellHumanTypoTest < Minitest::Test
   def test_for_change
     refute_match @sh.call, @input
   end
+
+  def test_check_input
+    assert_raises(StandardError) { TreeSpellHumanTypo.new('tiny') }
+  end
 end

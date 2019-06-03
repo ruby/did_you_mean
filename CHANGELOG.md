@@ -1,3 +1,7 @@
+## v1.4.0 (Next)
+
+- Remove the empty `tmp/` directory to comply with `rpmlint` ([#122](https://github.com/yuki24/did_you_mean/issues/122))
+
 ## [v1.3.0](https://github.com/yuki24/did_you_mean/tree/v1.3.0)
 
 _<sup>released at 2018-12-18 15:37:10 UTC</sup>_

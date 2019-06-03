@@ -39,13 +39,13 @@ class NameErrorExtensionTest < Minitest::Test
 
   def test_correctable_error_objects_are_dumpable
    error = begin
-             File.open('./tmp/.keep').sizee
+             File.open('did_you_mean.gemspec').sizee
            rescue NoMethodError => e
              e
            end
 
    error.to_s
 
-   assert_equal "undefined method `sizee' for #<File:./tmp/.keep>", Marshal.load(Marshal.dump(error)).original_message
+   assert_equal "undefined method `sizee' for #<File:did_you_mean.gemspec>", Marshal.load(Marshal.dump(error)).original_message
   end
 end

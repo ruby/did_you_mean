@@ -6,11 +6,9 @@ module DidYouMean
 
     def to_s
       msg = super.dup
+      suggestion = DidYouMean.formatter.message_for(corrections)
 
-      if !cause.respond_to?(:corrections) || cause.corrections.empty?
-        msg << DidYouMean.formatter.message_for(corrections)
-      end
-
+      msg << suggestion if !msg.end_with?(suggestion)
       msg
     rescue
       super

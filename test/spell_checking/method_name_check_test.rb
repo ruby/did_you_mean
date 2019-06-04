@@ -117,6 +117,18 @@ class MethodNameCheckTest < Minitest::Test
     assert_equal 1, error.to_s.scan(/Did you mean/).count
   end
 
+  def test_suggests_corrections_on_nested_error
+    error = assert_raises NoMethodError do
+      begin
+        @user.firstname
+      rescue NoMethodError
+        @user.firstname
+      end
+    end
+
+    assert_equal 1, error.to_s.scan(/Did you mean/).count
+  end
+
   def test_suggests_yield
     error = assert_raises(NoMethodError) { yeild(1) }
 

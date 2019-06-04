@@ -1,6 +1,7 @@
 ## v1.4.0 (Next)
 
 - Remove the empty `tmp/` directory to comply with `rpmlint` ([#122](https://github.com/yuki24/did_you_mean/issues/122))
+- Fixes a bug where suggestions are not shown on subsequent errors ([#120](https://github.com/yuki24/did_you_mean/issues/120))
 
 ## [v1.3.0](https://github.com/yuki24/did_you_mean/tree/v1.3.0)
 

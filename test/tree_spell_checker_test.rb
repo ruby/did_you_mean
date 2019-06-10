@@ -56,12 +56,12 @@ class TreeSpellCheckerTest  < Minitest::Test
   end
 
   def load_mini_dir
-    yaml = File.open('test/tree_spell/mini_dir.yml', 'r', &:read)
+    yaml = File.open('test/fixtures/mini_dir.yml', 'r', &:read)
     YAML.load yaml
   end
 
   def test_special_words_rspec
-    yaml = File.open('test/tree_spell/rspec_dir.yml', 'r', &:read)
+    yaml = File.open('test/fixtures/rspec_dir.yml', 'r', &:read)
     files = YAML.load yaml
     tsp = DidYouMean::TreeSpellChecker.new(dictionary: files)
     special_words_rspec.each do |word, word_error|

@@ -7,7 +7,7 @@ require_relative 'human_typo'
 class ExploreTest < Minitest::Test
   def test_checkers_with_many_typos_on_mini
     n_repeat = 10_000
-    yaml = File.open('test/tree_spell/mini_dir.yml', 'r', &:read)
+    yaml = File.open('test/fixtures/mini_dir.yml', 'r', &:read)
     files = YAML.load yaml
     many_typos n_repeat, files, 'Minitest'
   end
@@ -68,12 +68,12 @@ class ExploreTest < Minitest::Test
   end
 
   def load_rspec_dir
-    yaml = File.open('test/tree_spell/rspec_dir.yml', 'r', &:read)
+    yaml = File.open('test/fixtures/rspec_dir.yml', 'r', &:read)
     YAML.load yaml
   end
 
   def load_mini_dir
-    yaml = File.open('test/tree_spell/mini_dir.yml', 'r', &:read)
+    yaml = File.open('test/fixtures/mini_dir.yml', 'r', &:read)
     YAML.load yaml
   end
 

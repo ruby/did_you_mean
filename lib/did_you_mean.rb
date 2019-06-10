@@ -6,8 +6,8 @@ require 'did_you_mean/spell_checkers/name_error_checkers'
 require 'did_you_mean/spell_checkers/method_name_checker'
 require 'did_you_mean/spell_checkers/key_error_checker'
 require 'did_you_mean/spell_checkers/null_checker'
-
-require "did_you_mean/formatters/plain_formatter"
+require 'did_you_mean/formatters/plain_formatter'
+require 'did_you_mean/tree_spell_checker'
 
 # The +DidYouMean+ gem adds functionality to suggest possible method/class
 # names upon errors such as +NameError+ and +NoMethodError+. In Ruby 2.3 or

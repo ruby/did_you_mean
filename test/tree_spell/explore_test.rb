@@ -5,17 +5,17 @@ require_relative 'human_typo'
 
 # statistical tests on tree_spell algorithms
 class ExploreTest < Minitest::Test
+  MINI_DIRECTORIES = YAML.load_file('test/fixtures/mini_dir.yml')
+  RSPEC_DIRECTORIES = YAML.load_file('test/fixtures/rspec_dir.yml')
+
   def test_checkers_with_many_typos_on_mini
     n_repeat = 10_000
-    yaml = File.open('test/fixtures/mini_dir.yml', 'r', &:read)
-    files = YAML.load yaml
-    many_typos n_repeat, files, 'Minitest'
+    many_typos n_repeat, MINI_DIRECTORIES, 'Minitest'
   end
 
   def test_checkers_with_many_typos_on_rspec
     n_repeat = 10_000
-    files = load_rspec_dir
-    many_typos n_repeat, files, 'Rspec'
+    many_typos n_repeat, RSPEC_DIRECTORIES, 'Rspec'
   end
 
   def test_human_typo
@@ -55,26 +55,15 @@ class ExploreTest < Minitest::Test
   private
 
   def measure_execution_speed(n_repeat, &block)
-    files = load_rspec_dir
-    len = files.length
+    len = RSPEC_DIRECTORIES.length
     start_time = Time.now
     n_repeat.times do
-      word = files[rand len]
+      word = RSPEC_DIRECTORIES[rand len]
       word_error = TreeSpell::HumanTypo.new(word).call
-      block.call(files, word_error)
+      block.call(RSPEC_DIRECTORIES, word_error)
     end
     time_ms = (Time.now - start_time).to_f * 1000 / n_repeat
     puts "Average time (ms): #{time_ms.round(1)}"
-  end
-
-  def load_rspec_dir
-    yaml = File.open('test/fixtures/rspec_dir.yml', 'r', &:read)
-    YAML.load yaml
-  end
-
-  def load_mini_dir
-    yaml = File.open('test/fixtures/mini_dir.yml', 'r', &:read)
-    YAML.load yaml
   end
 
   def many_typos(n_repeat, files, title)

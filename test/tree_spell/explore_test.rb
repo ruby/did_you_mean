@@ -1,7 +1,3 @@
-TREE_SPELL_EXPLORE = false # set to true to run tests
-  
-return unless TREE_SPELL_EXPLORE
-
 require 'test_helper'
 require 'set'
 require 'yaml'

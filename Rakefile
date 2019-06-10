@@ -4,7 +4,7 @@ require 'rake/testtask'
 Rake::TestTask.new do |task|
   task.libs << "test"
 
-  task.test_files = Dir['test/**/*_test.rb'].reject {|path| /(experimental)/ =~ path }
+  task.test_files = Dir['test/**/*_test.rb'].reject {|path| /(experimental)/ =~ path || path.end_with?("explore_test.rb") }
   task.verbose    = true
   task.warning    = true
 end
@@ -15,6 +15,13 @@ Rake::TestTask.new("test:experimental") do |task|
   task.verbose = true
   task.warning = true
   task.ruby_opts << "-rdid_you_mean/experimental"
+end
+
+Rake::TestTask.new("test:explore") do |task|
+  task.libs << "test"
+  task.pattern = 'test/tree_spell/explore_test.rb'
+  task.verbose = true
+  task.warning = true
 end
 
 task default: %i(test test:experimental)

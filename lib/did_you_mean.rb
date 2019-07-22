@@ -85,15 +85,16 @@ require 'did_you_mean/tree_spell_checker'
 module DidYouMean
   # Map of error types and spell checker objects.
   SPELL_CHECKERS = Hash.new(NullChecker)
+  SPELL_CHECKERS["NoMethodError"] = MethodNameChecker
 
-  SPELL_CHECKERS.merge!({
-    "NameError"     => NameErrorCheckers,
-    "NoMethodError" => MethodNameChecker,
-    "KeyError"      => KeyErrorChecker
-  })
+  # Adds +DidYouMean+ functionality to an error using a given spell checker
+  def self.correct_error(error_class, spell_checker)
+    SPELL_CHECKERS[error_class.name] = spell_checker
+    error_class.prepend(Correctable)
+  end
 
-  NameError.prepend DidYouMean::Correctable
-  KeyError.prepend DidYouMean::Correctable
+  correct_error NameError, NameErrorCheckers
+  correct_error KeyError, KeyErrorChecker
 
   # Returns the currenctly set formatter. By default, it is set to +DidYouMean::Formatter+.
   def self.formatter

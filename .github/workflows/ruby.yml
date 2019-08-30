@@ -18,3 +18,8 @@ jobs:
         gem install bundler
         bundle install --jobs 4 --retry 2
         bundle exec rake
+    - name: Test performance and accuracy
+      run: |
+        bundle exec rake test:accuracy
+        bundle exec rake test:explore
+        bundle exec rake benchmark:memory

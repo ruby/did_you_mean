@@ -41,6 +41,8 @@ jobs:
         ruby-version: 2.6.x
     - name: Test performance and accuracy
       run: |
+        gem install bundler
+        bundle install --jobs 4 --retry 2
         bundle exec rake test:accuracy
         bundle exec rake test:explore
         bundle exec rake benchmark:memory

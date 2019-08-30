@@ -15,6 +15,7 @@ jobs:
       run: |
         gem install bundler
         bundle install --jobs 4 --retry 2
+        gem uni did_you_mean
         bundle exec rake
 
   ruby-2-6:
@@ -29,6 +30,7 @@ jobs:
       run: |
         gem install bundler
         bundle install --jobs 4 --retry 2
+        gem uni did_you_mean
         bundle exec rake
 
   benchmark:
@@ -43,6 +45,7 @@ jobs:
       run: |
         gem install bundler
         bundle install --jobs 4 --retry 2
+        gem uni did_you_mean
         bundle exec rake test:accuracy
         bundle exec rake test:explore
         bundle exec rake benchmark:memory

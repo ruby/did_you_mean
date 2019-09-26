@@ -38,13 +38,7 @@ module DidYouMean
     private
 
     def normalize(str_or_symbol) #:nodoc:
-      str = if str_or_symbol.is_a?(String)
-              str_or_symbol.dup
-            else
-              str_or_symbol.to_s
-            end
-
-      str.downcase!
+      str = str_or_symbol.to_s.downcase
       str.tr!("@", "")
       str
     end

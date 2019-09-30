@@ -1,12 +1,9 @@
 # frozen-string-literal: true
 
 require "did_you_mean/spell_checker"
-require "did_you_mean/spell_checkers/name_error_checkers/class_names.rb"
 
 module DidYouMean
   class VariableNameChecker
-    include ClassNames
-
     attr_reader :name, :method_names, :lvar_names, :ivar_names, :cvar_names
 
     NAMES_TO_EXCLUDE = { 'foo' => [:fork, :for] }
@@ -80,7 +77,6 @@ module DidYouMean
       @corrections ||= SpellChecker
                      .new(dictionary: (RB_RESERVED_WORDS + lvar_names + method_names + ivar_names + cvar_names))
                      .correct(name) - NAMES_TO_EXCLUDE[@name]
-      @corrections.concat(class_names.map(&:full_name).select {|class_name| class_name.downcase == name })
     end
   end
 end

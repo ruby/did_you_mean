@@ -1,10 +1,11 @@
 # frozen-string-literal: true
 
 require "did_you_mean/spell_checker"
+require_relative "class_name_checker"
 
 module DidYouMean
   class VariableNameChecker
-    attr_reader :name, :method_names, :lvar_names, :ivar_names, :cvar_names
+    attr_reader :name, :method_names, :lvar_names, :ivar_names, :cvar_names, :class_name_checker
 
     NAMES_TO_EXCLUDE = { 'foo' => [:fork, :for] }
     NAMES_TO_EXCLUDE.default = []
@@ -71,12 +72,15 @@ module DidYouMean
       @ivar_names   = receiver.instance_variables
       @cvar_names   = receiver.class.class_variables
       @cvar_names  += receiver.class_variables if receiver.kind_of?(Module)
+
+      @class_name_checker = ClassNameChecker.new(exception)
     end
 
     def corrections
       @corrections ||= SpellChecker
                      .new(dictionary: (RB_RESERVED_WORDS + lvar_names + method_names + ivar_names + cvar_names))
                      .correct(name) - NAMES_TO_EXCLUDE[@name]
+      @corrections.concat(class_name_checker.class_names.map(&:full_name).select {|class_name| class_name.casecmp?(name) })
     end
   end
 end

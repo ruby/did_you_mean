@@ -47,7 +47,7 @@ _<sup>released at 2018-04-03 04:44:47 UTC</sup>_
 
 #### Other Changes
 
-- Non-production code that has a non-commercial lisence has been removed from gem releases ([#105](https://github.com/yuki24/did_you_mean/issues/105), [@jbotelho2-bb](https://github.com/jbotelho2-bb))
+- Non-production code that has a non-commercial license has been removed from gem releases ([#105](https://github.com/yuki24/did_you_mean/issues/105), [@jbotelho2-bb](https://github.com/jbotelho2-bb))
 
 ## [v1.2.0](https://github.com/yuki24/did_you_mean/tree/v1.2.0)
 

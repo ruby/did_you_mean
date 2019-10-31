@@ -1,4 +1,4 @@
-# did_you_mean [![Gem Version](https://badge.fury.io/rb/did_you_mean.svg)](https://rubygems.org/gems/did_you_mean) [![Build Status](https://travis-ci.org/yuki24/did_you_mean.svg?branch=master)](https://travis-ci.org/yuki24/did_you_mean)
+# did_you_mean [![Gem Version](https://badge.fury.io/rb/did_you_mean.svg)](https://rubygems.org/gems/did_you_mean) [![Build Status](https://travis-ci.org/ruby/did_you_mean.svg?branch=master)](https://travis-ci.org/ruby/did_you_mean)
 
 ## Installation
 
@@ -183,7 +183,7 @@ bundle exec benchmark-driver benchmark/speed.yml --rbenv '2.6.0 --jit;2.6.0;2.5.
 
 ## Contributing
 
-1. Fork it (http://github.com/yuki24/did_you_mean/fork)
+1. Fork it (https://github.com/ruby/did_you_mean/fork)
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Make sure all tests pass (`bundle exec rake`)

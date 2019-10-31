@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["mail@yukinishijima.net"]
   spec.summary       = '"Did you mean?" experience in Ruby'
   spec.description   = 'The gem that has been saving people from typos since 2014.'
-  spec.homepage      = "https://github.com/yuki24/did_you_mean"
+  spec.homepage      = "https://github.com/ruby/did_you_mean"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files`.split($/).reject{|path| path.start_with?('evaluation/') }

@@ -31,4 +31,4 @@ class ChangeLogGenerator
   end
 end
 
-ChangeLogGenerator.new("yuki24/did_you_mean").generate_and_save!
+ChangeLogGenerator.new("ruby/did_you_mean").generate_and_save!

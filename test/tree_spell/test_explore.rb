@@ -1,10 +1,10 @@
-require 'test_helper'
+require 'helper'
 require 'set'
 require 'yaml'
 require_relative 'human_typo'
 
 # statistical tests on tree_spell algorithms
-class ExploreTest < Minitest::Test
+class ExploreTest < Test::Unit::TestCase
   MINI_DIRECTORIES = YAML.load_file('test/fixtures/mini_dir.yml')
   RSPEC_DIRECTORIES = YAML.load_file('test/fixtures/rspec_dir.yml')
 

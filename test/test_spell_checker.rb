@@ -1,6 +1,6 @@
-require 'test_helper'
+require 'helper'
 
-class SpellCheckerTest < Minitest::Test
+class SpellCheckerTest < Test::Unit::TestCase
   def test_spell_checker_corrects_mistypes
     assert_spell 'foo',   input: 'doo',   dictionary: ['foo', 'fork']
     assert_spell 'email', input: 'meail', dictionary: ['email', 'fail', 'eval']

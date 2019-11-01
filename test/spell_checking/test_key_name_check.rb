@@ -1,6 +1,6 @@
-require "test_helper"
+require "helper"
 
-class KeyNameCheckTest < Minitest::Test
+class KeyNameCheckTest < Test::Unit::TestCase
   def test_corrects_hash_key_name_with_fetch
     hash = { "foo" => 1, bar: 2 }
 

@@ -1,6 +1,6 @@
-require 'test_helper'
+require 'helper'
 
-class NameErrorExtensionTest < Minitest::Test
+class NameErrorExtensionTest < Test::Unit::TestCase
   SPELL_CHECKERS = DidYouMean::SPELL_CHECKERS
 
   class TestSpellChecker

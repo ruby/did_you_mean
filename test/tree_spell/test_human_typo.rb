@@ -1,7 +1,7 @@
-require 'test_helper'
+require 'helper'
 require_relative 'human_typo'
 
-class HumanTypoTest < Minitest::Test
+class HumanTypoTest < Test::Unit::TestCase
   def setup
     @input = 'spec/services/anything_spec'
     @sh = TreeSpell::HumanTypo.new(@input, lambda: 0.05)

@@ -1,6 +1,6 @@
-require 'test_helper'
+require 'helper'
 
-class UncorrectableNameCheckTest < Minitest::Test
+class UncorrectableNameCheckTest < Test::Unit::TestCase
   class FirstNameError < NameError; end
 
   def setup

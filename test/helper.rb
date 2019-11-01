@@ -1,5 +1,4 @@
-require 'minitest/autorun'
-require 'minitest/pride'
+require 'test/unit'
 require 'did_you_mean'
 
 puts "DidYouMean version: #{DidYouMean::VERSION}"
@@ -10,4 +9,4 @@ module DidYouMean::TestHelper
   end
 end
 
-MiniTest::Test.include(DidYouMean::TestHelper)
+Test::Unit::TestCase.include(DidYouMean::TestHelper)

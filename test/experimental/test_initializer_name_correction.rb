@@ -1,6 +1,6 @@
-require 'test_helper'
+require 'helper'
 
-class InitializerNameCorrectionTest < Minitest::Test
+class InitializerNameCorrectionTest < Test::Unit::TestCase
   def test_corrects_wrong_initializer_name
     assert_output nil, "warning: intialize might be misspelled, perhaps you meant initialize?\n" do
       Class.new { def intialize; end }

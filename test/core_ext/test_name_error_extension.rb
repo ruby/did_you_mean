@@ -19,13 +19,8 @@ class NameErrorExtensionTest < Test::Unit::TestCase
   end
 
   def test_message
-    message = <<~MESSAGE.chomp
-      undefined local variable or method `doesnt_exist' for #{to_s}
-      Did you mean?  does_exist
-    MESSAGE
-
-    assert_equal message, @error.to_s
-    assert_equal message, @error.message
+    assert_match /Did you mean\?  does_exist/, @error.to_s
+    assert_match /Did you mean\?  does_exist/, @error.message
   end
 
   def test_to_s_does_not_make_disruptive_changes_to_error_message

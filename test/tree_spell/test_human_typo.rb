@@ -17,6 +17,8 @@ class HumanTypoTest < Test::Unit::TestCase
   end
 
   def test_check_input
-    assert_raises(StandardError) { TreeSpell::HumanTypo.new('tiny') }
+    assert_raises(RuntimeError, "input length must be greater than 5 characters: tiny") do
+      TreeSpell::HumanTypo.new('tiny')
+    end
   end
 end

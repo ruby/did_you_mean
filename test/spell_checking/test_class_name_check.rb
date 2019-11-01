@@ -1,4 +1,4 @@
-require 'test_helper'
+require 'helper'
 
 module ACRONYM
 end
@@ -27,7 +27,7 @@ class Book
   end
 end
 
-class ClassNameCheckTest < Minitest::Test
+class ClassNameCheckTest < Test::Unit::TestCase
   def test_corrections
     error = assert_raises(NameError) { ::Bo0k }
     assert_correction "Book", error.corrections

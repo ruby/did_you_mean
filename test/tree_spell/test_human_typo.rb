@@ -1,7 +1,7 @@
-require 'test_helper'
+require 'helper'
 require_relative 'human_typo'
 
-class HumanTypoTest < Minitest::Test
+class HumanTypoTest < Test::Unit::TestCase
   def setup
     @input = 'spec/services/anything_spec'
     @sh = TreeSpell::HumanTypo.new(@input, lambda: 0.05)
@@ -17,6 +17,8 @@ class HumanTypoTest < Minitest::Test
   end
 
   def test_check_input
-    assert_raises(StandardError) { TreeSpell::HumanTypo.new('tiny') }
+    assert_raises(RuntimeError, "input length must be greater than 5 characters: tiny") do
+      TreeSpell::HumanTypo.new('tiny')
+    end
   end
 end

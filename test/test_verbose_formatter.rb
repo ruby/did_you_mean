@@ -1,10 +1,8 @@
-require 'test_helper'
+require 'helper'
 
-class VerboseFormatterTest < Minitest::Test
+class VerboseFormatterTest < Test::Unit::TestCase
   def setup
     require 'did_you_mean/verbose'
-
-    @error = assert_raises(NameError){ 1.zeor? }
   end
 
   def teardown
@@ -12,6 +10,8 @@ class VerboseFormatterTest < Minitest::Test
   end
 
   def test_message
+    @error = assert_raises(NoMethodError){ 1.zeor? }
+
     assert_equal <<~MESSAGE.chomp, @error.message
       undefined method `zeor?' for 1:Integer
 

@@ -1,6 +1,6 @@
-require 'test_helper'
+require 'helper'
 
-class ExperimentalMethodNameCorrectionTest < Minitest::Test
+class ExperimentalMethodNameCorrectionTest < Test::Unit::TestCase
   def test_corrects_incorrect_ivar_name
     @number = 1
     @nubmer = nil

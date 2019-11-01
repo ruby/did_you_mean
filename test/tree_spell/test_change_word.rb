@@ -1,7 +1,7 @@
-require 'test_helper'
+require 'helper'
 require_relative 'change_word'
 
-class ChangeWordTest < Minitest::Test
+class ChangeWordTest < Test::Unit::TestCase
   def setup
     @input = 'spec/services/anything_spec'
     @cw = TreeSpell::ChangeWord.new(@input)

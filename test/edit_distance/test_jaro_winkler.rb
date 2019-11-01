@@ -1,4 +1,4 @@
-require 'test_helper'
+require 'helper'
 
 # These tests were originally written by Jian Weihang (簡煒航) as part of his work
 # on the jaro_winkler gem. The original code could be found here:
@@ -6,7 +6,7 @@ require 'test_helper'
 #
 # Copyright (c) 2014 Jian Weihang
 
-class JaroWinklerTest < Minitest::Test
+class JaroWinklerTest < Test::Unit::TestCase
   def test_jaro_winkler_distance
     assert_distance 0.9667, 'henka',      'henkan'
     assert_distance 1.0,    'al',         'al'

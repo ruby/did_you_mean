@@ -1,6 +1,6 @@
 # TreeSpellChecker Algorithm
 ## Overview
-The algorithm is designed to work on a dicionary that has a rooted tree structure.
+The algorithm is designed to work on a dictionary that has a rooted tree structure.
 
 The algorithm treats the problem as a hidden state system, which tries to identify the true state of the input. Due to typographical errors, the state of the input is a hidden version of the true system state.  Each word in the dictionary is mapped to a multi-dimensional state, with the first dimension being being the root, the second dimension being the next branch, and so on.  Each dimension is discrete with a finite number of elements.  The first dimension corresponds to the root, so only has one element.
 

@@ -5,8 +5,8 @@ require_relative 'human_typo'
 
 # statistical tests on tree_spell algorithms
 class ExploreTest < Test::Unit::TestCase
-  MINI_DIRECTORIES = YAML.load_file('test/fixtures/mini_dir.yml')
-  RSPEC_DIRECTORIES = YAML.load_file('test/fixtures/rspec_dir.yml')
+  MINI_DIRECTORIES = YAML.load_file(File.expand_path('../fixtures/mini_dir.yml', __dir__))
+  RSPEC_DIRECTORIES = YAML.load_file(File.expand_path('../fixtures/rspec_dir.yml', __dir__))
 
   def test_checkers_with_many_typos_on_mini
     n_repeat = 10_000

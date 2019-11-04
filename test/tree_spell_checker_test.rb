@@ -1,10 +1,10 @@
-require 'test_helper'
+require 'helper'
 require 'set'
 require 'yaml'
 
-class TreeSpellCheckerTest  < Minitest::Test
-  MINI_DIRECTORIES = YAML.load_file('test/fixtures/mini_dir.yml')
-  RSPEC_DIRECTORIES = YAML.load_file('test/fixtures/rspec_dir.yml')
+class TreeSpellCheckerTest < Test::Unit::TestCase
+  MINI_DIRECTORIES = YAML.load_file(File.expand_path('fixtures/mini_dir.yml', __dir__))
+  RSPEC_DIRECTORIES = YAML.load_file(File.expand_path('fixtures/rspec_dir.yml', __dir__))
 
   def setup
     @dictionary = 

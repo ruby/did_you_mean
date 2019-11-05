@@ -1,5 +1,11 @@
 require 'test/unit'
-require 'did_you_mean'
+
+roots = [
+  File.expand_path('../lib/did_you_mean', __dir__), # source
+  File.expand_path('../../lib/did_you_mean', __dir__) # ruby core
+]
+  
+require_relative roots.detect { |file| File.file?("#{file}.rb") }
 
 puts "DidYouMean version: #{DidYouMean::VERSION}"
 

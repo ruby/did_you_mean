@@ -1,6 +1,6 @@
 # frozen-string-literal: true
 
-require "did_you_mean/spell_checker"
+require_relative "../../spell_checker"
 
 module DidYouMean
   class VariableNameChecker

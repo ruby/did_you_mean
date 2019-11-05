@@ -1,6 +1,6 @@
 # frozen-string-literal: true
 
-require 'did_you_mean'
+require_relative '../../did_you_mean'
 
 module DidYouMean
   module Experimental #:nodoc:

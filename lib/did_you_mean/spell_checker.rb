@@ -1,7 +1,7 @@
 # frozen-string-literal: true
 
-require "did_you_mean/levenshtein"
-require "did_you_mean/jaro_winkler"
+require_relative "levenshtein"
+require_relative "jaro_winkler"
 
 module DidYouMean
   class SpellChecker

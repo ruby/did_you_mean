@@ -1,5 +1,5 @@
-require 'did_you_mean/spell_checkers/name_error_checkers/class_name_checker'
-require 'did_you_mean/spell_checkers/name_error_checkers/variable_name_checker'
+require_relative 'name_error_checkers/class_name_checker'
+require_relative 'name_error_checkers/variable_name_checker'
 
 module DidYouMean
   class << (NameErrorCheckers = Object.new)

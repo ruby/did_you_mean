@@ -29,42 +29,42 @@ end
 
 class ClassNameCheckTest < Test::Unit::TestCase
   def test_corrections
-    error = assert_raises(NameError) { ::Bo0k }
+    error = assert_raise(NameError) { ::Bo0k }
     assert_correction "Book", error.corrections
   end
 
   def test_corrections_include_case_specific_class_name
-    error = assert_raises(NameError) { ::Acronym }
+    error = assert_raise(NameError) { ::Acronym }
     assert_correction "ACRONYM", error.corrections
   end
 
   def test_corrections_include_top_level_class_name
-    error = assert_raises(NameError) { Project.bo0k }
+    error = assert_raise(NameError) { Project.bo0k }
     assert_correction "Book", error.corrections
   end
 
   def test_names_in_corrections_have_namespaces
-    error = assert_raises(NameError) { ::Book::TableofContents }
+    error = assert_raise(NameError) { ::Book::TableofContents }
     assert_correction "Book::TableOfContents", error.corrections
   end
 
   def test_corrections_candidates_for_names_in_upper_level_scopes
-    error = assert_raises(NameError) { Book::Page.tableof_contents }
+    error = assert_raise(NameError) { Book::Page.tableof_contents }
     assert_correction "Book::TableOfContents", error.corrections
   end
 
   def test_corrections_should_work_from_within_instance_method
-    error = assert_raises(NameError) { ::Book.new.tableof_contents }
+    error = assert_raise(NameError) { ::Book.new.tableof_contents }
     assert_correction "Book::TableOfContents", error.corrections
   end
 
   def test_corrections_should_work_from_within_instance_method_on_nested_class
-    error = assert_raises(NameError) { ::Book::Page.new.tableof_contents }
+    error = assert_raise(NameError) { ::Book::Page.new.tableof_contents }
     assert_correction "Book::TableOfContents", error.corrections
   end
 
   def test_does_not_suggest_user_input
-    error = assert_raises(NameError) { ::Book::Cover }
+    error = assert_raise(NameError) { ::Book::Cover }
 
     # This is a weird require, but in a multi-threaded condition, a constant may
     # be loaded between when a NameError occurred and when the spell checker

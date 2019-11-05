@@ -11,7 +11,7 @@ class NameErrorExtensionTest < Test::Unit::TestCase
   def setup
     @org, SPELL_CHECKERS['NameError'] = SPELL_CHECKERS['NameError'], TestSpellChecker
 
-    @error = assert_raises(NameError){ doesnt_exist }
+    @error = assert_raise(NameError){ doesnt_exist }
   end
 
   def teardown
@@ -24,7 +24,7 @@ class NameErrorExtensionTest < Test::Unit::TestCase
   end
 
   def test_to_s_does_not_make_disruptive_changes_to_error_message
-    error = assert_raises(NameError) do
+    error = assert_raise(NameError) do
       raise NameError, "uninitialized constant Object"
     end
 

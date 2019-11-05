@@ -4,7 +4,7 @@ class ExperimentalMethodNameCorrectionTest < Test::Unit::TestCase
   def test_corrects_incorrect_ivar_name
     @number = 1
     @nubmer = nil
-    error = assert_raises(NoMethodError) { @nubmer.zero? }
+    error = assert_raise(NoMethodError) { @nubmer.zero? }
     remove_instance_variable :@nubmer
 
     assert_correction :@number, error.corrections

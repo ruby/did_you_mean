@@ -4,7 +4,7 @@ class UncorrectableNameCheckTest < Test::Unit::TestCase
   class FirstNameError < NameError; end
 
   def setup
-    @error = assert_raises(FirstNameError) do
+    @error = assert_raise(FirstNameError) do
       raise FirstNameError, "Other name error"
     end
   end

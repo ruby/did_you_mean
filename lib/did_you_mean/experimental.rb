@@ -1,2 +1,2 @@
-require 'did_you_mean/experimental/initializer_name_correction'
-require 'did_you_mean/experimental/ivar_name_correction'
+require_relative 'experimental/initializer_name_correction'
+require_relative 'experimental/ivar_name_correction'

@@ -1,6 +1,6 @@
 # frozen-string-literal: true
 
-require 'did_you_mean/levenshtein'
+require_relative '../levenshtein'
 
 module DidYouMean
   module Experimental

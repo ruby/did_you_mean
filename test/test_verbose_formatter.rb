@@ -2,7 +2,7 @@ require 'helper'
 
 class VerboseFormatterTest < Test::Unit::TestCase
   def setup
-    require 'did_you_mean/verbose'
+    require_relative File.join(DidYouMean::TestHelper.root, 'verbose')
   end
 
   def teardown

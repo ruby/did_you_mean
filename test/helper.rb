@@ -1,18 +1,32 @@
 require 'test/unit'
 
-roots = [
-  File.expand_path('../lib/did_you_mean', __dir__), # source
-  File.expand_path('../../lib/did_you_mean', __dir__) # ruby core
-]
-  
-require_relative roots.detect { |file| File.file?("#{file}.rb") }
+module DidYouMean
+  module TestHelper
+    class << self
+      attr_reader :root
+    end
 
-puts "DidYouMean version: #{DidYouMean::VERSION}"
+    if File.file?(File.expand_path('../lib/did_you_mean.rb', __dir__))
+      # In this case we're being run from inside the gem, so we just want to
+      # require the root of the library
 
-module DidYouMean::TestHelper
-  def assert_correction(expected, array)
-    assert_equal Array(expected), array, "Expected #{array.inspect} to only include #{expected.inspect}"
+      @root = File.expand_path('../lib/did_you_mean', __dir__)
+      require_relative @root
+    else
+      # In this case we're being run from inside ruby core, and we want to
+      # include the experimental features in the test suite
+
+      @root = File.expand_path('../../lib/did_you_mean', __dir__)
+      require_relative @root
+      require_relative File.join(@root, 'experimental')
+    end
+
+    def assert_correction(expected, array)
+      assert_equal Array(expected), array, "Expected #{array.inspect} to only include #{expected.inspect}"
+    end
   end
 end
+
+puts "DidYouMean version: #{DidYouMean::VERSION}"
 
 Test::Unit::TestCase.include(DidYouMean::TestHelper)

@@ -33,14 +33,16 @@ class NameErrorExtensionTest < Test::Unit::TestCase
   end
 
   def test_correctable_error_objects_are_dumpable
-   error = begin
-             File.open('did_you_mean.gemspec').sizee
-           rescue NoMethodError => e
-             e
-           end
+    error =
+      begin
+        Dir.chdir(__dir__) { File.open('test_name_error_extension.rb').sizee }
+      rescue NoMethodError => e
+        e
+      end
 
-   error.to_s
+    error.to_s
 
-   assert_equal "undefined method `sizee' for #<File:did_you_mean.gemspec>", Marshal.load(Marshal.dump(error)).original_message
+    assert_equal "undefined method `sizee' for #<File:test_name_error_extension.rb>",
+                 Marshal.load(Marshal.dump(error)).original_message
   end
 end

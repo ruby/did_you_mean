@@ -36,6 +36,8 @@ module DidYouMean
 
         @location   = no_method_error.backtrace_locations.first
         @ivar_names = no_method_error.frame_binding.receiver.instance_variables
+
+        no_method_error.remove_instance_variable(:@frame_binding)
       end
 
       def corrections

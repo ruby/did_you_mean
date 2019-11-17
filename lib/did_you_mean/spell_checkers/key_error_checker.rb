@@ -8,7 +8,13 @@ module DidYouMean
     end
 
     def corrections
-      @corrections ||= SpellChecker.new(dictionary: @keys).correct(@key).map(&:inspect)
+      @corrections ||= similar_keys + SpellChecker.new(dictionary: @keys).correct(@key).map(&:inspect)
+    end
+
+    private
+
+    def similar_keys
+      @keys.select { |word| @key == word.to_s }.map(&:inspect)
     end
   end
 end

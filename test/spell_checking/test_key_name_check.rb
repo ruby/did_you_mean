@@ -26,7 +26,7 @@ class KeyNameCheckTest < Test::Unit::TestCase
   end
 
   def test_correct_symbolized_hash_keys_with_string_value
-    hash = { foo_1: 1, foo_2: 2, 'foo_1' => 3 }
+    hash = { foo_1: 1, bar_2: 2 }
 
     error = assert_raise(KeyError) { hash.fetch('foo_1') }
     assert_correction %(:foo_1), error.corrections

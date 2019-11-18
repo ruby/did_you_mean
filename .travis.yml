@@ -14,12 +14,12 @@ rvm:
   - jruby-head
 
 matrix:
-  include:
-    - rvm: 2.6.0
-      script:
-        - bundle exec rake test:accuracy
-        - bundle exec rake test:explore
-        - bundle exec rake benchmark:memory
+  #include:
+  #  - rvm: 2.6.0
+  #    script:
+  #      - bundle exec rake test:accuracy
+  #      - bundle exec rake test:explore
+  #      - bundle exec rake benchmark:memory
 
   allow_failures:
     - rvm: jruby-9.2.5.0

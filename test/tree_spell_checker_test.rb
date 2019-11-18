@@ -7,7 +7,7 @@ class TreeSpellCheckerTest < Test::Unit::TestCase
   RSPEC_DIRECTORIES = YAML.load_file(File.expand_path('fixtures/rspec_dir.yml', __dir__))
 
   def setup
-    @dictionary = 
+    @dictionary =
       %w(
         spec/models/concerns/vixen_spec.rb
         spec/models/concerns/abcd_spec.rb
@@ -83,7 +83,6 @@ class TreeSpellCheckerTest < Test::Unit::TestCase
      ['test/fixtures/book.rb', 'test/fixturWes/book.rb'],
      ['test/test_helper.rb', 'tes!t/test_helper.rb'],
      ['test/fixtures/book.rb', 'test/hfixtures/book.rb'],
-     ['test/experimental/method_name_checker_test.rb', 'test/experiental/method_name_checker_test.rb'],
      ['test/edit_distance/jaro_winkler_test.rb', 'test/eidt_distance/jaro_winkler_test.@rb'],
      ['test/spell_checker_test.rb', 'test/spell_checke@r_test.rb'],
      ['test/tree_spell_human_typo_test.rb', 'testt/ree_spell_human_typo_test.rb'],

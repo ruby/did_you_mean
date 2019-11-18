@@ -61,36 +61,6 @@ hash.fetch(:fooo)
 #    Did you mean?  :foo
 ```
 
-## Experimental Features
-
-Aside from the basic features above, the `did_you_mean` gem comes with experimental features. They can be enabled by calling `require 'did_you_mean/experimental'`.
-
-Note that **these experimental features should never be enabled in production as they would impact Ruby's performance and use some unstable Ruby APIs.**
-
-### Correcting an Instance Variable When It's Incorrectly Spelled
-
-```ruby
-require 'did_you_mean/experimental'
-
-@full_name = "Yuki Nishijima"
-@full_anme.split(" ")
-# => NoMethodError: undefined method `split' for nil:NilClass
-#    Did you mean?  @full_name
-```
-
-### Displaying a Warning When `initialize` is Incorrectly Spelled
-
-```ruby
-require 'did_you_mean/experimental'
-
-class Person
-  def intialize
-    ...
-  end
-end
-# => warning: intialize might be misspelled, perhaps you meant initialize?
-```
-
 ## Verbose Formatter
 
 This verbose formatter changes the error message format to take more lines/spaces so it'll be slightly easier to read the suggestions. This formatter can totally be used in any environment including production.

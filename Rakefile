@@ -4,17 +4,9 @@ require 'rake/testtask'
 Rake::TestTask.new do |task|
   task.libs << "test"
 
-  task.test_files = Dir['test/**/test_*.rb'].reject {|path| /(experimental)/ =~ path || path.end_with?("test_explore.rb") }
+  task.test_files = Dir['test/**/test_*.rb'].reject {|path| path.end_with?("test_explore.rb") }
   task.verbose    = true
   task.warning    = true
-end
-
-Rake::TestTask.new("test:experimental") do |task|
-  task.libs << "test"
-  task.pattern = 'test/experimental/**/test_*.rb'
-  task.verbose = true
-  task.warning = true
-  task.ruby_opts << "-rdid_you_mean/experimental"
 end
 
 Rake::TestTask.new("test:explore") do |task|
@@ -24,7 +16,7 @@ Rake::TestTask.new("test:explore") do |task|
   task.warning = true
 end
 
-task default: %i(test test:experimental)
+task default: %i(test)
 
 namespace :test do
   namespace :accuracy do

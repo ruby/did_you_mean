@@ -25,6 +25,14 @@ class KeyNameCheckTest < Test::Unit::TestCase
     assert_match %(Did you mean?  "foo"), error.to_s
   end
 
+  def test_correct_symbolized_hash_keys_with_string_value
+    hash = { foo_1: 1, bar_2: 2 }
+
+    error = assert_raise(KeyError) { hash.fetch('foo_1') }
+    assert_correction %(:foo_1), error.corrections
+    assert_match %(Did you mean?  :foo_1), error.to_s
+  end
+
   def test_corrects_sprintf_key_name
     error = assert_raise(KeyError) { sprintf("%<foo>d", {fooo: 1}) }
     assert_correction ":fooo", error.corrections

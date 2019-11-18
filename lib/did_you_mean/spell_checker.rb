@@ -5,7 +5,7 @@ require_relative "jaro_winkler"
 
 module DidYouMean
   class SpellChecker
-    def initialize(dictionary: )
+    def initialize(dictionary:)
       @dictionary = dictionary
     end
 
@@ -13,14 +13,14 @@ module DidYouMean
       input     = normalize(input)
       threshold = input.length > 3 ? 0.834 : 0.77
 
-      words = @dictionary.select {|word| JaroWinkler.distance(normalize(word), input) >= threshold }
-      words.reject! {|word| input == word.to_s }
-      words.sort_by! {|word| JaroWinkler.distance(word.to_s, input) }
+      words = @dictionary.select { |word| JaroWinkler.distance(normalize(word), input) >= threshold }
+      words.reject! { |word| input == word.to_s }
+      words.sort_by! { |word| JaroWinkler.distance(word.to_s, input) }
       words.reverse!
 
       # Correct mistypes
       threshold   = (input.length * 0.25).ceil
-      corrections = words.select {|c| Levenshtein.distance(normalize(c), input) <= threshold }
+      corrections = words.select { |c| Levenshtein.distance(normalize(c), input) <= threshold }
 
       # Correct misspells
       if corrections.empty?

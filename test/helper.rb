@@ -18,7 +18,8 @@ module DidYouMean
 
       @root = File.expand_path('../../lib/did_you_mean', __dir__)
       require_relative @root
-      require_relative File.join(@root, 'experimental')
+      # We are excluding experimental features for now.
+      # require_relative File.join(@root, 'experimental')
     end
 
     def assert_correction(expected, array)

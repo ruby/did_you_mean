@@ -27,6 +27,4 @@ module DidYouMean
   end
 end
 
-puts "DidYouMean version: #{DidYouMean::VERSION}"
-
 Test::Unit::TestCase.include(DidYouMean::TestHelper)

@@ -60,7 +60,7 @@ class VariableNameCheckTest < Test::Unit::TestCase
   end
 
   def test_corrections_include_ruby_predefined_objects
-    some_var = nil
+    some_var = some_var = nil
 
     false_error = assert_raise(NameError) do
       some_var = fals

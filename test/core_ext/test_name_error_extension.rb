@@ -19,8 +19,8 @@ class NameErrorExtensionTest < Test::Unit::TestCase
   end
 
   def test_message
-    assert_match /Did you mean\?  does_exist/, @error.to_s
-    assert_match /Did you mean\?  does_exist/, @error.message
+    assert_match(/Did you mean\?  does_exist/, @error.to_s)
+    assert_match(/Did you mean\?  does_exist/, @error.message)
   end
 
   def test_to_s_does_not_make_disruptive_changes_to_error_message

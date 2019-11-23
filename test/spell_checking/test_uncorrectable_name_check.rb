@@ -1,4 +1,4 @@
-require 'helper'
+require_relative '../helper'
 
 class UncorrectableNameCheckTest < Test::Unit::TestCase
   class FirstNameError < NameError; end

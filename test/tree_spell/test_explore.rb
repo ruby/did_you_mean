@@ -1,6 +1,7 @@
-require 'helper'
 require 'set'
 require 'yaml'
+
+require_relative '../helper'
 require_relative 'human_typo'
 
 # statistical tests on tree_spell algorithms

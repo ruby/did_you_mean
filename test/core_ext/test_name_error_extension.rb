@@ -1,4 +1,4 @@
-require 'helper'
+require_relative '../helper'
 
 class NameErrorExtensionTest < Test::Unit::TestCase
   SPELL_CHECKERS = DidYouMean::SPELL_CHECKERS

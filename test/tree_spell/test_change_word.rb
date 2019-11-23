@@ -1,4 +1,4 @@
-require 'helper'
+require_relative '../helper'
 require_relative 'change_word'
 
 class ChangeWordTest < Test::Unit::TestCase

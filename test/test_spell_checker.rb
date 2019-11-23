@@ -1,4 +1,4 @@
-require 'helper'
+require_relative './helper'
 
 class SpellCheckerTest < Test::Unit::TestCase
   def test_spell_checker_corrects_mistypes

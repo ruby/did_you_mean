@@ -1,4 +1,4 @@
-require "helper"
+require_relative '../helper'
 
 class KeyNameCheckTest < Test::Unit::TestCase
   def test_corrects_hash_key_name_with_fetch

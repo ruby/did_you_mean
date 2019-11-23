@@ -1,4 +1,4 @@
-require 'helper'
+require_relative '../helper'
 require_relative 'human_typo'
 
 class HumanTypoTest < Test::Unit::TestCase

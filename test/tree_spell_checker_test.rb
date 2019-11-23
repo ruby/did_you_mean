@@ -1,6 +1,7 @@
-require 'helper'
 require 'set'
 require 'yaml'
+
+require_relative './helper'
 
 class TreeSpellCheckerTest < Test::Unit::TestCase
   MINI_DIRECTORIES = YAML.load_file(File.expand_path('fixtures/mini_dir.yml', __dir__))

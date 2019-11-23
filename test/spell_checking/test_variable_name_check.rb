@@ -1,4 +1,4 @@
-require 'helper'
+require_relative '../helper'
 
 class VariableNameCheckTest < Test::Unit::TestCase
   class User

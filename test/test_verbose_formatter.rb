@@ -1,4 +1,4 @@
-require 'helper'
+require_relative './helper'
 
 class VerboseFormatterTest < Test::Unit::TestCase
   def setup

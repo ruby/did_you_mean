@@ -21,7 +21,7 @@ jobs:
     - name: Build and test with Rake
       run: |
         source $HOME/.rvm/scripts/rvm
-        gem uni did_you_mean; bundle exec rake
+        rake
 
   benchmark:
     runs-on: ubuntu-latest

@@ -21,6 +21,7 @@ jobs:
     - name: Build and test with Rake
       run: |
         source $HOME/.rvm/scripts/rvm
+        gem i test-unit
         rake
 
   benchmark:

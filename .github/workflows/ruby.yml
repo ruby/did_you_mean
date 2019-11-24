@@ -20,6 +20,7 @@ jobs:
         rvm --default use ${{ matrix.ruby }}
     - name: Build and test with Rake
       run: |
+        source $HOME/.rvm/scripts/rvm
         gem install bundler
         bundle install --jobs 4 --retry 2
         gem uni did_you_mean

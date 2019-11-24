@@ -21,9 +21,7 @@ jobs:
     - name: Build and test with Rake
       run: |
         source $HOME/.rvm/scripts/rvm
-        gem install bundler
-        bundle install --jobs 4 --retry 2
-        bundle exec rake
+        gem uni did_you_mean; bundle exec rake
 
   benchmark:
     runs-on: ubuntu-latest

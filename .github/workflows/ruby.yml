@@ -3,29 +3,21 @@ name: Ruby
 on: [push]
 
 jobs:
-  ruby-2-5:
+  build:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        ruby: [ '2.5.4', '2.6.5', 'ruby-head', 'jruby-9.2.9.0', 'jruby-head', 'truffleruby' ]
     steps:
     - uses: actions/checkout@v1
-    - name: Set up Ruby 2.5
-      uses: actions/setup-ruby@v1
-      with:
-        ruby-version: 2.5.x
-    - name: Build and test with Rake
+    - name: Set up RVM
       run: |
-        gem install bundler
-        bundle install --jobs 4 --retry 2
-        gem uni did_you_mean
-        bundle exec rake
-
-  ruby-2-6:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v1
-    - name: Set up Ruby 2.6
-      uses: actions/setup-ruby@v1
-      with:
-        ruby-version: 2.6.x
+        curl -sSL https://get.rvm.io | bash
+    - name: Set up Ruby
+      run: |
+        source $HOME/.rvm/scripts/rvm
+        rvm install ${{ matrix.ruby }} --binary
+        rvm --default use ${{ matrix.ruby }}
     - name: Build and test with Rake
       run: |
         gem install bundler

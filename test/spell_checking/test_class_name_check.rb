@@ -28,6 +28,8 @@ class Book
 end
 
 class ClassNameCheckTest < Test::Unit::TestCase
+  include DidYouMean::TestHelper
+
   def test_corrections
     error = assert_raise(NameError) { ::Bo0k }
     assert_correction "Book", error.corrections

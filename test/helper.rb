@@ -27,5 +27,3 @@ module DidYouMean
     end
   end
 end
-
-Test::Unit::TestCase.include(DidYouMean::TestHelper)

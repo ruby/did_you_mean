@@ -1,6 +1,8 @@
 require_relative '../helper'
 
 class VariableNameCheckTest < Test::Unit::TestCase
+  include DidYouMean::TestHelper
+
   class User
     def initialize
       @email_address = 'email_address@address.net'

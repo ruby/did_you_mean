@@ -1,6 +1,8 @@
 require_relative '../helper'
 
 class MethodNameCheckTest < Test::Unit::TestCase
+  include DidYouMean::TestHelper
+
   class User
     def friends; end
     def first_name; end

@@ -1,6 +1,8 @@
 require_relative '../helper'
 
 class KeyNameCheckTest < Test::Unit::TestCase
+  include DidYouMean::TestHelper
+
   def test_corrects_hash_key_name_with_fetch
     hash = { "foo" => 1, bar: 2 }
 

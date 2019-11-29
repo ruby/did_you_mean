@@ -12,7 +12,7 @@ titles   = []
 loop do
   url = base_url + "&apfrom=#{apfrom}"
 
-  puts "downloading page %2d: #{url}" % num
+  puts ("downloading page %2d: " % num) + url
 
   body   = open(url).read
   json   = JSON.load(body)

@@ -4,7 +4,7 @@ source 'https://rubygems.org'
 gemspec
 
 gem 'benchmark-ips'
-gem 'benchmark-driver'
+gem 'benchmark_driver'
 gem 'memory_profiler'
 gem 'jaro_winkler', '>= 1.4.0'
 gem 'test-unit'

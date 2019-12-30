@@ -96,7 +96,7 @@ module DidYouMean
   correct_error KeyError, KeyErrorChecker
   correct_error NoMethodError, MethodNameChecker
 
-  # Returns the currenctly set formatter. By default, it is set to +DidYouMean::Formatter+.
+  # Returns the currently set formatter. By default, it is set to +DidYouMean::Formatter+.
   def self.formatter
     @@formatter
   end

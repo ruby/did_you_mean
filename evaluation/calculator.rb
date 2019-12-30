@@ -89,7 +89,7 @@ end
 
 puts <<-MSG
 
-Evaulation result
+Evaluation result
 
   Total count  : #{total_count}
   Correct count: #{correct_count}

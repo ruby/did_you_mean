@@ -43,7 +43,9 @@ module DidYouMean
     end
 
     def corrections
-      @corrections ||= SpellChecker.new(dictionary: RB_RESERVED_WORDS + method_names).correct(method_name) - names_to_exclude
+      dictionary = method_names
+      dictionary = RB_RESERVED_WORDS + dictionary if @private_call
+      @corrections ||= SpellChecker.new(dictionary: dictionary).correct(method_name) - names_to_exclude
     end
 
     def method_names

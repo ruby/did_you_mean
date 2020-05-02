@@ -61,6 +61,14 @@ hash.fetch(:fooo)
 #    Did you mean?  :foo
 ```
 
+### LoadError
+
+```ruby
+require 'net-http'
+# => LoadError (cannot load such file -- net-http)
+#    Did you mean?  net/http
+```
+
 ## Verbose Formatter
 
 This verbose formatter changes the error message format to take more lines/spaces so it'll be slightly easier to read the suggestions. This formatter can totally be used in any environment including production.

@@ -143,5 +143,5 @@ class MethodNameCheckTest < Test::Unit::TestCase
 
     assert_correction [], error.corrections
     assert_not_match /Did you mean\? +yield/, error.to_s
-  end
+  end if RUBY_ENGINE != "jruby"
 end

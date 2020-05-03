@@ -37,5 +37,4 @@ jobs:
         bundle install --jobs 4 --retry 2
         gem uni did_you_mean
         bundle exec rake test:accuracy
-        bundle exec rake test:explore
         bundle exec rake benchmark:memory

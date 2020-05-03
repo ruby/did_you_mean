@@ -13,20 +13,14 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        ruby: [ '2.5.4', '2.6.5', 'ruby-head', 'jruby-9.2.9.0', 'jruby-head' ]
+        ruby: [ '2.5.8', '2.6.6', '2.7.1', 'ruby-head', 'jruby-9.2.11.1', 'jruby-head' ]
     steps:
     - uses: actions/checkout@v1
-    - name: Set up RVM
-      run: |
-        curl -sSL https://get.rvm.io | bash
-    - name: Set up Ruby
-      run: |
-        source $HOME/.rvm/scripts/rvm
-        rvm install ${{ matrix.ruby }} --binary
-        rvm --default use ${{ matrix.ruby }}
+    - uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: ${{ matrix.ruby }}
     - name: Build and test with Rake
       run: |
-        source $HOME/.rvm/scripts/rvm
         gem i test-unit
         rake
 
@@ -34,10 +28,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
-    - name: Set up Ruby 2.6
-      uses: actions/setup-ruby@v1
+    - uses: ruby/setup-ruby@v1
       with:
-        ruby-version: 2.6.x
+        ruby-version: 2.7.1
     - name: Test performance and accuracy
       run: |
         gem install bundler

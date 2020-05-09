@@ -1,7 +1,37 @@
-## v1.4.0 (Next)
+## [v1.4.0](https://github.com/ruby/did_you_mean/tree/v1.4.0)
 
-- Remove the empty `tmp/` directory to comply with `rpmlint` ([#122](https://github.com/ruby/did_you_mean/issues/122))
-- Fixes a bug where suggestions are not shown on subsequent errors ([#120](https://github.com/ruby/did_you_mean/issues/120))
+_<sup>released at 2020-05-09 02:56:43 UTC</sup>_
+
+As of Ruby 2.7, the `did_you_mean` gem has been promoted up to a default gem. I would like to thank [@kddeisz](https://github.com/kddeisz) for his hard work on making the entire gem easily portable the main ruby/ruby repo ([#132](https://github.com/ruby/did_you_mean/pull/132), [#131](https://github.com/ruby/did_you_mean/pull/131), and [ruby/ruby#2631](https://github.com/ruby/ruby/pull/2631)).
+
+#### Features
+
+- Add a new tree spell checker ([#119](https://github.com/ruby/did_you_mean/pull/119), [@obromios](https://github.com/obromios))
+- Add a public API for registering an error ([#123](https://github.com/ruby/did_you_mean/pull/123), [@kddeisz](https://github.com/kddeisz))
+
+#### Bug fixes
+
+- Fixes a bug where wrong suggestion could be made when string requested on hash and keys are symbols ([@localhostdotdev](https://github.com/localhostdotdev), [#134](https://github.com/ruby/did_you_mean/pull/134))
+
+#### Breaking changes
+
+- Experimental features have been removed ([#135](https://github.com/ruby/did_you_mean/pull/135))
+
+#### Internal changes
+
+- Replace Travis CI with GitHub Actions ([#124](https://github.com/ruby/did_you_mean/pull/124))
+- Drop mintiest dependency ([#129](https://github.com/ruby/did_you_mean/pull/129))
+- Drop delegate dependency ([#138](https://github.com/ruby/did_you_mean/pull/138))
+
+## [v1.3.1](https://github.com/ruby/did_you_mean/tree/v1.3.1)
+
+_<sup>released at 2019-09-29 03:58:46 UTC</sup>_
+
+#### Bug fixes
+
+- Fixes a test failure in Ruby core where DYM attempts to mutate immutable strings from `Symbol#to_s` ([#125](https://github.com/ruby/did_you_mean/pull/125), [@nobu](https://github.com/nobu), [@eregon](https://github.com/eregon), [@MSP-Greg](https://github.com/MSP-Greg))
+- Removes the empty `tmp/` directory to comply with `rpmlint` ([#122](https://github.com/ruby/did_you_mean/issues/122), [@pvalena](https://github.com/pvalena))
+- Fixes a bug where suggestions are not shown on subsequent errors ([#120](https://github.com/ruby/did_you_mean/issues/120), [@localhostdotdev](https://github.com/localhostdotdev))
 
 ## [v1.3.0](https://github.com/ruby/did_you_mean/tree/v1.3.0)
 

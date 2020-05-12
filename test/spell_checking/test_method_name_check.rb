@@ -142,6 +142,6 @@ class MethodNameCheckTest < Test::Unit::TestCase
     error = assert_raise(NoMethodError) { 1.yeild }
 
     assert_correction [], error.corrections
-    assert_not_match /Did you mean\? +yield/, error.to_s
+    assert_not_match(/Did you mean\? +yield/, error.to_s)
   end if RUBY_ENGINE != "jruby"
 end

@@ -99,12 +99,10 @@ module DidYouMean
       ::DidYouMean::SpellChecker.new(dictionary: names).correct(str)
     end
 
-    def normalize(leaf)
-      str = leaf.dup
+    def normalize(str)
       str.downcase!
-      return str unless str.include?('@')
-
-      str.tr!('@', '  ')
+      str.tr!('@', ' ') if str.include?('@')
+      str
     end
   end
 end

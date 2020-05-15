@@ -91,19 +91,14 @@ module DidYouMean
 
     def call
       leafless = remove_leaves
-      dimensions = find_elements leafless
-      dimensions.map do |elements|
-        elements.to_set.to_a
-      end
+
+      find_elements(leafless).map(&:uniq)
     end
 
     private
 
     def remove_leaves
-      dictionary.map do |a|
-        elements = a.split(separator)
-        elements[0..-2]
-      end.to_set.to_a
+      dictionary.map { |a| a.split(separator)[0..-2] }.uniq
     end
 
     def find_elements(leafless)

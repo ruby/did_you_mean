@@ -46,7 +46,7 @@ module DidYouMean
     def find_ideas(paths, leaf)
       paths.map do |path|
         names = find_leaves(path)
-        ideas = CorrectElement.new.call names, leaf
+        ideas = correct_element(names, leaf)
         ideas_to_paths ideas, leaf, names, path
       end
     end
@@ -77,8 +77,26 @@ module DidYouMean
       elements.each_with_index.map do |element, i|
         next if dimensions[i].nil?
 
-        CorrectElement.new.call dimensions[i], element
+        correct_element(dimensions[i], element)
       end.compact
+    end
+
+    def correct_element(names, element)
+      return names if names.size == 1
+
+      str = normalize element
+      return [str] if names.include? str
+
+      checker = ::DidYouMean::SpellChecker.new(dictionary: names)
+      checker.correct(str)
+    end
+
+    def normalize(leaf)
+      str = leaf.dup
+      str.downcase!
+      return str unless str.include? '@'
+
+      str.tr!('@', '  ')
     end
   end
 
@@ -113,30 +131,5 @@ module DidYouMean
     end
 
     attr_reader :dictionary, :separator
-  end
-
-  # identifies the elements close to element
-  class CorrectElement
-    def initialize; end
-
-    def call(names, element)
-      return names if names.size == 1
-
-      str = normalize element
-      return [str] if names.include? str
-
-      checker = ::DidYouMean::SpellChecker.new(dictionary: names)
-      checker.correct(str)
-    end
-
-    private
-
-    def normalize(leaf)
-      str = leaf.dup
-      str.downcase!
-      return str unless str.include? '@'
-
-      str.tr!('@', '  ')
-    end
   end
 end

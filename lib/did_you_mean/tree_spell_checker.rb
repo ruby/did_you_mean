@@ -69,11 +69,11 @@ module DidYouMean
     end
 
     def find_leaves(path)
-      dictionary.map do |str|
-        next unless str.include?("#{path}#{separator}")
+      path_with_separator = "#{path}#{separator}"
 
-        str.gsub("#{path}#{separator}", '')
-      end.compact
+      dictionary
+        .select {|str| str.include?(path_with_separator) }
+        .map {|str| str.gsub(path_with_separator, '') }
     end
 
     def possible_paths(states)

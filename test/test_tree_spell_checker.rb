@@ -26,34 +26,26 @@ class TreeSpellCheckerTest < Test::Unit::TestCase
   end
 
   def test_corrupt_root
-    word = "test/verbose_formatter_test.rb"
-    word_error = "btets/cverbose_formatter_etst.rb suggestions"
-    tsp = DidYouMean::TreeSpellChecker.new(dictionary: MINI_DIRECTORIES)
-    s = tsp.correct(word_error).first
-
-    assert_match s, word
+    assert_tree_spell "test/verbose_formatter_test.rb",
+                      input: "btets/cverbose_formatter_etst.rb suggestions",
+                      dictionary: MINI_DIRECTORIES
   end
 
   def test_leafless_state
-    tsp = DidYouMean::TreeSpellChecker.new(dictionary: @dictionary.push("spec/features"))
-    word = "spec/modals/confirms/efgh_spec.rb"
-    word_error = "spec/modals/confirXX/efgh_spec.rb"
-    s = tsp.correct(word_error).first
+    assert_tree_spell "spec/modals/confirms/efgh_spec.rb",
+                      input: "spec/modals/confirXX/efgh_spec.rb",
+                      dictionary: [*@dictionary, "spec/features"]
 
-    assert_equal s, word
-
-    s = tsp.correct("spec/featuresXX")
-
-    assert_equal "spec/features", s.first
+    assert_tree_spell "spec/features",
+                      input: "spec/featuresXX",
+                      dictionary: [*@dictionary, "spec/features"]
   end
 
   def test_rake_dictionary
-    dict = %w[parallel:prepare parallel:create parallel:rake parallel:migrate]
-    word_error = "parallel:preprare"
-    tsp = DidYouMean::TreeSpellChecker.new(dictionary: dict, separator: ":")
-    s = tsp.correct(word_error).first
-
-    assert_match s, "parallel:prepare"
+    assert_tree_spell "parallel:prepare",
+                      input: "parallel:preprare",
+                      dictionary:  %w[parallel:prepare parallel:create parallel:rake parallel:migrate],
+                      separator: ":"
   end
 
   def test_special_words_mini
@@ -104,7 +96,7 @@ class TreeSpellCheckerTest < Test::Unit::TestCase
 
     suggestions = DidYouMean::TreeSpellChecker.new(dictionary: MINI_DIRECTORIES, augment: true).correct("testspell_checker_test.rb")
 
-    assert_equal "test/spell_checker_test.rb", suggestions.first
+    assert_equal suggestions.first, "test/spell_checker_test.rb"
   end
 
   def test_no_idea_with_augmentation
@@ -115,29 +107,25 @@ class TreeSpellCheckerTest < Test::Unit::TestCase
 
     suggestions = DidYouMean::TreeSpellChecker.new(dictionary: MINI_DIRECTORIES, augment: true).correct word_error
 
-    assert_equal "test/spell_checking/key_name_check_test.rb", suggestions.first
+    assert_equal suggestions.first, "test/spell_checking/key_name_check_test.rb"
   end
 
   def test_works_out_suggestions
-    exp = ["spec/models/concerns/vixen_spec.rb",
-           "spec/models/concerns/vixenus_spec.rb"]
-    suggestions = @tree_spell_checker.correct(@test_str)
-
-    assert_equal suggestions.to_set, exp.to_set
+    assert_tree_spell %w(spec/models/concerns/vixen_spec.rb spec/models/concerns/vixenus_spec.rb),
+                      input: "spek/modeks/confirns/viken_spec.rb",
+                      dictionary: %w(spec/models/concerns/vixen_spec.rb spec/models/concerns/vixenus_spec.rb)
   end
 
   def test_works_when_input_is_correct
-    correct_input = "spec/models/concerns/vixenus_spec.rb"
-    suggestions = @tree_spell_checker.correct correct_input
-
-    assert_equal suggestions.first, correct_input
+    assert_tree_spell "spec/models/concerns/vixenus_spec.rb",
+                      input: "spec/models/concerns/vixenus_spec.rb",
+                      dictionary: @dictionary
   end
 
   def test_find_out_leaves_in_a_path
-    path = "spec/modals/confirms"
-    names = @tree_spell_checker.send(:find_leaves, path)
+    names = @tree_spell_checker.send(:find_leaves, "spec/modals/confirms")
 
-    assert_equal names.to_set, %w[abcd_spec.rb efgh_spec.rb].to_set
+    assert_equal %w[abcd_spec.rb efgh_spec.rb], names
   end
 
   def test_works_out_nodes
@@ -146,24 +134,25 @@ class TreeSpellCheckerTest < Test::Unit::TestCase
                  "spec/modals/concerns",
                  "spec/modals/confirms",
                  "spec/controllers/concerns",
-                 "spec/controllers/confirms"].to_set
-    states = @tree_spell_checker.dimensions
-    nodes = states[0].product(*states[1..-1])
-    paths = @tree_spell_checker.send(:possible_paths, nodes)
+                 "spec/controllers/confirms"]
 
-    assert_equal paths.to_set, exp_paths.to_set
+    states = @tree_spell_checker.dimensions
+    nodes  = states[0].product(*states[1..-1])
+    paths  = @tree_spell_checker.send(:possible_paths, nodes)
+
+    assert_equal paths, exp_paths
   end
 
   def test_works_out_state_space
     suggestions = @tree_spell_checker.send(:plausible_dimensions, @test_str)
 
-    assert_equal suggestions, [["spec"], %w[models modals], %w[confirms concerns]]
+    assert_equal [["spec"], %w[models modals], %w[confirms concerns]], suggestions
   end
 
   def test_parses_dictionary
     states = @tree_spell_checker.dimensions
 
-    assert_equal states, [["spec"], %w[models modals controllers], %w[concerns confirms]]
+    assert_equal [["spec"], %w[models modals controllers], %w[concerns confirms]], states
   end
 
   def test_parses_elementary_dictionary
@@ -171,13 +160,13 @@ class TreeSpellCheckerTest < Test::Unit::TestCase
                    .new(dictionary: %w(spec/models/user_spec.rb spec/services/account_spec.rb))
                    .dimensions
 
-    assert_equal dimensions, [["spec"], %w[models services]]
+    assert_equal [["spec"], %w[models services]], dimensions
   end
 
   private
 
-  def assert_tree_spell(expected, input: , dictionary: )
-    suggestions = DidYouMean::TreeSpellChecker.new(dictionary: dictionary).correct(input)
+  def assert_tree_spell(expected, input:, dictionary:, separator: "/")
+    suggestions = DidYouMean::TreeSpellChecker.new(dictionary: dictionary, separator: separator).correct(input)
 
     assert_equal Array(expected), suggestions, "Expected to suggest #{expected}, but got #{suggestions.inspect}"
   end

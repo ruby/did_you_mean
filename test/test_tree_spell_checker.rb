@@ -93,27 +93,17 @@ class TreeSpellCheckerTest < Test::Unit::TestCase
   end
 
   def test_file_in_root
-    word = "test/spell_checker_test.rb"
-    word_error = "test/spell_checker_test.r"
-    suggestions = DidYouMean::TreeSpellChecker.new(dictionary: MINI_DIRECTORIES).correct word_error
-
-    assert_equal word, suggestions.first
+    assert_tree_spell "test/spell_checker_test.rb", input: "test/spell_checker_test.r", dictionary: MINI_DIRECTORIES
   end
 
   def test_no_plausible_states
-    word_error = "testspell_checker_test.rb"
-    suggestions = DidYouMean::TreeSpellChecker.new(dictionary: MINI_DIRECTORIES).correct word_error
-
-    assert_equal [], suggestions
+    assert_tree_spell [], input: "testspell_checker_test.rb", dictionary: MINI_DIRECTORIES
   end
 
   def test_no_plausible_states_with_augmentation
-    word_error = "testspell_checker_test.rb"
-    suggestions = DidYouMean::TreeSpellChecker.new(dictionary: MINI_DIRECTORIES).correct word_error
+    assert_tree_spell [], input: "testspell_checker_test.rb", dictionary: MINI_DIRECTORIES
 
-    assert_equal [], suggestions
-
-    suggestions = DidYouMean::TreeSpellChecker.new(dictionary: MINI_DIRECTORIES, augment: true).correct word_error
+    suggestions = DidYouMean::TreeSpellChecker.new(dictionary: MINI_DIRECTORIES, augment: true).correct("testspell_checker_test.rb")
 
     assert_equal "test/spell_checker_test.rb", suggestions.first
   end

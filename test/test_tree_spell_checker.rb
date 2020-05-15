@@ -23,7 +23,7 @@ class TreeSpellCheckerTest < Test::Unit::TestCase
         spec/controllers/vixen_controller_spec.rb
       )
     @test_str = "spek/modeks/confirns/viken_spec.rb"
-    @tsp = DidYouMean::TreeSpellChecker.new(dictionary: @dictionary)
+    @tree_spell_checker = DidYouMean::TreeSpellChecker.new(dictionary: @dictionary)
   end
 
   def test_corrupt_root
@@ -122,21 +122,21 @@ class TreeSpellCheckerTest < Test::Unit::TestCase
   def test_works_out_suggestions
     exp = ["spec/models/concerns/vixen_spec.rb",
            "spec/models/concerns/vixenus_spec.rb"]
-    suggestions = @tsp.correct(@test_str)
+    suggestions = @tree_spell_checker.correct(@test_str)
 
     assert_equal suggestions.to_set, exp.to_set
   end
 
   def test_works_when_input_is_correct
     correct_input = "spec/models/concerns/vixenus_spec.rb"
-    suggestions = @tsp.correct correct_input
+    suggestions = @tree_spell_checker.correct correct_input
 
     assert_equal suggestions.first, correct_input
   end
 
   def test_find_out_leaves_in_a_path
     path = "spec/modals/confirms"
-    names = @tsp.send(:find_leaves, path)
+    names = @tree_spell_checker.send(:find_leaves, path)
 
     assert_equal names.to_set, %w[abcd_spec.rb efgh_spec.rb].to_set
   end
@@ -148,21 +148,21 @@ class TreeSpellCheckerTest < Test::Unit::TestCase
                  "spec/modals/confirms",
                  "spec/controllers/concerns",
                  "spec/controllers/confirms"].to_set
-    states = @tsp.dimensions
+    states = @tree_spell_checker.dimensions
     nodes = states[0].product(*states[1..-1])
-    paths = @tsp.send(:possible_paths, nodes)
+    paths = @tree_spell_checker.send(:possible_paths, nodes)
 
     assert_equal paths.to_set, exp_paths.to_set
   end
 
   def test_works_out_state_space
-    suggestions = @tsp.send(:plausible_dimensions, @test_str)
+    suggestions = @tree_spell_checker.send(:plausible_dimensions, @test_str)
 
     assert_equal suggestions, [["spec"], %w[models modals], %w[confirms concerns]]
   end
 
   def test_parses_dictionary
-    states = @tsp.dimensions
+    states = @tree_spell_checker.dimensions
 
     assert_equal states, [["spec"], %w[models modals controllers], %w[concerns confirms]]
   end

@@ -14,11 +14,11 @@ module DidYouMean
     end
 
     def correct(input)
-      plausibles = plausible_dimensions(nput)
-      return no_idea(input) if plausibles.empty?
+      plausibles = plausible_dimensions(input)
+      return fall_back_to_normal_spell_check(input) if plausibles.empty?
 
       suggestions = find_suggestions(input, plausibles)
-      return no_idea(input) if suggestions.empty?
+      return fall_back_to_normal_spell_check(input) if suggestions.empty?
 
       suggestions
     end
@@ -37,7 +37,7 @@ module DidYouMean
       ideas.compact.flatten
     end
 
-    def no_idea(input)
+    def fall_back_to_normal_spell_check(input)
       return [] unless augment
 
       ::DidYouMean::SpellChecker.new(dictionary: dictionary).correct(input)

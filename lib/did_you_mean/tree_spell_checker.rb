@@ -81,12 +81,10 @@ module DidYouMean
     end
 
     def plausible_dimensions(input)
-      elements = input.split(separator)[0..-2]
-      elements.each_with_index.map do |element, i|
-        next if dimensions[i].nil?
-
-        correct_element(dimensions[i], element)
-      end.compact
+      input.split(separator)[0..-2]
+        .map
+        .with_index { |element, index| correct_element(dimensions[index], element) if dimensions[index] }
+        .compact
     end
 
     def correct_element(names, element)

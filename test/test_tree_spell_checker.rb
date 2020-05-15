@@ -58,48 +58,38 @@ class TreeSpellCheckerTest < Test::Unit::TestCase
   end
 
   def test_special_words_mini
-    tsp = DidYouMean::TreeSpellChecker.new(dictionary: MINI_DIRECTORIES)
+    [
+      %w(test/fixtures/book.rb                           test/fixture/book.rb),
+      %w(test/edit_distance/jaro_winkler_test.rb         test/edit_distace/jaro_winkler_test.rb),
+      %w(test/edit_distance/jaro_winkler_test.rb         teste/dit_distane/jaro_winkler_test.rb),
+      %w(test/fixtures/book.rb                           test/fixturWes/book.rb),
+      %w(test/test_helper.rb                             tes!t/test_helper.rb),
+      %w(test/fixtures/book.rb                           test/hfixtures/book.rb),
+      %w(test/edit_distance/jaro_winkler_test.rb         test/eidt_distance/jaro_winkler_test.@rb),
+      %w(test/spell_checker_test.rb                      test/spell_checke@r_test.rb),
+      %w(test/tree_spell_human_typo_test.rb              testt/ree_spell_human_typo_test.rb),
+      %w(test/edit_distance/jaro_winkler_test.rb         test/edit_distance/jaro_winkler_tuest.rb),
+    ].each do |expected, user_input|
+      assert_tree_spell expected, input: user_input, dictionary: MINI_DIRECTORIES
+    end
 
-    special_words_mini.each do |word, word_error|
-      s = tsp.correct(word_error).first
-      assert_match s, word
+    [
+      %w(test/spell_checking/variable_name_check_test.rb test/spell_checking/vriabl_ename_check_test.rb),
+      %w(test/spell_checking/key_name_check_test.rb      tesit/spell_checking/key_name_choeck_test.rb),
+    ].each do |expected, user_input|
+      assert_equal expected, DidYouMean::TreeSpellChecker.new(dictionary: MINI_DIRECTORIES).correct(user_input)[0]
     end
   end
 
   def test_special_words_rspec
-    tsp = DidYouMean::TreeSpellChecker.new(dictionary: RSPEC_DIRECTORIES)
-
-    special_words_rspec.each do |word, word_error|
-      s = tsp.correct(word_error)
-      assert_match s.first, word
+    [
+      %w(spec/rspec/core/formatters/exception_presenter_spec.rb spec/rspec/core/formatters/eception_presenter_spec.rb),
+      %w(spec/rspec/core/metadata_spec.rb                       spec/rspec/core/metadata_spe.crb),
+      %w(spec/rspec/core/ordering_spec.rb                       spec/spec/core/odrering_spec.rb),
+      %w(spec/support/mathn_integration_support.rb              spec/support/mathn_itegrtion_support.rb),
+    ].each do |expected, user_input|
+      assert_tree_spell expected, input: user_input, dictionary: RSPEC_DIRECTORIES
     end
-  end
-
-  def special_words_rspec
-    [
-      ["spec/rspec/core/formatters/exception_presenter_spec.rb", "spec/rspec/core/formatters/eception_presenter_spec.rb"],
-      ["spec/rspec/core/ordering_spec.rb", "spec/spec/core/odrering_spec.rb"],
-      ["spec/rspec/core/metadata_spec.rb", "spec/rspec/core/metadata_spe.crb"],
-      ["spec/support/mathn_integration_support.rb", "spec/support/mathn_itegrtion_support.rb"]
-    ]
-  end
-
-  def special_words_mini
-    [
-      ["test/fixtures/book.rb", "test/fixture/book.rb"],
-      ["test/fixtures/book.rb", "test/fixture/book.rb"],
-      ["test/edit_distance/jaro_winkler_test.rb", "test/edit_distace/jaro_winkler_test.rb"],
-      ["test/edit_distance/jaro_winkler_test.rb", "teste/dit_distane/jaro_winkler_test.rb"],
-      ["test/fixtures/book.rb", "test/fixturWes/book.rb"],
-      ["test/test_helper.rb", "tes!t/test_helper.rb"],
-      ["test/fixtures/book.rb", "test/hfixtures/book.rb"],
-      ["test/edit_distance/jaro_winkler_test.rb", "test/eidt_distance/jaro_winkler_test.@rb"],
-      ["test/spell_checker_test.rb", "test/spell_checke@r_test.rb"],
-      ["test/tree_spell_human_typo_test.rb", "testt/ree_spell_human_typo_test.rb"],
-      ["test/spell_checking/variable_name_check_test.rb", "test/spell_checking/vriabl_ename_check_test.rb"],
-      ["test/spell_checking/key_name_check_test.rb", "tesit/spell_checking/key_name_choeck_test.rb"],
-      ["test/edit_distance/jaro_winkler_test.rb", "test/edit_distance/jaro_winkler_tuest.rb"]
-    ]
   end
 
   def test_file_in_root
@@ -193,5 +183,13 @@ class TreeSpellCheckerTest < Test::Unit::TestCase
     states = tsp.dimensions
 
     assert_equal states, [["spec"], %w[models services]]
+  end
+
+  private
+
+  def assert_tree_spell(expected, input: , dictionary: )
+    suggestions = DidYouMean::TreeSpellChecker.new(dictionary: dictionary).correct(input)
+
+    assert_equal Array(expected), suggestions, "Expected to suggest #{expected}, but got #{suggestions.inspect}"
   end
 end

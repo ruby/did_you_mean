@@ -123,7 +123,7 @@ class TreeSpellCheckerTest < Test::Unit::TestCase
   end
 
   def test_find_out_leaves_in_a_path
-    names = @tree_spell_checker.send(:find_leaves, "spec/modals/confirms")
+    names = @tree_spell_checker.find_leaves("spec/modals/confirms")
 
     assert_equal %w[abcd_spec.rb efgh_spec.rb], names
   end
@@ -138,13 +138,13 @@ class TreeSpellCheckerTest < Test::Unit::TestCase
 
     states = @tree_spell_checker.dimensions
     nodes  = states[0].product(*states[1..-1])
-    paths  = @tree_spell_checker.send(:possible_paths, nodes)
+    paths  = @tree_spell_checker.possible_paths(nodes)
 
     assert_equal paths, exp_paths
   end
 
   def test_works_out_state_space
-    suggestions = @tree_spell_checker.send(:plausible_dimensions, @test_str)
+    suggestions = @tree_spell_checker.plausible_dimensions(@test_str)
 
     assert_equal [["spec"], %w[models modals], %w[confirms concerns]], suggestions
   end

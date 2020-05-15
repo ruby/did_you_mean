@@ -36,6 +36,25 @@ module DidYouMean
                       end
     end
 
+    def find_leaves(path)
+      path_with_separator = "#{path}#{separator}"
+
+      dictionary
+        .select {|str| str.include?(path_with_separator) }
+        .map {|str| str.gsub(path_with_separator, '') }
+    end
+
+    def plausible_dimensions(input)
+      input.split(separator)[0..-2]
+        .map
+        .with_index { |element, index| correct_element(dimensions[index], element) if dimensions[index] }
+        .compact
+    end
+
+    def possible_paths(states)
+      states.map { |state| state.join(separator) }
+    end
+
     private
 
     def find_suggestions(input, plausibles)
@@ -69,25 +88,6 @@ module DidYouMean
       else
         ideas.map {|str| "#{path}#{separator}#{str}" }
       end
-    end
-
-    def find_leaves(path)
-      path_with_separator = "#{path}#{separator}"
-
-      dictionary
-        .select {|str| str.include?(path_with_separator) }
-        .map {|str| str.gsub(path_with_separator, '') }
-    end
-
-    def possible_paths(states)
-      states.map { |state| state.join(separator) }
-    end
-
-    def plausible_dimensions(input)
-      input.split(separator)[0..-2]
-        .map
-        .with_index { |element, index| correct_element(dimensions[index], element) if dimensions[index] }
-        .compact
     end
 
     def correct_element(names, element)

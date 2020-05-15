@@ -62,10 +62,13 @@ module DidYouMean
     end
 
     def ideas_to_paths(ideas, leaf, names, path)
-      return nil if ideas.empty?
-      return [path + separator + leaf] if names.include?(leaf)
-
-      ideas.map { |str| path + separator + str }
+      if ideas.empty?
+        nil
+      elsif names.include?(leaf)
+        ["#{path}#{separator}#{leaf}"]
+      else
+        ideas.map {|str| "#{path}#{separator}#{str}" }
+      end
     end
 
     def find_leaves(path)

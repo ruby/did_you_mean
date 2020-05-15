@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module DidYouMean
   # spell checker for a dictionary that has a tree
   # structure, see doc/tree_spell_checker_api.md
@@ -14,8 +16,10 @@ module DidYouMean
     def correct(input)
       plausibles = plausible_dimensions input
       return no_idea(input) if plausibles.empty?
+
       suggestions = find_suggestions input, plausibles
       return no_idea(input) if suggestions.empty?
+
       suggestions
     end
 
@@ -35,6 +39,7 @@ module DidYouMean
 
     def no_idea(input)
       return [] unless augment
+
       ::DidYouMean::SpellChecker.new(dictionary: dictionary).correct(input)
     end
 
@@ -49,12 +54,14 @@ module DidYouMean
     def ideas_to_paths(ideas, leaf, names, path)
       return nil if ideas.empty?
       return [path + separator + leaf] if names.include? leaf
+
       ideas.map { |str| path + separator + str }
     end
 
     def find_leaves(path)
       dictionary.map do |str|
         next unless str.include? "#{path}#{separator}"
+
         str.gsub("#{path}#{separator}", '')
       end.compact
     end
@@ -69,6 +76,7 @@ module DidYouMean
       elements = input.split(separator)[0..-2]
       elements.each_with_index.map do |element, i|
         next if dimensions[i].nil?
+
         CorrectElement.new.call dimensions[i], element
       end.compact
     end
@@ -114,13 +122,14 @@ module DidYouMean
 
   # identifies the elements close to element
   class CorrectElement
-    def initialize
-    end
+    def initialize; end
 
     def call(names, element)
       return names if names.size == 1
+
       str = normalize element
       return [str] if names.include? str
+
       checker = ::DidYouMean::SpellChecker.new(dictionary: names)
       checker.correct(str)
     end
@@ -131,6 +140,7 @@ module DidYouMean
       str = leaf.dup
       str.downcase!
       return str unless str.include? '@'
+
       str.tr!('@', '  ')
     end
   end

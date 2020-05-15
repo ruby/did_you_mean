@@ -14,10 +14,10 @@ module DidYouMean
     end
 
     def correct(input)
-      plausibles = plausible_dimensions input
+      plausibles = plausible_dimensions(nput)
       return no_idea(input) if plausibles.empty?
 
-      suggestions = find_suggestions input, plausibles
+      suggestions = find_suggestions(input, plausibles)
       return no_idea(input) if suggestions.empty?
 
       suggestions
@@ -31,7 +31,7 @@ module DidYouMean
 
     def find_suggestions(input, plausibles)
       states = plausibles[0].product(*plausibles[1..-1])
-      paths = possible_paths states
+      paths = possible_paths(states)
       leaf = input.split(separator).last
       ideas = find_ideas(paths, leaf)
       ideas.compact.flatten
@@ -47,29 +47,28 @@ module DidYouMean
       paths.map do |path|
         names = find_leaves(path)
         ideas = correct_element(names, leaf)
-        ideas_to_paths ideas, leaf, names, path
+
+        ideas_to_paths(ideas, leaf, names, path)
       end
     end
 
     def ideas_to_paths(ideas, leaf, names, path)
       return nil if ideas.empty?
-      return [path + separator + leaf] if names.include? leaf
+      return [path + separator + leaf] if names.include?(leaf)
 
       ideas.map { |str| path + separator + str }
     end
 
     def find_leaves(path)
       dictionary.map do |str|
-        next unless str.include? "#{path}#{separator}"
+        next unless str.include?("#{path}#{separator}")
 
         str.gsub("#{path}#{separator}", '')
       end.compact
     end
 
     def possible_paths(states)
-      states.map do |state|
-        state.join separator
-      end
+      states.map { |state| state.join(separator) }
     end
 
     def plausible_dimensions(input)
@@ -84,17 +83,17 @@ module DidYouMean
     def correct_element(names, element)
       return names if names.size == 1
 
-      str = normalize element
-      return [str] if names.include? str
+      str = normalize(element)
 
-      checker = ::DidYouMean::SpellChecker.new(dictionary: names)
-      checker.correct(str)
+      return [str] if names.include?(str)
+
+      ::DidYouMean::SpellChecker.new(dictionary: names).correct(str)
     end
 
     def normalize(leaf)
       str = leaf.dup
       str.downcase!
-      return str unless str.include? '@'
+      return str unless str.include?('@')
 
       str.tr!('@', '  ')
     end

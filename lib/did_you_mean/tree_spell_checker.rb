@@ -40,10 +40,10 @@ module DidYouMean
 
     def find_suggestions(input, plausibles)
       states = plausibles[0].product(*plausibles[1..-1])
-      paths = possible_paths(states)
-      leaf = input.split(separator).last
-      ideas = find_ideas(paths, leaf)
-      ideas.compact.flatten
+      paths  = possible_paths(states)
+      leaf   = input.split(separator).last
+
+      find_ideas(paths, leaf)
     end
 
     def fall_back_to_normal_spell_check(input)
@@ -53,12 +53,12 @@ module DidYouMean
     end
 
     def find_ideas(paths, leaf)
-      paths.map do |path|
+      paths.flat_map do |path|
         names = find_leaves(path)
         ideas = correct_element(names, leaf)
 
         ideas_to_paths(ideas, leaf, names, path)
-      end
+      end.compact
     end
 
     def ideas_to_paths(ideas, leaf, names, path)

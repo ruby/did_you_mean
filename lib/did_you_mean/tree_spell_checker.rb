@@ -10,7 +10,6 @@ module DidYouMean
       @dictionary = dictionary
       @separator = separator
       @augment = augment
-      @dimensions = parse_dimensions
     end
 
     def correct(input)
@@ -23,11 +22,21 @@ module DidYouMean
       suggestions
     end
 
-    private
-
-    def parse_dimensions
-      ParseDimensions.new(dictionary, separator).call
+    def dictionary_without_leaves
+      @dictionary_without_leaves ||= dictionary.map { |word| word.split(separator)[0..-2] }.uniq
     end
+
+    def tree_depth
+      @tree_depth ||= dictionary_without_leaves.max { |a, b| a.size <=> b.size }.size
+    end
+
+    def dimensions
+      @dimensions ||= tree_depth.times.map do |index|
+                        dictionary_without_leaves.map { |element| element[index] }.compact.uniq
+                      end
+    end
+
+    private
 
     def find_suggestions(input, plausibles)
       states = plausibles[0].product(*plausibles[1..-1])
@@ -97,38 +106,5 @@ module DidYouMean
 
       str.tr!('@', '  ')
     end
-  end
-
-  # parses the elements in each dimension
-  class ParseDimensions
-    def initialize(dictionary, separator)
-      @dictionary = dictionary
-      @separator = separator
-    end
-
-    def call
-      leafless = remove_leaves
-
-      find_elements(leafless).map(&:uniq)
-    end
-
-    private
-
-    def remove_leaves
-      dictionary.map { |a| a.split(separator)[0..-2] }.uniq
-    end
-
-    def find_elements(leafless)
-      max_elements = leafless.map(&:size).max
-      dimensions = Array.new(max_elements) { [] }
-      (0...max_elements).each do |i|
-        leafless.each do |elements|
-          dimensions[i] << elements[i] unless elements[i].nil?
-        end
-      end
-      dimensions
-    end
-
-    attr_reader :dictionary, :separator
   end
 end

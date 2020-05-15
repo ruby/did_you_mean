@@ -148,7 +148,7 @@ class TreeSpellCheckerTest < Test::Unit::TestCase
                  'spec/modals/confirms',
                  'spec/controllers/concerns',
                  'spec/controllers/confirms'].to_set
-    states = @tsp.send(:parse_dimensions)
+    states = @tsp.dimensions
     nodes = states[0].product(*states[1..-1])
     paths = @tsp.send(:possible_paths, nodes)
     assert_equal paths.to_set, exp_paths.to_set
@@ -160,14 +160,14 @@ class TreeSpellCheckerTest < Test::Unit::TestCase
   end
 
   def test_parses_dictionary
-    states = @tsp.send(:parse_dimensions)
+    states = @tsp.dimensions
     assert_equal states, [["spec"], ["models", "modals", "controllers"], ["concerns", "confirms"]]
   end
 
   def test_parses_elementary_dictionary
     dictionary = ['spec/models/user_spec.rb', 'spec/services/account_spec.rb']
     tsp = DidYouMean::TreeSpellChecker.new(dictionary: dictionary)
-    states = tsp.send(:parse_dimensions)
+    states = tsp.dimensions
     assert_equal states, [['spec'], ['models', 'services']]
   end
 end

@@ -168,11 +168,11 @@ class TreeSpellCheckerTest < Test::Unit::TestCase
   end
 
   def test_parses_elementary_dictionary
-    dictionary = ["spec/models/user_spec.rb", "spec/services/account_spec.rb"]
-    tsp = DidYouMean::TreeSpellChecker.new(dictionary: dictionary)
-    states = tsp.dimensions
+    dimensions = DidYouMean::TreeSpellChecker
+                   .new(dictionary: %w(spec/models/user_spec.rb spec/services/account_spec.rb))
+                   .dimensions
 
-    assert_equal states, [["spec"], %w[models services]]
+    assert_equal dimensions, [["spec"], %w[models services]]
   end
 
   private

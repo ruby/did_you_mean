@@ -1,3 +1,5 @@
+# frozen-string-literal: true
+
 module DidYouMean
   module Correctable
     def original_message
@@ -6,7 +8,7 @@ module DidYouMean
 
     def to_s
       msg = super.dup
-      suggestion = DidYouMean.formatter.message_for(corrections)
+      suggestion = DidYouMean.formatter.message_for(suggestions)
 
       msg << suggestion if !msg.end_with?(suggestion)
       msg
@@ -14,8 +16,24 @@ module DidYouMean
       super
     end
 
+    def suggestions
+      @suggestions ||= spell_checker.yield_self do |checker|
+                         if checker.respond_to?(:suggestions)
+                           checker.suggestions
+                         else
+                           # warn "Did you mean now requires the spell checker to respond to #suggestions instead " \
+                           #      "of #suggestions. Please rename it to #suggestions."
+
+                           checker.corrections
+                         end
+                       end
+    end
+
     def corrections
-      @corrections ||= spell_checker.corrections
+      # warn "The #corrections method is deprecated in favor of #suggestions. Please call the #suggestions method " \
+      #      "instead."
+
+      suggestions
     end
 
     def spell_checker

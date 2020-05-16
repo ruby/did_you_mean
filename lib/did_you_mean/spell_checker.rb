@@ -20,11 +20,11 @@ module DidYouMean
 
       # Correct mistypes
       threshold   = (input.length * 0.25).ceil
-      corrections = words.select { |c| Levenshtein.distance(normalize(c), input) <= threshold }
+      suggestions = words.select { |c| Levenshtein.distance(normalize(c), input) <= threshold }
 
       # Correct misspells
-      if corrections.empty?
-        corrections = words.select do |word|
+      if suggestions.empty?
+        suggestions = words.select do |word|
           word   = normalize(word)
           length = input.length < word.length ? input.length : word.length
 
@@ -32,7 +32,7 @@ module DidYouMean
         end.first(1)
       end
 
-      corrections
+      suggestions
     end
 
     private

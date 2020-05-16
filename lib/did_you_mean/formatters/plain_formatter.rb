@@ -6,7 +6,7 @@ module DidYouMean
   # human readable string.
   class PlainFormatter
 
-    # Returns a human readable string that contains +corrections+. This
+    # Returns a human readable string that contains +suggestions+. This
     # formatter is designed to be less verbose to not take too much screen
     # space while being helpful enough to the user.
     #
@@ -26,8 +26,8 @@ module DidYouMean
     #
     #   # => nil
     #
-    def message_for(corrections)
-      corrections.empty? ? "" : "\nDid you mean?  #{corrections.join("\n               ")}"
+    def message_for(suggestions)
+      suggestions.empty? ? "" : "\nDid you mean?  #{suggestions.join("\n               ")}"
     end
   end
 end

@@ -5,7 +5,7 @@ class NameErrorExtensionTest < Test::Unit::TestCase
 
   class TestSpellChecker
     def initialize(*); end
-    def corrections; ["does_exist"]; end
+    def suggestions; ["does_exist"]; end
   end
 
   def setup

@@ -22,7 +22,7 @@ module DidYouMean
       @path = exception.path
     end
 
-    def corrections
+    def suggestions
       threshold     = path.size * 2
       dictionary    = self.class.requireables.reject {|str| str.size >= threshold }
       spell_checker = path.include?("/") ? TreeSpellChecker : SpellChecker

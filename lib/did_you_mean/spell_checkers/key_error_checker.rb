@@ -7,8 +7,8 @@ module DidYouMean
       @keys = key_error.receiver.keys
     end
 
-    def corrections
-      @corrections ||= exact_matches.empty? ? SpellChecker.new(dictionary: @keys).correct(@key).map(&:inspect) : exact_matches
+    def suggestions
+      @suggestions ||= exact_matches.empty? ? SpellChecker.new(dictionary: @keys).correct(@key).map(&:inspect) : exact_matches
     end
 
     private

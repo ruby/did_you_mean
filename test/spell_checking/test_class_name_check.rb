@@ -30,39 +30,39 @@ end
 class ClassNameCheckTest < Test::Unit::TestCase
   include DidYouMean::TestHelper
 
-  def test_corrections
+  def test_suggestions
     error = assert_raise(NameError) { ::Bo0k }
-    assert_correction "Book", error.corrections
+    assert_correction "Book", error.suggestions
   end
 
-  def test_corrections_include_case_specific_class_name
+  def test_suggestions_include_case_specific_class_name
     error = assert_raise(NameError) { ::Acronym }
-    assert_correction "ACRONYM", error.corrections
+    assert_correction "ACRONYM", error.suggestions
   end
 
-  def test_corrections_include_top_level_class_name
+  def test_suggestions_include_top_level_class_name
     error = assert_raise(NameError) { Project.bo0k }
-    assert_correction "Book", error.corrections
+    assert_correction "Book", error.suggestions
   end
 
-  def test_names_in_corrections_have_namespaces
+  def test_names_in_suggestions_have_namespaces
     error = assert_raise(NameError) { ::Book::TableofContents }
-    assert_correction "Book::TableOfContents", error.corrections
+    assert_correction "Book::TableOfContents", error.suggestions
   end
 
-  def test_corrections_candidates_for_names_in_upper_level_scopes
+  def test_suggestions_candidates_for_names_in_upper_level_scopes
     error = assert_raise(NameError) { Book::Page.tableof_contents }
-    assert_correction "Book::TableOfContents", error.corrections
+    assert_correction "Book::TableOfContents", error.suggestions
   end
 
-  def test_corrections_should_work_from_within_instance_method
+  def test_suggestions_should_work_from_within_instance_method
     error = assert_raise(NameError) { ::Book.new.tableof_contents }
-    assert_correction "Book::TableOfContents", error.corrections
+    assert_correction "Book::TableOfContents", error.suggestions
   end
 
-  def test_corrections_should_work_from_within_instance_method_on_nested_class
+  def test_suggestions_should_work_from_within_instance_method_on_nested_class
     error = assert_raise(NameError) { ::Book::Page.new.tableof_contents }
-    assert_correction "Book::TableOfContents", error.corrections
+    assert_correction "Book::TableOfContents", error.suggestions
   end
 
   def test_does_not_suggest_user_input
@@ -76,6 +76,6 @@ class ClassNameCheckTest < Test::Unit::TestCase
     # a race condition a single test.
     require_relative '../fixtures/book'
 
-    assert_empty error.corrections
+    assert_empty error.suggestions
   end
 end

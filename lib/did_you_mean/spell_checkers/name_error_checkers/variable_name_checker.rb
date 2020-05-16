@@ -73,8 +73,8 @@ module DidYouMean
       @cvar_names  += receiver.class_variables if receiver.kind_of?(Module)
     end
 
-    def corrections
-      @corrections ||= SpellChecker
+    def suggestions
+      @suggestions ||= SpellChecker
                      .new(dictionary: (RB_RESERVED_WORDS + lvar_names + method_names + ivar_names + cvar_names))
                      .correct(name) - NAMES_TO_EXCLUDE[@name]
     end

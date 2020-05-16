@@ -28,11 +28,11 @@ Benchmark.ips do |x|
   checker_for_file = DidYouMean::RequirePathChecker.new(exception_without_slash)
 
   x.report "original (with a /)" do
-    checker_for_path.corrections
+    checker_for_path.suggestions
   end
 
   x.report "original (without /)" do
-    checker_for_file.corrections
+    checker_for_file.suggestions
   end
 
   #x.report "proposed (with a /)" do

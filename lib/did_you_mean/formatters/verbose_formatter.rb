@@ -22,7 +22,7 @@ module DidYouMean
   #
   class VerboseFormatter
 
-    # Returns a human readable string that contains +corrections+. This
+    # Returns a human readable string that contains +suggestions+. This
     # formatter is designed to be less verbose to not take too much screen
     # space while being helpful enough to the user.
     #
@@ -38,11 +38,11 @@ module DidYouMean
     #
     #   # => nil
     #
-    def message_for(corrections)
-      return "" if corrections.empty?
+    def message_for(suggestions)
+      return "" if suggestions.empty?
 
       output = "\n\n    Did you mean? ".dup
-      output << corrections.join("\n                  ")
+      output << suggestions.join("\n                  ")
       output << "\n "
     end
   end

@@ -69,14 +69,14 @@ report "calculating accuracy" do
     if DICTIONARY.include?(expected)
       total_count += 1
 
-      corrections = SPELL_CHECKER.correct(user_input)
-      if corrections.first == expected
+      suggestions = SPELL_CHECKER.correct(user_input)
+      if suggestions.first == expected
         correct_count += 1
       else
         words_not_corrected << {
           'input'    => user_input,
           'expected' => expected,
-          'actual'   => corrections
+          'actual'   => suggestions
         }
       end
     end
@@ -102,4 +102,4 @@ File.open(filename, 'w') do |file|
   file.write(words_not_corrected.to_yaml)
 end
 
-puts "Incorrect corrections were logged to #{filename}."
+puts "Incorrect suggestions were logged to #{filename}."

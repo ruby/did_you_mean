@@ -10,8 +10,8 @@ module DidYouMean
       @class_name, @receiver, @original_message = exception.name, exception.receiver, exception.original_message
     end
 
-    def corrections
-      @corrections ||= SpellChecker.new(dictionary: class_names)
+    def suggestions
+      @suggestions ||= SpellChecker.new(dictionary: class_names)
                          .correct(class_name)
                          .map(&:full_name)
                          .reject {|qualified_name| @original_message.include?(qualified_name) }

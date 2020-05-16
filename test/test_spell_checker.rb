@@ -71,7 +71,7 @@ class SpellCheckerTest < Test::Unit::TestCase
   private
 
   def assert_spell(expected, input: , dictionary: )
-    corrections = DidYouMean::SpellChecker.new(dictionary: dictionary).correct(input)
-    assert_equal Array(expected), corrections, "Expected to suggest #{expected}, but got #{corrections.inspect}"
+    suggestions = DidYouMean::SpellChecker.new(dictionary: dictionary).correct(input)
+    assert_equal Array(expected), suggestions, "Expected to suggest #{expected}, but got #{suggestions.inspect}"
   end
 end

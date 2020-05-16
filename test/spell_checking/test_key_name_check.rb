@@ -7,11 +7,11 @@ class KeyNameCheckTest < Test::Unit::TestCase
     hash = { "foo" => 1, bar: 2 }
 
     error = assert_raise(KeyError) { hash.fetch(:bax) }
-    assert_correction ":bar", error.corrections
+    assert_correction ":bar", error.suggestions
     assert_match "Did you mean?  :bar", error.to_s
 
     error = assert_raise(KeyError) { hash.fetch("fooo") }
-    assert_correction %("foo"), error.corrections
+    assert_correction %("foo"), error.suggestions
     assert_match %(Did you mean?  "foo"), error.to_s
   end
 
@@ -19,11 +19,11 @@ class KeyNameCheckTest < Test::Unit::TestCase
     hash = { "foo" => 1, bar: 2 }
 
     error = assert_raise(KeyError) { hash.fetch_values("foo", :bar, :bax) }
-    assert_correction ":bar", error.corrections
+    assert_correction ":bar", error.suggestions
     assert_match "Did you mean?  :bar", error.to_s
 
     error = assert_raise(KeyError) { hash.fetch_values("foo", :bar, "fooo") }
-    assert_correction %("foo"), error.corrections
+    assert_correction %("foo"), error.suggestions
     assert_match %(Did you mean?  "foo"), error.to_s
   end
 
@@ -31,13 +31,13 @@ class KeyNameCheckTest < Test::Unit::TestCase
     hash = { foo_1: 1, bar_2: 2 }
 
     error = assert_raise(KeyError) { hash.fetch('foo_1') }
-    assert_correction %(:foo_1), error.corrections
+    assert_correction %(:foo_1), error.suggestions
     assert_match %(Did you mean?  :foo_1), error.to_s
   end
 
   def test_corrects_sprintf_key_name
     error = assert_raise(KeyError) { sprintf("%<foo>d", {fooo: 1}) }
-    assert_correction ":fooo", error.corrections
+    assert_correction ":fooo", error.suggestions
     assert_match "Did you mean?  :fooo", error.to_s
   end
 
@@ -45,7 +45,7 @@ class KeyNameCheckTest < Test::Unit::TestCase
     ENV["FOO"] = "1"
     ENV["BAR"] = "2"
     error = assert_raise(KeyError) { ENV.fetch("BAX") }
-    assert_correction %("BAR"), error.corrections
+    assert_correction %("BAR"), error.suggestions
     assert_match %(Did you mean?  "BAR"), error.to_s
   ensure
     ENV.delete("FOO")

@@ -37,52 +37,52 @@ class MethodNameCheckTest < Test::Unit::TestCase
     @user = User.new.extend(UserModule)
   end
 
-  def test_corrections_include_instance_method
+  def test_suggestions_include_instance_method
     error = assert_raise(NoMethodError){ @user.flrst_name }
 
-    assert_correction :first_name, error.corrections
+    assert_correction :first_name, error.suggestions
     assert_match "Did you mean?  first_name",  error.to_s
   end
 
-  def test_corrections_include_private_method
+  def test_suggestions_include_private_method
     error = assert_raise(NoMethodError){ @user.friend }
 
-    assert_correction :friends, error.corrections
+    assert_correction :friends, error.suggestions
     assert_match "Did you mean?  friends", error.to_s
   end
 
-  def test_corrections_include_method_from_module
+  def test_suggestions_include_method_from_module
     error = assert_raise(NoMethodError){ @user.fr0m_module }
 
-    assert_correction :from_module, error.corrections
+    assert_correction :from_module, error.suggestions
     assert_match "Did you mean?  from_module", error.to_s
   end
 
-  def test_corrections_include_class_method
+  def test_suggestions_include_class_method
     error = assert_raise(NoMethodError){ User.l0ad }
 
-    assert_correction :load, error.corrections
+    assert_correction :load, error.suggestions
     assert_match "Did you mean?  load", error.to_s
   end
 
   def test_private_methods_should_not_be_suggested
     error = assert_raise(NoMethodError){ User.new.the_protected_method }
-    refute_includes error.corrections, :the_protected_method
+    refute_includes error.suggestions, :the_protected_method
 
     error = assert_raise(NoMethodError){ User.new.the_private_method }
-    refute_includes error.corrections, :the_private_method
+    refute_includes error.suggestions, :the_private_method
   end
 
-  def test_corrections_when_private_method_is_called_with_args
+  def test_suggestions_when_private_method_is_called_with_args
     error = assert_raise(NoMethodError){ @user.call_incorrect_private_method }
 
-    assert_correction :raise, error.corrections
+    assert_correction :raise, error.suggestions
     assert_match "Did you mean?  raise", error.to_s
   end
 
   def test_exclude_methods_on_nil
     error = assert_raise(NoMethodError){ nil.map }
-    assert_empty error.corrections
+    assert_empty error.suggestions
   end
 
   def test_does_not_exclude_custom_methods_on_nil
@@ -90,7 +90,7 @@ class MethodNameCheckTest < Test::Unit::TestCase
     end
 
     error = assert_raise(NoMethodError){ nil.empty }
-    assert_correction :empty?, error.corrections
+    assert_correction :empty?, error.suggestions
   ensure
     NilClass.class_eval { undef empty? }
   end
@@ -119,7 +119,7 @@ class MethodNameCheckTest < Test::Unit::TestCase
     assert_equal 1, error.to_s.scan(/Did you mean/).count
   end
 
-  def test_suggests_corrections_on_nested_error
+  def test_suggests_suggestions_on_nested_error
     error = assert_raise NoMethodError do
       begin
         @user.firstname
@@ -134,14 +134,14 @@ class MethodNameCheckTest < Test::Unit::TestCase
   def test_suggests_yield
     error = assert_raise(NoMethodError) { yeild(1) }
 
-    assert_correction :yield, error.corrections
+    assert_correction :yield, error.suggestions
     assert_match "Did you mean?  yield", error.to_s
   end
 
   def test_does_not_suggest_yield
     error = assert_raise(NoMethodError) { 1.yeild }
 
-    assert_correction [], error.corrections
+    assert_correction [], error.suggestions
     assert_not_match(/Did you mean\? +yield/, error.to_s)
   end if RUBY_ENGINE != "jruby"
 end

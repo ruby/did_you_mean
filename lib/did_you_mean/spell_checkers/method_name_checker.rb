@@ -42,8 +42,8 @@ module DidYouMean
       @private_call = exception.respond_to?(:private_call?) ? exception.private_call? : false
     end
 
-    def corrections
-      @corrections ||= begin
+    def suggestions
+      @suggestions ||= begin
                          dictionary = method_names
                          dictionary = RB_RESERVED_WORDS + dictionary if @private_call
 

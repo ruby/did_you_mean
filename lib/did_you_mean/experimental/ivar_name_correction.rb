@@ -40,12 +40,12 @@ module DidYouMean
         no_method_error.remove_instance_variable(:@frame_binding)
       end
 
-      def corrections
-        original_checker.corrections + ivar_name_corrections
+      def suggestions
+        original_checker.suggestions + ivar_name_suggestions
       end
 
-      def ivar_name_corrections
-        @ivar_name_corrections ||= SpellChecker.new(dictionary: @ivar_names).correct(receiver_name.to_s)
+      def ivar_name_suggestions
+        @ivar_name_suggestions ||= SpellChecker.new(dictionary: @ivar_names).correct(receiver_name.to_s)
       end
 
       private

@@ -8,7 +8,7 @@ class RequirePathCheckTest < Test::Unit::TestCase
               require 'open_struct'
             end
 
-    assert_correction 'ostruct', error.corrections
+    assert_correction 'ostruct', error.suggestions
     assert_match "Did you mean?  ostruct", error.to_s
   end
 
@@ -17,14 +17,14 @@ class RequirePathCheckTest < Test::Unit::TestCase
               require 'net/htt'
             end
 
-    assert_correction 'net/http', error.corrections
+    assert_correction 'net/http', error.suggestions
     assert_match "Did you mean?  net/http", error.to_s
 
     error = assert_raise LoadError do
               require 'net-http'
             end
 
-    assert_correction ['net/http', 'net/https'], error.corrections
+    assert_correction ['net/http', 'net/https'], error.suggestions
     assert_match "Did you mean?  net/http", error.to_s
   end
 end

@@ -4,7 +4,7 @@ module DidYouMean
   # spell checker for a dictionary that has a tree
   # structure, see doc/tree_spell_checker_api.md
   class TreeSpellChecker
-    attr_reader :dictionary, :dimensions, :separator, :augment
+    attr_reader :dictionary, :separator, :augment
 
     def initialize(dictionary:, separator: '/', augment: nil)
       @dictionary = dictionary

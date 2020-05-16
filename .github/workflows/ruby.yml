@@ -22,7 +22,7 @@ jobs:
     - name: Build and test with Rake
       run: |
         gem i test-unit
-        rake
+        RUBYOPT='--disable-did_you_mean' rake
 
   benchmark:
     runs-on: ubuntu-latest

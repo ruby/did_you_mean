@@ -100,12 +100,9 @@ class TreeSpellCheckerTest < Test::Unit::TestCase
   end
 
   def test_no_idea_with_augmentation
-    word_error = "test/spell_checking/key_name.rb"
-    suggestions = DidYouMean::TreeSpellChecker.new(dictionary: MINI_DIRECTORIES).correct word_error
+    assert_tree_spell [], input: "test/spell_checking/key_name.rb", dictionary: MINI_DIRECTORIES
 
-    assert_equal [], suggestions
-
-    suggestions = DidYouMean::TreeSpellChecker.new(dictionary: MINI_DIRECTORIES, augment: true).correct word_error
+    suggestions = DidYouMean::TreeSpellChecker.new(dictionary: MINI_DIRECTORIES, augment: true).correct("test/spell_checking/key_name.rb")
 
     assert_equal suggestions.first, "test/spell_checking/key_name_check_test.rb"
   end

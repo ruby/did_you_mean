@@ -15,7 +15,7 @@ module DidYouMean
     end
 
     def corrections
-      @corrections ||= spell_checker.corrections
+      @corrections ||= spell_checker.corrections rescue []
     end
 
     def spell_checker

@@ -8,9 +8,16 @@ class NameErrorExtensionTest < Test::Unit::TestCase
     def corrections; ["does_exist"]; end
   end
 
+  class FailingSpellChecker
+    def initialize(*); raise; end
+  end
+
+  class ErrorWithFailingSpellChecker < StandardError
+    DidYouMean.correct_error(self, FailingSpellChecker)
+  end
+
   def setup
     @org, SPELL_CHECKERS['NameError'] = SPELL_CHECKERS['NameError'], TestSpellChecker
-
     @error = assert_raise(NameError){ doesnt_exist }
   end
 
@@ -44,5 +51,21 @@ class NameErrorExtensionTest < Test::Unit::TestCase
 
     assert_equal "undefined method `sizee' for #<File:test_name_error_extension.rb (closed)>",
                  Marshal.load(Marshal.dump(error)).original_message
+  end
+
+  def test_to_s_returns_super_if_exception_is_raised
+    error = assert_raise(ErrorWithFailingSpellChecker) do
+      raise ErrorWithFailingSpellChecker, "uninitialized constant Object"
+    end
+
+    assert_equal "uninitialized constant Object", error.to_s
+  end
+
+  def test_corrections_returns_an_empty_array_if_exception_is_raised
+    error = assert_raise(ErrorWithFailingSpellChecker) do
+      raise ErrorWithFailingSpellChecker, "uninitialized constant Object"
+    end
+
+    assert_equal [], error.corrections
   end
 end

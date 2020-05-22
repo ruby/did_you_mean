@@ -28,7 +28,7 @@ module DidYouMean
                          dictionary    = self.class.requireables.reject {|str| str.size >= threshold }
                          spell_checker = path.include?("/") ? TreeSpellChecker : SpellChecker
 
-                         spell_checker.new(dictionary: dictionary).correct(path)
+                         spell_checker.new(dictionary: dictionary).correct(path).uniq
                        end
     end
   end

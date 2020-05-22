@@ -23,11 +23,13 @@ module DidYouMean
     end
 
     def corrections
-      threshold     = path.size * 2
-      dictionary    = self.class.requireables.reject {|str| str.size >= threshold }
-      spell_checker = path.include?("/") ? TreeSpellChecker : SpellChecker
+      @corrections ||= begin
+                         threshold     = path.size * 2
+                         dictionary    = self.class.requireables.reject {|str| str.size >= threshold }
+                         spell_checker = path.include?("/") ? TreeSpellChecker : SpellChecker
 
-      spell_checker.new(dictionary: dictionary).correct(path)
+                         spell_checker.new(dictionary: dictionary).correct(path)
+                       end
     end
   end
 end

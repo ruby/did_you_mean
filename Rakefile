@@ -10,15 +10,6 @@ Rake::TestTask.new do |task|
   task.ruby_opts  = %w[ --disable-did_you_mean ]
 end
 
-Rake::TestTask.new("test:experimental") do |task|
-  task.libs << "test_experimental"
-
-  task.test_files = Dir['test_experimental/**/test_*.rb']
-  task.verbose    = true
-  task.warning    = true
-  task.ruby_opts  = %w[ --disable-did_you_mean ]
-end
-
 Rake::TestTask.new("test:explore") do |task|
   task.libs << "test"
 
@@ -28,7 +19,7 @@ Rake::TestTask.new("test:explore") do |task|
   task.ruby_opts = %w[ --disable-did_you_mean ]
 end
 
-task default: %i(test test:experimental)
+task default: %i(test)
 
 namespace :test do
   namespace :accuracy do

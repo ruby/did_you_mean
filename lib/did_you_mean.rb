@@ -96,7 +96,7 @@ module DidYouMean
   correct_error NameError, NameErrorCheckers
   correct_error KeyError, KeyErrorChecker
   correct_error NoMethodError, MethodNameChecker
-  correct_error LoadError, RequirePathChecker
+  correct_error LoadError, RequirePathChecker if RUBY_VERSION >= '2.8.0'
 
   # Returns the currently set formatter. By default, it is set to +DidYouMean::Formatter+.
   def self.formatter

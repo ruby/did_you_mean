@@ -1,5 +1,7 @@
 require_relative '../helper'
 
+return if !(RUBY_VERSION >= '2.8.0')
+
 class RequirePathCheckTest < Test::Unit::TestCase
   include DidYouMean::TestHelper
 

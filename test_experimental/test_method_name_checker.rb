@@ -1,4 +1,4 @@
-require_relative '../helper'
+require_relative '../test/helper'
 
 class ExperimentalMethodNameCorrectionTest < Test::Unit::TestCase
   include DidYouMean::TestHelper

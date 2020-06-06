@@ -35,6 +35,5 @@ jobs:
       run: |
         gem install bundler
         bundle install --jobs 4 --retry 2
-        gem uni did_you_mean
-        bundle exec rake test:accuracy
-        bundle exec rake benchmark:memory
+        RUBYOPT='--disable-did_you_mean' bundle exec rake test:accuracy
+        RUBYOPT='--disable-did_you_mean' bundle exec rake benchmark:memory

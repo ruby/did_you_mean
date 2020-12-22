@@ -1,6 +1,10 @@
-## v1.5.0
+## [v1.5.0](https://github.com/ruby/did_you_mean/tree/v1.5.0)
 
- - Suggest require paths on LoadError ([#143](https://github.com/ruby/did_you_mean/pull/143))
+_<sup>released at 2020-12-22 05:47:21 UTC</sup>_
+
+#### Features
+
+- Suggest require paths on LoadError ([#143](https://github.com/ruby/did_you_mean/pull/143))
 
 ## [v1.4.0](https://github.com/ruby/did_you_mean/tree/v1.4.0)
 

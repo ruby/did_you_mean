@@ -1,4 +1,4 @@
-## v1.5.0 (Next)
+## v1.5.0
 
  - Suggest require paths on LoadError ([#143](https://github.com/ruby/did_you_mean/pull/143))
 

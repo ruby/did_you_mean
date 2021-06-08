@@ -87,6 +87,15 @@ module DidYouMean
   # Map of error types and spell checker objects.
   SPELL_CHECKERS = Hash.new(NullChecker)
 
+  def self.point_error(error_class)
+    error_class.prepend(Pointable) unless error_class < Pointable
+  end
+
+  point_error NameError
+  point_error KeyError
+  point_error NoMethodError
+  point_error TypeError
+
   # Adds +DidYouMean+ functionality to an error using a given spell checker
   def self.correct_error(error_class, spell_checker)
     SPELL_CHECKERS[error_class.name] = spell_checker

@@ -107,7 +107,7 @@ $ ruby --disable-did_you_mean -e "1.zeor?"
 -e:1:in `<main>': undefined method `zeor?' for 1:Integer (NameError)
 ```
 
-When you do not have direct access to the `ruby` command (e.g. `rails console`, `irb`), you could applyoptions using the
+When you do not have direct access to the `ruby` command (e.g. `rails console`, `irb`), you could apply options using the
 `RUBYOPT` environment variable:
 
 ```bash

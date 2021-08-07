@@ -85,11 +85,28 @@ require_relative 'did_you_mean/tree_spell_checker'
 #
 module DidYouMean
   # Map of error types and spell checker objects.
-  SPELL_CHECKERS = Hash.new(NullChecker)
+  if defined?(Ractor)
+    def self.spell_checkers_map
+      if Ractor.current[:__DidYouMean_Spell_Checkers__].nil?
+        Ractor.current[:__DidYouMean_Spell_Checkers__] = Hash.new(NullChecker)
+        correct_error NameError, NameErrorCheckers
+        correct_error KeyError, KeyErrorChecker
+        correct_error NoMethodError, MethodNameChecker
+        correct_error LoadError, RequirePathChecker if RUBY_VERSION >= '2.8.0'
+      end
+      Ractor.current[:__DidYouMean_Spell_Checkers__]
+    end
+  else
+    def self.spell_checkers_map
+      SPELL_CHECKERS
+    end
+  end
+
+  SPELL_CHECKERS = spell_checkers_map
 
   # Adds +DidYouMean+ functionality to an error using a given spell checker
   def self.correct_error(error_class, spell_checker)
-    SPELL_CHECKERS[error_class.name] = spell_checker
+    spell_checkers_map[error_class.name] = spell_checker
     error_class.prepend(Correctable) unless error_class < Correctable
   end
 
@@ -98,15 +115,26 @@ module DidYouMean
   correct_error NoMethodError, MethodNameChecker
   correct_error LoadError, RequirePathChecker if RUBY_VERSION >= '2.8.0'
 
-  # Returns the currently set formatter. By default, it is set to +DidYouMean::Formatter+.
-  def self.formatter
-    @@formatter
-  end
+  if defined?(Ractor)
+    # Returns the currently set formatter. By default, it is set to +DidYouMean::Formatter+.
+    def self.formatter
+      return Ractor.current[:__DidYouMean_formatter__] ||= PlainFormatter.new
+    end
 
-  # Updates the primary formatter used to format the suggestions.
-  def self.formatter=(formatter)
-    @@formatter = formatter
-  end
+    # Updates the primary formatter used to format the suggestions.
+    def self.formatter=(formatter)
+      Ractor.current[:__DidYouMean_formatter__] = formatter
+    end
+  else
+    # Returns the currently set formatter. By default, it is set to +DidYouMean::Formatter+.
+    def self.formatter
+      @@formatter
+    end
 
-  self.formatter = PlainFormatter.new
+    # Updates the primary formatter used to format the suggestions.
+    def self.formatter=(formatter)
+      @@formatter = formatter
+    end
+    self.formatter = PlainFormatter.new
+  end
 end

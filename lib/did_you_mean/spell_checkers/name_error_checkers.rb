@@ -17,4 +17,5 @@ module DidYouMean
       end.new(exception)
     end
   end
+  Ractor.make_shareable(NameErrorCheckers) if defined?(Ractor)
 end

@@ -6,8 +6,24 @@ module DidYouMean
   class VariableNameChecker
     attr_reader :name, :method_names, :lvar_names, :ivar_names, :cvar_names
 
-    NAMES_TO_EXCLUDE = { 'foo' => [:fork, :for] }
-    NAMES_TO_EXCLUDE.default = []
+    def self.create_initial_names_to_exclude_map
+      initial_map = { 'foo' => [:fork, :for] }
+      initial_map.default = []
+      initial_map
+    end
+    private_class_method :create_initial_names_to_exclude_map
+
+    if defined?(Ractor)
+      def self.names_to_exclude_map
+        Ractor.current[:__DidYouMean_VariableNameChecker_Names_To_Exclude__] ||= create_initial_names_to_exclude_map
+      end
+    else
+      def self.names_to_exclude_map
+        NAMES_TO_EXCLUDE
+      end
+    end
+
+    NAMES_TO_EXCLUDE = create_initial_names_to_exclude_map
 
     # +VariableNameChecker::RB_RESERVED_WORDS+ is the list of all reserved
     # words in Ruby. They could be declared like methods are, and a typo would
@@ -61,6 +77,7 @@ module DidYouMean
       __FILE__
       __ENCODING__
     )
+    Ractor.make_shareable(RB_RESERVED_WORDS) if defined?(Ractor)
 
     def initialize(exception)
       @name       = exception.name.to_s.tr("@", "")
@@ -76,7 +93,7 @@ module DidYouMean
     def corrections
       @corrections ||= SpellChecker
                      .new(dictionary: (RB_RESERVED_WORDS + lvar_names + method_names + ivar_names + cvar_names))
-                     .correct(name) - NAMES_TO_EXCLUDE[@name]
+                     .correct(name) - VariableNameChecker.names_to_exclude_map[@name]
     end
   end
 end

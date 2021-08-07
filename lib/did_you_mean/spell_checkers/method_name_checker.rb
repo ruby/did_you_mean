@@ -4,8 +4,29 @@ module DidYouMean
   class MethodNameChecker
     attr_reader :method_name, :receiver
 
-    NAMES_TO_EXCLUDE = { NilClass => nil.methods }
-    NAMES_TO_EXCLUDE.default = []
+    NIL_METHODS = nil.methods
+    private_constant :NIL_METHODS
+    Ractor.make_shareable(NIL_METHODS) if defined?(Ractor)
+
+    def self.create_initial_names_to_exclude_map
+      initial_map = { NilClass => NIL_METHODS }
+      initial_map.default = []
+      initial_map
+    end
+
+    private_class_method :create_initial_names_to_exclude_map
+
+    if defined?(Ractor)
+      def self.names_to_exclude_map
+        Ractor.current[:__DidYouMean_MethodNameChecker_Names_To_Exclude__] ||= create_initial_names_to_exclude_map
+      end
+    else
+      def self.names_to_exclude_map
+        NAMES_TO_EXCLUDE
+      end
+    end
+
+    NAMES_TO_EXCLUDE = create_initial_names_to_exclude_map
 
     # +MethodNameChecker::RB_RESERVED_WORDS+ is the list of reserved words in
     # Ruby that take an argument. Unlike
@@ -35,6 +56,7 @@ module DidYouMean
       while
       yield
     )
+    Ractor.make_shareable(RB_RESERVED_WORDS) if defined?(Ractor)
 
     def initialize(exception)
       @method_name  = exception.name
@@ -63,7 +85,7 @@ module DidYouMean
     end
 
     def names_to_exclude
-      Object === receiver ? NAMES_TO_EXCLUDE[receiver.class] : []
+      Object === receiver ? MethodNameChecker.names_to_exclude_map[receiver.class] : []
     end
   end
 end

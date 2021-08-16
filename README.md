@@ -1,4 +1,4 @@
-# did_you_mean [![Gem Version](https://badge.fury.io/rb/did_you_mean.svg)](https://rubygems.org/gems/did_you_mean) [![Build Status](https://travis-ci.org/ruby/did_you_mean.svg?branch=master)](https://travis-ci.org/ruby/did_you_mean)
+# did_you_mean [![Gem Version](https://badge.fury.io/rb/did_you_mean.svg)](https://rubygems.org/gems/did_you_mean) [![Build status](https://github.com/ruby/did_you_mean/actions/workflows/ruby.yml/badge.svg)](https://github.com/ruby/did_you_mean/actions/workflows/ruby.yml)
 
 ## Installation
 

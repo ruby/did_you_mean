@@ -11,7 +11,7 @@ where
     * that are used to correct a misspelling
     * The dictionary must be tree structured with a single character separator
     * e.g 'spec/models/goals_spec_rb'.
-####separator: A single charactor.  Cannot be cannot be alphabetical, '@' or '.'.
+####separator: A single character.  Cannot be cannot be alphabetical, '@' or '.'.
 ####augment: When set to true, the checker will used the standard ```SpellChecker``` to find possible suggestions.
 ## Methods
 ```

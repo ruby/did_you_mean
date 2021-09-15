@@ -9,12 +9,12 @@ module DidYouMean
       @dictionary = dictionary
     end
 
-    def correct(input)
-      input     = normalize(input)
+    def correct(input_orig)
+      input     = normalize(input_orig)
       threshold = input.length > 3 ? 0.834 : 0.77
 
       words = @dictionary.select { |word| JaroWinkler.distance(normalize(word), input) >= threshold }
-      words.reject! { |word| input == word.to_s }
+      words.reject! { |word| input_orig.to_s == word.to_s }
       words.sort_by! { |word| JaroWinkler.distance(word.to_s, input) }
       words.reverse!
 

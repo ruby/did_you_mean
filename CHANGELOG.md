@@ -1,3 +1,7 @@
+## v1.6.0 (unreleased)
+
+- Suggest keys on NoMatchingPatternKeyError (#159, @k-tsj)
+
 ## [v1.5.0](https://github.com/ruby/did_you_mean/tree/v1.5.0)
 
 _<sup>released at 2020-12-22 05:47:21 UTC</sup>_

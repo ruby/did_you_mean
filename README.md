@@ -69,6 +69,15 @@ require 'net-http'
 #    Did you mean?  net/http
 ```
 
+### NoMatchingPatternKeyError
+
+```ruby
+hash = {foo: 1, bar: 2, baz: 3}
+hash => {fooo:}
+# => NoMatchingPatternKeyError: key not found: :fooo
+#    Did you mean?  :foo
+```
+
 ## Verbose Formatter
 
 This verbose formatter changes the error message format to take more lines/spaces so it'll be slightly easier to read the suggestions. This formatter can totally be used in any environment including production.

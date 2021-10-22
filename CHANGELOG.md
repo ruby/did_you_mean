@@ -1,6 +1,19 @@
 ## v1.6.0 (unreleased)
 
 - Suggest keys on NoMatchingPatternKeyError (#159, @k-tsj)
+- Make the same name check case-sensitive (#164, @pocke)
+
+  Before:
+  ```ruby
+  DidYouMean::SpellChecker.new(dictionary: ['Method', 'method']).correct("method")
+  # => ['Method', 'method']
+  ```
+
+  After:
+  ```ruby
+  DidYouMean::SpellChecker.new(dictionary: ['Method', 'method']).correct("method")
+  # => ['method']
+  ```
 
 ## [v1.5.0](https://github.com/ruby/did_you_mean/tree/v1.5.0)
 

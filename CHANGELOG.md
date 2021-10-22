@@ -12,7 +12,7 @@
   After:
   ```ruby
   DidYouMean::SpellChecker.new(dictionary: ['Method', 'MEthod']).correct("MEthod")
-  # => ['MEthod']
+  # => ['Method']
   ```
 
 ## [v1.5.0](https://github.com/ruby/did_you_mean/tree/v1.5.0)

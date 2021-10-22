@@ -7,7 +7,7 @@ require_relative 'did_you_mean/spell_checkers/method_name_checker'
 require_relative 'did_you_mean/spell_checkers/key_error_checker'
 require_relative 'did_you_mean/spell_checkers/null_checker'
 require_relative 'did_you_mean/spell_checkers/require_path_checker'
-require_relative 'did_you_mean/spell_checkers/no_matching_pattern_key_error_checker'
+require_relative 'did_you_mean/spell_checkers/pattern_key_name_checker'
 require_relative 'did_you_mean/formatters/plain_formatter'
 require_relative 'did_you_mean/tree_spell_checker'
 

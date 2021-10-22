@@ -1,7 +1,7 @@
 require_relative "../spell_checker"
 
 module DidYouMean
-  class NoMatchingPatternKeyErrorChecker
+  class PatternKeyNameChecker
     def initialize(no_matching_pattern_key_error)
       @key = no_matching_pattern_key_error.key
       @keys = no_matching_pattern_key_error.matchee.keys

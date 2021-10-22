@@ -98,7 +98,7 @@ module DidYouMean
   correct_error KeyError, KeyErrorChecker
   correct_error NoMethodError, MethodNameChecker
   correct_error LoadError, RequirePathChecker if RUBY_VERSION >= '2.8.0'
-  correct_error NoMatchingPatternKeyError, NoMatchingPatternKeyErrorChecker if defined?(::NoMatchingPatternKeyError)
+  correct_error NoMatchingPatternKeyError, PatternKeyNameChecker if defined?(::NoMatchingPatternKeyError)
 
   # Returns the currently set formatter. By default, it is set to +DidYouMean::Formatter+.
   def self.formatter

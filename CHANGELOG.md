@@ -5,14 +5,14 @@
 
   Before:
   ```ruby
-  DidYouMean::SpellChecker.new(dictionary: ['Method', 'method']).correct("method")
+  DidYouMean::SpellChecker.new(dictionary: ['Method', 'MEthod']).correct("MEthod")
   # => ['Method', 'method']
   ```
 
   After:
   ```ruby
-  DidYouMean::SpellChecker.new(dictionary: ['Method', 'method']).correct("method")
-  # => ['method']
+  DidYouMean::SpellChecker.new(dictionary: ['Method', 'MEthod']).correct("MEthod")
+  # => ['MEthod']
   ```
 
 ## [v1.5.0](https://github.com/ruby/did_you_mean/tree/v1.5.0)

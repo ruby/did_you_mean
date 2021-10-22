@@ -15,20 +15,20 @@ module DidYouMean
 
       words = @dictionary.select { |word| JaroWinkler.distance(normalize(word), normalized_input) >= threshold }
       words.reject! { |word| input.to_s == word.to_s }
-      words.sort_by! { |word| JaroWinkler.distance(word.to_s, input) }
+      words.sort_by! { |word| JaroWinkler.distance(word.to_s, normalized_input) }
       words.reverse!
 
       # Correct mistypes
-      threshold   = (input.length * 0.25).ceil
-      corrections = words.select { |c| Levenshtein.distance(normalize(c), input) <= threshold }
+      threshold   = (normalized_input.length * 0.25).ceil
+      corrections = words.select { |c| Levenshtein.distance(normalize(c), normalized_input) <= threshold }
 
       # Correct misspells
       if corrections.empty?
         corrections = words.select do |word|
           word   = normalize(word)
-          length = input.length < word.length ? input.length : word.length
+          length = normalized_input.length < word.length ? normalized_input.length : word.length
 
-          Levenshtein.distance(word, input) < length
+          Levenshtein.distance(word, normalized_input) < length
         end.first(1)
       end
 

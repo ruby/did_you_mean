@@ -78,23 +78,6 @@ hash => {fooo:}
 #    Did you mean?  :foo
 ```
 
-## Verbose Formatter
-
-This verbose formatter changes the error message format to take more lines/spaces so it'll be slightly easier to read the suggestions. This formatter can totally be used in any environment including production.
-
-```ruby
-OBject
-# => NameError: uninitialized constant OBject
-#    Did you mean?  Object
-
-require 'did_you_mean/verbose'
-OBject
-# => NameError: uninitialized constant OBject
-#
-#        Did you mean? Object
-#
-```
-
 ## Using the `DidYouMean::SpellChecker`
 
 If you need to programmatically find the closest matches to the user input, you could do so by re-using the `DidYouMean::SpellChecker` object.

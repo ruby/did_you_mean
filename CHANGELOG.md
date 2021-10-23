@@ -1,5 +1,11 @@
 ## v1.6.0 (unreleased)
 
+#### Deprecations
+
+- Deprecate custom formatters to reduce complexity for Ractor support.
+
+#### Features
+
 - Suggest keys on NoMatchingPatternKeyError (#159, @k-tsj)
 - Make the same name check case-sensitive (#164, @pocke)
 

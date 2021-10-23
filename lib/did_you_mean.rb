@@ -107,8 +107,7 @@ module DidYouMean
 
   # Updates the primary formatter used to format the suggestions.
   def self.formatter=(*)
-    warn "The custom formatter feature has been deprecated and has no effect. Please remove the usages of the " \
-         "`#formatter=` method."
+    @formatter = formatter
   end
 
   @formatter = Formatter.new

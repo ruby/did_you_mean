@@ -1,6 +1,4 @@
-## v1.6.0
-
-_<sup>released at 2021-12-21 10:57:15 UTC</sup>_
+## v1.6.1 (unreleased)
 
 #### Deprecations
 
@@ -23,6 +21,10 @@ _<sup>released at 2021-12-21 10:57:15 UTC</sup>_
   DidYouMean::SpellChecker.new(dictionary: ['Method', 'MEthod']).correct("MEthod")
   # => ['Method']
   ```
+
+## v1.6.0 (yanked)
+
+_This version has been yanked due to significant and unexpected breaking changes._
 
 ## [v1.5.0](https://github.com/ruby/did_you_mean/tree/v1.5.0)
 

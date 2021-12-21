@@ -1,4 +1,6 @@
-## v1.6.0 (unreleased)
+## v1.6.0
+
+_<sup>released at 2021-12-21 10:57:15 UTC</sup>_
 
 #### Deprecations
 
@@ -6,6 +8,7 @@
 
 #### Features
 
+- The `did_you_mean` gem is now Ractor-compatible (`8faba54b`)
 - Suggest keys on NoMatchingPatternKeyError (#159, @k-tsj)
 - Make the same name check case-sensitive (#164, @pocke)
 

@@ -1,8 +1,11 @@
-## v1.6.1 (unreleased)
+## v1.6.1
+
+_<sup>released at 2020-12-22 13:22:35 UTC</sup>_
 
 #### Deprecations
 
 - Deprecate custom formatters to reduce complexity for Ractor support.
+- Deprecate access to the `DidYouMean::SPELL_CHECEKRS` constant for Ractor support.
 
 #### Features
 

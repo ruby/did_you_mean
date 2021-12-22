@@ -29,7 +29,16 @@ module DidYouMean
     def self.message_for(corrections)
       corrections.empty? ? "" : "\nDid you mean?  #{corrections.join("\n               ")}"
     end
+
+    def message_for(corrections)
+      warn "The instance method #message_for has been deprecated. Please use the class method " \
+           "DidYouMean::Formatter.message_for(...) instead."
+
+      self.class.message_for(corrections)
+    end
   end
 
   PlainFormatter = Formatter
+
+  deprecate_constant :PlainFormatter
 end

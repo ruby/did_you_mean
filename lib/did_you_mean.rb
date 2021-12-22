@@ -96,15 +96,15 @@ module DidYouMean
   # Adds +DidYouMean+ functionality to an error using a given spell checker
   def self.correct_error(error_class, spell_checker)
     if defined?(Ractor)
-      new_mapping = { **@spell_checkers, error_class.name => spell_checker }
+      new_mapping = { **@spell_checkers, error_class.to_s => spell_checker }
       new_mapping.default = NullChecker
 
       @spell_checkers = Ractor.make_shareable(new_mapping)
     else
-      spell_checkers[error_class.name] = spell_checker
+      spell_checkers[error_class.to_s] = spell_checker
     end
 
-    error_class.prepend(Correctable) unless error_class < Correctable
+    error_class.prepend(Correctable) if error_class.is_a?(Class) && !(error_class < Correctable)
   end
 
   correct_error NameError, NameErrorCheckers

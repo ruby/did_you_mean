@@ -15,7 +15,7 @@ jobs:
       matrix:
         ruby: [ '2.5', '2.6', '2.7', '3.0', 'ruby-head', 'jruby-9.2', 'jruby-head' ]
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v3
     - uses: ruby/setup-ruby@v1
       with:
         ruby-version: ${{ matrix.ruby }}
@@ -27,7 +27,7 @@ jobs:
   benchmark:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v3
     - uses: ruby/setup-ruby@v1
       with:
         ruby-version: 2.7.1

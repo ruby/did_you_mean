@@ -2,6 +2,9 @@
 # More specifically, this is a yaml version of the data in FAWTHROP1DAT.643 and FAWTHROP2DAT.643.
 # released under the Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License.
 # https://creativecommons.org/licenses/by-nc-sa/3.0/
+# [Please note that the whole 'evaluation' directory, including this file, is not included in
+#  the 'did_you_mean' gem, and that therefore no deployments, and no versions of Ruby, are
+#  infected by the non-commercial restriction of this file's licence.]
 ---
 abattoir: abbatoir
 abhorrence: abhorence

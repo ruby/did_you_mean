@@ -2,6 +2,9 @@ require_relative './helper'
 
 return if not DidYouMean::TestHelper.ractor_compatible?
 
+require_relative "lib/core_assertions"
+Test::Unit::TestCase.include Test::Unit::CoreAssertions
+
 class RactorCompatibilityTest < Test::Unit::TestCase
   def test_class_name_suggestion_works_in_ractor
     assert_ractor(<<~CODE, require_relative: "helper")

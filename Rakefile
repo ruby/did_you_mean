@@ -2,12 +2,12 @@ require 'bundler/gem_tasks'
 require 'rake/testtask'
 
 Rake::TestTask.new do |task|
-  task.libs << "test"
+  task.libs << "test/lib" << "test"
 
   task.test_files = Dir['test/**/test_*.rb'].reject {|path| path.end_with?("test_explore.rb") }
   task.verbose    = true
   task.warning    = true
-  task.ruby_opts  = %w[ --disable-did_you_mean ]
+  task.ruby_opts  = %w[ --disable-did_you_mean -rhelper ]
 end
 
 Rake::TestTask.new("test:explore") do |task|

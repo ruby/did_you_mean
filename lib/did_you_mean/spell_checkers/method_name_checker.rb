@@ -61,10 +61,10 @@ module DidYouMean
         method_names.uniq!
         # Assume that people trying to use a writer are not interested in a reader
         # and vice versa
-        if method_name =~ /=\Z/
-          method_names.select!{|name| name =~ /=\Z/}
+        if method_name.match?(/=\Z/)
+          method_names.select! { |name| name.match?(/=\Z/) }
         else
-          method_names.reject!{|name| name =~ /=\Z/}
+          method_names.reject! { |name| name.match?(/=\Z/) }
         end
         method_names
       else

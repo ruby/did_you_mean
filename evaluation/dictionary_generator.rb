@@ -14,7 +14,7 @@ loop do
 
   puts ("downloading page %2d: " % num) + url
 
-  body   = open(url).read
+  body   = URI.open(url).read
   json   = JSON.load(body)
   count  = json["query"]["allpages"].size
   apfrom = CGI.escape(json["query"]["allpages"].last['title']) if count > 0

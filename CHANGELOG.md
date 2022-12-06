@@ -1,3 +1,10 @@
+## v1.6.2
+
+_<sup>released at 2022-12-05 10:29:20 UTC</sup>_
+
+- Define Exception#detailed_message instead of clobbering #message
+- Fixed correction duplicates in VaribaleNameChecker
+
 ## v1.6.1
 
 _<sup>released at 2020-12-22 13:22:35 UTC</sup>_

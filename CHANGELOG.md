@@ -1,3 +1,9 @@
+## v1.6.3
+
+_<sup>released at 2022-12-19 5:57:00 UTC</sup>_
+
+- Do not suggest #name= for #name.
+
 ## v1.6.2
 
 _<sup>released at 2022-12-05 10:29:20 UTC</sup>_

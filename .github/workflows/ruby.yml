@@ -28,7 +28,7 @@ jobs:
         ruby-version: ${{ matrix.ruby }}
     - name: Build and test with Rake
       run: |
-        gem i test-unit
+        gem i test-unit test-unit-ruby-core
         RUBYOPT='--disable-did_you_mean' rake
 
   benchmark:

@@ -9,11 +9,18 @@ on:
       - 'master'
 
 jobs:
+  ruby-versions:
+    uses: ruby/actions/.github/workflows/ruby_versions.yml@master
+    with:
+      engine: cruby-jruby
+      min_version: 2.5
+
   build:
+    needs: ruby-versions
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        ruby: [ '2.5', '2.6', '2.7', '3.0', '3.1', '3.2', 'ruby-head', 'jruby-9.2', 'jruby-9.3', 'jruby-9.4', 'jruby-head' ]
+        ruby: ${{ fromJson(needs.ruby-versions.outputs.versions) }}
     steps:
     - uses: actions/checkout@v4
     - uses: ruby/setup-ruby@v1

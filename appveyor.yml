@@ -20,6 +20,7 @@ before_test:
   - gem -v
   - bundle -v
   - gem uni did_you_mean
+  - gem i test-unit-ruby-core
 
 test_script:
   - rake

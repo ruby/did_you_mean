@@ -9,3 +9,7 @@ gem 'memory_profiler'
 gem 'jaro_winkler', '>= 1.4.0'
 gem 'test-unit'
 gem "test-unit-ruby-core"
+
+group :development do
+  gem "rake"
+end

@@ -37,7 +37,7 @@ jobs:
     - uses: actions/checkout@v4
     - uses: ruby/setup-ruby@v1
       with:
-        ruby-version: 3.2.0
+        ruby-version: 3.3.6
     - name: Test performance and accuracy
       run: |
         gem install bundler

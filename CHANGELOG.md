@@ -1,62 +1,57 @@
-## v2.0.0
+## [v2.0.0](https://github.com/ruby/did_you_mean/tree/v2.0.0)
 
-_unreleased_
+_<sup>released at 2024-12-04 12:34:01 UTC</sup>_
 
-#### 🚨 Breaking Changes
+## What's Changed
 
-- Removed deprecated constants for Ruby 3.4 (#194)
+- Removed deprecated constants for Ruby 3.4 ([#194](https://github.com/ruby/did_you_mean/pull/194))
+- Do not include a backtick in error messages and backtraces ([#192](https://github.com/ruby/did_you_mean/pull/192), [https://bugs.ruby-lang.org/issues/16495](https://bugs.ruby-lang.org/issues/16495))
+- Do not use #inspect to avoid unexpected performance degradation ([<tt>bd11eef</tt>](https://github.com/ruby/did_you_mean/commit/bd11eefd6cc724919dd645965856966744a554c6))
 
-#### ⭐️ New Features
+## New Contributors
 
-- Do not include a backtick in error messages and backtraces (#192, https://bugs.ruby-lang.org/issues/16495)
+- [@Maumagnaguagno](https://github.com/Maumagnaguagno) made their first contribution in [#183](https://github.com/ruby/did_you_mean/pull/183)
 
-#### 🐞 Bug Fixes
+**Full Changelog** : [<tt>v1.6.3...v2.0.0</tt>](https://github.com/ruby/did_you_mean/compare/v1.6.3...v2.0.0)
 
-- Do not use #inspect to avoid unexpected performance degradation (bd11eefd6cc724919dd645965856966744a554c6)
+## [v1.6.3](https://github.com/ruby/did_you_mean/tree/v1.6.3)
 
-## v1.6.3
+_<sup>released at 2022-12-19 05:59:40 UTC</sup>_
 
-_<sup>released at 2022-12-19 5:57:00 UTC</sup>_
+## What's Changed
 
-- Do not suggest #name= for #name.
+- Test against more recent Ruby versions by [@yuki24](https://github.com/yuki24) in [#181](https://github.com/ruby/did_you_mean/pull/181)
+- Do not suggest #name= for #name and vice versa by [@mboeh](https://github.com/mboeh) in [#180](https://github.com/ruby/did_you_mean/pull/180)
+- Note v1.6.2 changes by [@hsbt](https://github.com/hsbt) in [#182](https://github.com/ruby/did_you_mean/pull/182)
 
-## v1.6.2
+## New Contributors
 
-_<sup>released at 2022-12-05 10:29:20 UTC</sup>_
+- [@mboeh](https://github.com/mboeh) made their first contribution in [#180](https://github.com/ruby/did_you_mean/pull/180)
 
-- Define Exception#detailed_message instead of clobbering #message
-- Fixed correction duplicates in VaribaleNameChecker
+**Full Changelog** : [<tt>v1.6.2...v1.6.3</tt>](https://github.com/ruby/did_you_mean/compare/v1.6.2...v1.6.3)
 
-## v1.6.1
+## [v1.6.2](https://github.com/ruby/did_you_mean/tree/v1.6.2)
 
-_<sup>released at 2020-12-22 13:22:35 UTC</sup>_
+_<sup>released at 2022-12-05 10:29:44 UTC</sup>_
 
-#### Deprecations
+## What's Changed
 
-- Deprecate custom formatters to reduce complexity for Ractor support.
-- Deprecate access to the `DidYouMean::SPELL_CHECKERS` constant for Ractor support.
+- Fix typo in CHANGELOG `DidYouMean::SPELL_CHECKERS` by [@yahonda](https://github.com/yahonda) in [#169](https://github.com/ruby/did_you_mean/pull/169)
+- Fix `frozen_string_literal is ignored after any tokens` warning. by [@casperisfine](https://github.com/casperisfine) in [#172](https://github.com/ruby/did_you_mean/pull/172)
+- Added dependabot.yml for actions by [@hsbt](https://github.com/hsbt) in [#173](https://github.com/ruby/did_you_mean/pull/173)
+- Bump actions/checkout from 1 to 3 by [@dependabot](https://github.com/dependabot) in [#174](https://github.com/ruby/did_you_mean/pull/174)
+- Define Exception#detailed\_message instead of clobbering #message by [@mame](https://github.com/mame) in [#177](https://github.com/ruby/did_you_mean/pull/177)
+- Use assert\_ractor in `test_ractor_compatible.rb` by [@hsbt](https://github.com/hsbt) in [#178](https://github.com/ruby/did_you_mean/pull/178)
+- Fixed correction duplicates in VaribaleNameChecker by [@makketagg](https://github.com/makketagg) in [#176](https://github.com/ruby/did_you_mean/pull/176)
 
-#### Features
+## New Contributors
 
-- The `did_you_mean` gem is now Ractor-compatible (`8faba54b`)
-- Suggest keys on NoMatchingPatternKeyError (#159, @k-tsj)
-- Make the same name check case-sensitive (#164, @pocke)
+- [@yahonda](https://github.com/yahonda) made their first contribution in [#169](https://github.com/ruby/did_you_mean/pull/169)
+- [@casperisfine](https://github.com/casperisfine) made their first contribution in [#172](https://github.com/ruby/did_you_mean/pull/172)
+- [@hsbt](https://github.com/hsbt) made their first contribution in [#173](https://github.com/ruby/did_you_mean/pull/173)
+- [@dependabot](https://github.com/dependabot) made their first contribution in [#174](https://github.com/ruby/did_you_mean/pull/174)
 
-  Before:
-  ```ruby
-  DidYouMean::SpellChecker.new(dictionary: ['Method', 'MEthod']).correct("MEthod")
-  # => ['Method', 'method']
-  ```
-
-  After:
-  ```ruby
-  DidYouMean::SpellChecker.new(dictionary: ['Method', 'MEthod']).correct("MEthod")
-  # => ['Method']
-  ```
-
-## v1.6.0 (yanked)
-
-_This version has been yanked due to significant and unexpected breaking changes._
+**Full Changelog** : [<tt>v1.6.1...v1.6.2</tt>](https://github.com/ruby/did_you_mean/compare/v1.6.1...v1.6.2)
 
 ## [v1.5.0](https://github.com/ruby/did_you_mean/tree/v1.5.0)
 

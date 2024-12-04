@@ -1,3 +1,19 @@
+## v2.0.0
+
+_unreleased_
+
+#### 🚨 Breaking Changes
+
+- Removed deprecated constants for Ruby 3.4 (#194)
+
+#### ⭐️ New Features
+
+- Do not include a backtick in error messages and backtraces (#192, https://bugs.ruby-lang.org/issues/16495)
+
+#### 🐞 Bug Fixes
+
+- Do not use #inspect to avoid unexpected performance degradation (bd11eefd6cc724919dd645965856966744a554c6)
+
 ## v1.6.3
 
 _<sup>released at 2022-12-19 5:57:00 UTC</sup>_

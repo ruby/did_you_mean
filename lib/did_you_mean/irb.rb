@@ -58,6 +58,16 @@ module DidYouMean
         @irb_context = irb_context
       end
 
+      def self.fixable?
+        return false if LastError.last_code.nil? || LastError.last_exception.nil?
+        cmd = allocate
+        cmd.instance_variable_set(:@irb_context, nil)
+        return false unless cmd.send(:correctable?, LastError.last_exception)
+        wrong_str, correction = cmd.send(:extract_correction, LastError.last_exception)
+        return false if correction.nil?
+        !cmd.send(:apply_correction, LastError.last_code, wrong_str, correction).nil?
+      end
+
       def execute
         code = LastError.last_code
         exception = LastError.last_exception

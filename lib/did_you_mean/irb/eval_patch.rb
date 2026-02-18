@@ -37,6 +37,9 @@ module DidYouMean
                 LastError.clear
               end
               handle_exception(exc)
+              if DidYouMean::IRB::FixCommand.fixable?
+                puts "\e[2mType `fix` to rerun with the correction.\e[0m"
+              end
               @context.workspace.local_variable_set(:_, exc)
             end
           end

@@ -7,5 +7,6 @@ require "irb/command"
 ::IRB::Command._register_with_aliases(
   :irb_fix,
   DidYouMean::IRB::FixCommand,
-  [:fix, ::IRB::Command::NO_OVERRIDE]
+  [:fix, ::IRB::Command::NO_OVERRIDE],
+  [:dym, ::IRB::Command::NO_OVERRIDE]
 )

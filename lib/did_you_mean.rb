@@ -129,3 +129,8 @@ module DidYouMean
     end
   end
 end
+
+# Auto-load IRB extension when IRB is used (enables `fix` command to rerun with corrections)
+if defined?(::IRB)
+  require_relative "did_you_mean/irb"
+end

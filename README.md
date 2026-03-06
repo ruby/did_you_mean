@@ -78,6 +78,29 @@ hash => {fooo:}
 #    Did you mean?  :foo
 ```
 
+## IRB `fix` command
+
+When using IRB, after a typo causes a "Did you mean?" error, you can type `fix` to
+automatically rerun the previous command with the correction applied. This only
+works when there is exactly one suggestion with edit distance ≤ 2.
+
+When a fix is available, IRB will show a hint so you know the command exists:
+
+```ruby
+irb(main):001> 1.zeor?
+# => NoMethodError (undefined method `zeor?' for 1:Integer)
+#    Did you mean?  zero?
+#    Type `fix` to rerun with the correction.
+
+irb(main):002> fix
+# Rerunning with: 1.zero?
+# => false
+```
+
+**Note:** The `fix` command is an IRB command and takes precedence over any local
+variable named `fix`. If you use `fix` as a variable, type `dym` instead (short for
+"did you mean"), or access your variable via `binding.local_variable_get(:fix)`.
+
 ## Using the `DidYouMean::SpellChecker`
 
 If you need to programmatically find the closest matches to the user input, you could do so by re-using the `DidYouMean::SpellChecker` object.

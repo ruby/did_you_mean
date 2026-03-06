@@ -33,7 +33,7 @@ report "loading program" do
     DidYouMean::JaroWinkler.module_eval do
       module_function
       def distance(str1, str2)
-        ::JaroWinkler.distance(str1, str2)
+        ::JaroWinkler.similarity(str1, str2)
       end if RUBY_ENGINE != 'jruby'
     end
   rescue LoadError, NameError => e

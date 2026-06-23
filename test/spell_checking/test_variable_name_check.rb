@@ -51,6 +51,15 @@ class VariableNameCheckTest < Test::Unit::TestCase
     assert_match "Did you mean?  from_module", get_message(error)
   end
 
+  def test_corrections_include_global_variable_name
+    return if defined?(Ractor)
+
+    error = assert_raise(NameError) { stin }
+
+    assert_correction :$stdin, error.corrections
+    assert_match "Did you mean?  $stdin", get_message(error)
+  end
+
   def test_corrections_include_local_variable_name
     if RUBY_ENGINE != "jruby"
       person = person = nil

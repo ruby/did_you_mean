@@ -121,11 +121,13 @@ no_method_error = begin
                   end
 
 no_method_error.message
-# => NoMethodError (undefined method `zeor?' for 1:Integer)
-#    Did you mean?  zero?
+# => "undefined method 'zeor?' for an instance of Integer"
 
 no_method_error.original_message
-# => NoMethodError (undefined method `zeor?' for 1:Integer)
+# => "undefined method 'zeor?' for an instance of Integer"
+
+no_method_error.detailed_message(highlight: false)
+# => "undefined method 'zeor?' for an instance of Integer (NoMethodError)\nDid you mean?  zero?"
 ```
 
 ## Benchmarking

@@ -118,7 +118,7 @@ module DidYouMean
     if defined?(Ractor)
       Ractor.current[:__did_you_mean_formatter__] || Formatter
     else
-      Formatter
+      @formatter || Formatter
     end
   end
 
@@ -126,6 +126,8 @@ module DidYouMean
   def self.formatter=(formatter)
     if defined?(Ractor)
       Ractor.current[:__did_you_mean_formatter__] = formatter
+    else
+      @formatter = formatter
     end
   end
 end

@@ -88,6 +88,10 @@ module DidYouMean
   # Map of error types and spell checker objects.
   @spell_checkers = Hash.new(NullChecker)
 
+  # The formatter set with DidYouMean.formatter= when Ractor is not available.
+  # Initialized so that reading it does not warn on Ruby < 3.0.
+  @formatter = nil
+
   # Returns a sharable hash map of error types and spell checker objects.
   def self.spell_checkers
     @spell_checkers
@@ -118,7 +122,7 @@ module DidYouMean
     if defined?(Ractor)
       Ractor.current[:__did_you_mean_formatter__] || Formatter
     else
-      Formatter
+      @formatter || Formatter
     end
   end
 
@@ -126,6 +130,8 @@ module DidYouMean
   def self.formatter=(formatter)
     if defined?(Ractor)
       Ractor.current[:__did_you_mean_formatter__] = formatter
+    else
+      @formatter = formatter
     end
   end
 end

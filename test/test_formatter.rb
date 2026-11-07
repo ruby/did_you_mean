@@ -19,7 +19,7 @@ class FormatterTest < Test::Unit::TestCase
   def test_default_formatter_does_not_warn_in_a_fresh_process
     stdout, stderr, status = Open3.capture3(
       RbConfig.ruby, '--disable-did_you_mean', '-w',
-      '-I', File.expand_path('../lib', __dir__),
+      '-I', File.dirname(DidYouMean::TestHelper.root),
       '-rdid_you_mean', '-e', 'puts DidYouMean.formatter'
     )
 

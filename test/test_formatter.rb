@@ -1,4 +1,5 @@
 require_relative './helper'
+require 'open3'
 
 class FormatterTest < Test::Unit::TestCase
   class CustomFormatter
@@ -13,6 +14,18 @@ class FormatterTest < Test::Unit::TestCase
 
   def teardown
     DidYouMean.formatter = @original_formatter
+  end
+
+  def test_default_formatter_does_not_warn_in_a_fresh_process
+    stdout, stderr, status = Open3.capture3(
+      RbConfig.ruby, '--disable-did_you_mean', '-w',
+      '-I', File.expand_path('../lib', __dir__),
+      '-rdid_you_mean', '-e', 'puts DidYouMean.formatter'
+    )
+
+    assert_predicate status, :success?
+    assert_equal "DidYouMean::Formatter\n", stdout
+    assert_equal '', stderr
   end
 
   def test_custom_formatter_is_used_for_error_messages

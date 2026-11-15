@@ -53,3 +53,59 @@ class NameErrorExtensionTest < Test::Unit::TestCase
                  Marshal.load(Marshal.dump(error)).original_message)
   end
 end
+
+class NameErrorMessageEvaluationTest < Test::Unit::TestCase
+  def test_to_s_inspects_receiver_at_most_once
+    count    = 0
+    receiver = Object.new
+    receiver.define_singleton_method(:inspect) { count += 1; "receiver" }
+
+    error = assert_raise(NameError) { receiver.instance_eval { doesnt_exist } }
+    error.to_s
+
+    assert_operator count, :<=, 1
+    assert_not_include error.instance_variables, :@original_message
+  end
+
+  class RecursiveInspect
+    def bar
+      zoo_1
+    rescue => e
+      raise e.class, e.message
+    end
+
+    def zoo
+      true
+    end
+
+    def inspect
+      bar
+    end
+  end
+
+  def test_message_with_inspect_that_raises_name_error
+    omit "JRuby 9.4 raises StackOverflowError" if RUBY_ENGINE == "jruby" && !Exception.method_defined?(:detailed_message)
+
+    error = assert_raise(NameError) { RecursiveInspect.new.bar }
+
+    assert_match(/undefined local variable or method [`']zoo_1'/, error.message)
+    assert_include error.message, "Did you mean?  zoo" unless error.respond_to?(:detailed_message)
+  end
+
+  def test_to_s_with_correctable_prepended_twice
+    error_class = Class.new(NameError)
+    error_class.prepend(DidYouMean::Correctable)
+
+    assert_equal "message", error_class.new("message").to_s
+  end
+
+  def test_to_s_with_exception_method_overridden
+    error_class = Class.new(NameError) do
+      def exception(*args)
+        args.empty? ? self : RuntimeError.new("other")
+      end
+    end
+
+    assert_equal "message", error_class.new("message").to_s
+  end
+end

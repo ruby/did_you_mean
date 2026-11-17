@@ -28,6 +28,8 @@ module DidYouMean
       private_constant :SKIP_TO_S_FOR_SUPER_LOOKUP
 
       def original_message
+        return @original_message if defined?(@original_message)
+
         meth = method(:to_s)
         while meth.owner.const_defined?(:SKIP_TO_S_FOR_SUPER_LOOKUP)
           meth = meth.super_method
@@ -36,14 +38,33 @@ module DidYouMean
       end
 
       def to_s
-        msg = super.dup
-        suggestion = DidYouMean.formatter.message_for(corrections)
+        return super if defined?(@original_message)
 
-        msg << suggestion if !msg.include?(suggestion)
-        msg
-      rescue
-        super
+        begin
+          @original_message = original = original_message
+          # Other to_s extensions get a copy holding the built message. The copy
+          # keeps @original_message, so Correctable#to_s on the copy returns super
+          copy = Exception.instance_method(:exception).bind(self).call(original)
+          msg  = next_to_s.bind(copy).call.dup
+
+          suggestion = DidYouMean.formatter.message_for(corrections)
+
+          msg << suggestion if !msg.include?(suggestion)
+          msg
+        rescue
+          super
+        ensure
+          remove_instance_variable(:@original_message) if defined?(@original_message)
+        end
       end
+
+      def next_to_s
+        meth = method(:to_s)
+        meth = meth.super_method until meth.owner == Correctable
+
+        meth.super_method.unbind
+      end
+      private :next_to_s
     end
 
     def corrections
